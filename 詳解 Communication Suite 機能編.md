@@ -2,6 +2,7 @@
 ## 誰も知らない Communication Suite の謎
 
 なんかかきますか？  
+かんたん
 
 ## 目次
 
