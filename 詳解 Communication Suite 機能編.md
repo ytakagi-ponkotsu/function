@@ -1,11 +1,35 @@
 # 詳解 Communication Suite 機能編
 ## 誰も知らない Communication Suite の謎
 
-なんかかきますか？  
-かんたん  
-
 ## 目次
-- ###
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [詳解 Communication Suite 機能編](#詳解-communication-suite-機能編)
+	- [誰も知らない Communication Suite の謎](#誰知-communication-suite-謎)
+	- [目次](#目次)
+	- [序章 トレーニングにあたって](#序章-)
+		- [トレーニングの目的](#目的)
+		- [トレーニング中の諸注意](#中諸注意)
+	- [第1章 OperatorAgent](#第1章-operatoragent)
+		- [1-1. OperatorAgent のログイン](#1-1-operatoragent-)
+			- [1-1-1. OperatorAgent でログインすることの意味](#1-1-1-operatoragent-意味)
+			- [1-1-2. OperatorAgent のログイン機能に関連する ControlCenter の詳細設定項目](#1-1-2-operatoragent-機能関連-controlcenter-詳細設定項目)
+			- [1-1-3. プロジェクトの選択](#1-1-3-選択)
+			- [1-1-4. 統合 Windows 認証](#1-1-4-統合-windows-認証)
+			- [1-1-5. OperatorAgent へのログイン失敗事由](#1-1-5-operatoragent-失敗事由)
+			- [1-1-6. 1-1 のまとめ](#1-1-6-1-1-)
+		- [1-2. OperatorAgent のメイン画面](#1-2-operatoragent-画面)
+			- [1-2-1. メイン画面機能](#1-2-1-画面機能)
+			- [1-2-2. メイン画面機能 - 通話中の機能](#1-2-2-画面機能-通話中機能)
+			- [1-2-2. メイン画面機能 - 通話中の機能](#1-2-2-画面機能-通話中機能)
+			- [1-2-3. メイン画面機能 - 通話終了後の機能](#1-2-3-画面機能-通話終了後機能)
+			- [1-2-４. OperatorAgent の起動・終了時の動作](#1-2-operatoragent-起動終了時動作)
+			- [1-2-5. OperatorAgent からのコマンド実行](#1-2-5-operatoragent-実行)
+			- [1-2-6. コマンドラインからの OperatorAgent 操作](#1-2-6-operatoragent-操作)
+			- [1-2-7. OperatorAgent のインストール](#1-2-7-operatoragent-)
+
+<!-- /TOC -->
+
 ## 序章 トレーニングにあたって
 
 ### トレーニングの目的
@@ -23,7 +47,7 @@
 
 ### 1-1. OperatorAgent のログイン
 #### 1-1-1. OperatorAgent でログインすることの意味
-1. ユーザアカウントの認証（ユーザ ID と パスワード）
+1. ユーザアカウントの認証（ユーザID と パスワード）
 2. ユーザアカウント権限のチェック
 3. ユーザと通話（内線番号）の関連付け
 4. 通話とプロジェクトの関連付け
@@ -43,11 +67,30 @@ No. | 設定分類                 | 設定項目名       | デフォルト値 
 5   | OperatorAgent - ログイン | 内線番号の情報が必要かどうか | S        | R = 必須, S = サーバ版では必須, N = 入力しない |
 6   | OperatorAgent - ログイン | 内線番号の保存 | false        | 最後にログイン成功した内線番号を保存する |
 
- - No.4 『内線番号の指定』 を **"true"** にすることでログインダイアログに内線番号入力欄が追加されます。（VDI などシンクライアント環境で、OS に固有情報を保持できない場合に利用する想定です。）
-![1-1-operatoragent-naisenlogin](images/2020/02/1-1-operatoragent-naisenlogin.png)
- - OperatorAgent のインストール時に内線番号を指定している場合には、指定番号が内線番号入力欄に表示されます。（No.6 『内線番号の保存』 が **"false"** の場合も表示されます。）
- - No.4 『内線番号の指定』 が **"false"** の場合でも、インストール時に内線番号が指定されていない場合で、かつ No.5 『内線番号の情報が必要かどうか』 が "S" でかつサーバ版利用 or "R" の場合には、内線番号入力欄が強制的に表示されます。
- - No.1, No.2, No.6 は、Windows の [ユーザーアカウント]-[資格情報マネージャー]-[Windows資格情報の管理]-[汎用資格情報] に保管されます。一度でも利用 PC でログインに成功している場合は、以降のログイン時には操作なしで OperatorAgent にログインできます。初めて利用する PC や、パスワードを再設定した場合には、一度手動ログインを実施してください。
+ - No.4 『内線番号の指定』 を **"true"** にすることでログインダイアログに内線番号入力欄が追加されます。（VDI などシンクライアント環境で、OS に固有情報を保持できない場合に利用する想定です。）  
+
+ ![1-1-operatoragent-naisenlogin](images/2020/02/1-1-operatoragent-naisenlogin.png)  
+
+  - OperatorAgent のインストール時に内線番号を指定している場合には、指定番号が内線番号入力欄に表示されます。（No.6 『内線番号の保存』 が **"false"** の場合も表示されます。）
+  - No.4 『内線番号の指定』 が **"false"** の場合でも、インストール時に内線番号が指定されていない場合で、かつ No.5 『内線番号の情報が必要かどうか』 が "S" でかつサーバ版利用時 or "R" の場合には、内線番号入力欄が強制的に表示されます。
+   - No.1 ユーザID は、  
+```
+'%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config'
+```
+  の **LoginSettings/@LatestLoginUserId** に保存されます。（この設定値は最後にログインに成功したユーザIDとなります。）
+
+   - No.2 ログインパスワードは、Windows の  
+```
+[コントロールパネル] → [ユーザー アカウント] → [資格情報マネージャー]
+```
+  に自動入力されたユーザIDに対応するパスワードが保存されます。（この設定値は最後にログインに成功したパスワードとなります。）  
+  ![1-1-win-shikaku](images/1-1-win_shikaku.png)  
+
+   - No.6 内線番号は、
+```
+'%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config'
+```
+の **LoginSettings/@LatestLoginLineKey** に保存されます。（この設定値は最後にログインに成功した内線番号となります。）
 
 #### 1-1-3. プロジェクトの選択
 - ログインするユーザ ID が複数のプロジェクトに所属している場合には、ログインダイアログに続けてプロジェクト選択ダイアログが表示されます。
