@@ -53,6 +53,10 @@ tblPrefix: '表.'
 - 本資料の記載内容は、現時点（2020年03月 Communication Suite Ver3.6）での内容となります。  
   今後にリリースされるバージョンでは、記載内容が保証されない場合も生じます。
 
+<div style="page-break-before:always"></div>
+
+<hr/>
+
 ## 第1章 OperatorAgent
 
 ### 1-1. OperatorAgent のログイン
@@ -63,7 +67,7 @@ tblPrefix: '表.'
 4. 通話とプロジェクトの関連付け
 5. クライアント PC を OperatorAgent ノードとして ControlCenter にレジスト
 
-1 行空行を空けると "[^1]" 別のパラグラフになる。  
+1 行空行を空けると [^1] 別のパラグラフになる。
 
 [^1]:C
 
@@ -92,7 +96,7 @@ No. | 設定項目名       | デフォルト値 | 内容 |
   - [@tbl:table] の No.4 『内線番号の指定』 が **"false"** の場合でも、インストール時に内線番号が指定されていない場合で、かつ [@tbl:table] の No.5 『内線番号の情報が必要かどうか』 が "S" でかつサーバ版利用時 or "R" の場合には、内線番号入力欄が強制的に表示されます。
    - [@tbl:table] の No.1 ユーザID は、  
 	 '%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config'  
-  の **LoginSettings/@LatestLoginUserId** に保存されます。（この設定値は最後にログインに成功したユーザIDとなります。）
+  の **LoginSettings/@LatestLoginUserId** に保存されます。 [^2] （この設定値は最後にログインに成功したユーザIDとなります。）
 
    - No.2 ログインパスワードは、Windows の  
 	 [コントロールパネル] → [ユーザー アカウント] → [資格情報マネージャー]  
@@ -104,7 +108,7 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 	 '%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config'  
 	 の **LoginSettings/@LatestLoginLineKey** に保存されます。（この設定値は最後にログインに成功した内線番号となります。）
 
-\clearpage
+[^2]:最後に
 
 #### 1-1-3. プロジェクトの選択
 - ログインするユーザID が複数のプロジェクトに所属している場合には、ログインダイアログに続けて [@fig:project] のプロジェクト選択ダイアログが表示されます。
