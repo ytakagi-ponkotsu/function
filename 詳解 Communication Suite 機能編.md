@@ -1,3 +1,12 @@
+---
+documentclass: ltjsarticle
+output: word_document
+figPrefix: '図.'
+figureTitle: 図
+tableTitle: 表
+tblPrefix: '表.'
+---
+
 # 詳解 Communication Suite 機能編
 ## 誰も知らない Communication Suite の謎
 
@@ -16,6 +25,7 @@
 			- [1-1-2. OperatorAgent のログイン機能に関連する ControlCenter の詳細設定項目](#1-1-2-operatoragent-機能関連-controlcenter-詳細設定項目)
 			- [1-1-3. プロジェクトの選択](#1-1-3-選択)
 			- [1-1-4. 統合 Windows 認証](#1-1-4-統合-windows-認証)
+			- [1-1-5. OperatorAgent 自動ログイン（統合 Windows 認証を利用しない）](#1-1-5-operatoragent-自動統合-windows-認証利用)
 			- [1-1-5. OperatorAgent へのログイン失敗事由](#1-1-5-operatoragent-失敗事由)
 			- [1-1-6. 1-1 のまとめ](#1-1-6-1-1-)
 		- [1-2. OperatorAgent のメイン画面](#1-2-operatoragent-画面)
@@ -53,62 +63,70 @@
 4. 通話とプロジェクトの関連付け
 5. クライアント PC を OperatorAgent ノードとして ControlCenter にレジスト
 
- 以下の図は、OperatorAgent の基本的なログイン画面となります。
-![1-1_OperatorAgent_BaseLogin](images/1-1-operatoragent-baselogin.png)
+1 行空行を空けると "[^1]" 別のパラグラフになる。  
 
-#### 1-1-2. OperatorAgent のログイン機能に関連する ControlCenter の詳細設定項目
+[^1]:C
 
-No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
-----|---------------------|------------------|--------------|------|
-1   | OperatorAgent - ログイン | ユーザーIDの保存 | false        | 最後にログイン成功した ユーザ ID を保存する |
-2   | OperatorAgent - ログイン | パスワードの保存 | false        | 最後にログイン成功したパスワードを保存する |
-3   | OperatorAgent - ログイン | 自動ログイン | false        | 保存済みのユーザ ID とパスワード（と内線番号）で自動ログインする |
-4   | OperatorAgent - ログイン | 内線番号の指定 | false        | ログインダイアログに内線番号入力欄を表示する |
-5   | OperatorAgent - ログイン | 内線番号の情報が必要かどうか | S        | R = 必須, S = サーバ版では必須, N = 入力しない |
-6   | OperatorAgent - ログイン | 内線番号の保存 | false        | 最後にログイン成功した内線番号を保存する |
+[@fig:login] は、OperatorAgent の基本的なログイン画面となります。
 
- - No.4 『内線番号の指定』 を **"true"** にすることでログインダイアログに内線番号入力欄が追加されます。（VDI などシンクライアント環境で、OS に固有情報を保持できない場合に利用する想定です。）  
+![基本のログイン画面](images/1-1-operatoragent-baselogin.png){#fig:login width=60% height=60%}
 
- ![1-1-operatoragent-naisenlogin](images/2020/02/1-1-operatoragent-naisenlogin.png)  
+#### 1-1-2. OperatorAgent のログインに関連する ControlCenter の詳細設定項目
 
-  - OperatorAgent のインストール時に内線番号を指定している場合には、指定番号が内線番号入力欄に表示されます。（No.6 『内線番号の保存』 が **"false"** の場合も表示されます。）
-  - No.4 『内線番号の指定』 が **"false"** の場合でも、インストール時に内線番号が指定されていない場合で、かつ No.5 『内線番号の情報が必要かどうか』 が "S" でかつサーバ版利用時 or "R" の場合には、内線番号入力欄が強制的に表示されます。
-   - No.1 ユーザID は、  
-```
-'%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config'
-```
+No. | 設定項目名       | デフォルト値 | 内容 |
+----|------------------|--------------|------|
+1   |  ユーザーIDの保存 | false        | 最後にログイン成功した ユーザ ID を保存する |
+2   |  パスワードの保存 | false        | 最後にログイン成功したパスワードを保存する |
+3   |  自動ログイン | false        | 保存済みのユーザ ID とパスワード（と内線番号）で自動ログインする |
+4   |  内線番号の指定 | false        | ログインダイアログに内線番号入力欄を表示する |
+5   |  内線番号の情報が必要かどうか | S        | R = 必須, S = サーバ版では必須, N = 入力しない |
+6   |  内線番号の保存 | false        | 最後にログイン成功した内線番号を保存する |
+
+: 詳細設定 設定分類 : OperatorAgent - ログイン {#tbl:table}  
+
+ - [@tbl:table] の No.4 『内線番号の指定』 を **"true"** にすることで、[@fig:naisenari] のようにログインダイアログに内線番号入力欄が追加されます。（VDI 等のシンクライアント環境で、OS に固有情報を保持できない場合に利用する想定です。）  
+
+![内線番号入力可能なログイン画面](images/2020/02/1-1-operatoragent-naisenlogin.png){#fig:naisenari width=60% height=60%}
+
+  - OperatorAgent のインストール時に内線番号を指定している場合には、指定番号が内線番号入力欄に表示されます。（[@tbl:table] の No.6 『内線番号の保存』 が **"false"** の場合も表示されます。）
+  - [@tbl:table] の No.4 『内線番号の指定』 が **"false"** の場合でも、インストール時に内線番号が指定されていない場合で、かつ [@tbl:table] の No.5 『内線番号の情報が必要かどうか』 が "S" でかつサーバ版利用時 or "R" の場合には、内線番号入力欄が強制的に表示されます。
+   - [@tbl:table] の No.1 ユーザID は、  
+	 '%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config'  
   の **LoginSettings/@LatestLoginUserId** に保存されます。（この設定値は最後にログインに成功したユーザIDとなります。）
 
    - No.2 ログインパスワードは、Windows の  
-```
-[コントロールパネル] → [ユーザー アカウント] → [資格情報マネージャー]
-```
-  に自動入力されたユーザIDに対応するパスワードが保存されます。（この設定値は最後にログインに成功したパスワードとなります。）  
-  ![1-1-win-shikaku](images/1-1-win_shikaku.png)  
+	 [コントロールパネル] → [ユーザー アカウント] → [資格情報マネージャー]  
+  に自動入力されたユーザIDに対応するパスワードが [@fig:shikaku] のように保存されます。（この設定値は最後にログインに成功したパスワードとなります。）  
+
+![資格情報マネージャーのログイン情報](images/1-1-win_shikaku.png){#fig:shikaku width=50% height=50%}  
 
    - No.6 内線番号は、
-```
-'%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config'
-```
-の **LoginSettings/@LatestLoginLineKey** に保存されます。（この設定値は最後にログインに成功した内線番号となります。）
+	 '%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config'  
+	 の **LoginSettings/@LatestLoginLineKey** に保存されます。（この設定値は最後にログインに成功した内線番号となります。）
+
+\clearpage
 
 #### 1-1-3. プロジェクトの選択
-- ログインするユーザ ID が複数のプロジェクトに所属している場合には、ログインダイアログに続けてプロジェクト選択ダイアログが表示されます。
-![1-1-operatoragent-projectchoice](images/2020/02/1-1-operatoragent-projectchoice.png)
+- ログインするユーザID が複数のプロジェクトに所属している場合には、ログインダイアログに続けて [@fig:project] のプロジェクト選択ダイアログが表示されます。
+
+![プロジェクト選択画面](images/2020/02/1-1-operatoragent-projectchoice.png){#fig:project width=60% height=60%}
 
 #### 1-1-4. 統合 Windows 認証
 
- - 統合 Windows 認証機能を有効化している場合には、ログイン画面は表示されません。ただし、ユーザがプロジェクトに複数所属している場合には、[1-1-3. プロジェクトの選択](#1-1-3-選択) のプロジェクト選択ダイアログが表示されます。
- - インストール時に内線番号が指定されていない場合には、内線番号の入力欄のみのダイアログが追加表示されます。
-![1-1-operatoragent-naienonly](images/1-1-operatoragentLogin_naisenonly.png)
+ - 統合 Windows 認証機能を有効化している場合には、ログイン画面は表示されません。ただし、ユーザがプロジェクトに複数所属している場合には、[1-1-3. プロジェクトの選択](#1-1-3-選択) のプロジェクト選択ダイアログ（[@fig:project]）が表示されます。
+ - インストール時に内線番号が指定されていない場合には、[@fig:naisen]　の内線番号の入力欄のみのダイアログが追加表示されます。  
 
-- 統合 Windows 認証を利用するための Communication Suite 上の設定はありません。以下、IIS 上でいくつか追加の設定が必要です。
-	1. OS の "機能と役割の追加" から IIS - Web サーバ - セキュリティ 設定で **Windows 認証** を有効化してください。
+![内線番号入力ダイアログ](images/1-1-operatoragentLogin_naisenonly.png){#fig:naisen width=60% height=60%}
 
-	![1-1-IIS_role_windowslogin](images/1-1-IIS_role_windowslogin.png)
-	2. IIS マネージャーの Web サイトの設定で、ControlCenter と SpeechVisualizer のそれぞれのサイトの認証の設定を以下の図と同様に変更します。
+- 統合 Windows 認証を利用するための Communication Suite 上の設定はありません。以下、IIS 上でいくつか追加の設定が必要です。  
+	1. OS の "機能と役割の追加" から IIS - Web サーバ - セキュリティ 設定で **Windows 認証** を有効化してください。([@fig:role])
+	2. IIS マネージャーの Web サイトの設定で、ControlCenter と SpeechVisualizer のそれぞれのサイトの認証の設定を以下の図と同様に変更します。（[@fig:siteconfig]）
 
-	![1-1-IIS_sitegonfig_login](images/1-1-IIS_sitegonfig_login.png)
+![機能と役割の追加](images/1-1-IIS_role_windowslogin.png){#fig:role width=60% height=60%}
+
+![Web サイトの設定](images/1-1-IIS_sitegonfig_login.png){#fig:siteconfig width=60% height=60%}
+
+#### 1-1-5. OperatorAgent 自動ログイン（統合 Windows 認証を利用しない）
 
 #### 1-1-5. OperatorAgent へのログイン失敗事由
 - OperatorAgent にログインできない原因を以下に列挙します。ただし、仕様によりログインできなかった事由に限定しています。（NW 切断やサーバシャットダウンは含んでいません。）
