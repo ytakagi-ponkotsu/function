@@ -1,0 +1,138 @@
+ちょっとでもわかんなかったら聞いてください
+
+前半1 基本編
+
+atom をインストールする
+https://atom.io
+
+github にアカウントを作る
+ → 登録メールアドレスになんか来てるので Verify する
+https://github.com/
+
+git をインストールする
+https://gitforwindows.org/
+
+git bash 起動
+
+git config --global user.name "登録したユーザ"
+git config --global user.email "登録したメアド"
+
+を実行する
+
+atom 起動
+メニューバー → ファイル → settings → install
+ → 検索テキストボックスに sync-settings と入力
+ → sync-settings というパッケージが表示されるので、その install ボタンをクリック 待つ
+
+sync settings 設定
+変な赤いダイアログが表示されるので消す
+
+settings の Package に移動
+sync-settings の setting ボタンを押すと↓に設定欄が表示されるので、
+Personal Access Token
+7efd6c692a7186b2d4b35d2e887a255b2b4fdfc3
+gist-id
+a4b627dbe1ddbdc7efd59de9b1713109
+を入力する、
+
+メニューバーの パッケージ → Synchronized settings → restore を選択する
+
+→なんかダイアログが出るので、新規作成的なリンクをクリックする
+ → Web ページが立ち上がる
+ description を入力
+ gist にチェック
+ generate → 画面遷移 → コードをコピー
+atom 戻る → Access コードを入力する的なボタンをクリック
+ダイアログにコードペーストして エンター。
+
+設定の同期が始まる しばらくまて、待ってる間に以下。
+
+github リポジトリに参加する
+ → user.name をタカギに教えてください
+
+メールがくるので you can Accept or decline 的なリンクをクリックする
+ → github の画面で Accept ボタンをクリックする
+
+ローカルに作業フォルダを作成する
+c:\work\機能マニュアル とか
+
+atom を一旦終了する
+
+atom 起動する
+ → パッケージ → コマンドパレット → clone → Github:Clone
+
+Cloen ダイアログ
+Clone from
+https://github.com/ytakagi-ponkotsu/function
+to Directry
+上で作った作業フォルダ
+ → ログインダイアログが表示されたら、github アカウントでログイン
+うまくいくと画面左にツリービューが表示される
+
+atom で メニューバー → 表示 → GitHub タブの切替
+
+GitHb タブが表示される
+ ログインボタン が表示されていたらログインボタンを押す
+  → Accessコードの生成的なものがでたら実施する（新規クリエイト的な）
+   → ブラウザでなんかが開くので生成してコードをコピーする
+    → atom に戻ってコードを貼り付ける
+
+多分これでセットアップ完了なはず
+
+左のツリービューから 詳解 Communication Suite 機能.md を選択する
+エディタで内容が開くので 5 ～ 6 行目あたりを編集して commit → push してみる。
+初回 push 時には、github へのログインダイアログが表示されるかも？
+
+適当なところで、sync-settings を無効化する
+
+基本編終了
+
+発展編
+1. TeXインストーラ 3 で Tex をインストールする
+https://www.ms.u-tokyo.ac.jp/~abenori/soft/bin/abtexinst_0_91.zip
+
+全部defaultでぶっこむ
+
+2. Pandoc をインストールする
+https://pandoc.org/installing.html
+
+3. Pandoc-crossref をダウンロードして
+https://github.com/lierdakil/pandoc-crossref/releases/download/v0.3.6.2/windows-x86_64-pandoc_2.9.2.zip
+C:\Program Files\Pandoc に pandoc-crossref.exe をコピーする
+
+4. Graphviz をインストールする
+https://graphviz.gitlab.io/_pages/Download/windows/graphviz-2.38.msi
+
+“Just me"は"Everyone"に変更
+
+5. Chocolatey
+PowerShell を管理者権限で起動して
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+を実行する。
+
+6. JDK をインストールする
+PowerShell を管理者権限で起動して
+cinst jdk8 -y
+
+7. 環境変数を修正する
+
+システム環境変数 JAVA_HOME を追加する
+JAVA_HOME=C:\Program Files\Java\jdk1.8.0_211
+システム環境変数
+path に C:\Program Files\Java\jdk1.8.0_211\bin を追加する
+
+8. atom で plantuml-viewer をインストールする
+ 設定で
+ ・Charset に UTF-8 を設定する
+
+9. atom で language-plantuml をインストールする
+
+10. markdown-preview を無効にする
+
+11. atom で Markdown Preview Enhanced をインストールする
+ 設定で
+ ・Use Pandoc Parser を有効化する
+ ・Pandoc Optoins: Commandline Arguments に --filter=pandoc-crossref を設定する
+ ・Math Rending Opution MathJax に変更する
+
+発展編終了
