@@ -1,6 +1,6 @@
 ---
 documentclass: ltjsarticle
-output: word_document
+output: pdf_document
 figPrefix: '図.'
 figureTitle: 図
 tableTitle: 表
@@ -69,7 +69,7 @@ tblPrefix: '表.'
 
 [@fig:login] は、OperatorAgent の基本的なログイン画面となります。
 
-![基本のログイン画面](images/1-1-operatoragent-baselogin.png){#fig:login width=60% height=60%}
+![基本のログイン画面](images/1-1-operatoragent-baselogin.png){#fig:login width=50%}
 
 #### 1-1-2. OperatorAgent のログインに関連する ControlCenter の詳細設定項目
 
@@ -84,52 +84,113 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 
 : 詳細設定 設定分類 : OperatorAgent - ログイン {#tbl:table}  
 
- - [@tbl:table] の No.4 『内線番号の指定』 を **"true"** にすることで、[@fig:naisenari] のようにログインダイアログに内線番号入力欄が追加されます。（VDI 等のシンクライアント環境で、OS に固有情報を保持できない場合に利用する想定です。）  
+ - [@tbl:table] の No.4 『内線番号の指定』 を **"true"** にすることで、ログインダイアログに内線番号入力欄が追加されます。（[@fig:naisenari]。VDI 等のシンクライアント環境で、クライアント PC と電話機を固定で紐付けできない場合に有効です。）  
 
-![内線番号入力可能なログイン画面](images/2020/02/1-1-operatoragent-naisenlogin.png){#fig:naisenari width=60% height=60%}
+![内線番号入力可能なログイン画面](images/2020/02/1-1-operatoragent-naisenlogin.png){#fig:naisenari width=50%}
 
-  - OperatorAgent のインストール時に内線番号を指定している場合には、指定番号が内線番号入力欄に表示されます。（[@tbl:table] の No.6 『内線番号の保存』 が **"false"** の場合も表示されます。）
+  - OperatorAgent のインストール時に内線番号を指定している場合には、指定番号が内線番号入力欄に表示されます。（[@tbl:table] の No.6 『内線番号の保存』 が **"false"** の場合も表示されます。）  
+  変更すると、ログイン出来なくなったり、他の席の電話番号と紐付けされてしまうので注意してください。
   - [@tbl:table] の No.4 『内線番号の指定』 が **"false"** の場合でも、インストール時に内線番号が指定されていない場合で、かつ [@tbl:table] の No.5 『内線番号の情報が必要かどうか』 が "S" でかつサーバ版利用時 or "R" の場合には、内線番号入力欄が強制的に表示されます。
    - [@tbl:table] の No.1 ユーザID は、  
 **`%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config`**  
   の **LoginSettings/@LatestLoginUserId** に保存されます。 [^2] （この設定値は最後にログインに成功したユーザIDとなります。）
 
-   - No.2 ログインパスワードは、Windows の  
+   - [@tbl:table]  の No.2 ログインパスワードは、Windows の  
 	 [コントロールパネル] → [ユーザー アカウント] → [資格情報マネージャー]  
-  に自動入力されたユーザIDに対応するパスワードが [@fig:shikaku] のように保存されます。（この設定値は最後にログインに成功したパスワードとなります。）  
+  に自動入力されたユーザIDに対応するパスワードが保存されます。（ [@fig:shikaku]。この設定値は最後にログインに成功したパスワードとなります。）  
 
-![資格情報マネージャーのログイン情報](images/1-1-win_shikaku.png){#fig:shikaku width=65% height=65%}  
+![資格情報マネージャーのログイン情報](images/1-1-win_shikaku.png){#fig:shikaku width=65%}  
 
-   - No.6 内線番号は、
+   - [@tbl:table]  の No.6 内線番号は、  
 	 **`%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config`**  
 	 の **LoginSettings/@LatestLoginLineKey** に保存されます。（この設定値は最後にログインに成功した内線番号となります。）
 
 [^2]:最後に
 
 #### 1-1-3. プロジェクトの選択
-- ログインするユーザID が複数のプロジェクトに所属している場合には、ログインダイアログに続けて [@fig:project] のプロジェクト選択ダイアログが表示されます。
+- ログインするユーザが複数のプロジェクトに所属している場合には、ログインダイアログに続けてプロジェクト選択ダイアログが表示されます。([@fig:project])
 
-![プロジェクト選択画面](images/2020/02/1-1-operatoragent-projectchoice.png){#fig:project width=60% height=60%}
+![プロジェクト選択画面](images/2020/02/1-1-operatoragent-projectchoice.png){#fig:project width=50%}
 
 #### 1-1-4. 統合 Windows 認証
 
- - 統合 Windows 認証機能を有効化している場合には、ログイン画面は表示されません。ただし、ユーザがプロジェクトに複数所属している場合には、[1-1-3. プロジェクトの選択](#1-1-3-選択) のプロジェクト選択ダイアログ（[@fig:project]）が表示されます。
- - インストール時に内線番号が指定されていない場合には、[@fig:naisen]　の内線番号の入力欄のみのダイアログが追加表示されます。  
+ - 統合 Windows 認証機能を有効化している場合には、ログイン画面は表示されません。ただし、通常ログイン同様、ユーザが複数プロジェクトに所属していれば、[1-1-3. プロジェクトの選択](#1-1-3-選択) ： [@fig:project] のダイアログが表示されます。
+ - インストール時に内線番号が指定されていない場合には、内線番号入力ダイアログ（[@fig:naisen]）が追加表示されます。  
 
-![内線番号入力ダイアログ](images/1-1-operatoragentLogin_naisenonly.png){#fig:naisen width=60% height=60%}
+![内線番号入力ダイアログ](images/1-1-operatoragentLogin_naisenonly.png){#fig:naisen width=50%}
 
-- 統合 Windows 認証を利用するための Communication Suite 上の設定はありません。以下、IIS 上でいくつか追加の設定が必要です。  
+- 統合 Windows 認証を利用するための Communication Suite 上の設定はありません。  
+  ただし、IIS に追加の設定が必要です。  
 	1. OS の "機能と役割の追加" から IIS - Web サーバ - セキュリティ 設定で **Windows 認証** を有効化してください。([@fig:role])
-	2. IIS マネージャーの Web サイトの設定で、ControlCenter と SpeechVisualizer のそれぞれのサイトの認証の設定を以下の図と同様に変更します。（[@fig:siteconfig]）
+	2. IIS マネージャーの Web サイトの設定で、ControlCenter と SpeechVisualizer のそれぞれのサイトの認証の設定を以下の図と同様に変更します。（[@fig:siteconfig]）  
 
-![機能と役割の追加](images/1-1-IIS_role_windowslogin.png){#fig:role width=60% height=60%}
+![機能と役割の追加](images/1-1-IIS_role_windowslogin.png){#fig:role width=50%}
 
-![Web サイトの設定](images/1-1-IIS_sitegonfig_login.png){#fig:siteconfig width=60% height=60%}
+![Web サイトの設定](images/1-1-IIS_sitegonfig_login.png){#fig:siteconfig width=50%}
 
 #### 1-1-5. OperatorAgent 自動ログイン（統合 Windows 認証を利用しない）
+- [1-1-2. OperatorAgent のログイン機能に関連する ControlCenter の詳細設定項目](#1-1-2-operatoragent-機能関連-controlcenter-詳細設定項目)  ：  [@tbl:table] の No.3 『自動ログイン』 が有効になっている場合には、統合 Windows 認証 を利用していなくてもログイン処理を省略可能です。
+
+
+```plantuml
+@startuml
+skinparam {
+defaultFontName BIZ UDPゴシック
+}
+skinparam backgroundColor #fffacd
+skinparam activity  {
+BackgroundColor #afeeee
+BorderColor #000080
+}
+title アクティビティ図.1 [OA 自動ログイン判定]
+
+
+start
+:OperatorAgent 起動;
+if (内線番号の情報が必要かどうか) then (不要 ： 設定値『N』)
+else (必要)
+	if (設定値 『S』 or 『R』) then (設定値『S』)
+		if (サーバ版？) then (YES)
+			if (内線番号) then (未入力)
+				-ログインダイアログ表示
+				end
+			else (自動入力済)
+			endif
+		else (クライアント版)
+		endif
+	else (設定値『R』)
+		if (内線番号) then (未入力)
+			-ログインダイアログ表示
+			end
+		else (自動入力済)
+		endif
+	endif
+endif
+if (ユーザIDとパスワードの両方が\n自動入力されている) then (YES)
+	if (自動ログインの設定は有効か？) then (有効)
+	else (無効)
+	  -ログインダイアログ表示
+		end
+	endif
+else (いずれかもしくは両方が未入力)
+	if (コマンドライン実行(※) で、引数により\nユーザIDとパスワードが設定されている) then (YES)
+		if (自動ログインの設定は有効か？) then (有効)
+		else (無効)
+		  -ログインダイアログ表示
+			end
+		endif
+	else
+		-ログインダイアログ表示
+		end
+	endif
+endif
+#plum:自動ログイン実行;
+floating note right: ※ コマンドライン引数については \n 1-2-6. コマンドラインからの OperatorAgent 操作 \nを参照して下さい。
+@enduml
+```
 
 #### 1-1-5. OperatorAgent へのログイン失敗事由
-- OperatorAgent にログインできない原因を以下に列挙します。ただし、仕様によりログインできなかった事由に限定しています。（NW 切断やサーバシャットダウンは含んでいません。）
+- [@tbl:oalogin] は、OperatorAgent の正常系ログインエラーをまとめたものです。（異常系は含んでいません。）
 
 	No. | 事由                 | ログインダイアログのメッセージ       | デバッグログへの出力 |
 ----|---------------------|------------------|--------------|
@@ -143,18 +204,23 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 8   | 内線番号の重複ログイン | OperatorAgent サービスにログインできませんでした | ステータス: 43205 指定された回線は現在使用されています。 |
 9   | Communication Suite ユーザ未登録 | OperatorAgent サービスにログインできませんでした | このエラーは、IIS に入力されたユーザー名またはパスワードが無効であるか、または IIS がユーザーを認証するのためにそのユーザー名およびパスワードを使用できないときに発生します。 |
 10   | ライセンス違反 | OperatorAgent サービスにログインできませんでした | 【要確認】 ステータス: XXXXX ○○○。 |  
-※ 1、2 は **フォーム認証利用時のみ** のエラーとなります。  
-※ 9 は **統合 Windows 認証利用時のみ** のエラーとなります。
+
+	: OperatorAgent のログイン失敗事由 {#tbl:oalogin}  
+
+	※ [@tbl:oalogin] の No.1、No.2 は **フォーム認証利用時のみ** のエラーとなります。  
+※  [@tbl:oalogin] の No.9 は **統合 Windows 認証利用時のみ** のエラーとなります。
+
 
 #### 1-1-6. 本節のまとめ
 - [ ] OperatorAgent でのログインに関わる設定項目について理解ができた。  
 - [ ] OperatorAgent でのログインが単に認証しているだけでは無いことが理解できた。
+- [ ] OperatorAgent の自動ログインについて理解ができた。  
 - [ ] OperatorAgent にログインできないときに原因の切り分けができそうだ。
 
 ### 1-2. OperatorAgent のメイン画面
 #### 1-2-1. メイン画面機能（常時利用可能）
 
-  ![OperatorAgent メイン画面（起動直後）](images/2-1-operatoragentMain.png){#fig:mainblank width=８０%}
+  ![OperatorAgent メイン画面（起動直後）](images/2-1-operatoragentMain.png){#fig:mainblank width=70%}
 
   1. OperatorAgent バージョン確認  
   画面の左上の OperatorAgent ロゴを右クリックすると表示されるメニュー（[@fig:logoclick]）から OperatorAgent のバージョンを確認することができます。（[@fig:oaversion]）  
@@ -164,42 +230,56 @@ No. | 設定項目名       | デフォルト値 | 内容 |
   ![バージョンの確認方法](images/2-1-operatoragent_version.png){#fig:oaversion width=60%}  
 
   2. 通話リスト  
-  指定した検索条件に適合する SpeechVisualizer の通話詳細へのリンクをリストアップします。通話リストに関連する ControlCenter の詳細設定項目は以下です。  
+  指定した検索条件に適合する SpeechVisualizer の通話詳細へのリンクをリストアップします。[@tbl:oa_conlist] は、通話リストに関連する ControlCenter の詳細設定項目です。  
 
         No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
 ----|---------------------|------------------|--------------|------|
 1   | OperatorAgent - 通話 | 検索条件 | mine:* d:1d | 今日の自分の通話 |
-2   | OperatorAgent - 通話 | 最大表示件数 | 20 | 上位２０件まで |  
-  ※ 検索条件の書式は SpeechVisualizer の通話検索条件と同じ書式が利用できます。
+2   | OperatorAgent - 通話 | 最大表示件数 | 20 | 上位 20 件まで |
+
+		: OperatorAgent - 通話リストの設定 {#tbl:oa_conlist}  
+
+		※ 検索条件の書式は SpeechVisualizer の通話検索条件と同じ書式が利用できます。
 
   3. マイクエリ  
 SpeechVisualizer の通話検索機能で設定したマイクエリへのリンク（マイクエリの条件で検索した状態の検索画面へのリンク）をリストアップします。
  4. メッセージ  
  チャット機能です。  
 
-    `利用のヒント`  
+    **`利用のヒント`**  
 
     オペレータ同士のチャットは禁止し、座席表モニタ中の SV とのチャットのみ許可したい場合には、ロールに付与する権限  "OperatorAgent からのメッセージ送信" を付与しないことにより、OperatorAgent からユーザを検索・指定してのメッセージ送信ができなくなります。  
-  ![2-1-message_authok](images/2-1-message_authok.png)   
+
+![メッセージ送信権限有り](images/2-1-message_authok.png){#fig:message_authok width=40%}  
+
 権限があると宛先検索が有効です。  
-  ![2-1-message_authng](images/2-1-message_authng.png)   
+
+![メッセージ送信権限無し](images/2-1-message_authng.png){#fig:message_authng width=40%}  
+
   権限が無いと宛先検索ができません。  
-  ![2-1-operatoragent_messagewindow](images/2-1-operatoragent_messagewindow.png)   
+
+![メッセージ送信権限無し](images/2-1-operatoragent_messagewindow.png){#fig:operatoragent_messagewindow width=50%}  
+
   管理者から受信したメッセージに対して返信は可能です。  
-  ![2-1-message_authngrireki](images/2-1-message_authngrireki.png)   
+
+![メッセージ送受信履歴あり](images/2-1-message_authngrireki.png){#fig:message_authngrireki width=40%}  
+
   メッセージウィンドウにチャット履歴が残っている期間（受信後24時間以内）であれば、メッセージ受信履歴からの宛先指定が可能です。  
   メッセージに関連する ControlCenter の詳細設定項目は以下です。  
 
-    No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
-    ----|---------------------|------------------|--------------|------|
-    1   | OperatorAgent - メッセージ | Enter キーでメッセージを送信 | true | false の場合には改行します |
-    2   | OperatorAgent - メッセージ | ヘルプ対応時にメッセージウインドウを自動的に開く | true | SV がヘルプ対応操作を行ったことがメッセージとして通知されます |  
+  No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
+  ----|---------------------|------------------|--------------|------|
+  1   | OperatorAgent - メッセージ | Enter キーでメッセージを送信 | true | false の場合には改行します |
+  2   | OperatorAgent - メッセージ | ヘルプ対応時にメッセージウインドウを自動的に開く | true | SV がヘルプ対応操作を行ったことがメッセージとして通知されます |  
+
   `メッセージの保存期間`  
 ---
 メッセージは、通話中にも非通話時にも送受信できます。  
-    - 通話中のメッセージ - 通話の付加情報として扱われます。通話データが削除されるタイミングで消去されます。
-    - 非通話中のメッセージ - 単純チャット情報として扱われます。24時間後に消去されます。  
-      **通話中のメッセージも非通話中のメッセージも閲覧する機能はありません。**  
+
+  - 通話中のメッセージ - 通話の付加情報として扱われます。通話データが削除されるタイミングで消去されます。
+  - 非通話中のメッセージ - 単純チャット情報として扱われます。24時間後に消去されます。  
+  **通話中のメッセージも非通話中のメッセージも閲覧する機能はありません。**  
+
   5. お知らせ  
   ControlCenter のお知らせ管理で登録されたお知らせをリストアップします。お知らせに関連する ControlCenter の詳細設定項目は以下です。
 
