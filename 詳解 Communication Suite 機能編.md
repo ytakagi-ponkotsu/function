@@ -193,7 +193,7 @@ floating note right: ※ コマンドライン引数については \n 1-2-6. �
 - [@tbl:oalogin] は、OperatorAgent の正常系ログインエラーをまとめたものです。（異常系は含んでいません。）
 
 	No. | 事由                 | ログインダイアログのメッセージ       | デバッグログへの出力 |
-----|---------------------|------------------|--------------|
+----:|---------------------|------------------|--------------|
 1   | ユーザ ID 誤り | OperatorAgent サービスにログインできませんでした | ステータス: 43031 ユーザID 'XXX'、またはパスワードが違います。 |
 2   | パスワード誤り | OperatorAgent サービスにログインできませんでした | ステータス: 43031 ユーザID 'XXX'、またはパスワードが違います。 |
 3   | 内線番号誤り | OperatorAgent サービスにログインできませんでした | ステータス: 42601 指定した内線番号 'NNN' は削除されたか、登録されていません。 |
@@ -233,7 +233,7 @@ floating note right: ※ コマンドライン引数については \n 1-2-6. �
   指定した検索条件に適合する SpeechVisualizer の通話詳細へのリンクをリストアップします。[@tbl:oa_conlist] は、通話リストに関連する ControlCenter の詳細設定項目です。  
 
         No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
-----|---------------------|------------------|--------------|------|
+----:|---------------------|------------------|--------------|------|
 1   | OperatorAgent - 通話 | 検索条件 | mine:* d:1d | 今日の自分の通話 |
 2   | OperatorAgent - 通話 | 最大表示件数 | 20 | 上位 20 件まで |
 
@@ -295,7 +295,7 @@ No. | 設定分類                 | 設定項目名       | デフォルト値 
 - 直近1時間分の通話のオペレータ感情の **ポジティブ・ネガティブ（nemesysco.qa5.excitement）**  の平均値をメータ表示しています。左に振れると "ネガティブ"、右に振れると "ポジティブ" という判断になります。コンディションに関連する ControlCenter の詳細設定項目は以下です。  
 
 	No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
-----|---------------------|------------------|--------------|------|
+----:|---------------------|------------------|--------------|------|
 1   | OperatorAgent - 感情解析 | コンディションの表示 | true | false で表示しない |
 2   | OperatorAgent - 感情解析 | コンディションのレッドゾーンの閾値 | 1.0 | 隠し項目 |
 3| 共通 - 感情解析  | 感情解析の使用  | true  |  false = 感情解析に関するあらゆる UI を表示しない |  
@@ -318,7 +318,7 @@ No. | 設定分類                 | 設定項目名       | デフォルト値 
 
 - プロフィールタブ  
 ログイン情報の表示・画像の設定・削除・パスワード変更が実施できます。  
->>>>>>> f729b6ff95f8a9b669489ac55b92a8e1bb5691bb
+
 
 ![プロフィール](images/2-1-profile.png){#fig:oa_profile width=40%}  
 
@@ -335,7 +335,7 @@ ControlCenter の詳細設定で設定された OperatorAgent の振る舞いを
  ![OperatorAgent ユーザ設定](images/2-1-config.png){#fig:oa_user_con}  
 
 No. | 設定タブ項目 | 設定分類                 | 設定項目名       |
-----|---------------------|------------------|--------------|
+----:|---------------------|------------------|--------------|
 1   | 起動時にウィンドウを表示 | OperatorAgent - 起動時動作 | 起動時にウィンドウを表示状態に戻す |
 2   | 閉じたときにタスクバーに表示しない | OperatorAgent - 全般 | 閉じたときにタスクバーに表示しない |
 3   | 感情解析ポップアップを自動表示 | OperatorAgent - 通知メッセージ | 感情解析の自動表示 |
@@ -381,7 +381,7 @@ OperatorAgentにログイン中の内線番号に関する通話のイベント�
 ControlCenter - 認識オプションの設定で使用する音声認識エンジンを設定します。  
 
  No. | 設定タブ項目 | 設定項目名                | 設定値      |
- ----|---------------------|------------------|--------------|
+ ----:|---------------------|------------------|--------------|
  1   | オペレータ | 音声認識用エンジンモード | AMI提供のオペレータ用音声認識エンジンを登録 |
  2   | カスタマ | 音声認識用エンジンモード | AMI提供のカスタマ用音声認識エンジンを登録 |  
 
@@ -416,20 +416,20 @@ ControlCenter - 認識オプションの設定で使用する音声認識エン�
   `自分の電話番号`・・・自番号  
   `自分のID`・・・エージェントID  
 
-![通話情報](images/2-1-通話情報.png){#fig:callinfo width=30% height=30%}  
+![通話情報の画面](images/2-1-通話情報.png){#fig:callinfo width=30% height=30%}  
 
 3. 通話相手  
  通話状態や通話相手の情報を表示します。（[@fig:callpartner] ）   
 この情報は通話相手が切り替わる度に表示されますが、取得可能な情報は通話プロバイダにより異なります。  
 
- ![通話相手](images/2-1-通話相手.png){#fig:callpartner width=20% height=15%}  
+ ![通話相手の画面](images/2-1-通話相手.png){#fig:callpartner width=20% height=15%}  
 
  `補足情報 1`   
  相手の性別 は通話プロバイダから情報を取得するのではなく、性別識別用エンジンにて判断しています。   
  相手の性別 に関連する設定項目は ControlCenter/認識管理/認識オプション にあります。   
 
  No. | 設定タブ項目 | 設定項目名                | 内容      |
- ----|---------------------|------------------|--------------|
+ ----:|---------------------|------------------|--------------|
  1   |カスタマタブ | 性別識別 | 性別識別を利用するかどうか   
  2   |カスタマタブ | 性別識別用エンジンモード | 性別識別用エンジンを登録
  3   |カスタマタブ | 性別識別の閾値| あああああ（よくわくらない）   
@@ -443,10 +443,60 @@ ControlCenter - 認識オプションの設定で使用する音声認識エン�
 通話情報、通話相手の ControlCenter の詳細設定項目は以下です。   
 
  No. | 設定タブ項目 | 設定項目名                | 設定内容      |
- ----|---------------------|------------------|--------------|
+ ----:|---------------------|------------------|--------------|
  1   |OperatorAgent - 通話 | 表示する通話属性の一覧 | （通話属性キー）＝（表示ラベル名)で指定します。   
 
+利用可能な設定値は以下です。(通話プロバイダにより取得できる属性が異なります。)
 
+No. | 通話属性キー | 表示ラベル名                | Amazon Connect	      | Avaya AES    | Avaya     | SIP CIC     | SIP CTstage    |SIP OAI     | SIP T-Server      |
+----:|---------------------|------------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|
+1   |amivoice.common.description | 備考 |  |  |  |  |  |  |  |
+2   |amivoice.common.direction | 向き|〇|〇|〇|〇|〇|〇|〇|
+3   |amivoice.common.linetype | 通話回線種別 |  |〇|  |〇|〇|〇|〇|
+4   |amivoice.common.summary| 要約 |   |  |  |  |  |  |  |
+5   |amivoice.common.headline| 見出し |   |  |  |  |  |  |  |
+6   |amivoice.common.mark | マーク |   |  |  |  |  |  |  |
+7   |amivoice.common.operator.key | 自分の識別名 |〇|〇|  |〇|〇|  |  |
+8   |amivoice.common.operator.name| 自分の名称|〇|  |  |  |〇|  |  |
+9   |amivoice.common.operator.phonenumber| 自番号 |〇|〇|〇|〇|〇|〇|〇|
+10   |amivoice.common.operator.group| 自分の所属グループ |〇|  |  |〇|  |  |  |
+11   |amivoice.common.operator.hostname | 自分のホスト名 |   |  |  |  |  |  |  |
+12   |amivoice.common.customer.key | 相手の識別名 |   |  |  |  |  |  |  |
+13   |amivoice.common.customer.name | 相手の名称 |   |  |  |  |  |  |  |
+14   |amivoice.common.customer.phonenumber| 相手番号 |   |  |  |  |  |  |  |
+15   |amivoice.common.customer.gender | 相手の性別 |   |  |  |  |  |  |  |
+16  |amivoice.common.telephony.dialin.phonenumber | ダイヤルイン番号 |   |  |  |  |  |  |  |
+17   |amivoice.common.telephony.called.phonenumber | 掛先番号 |   |  |  |  |  |  |  |
+18   |amivoice.common.telephony.alerting.phonenumber | 呼出先番号|   |  |  |  |  |  |  |
+19   |amivoice.common.telephony.trunk.group | トランクグループ |  |  |  |  |  |  |  |
+20   |amivoice.common.telephony.trunk.member| トランクメンバ|   |  |  |  |  |  |  |
+21   |amivoice.common.telephony.queue.phonenumber| 通話キュー番号|   |  |  |  |  |  |  |
+22   |amivoice.common.telephony.transfer.source.key | 転送元識別名 |   |  |  |  |  |  |  |
+23   |amivoice.common.telephony.transfer.source.name | 転送元名称 |   |  |  |  |  |  |  |
+24   |amivoice.common.telephony.transfer.source.phonenumber | 転送元番号 |   |  |  |  |  |  |  |
+25   |amivoice.common.telephony.transfer.destination.key| 転送先識別名 |   |  |  |  |  |  |  |
+26   |amivoice.common.telephony.transfer.destination.name | 転送先名称 |   |  |  |  |  |  |  |
+27   |amivoice.common.telephony.transfer.destination.phonenumber | 転送先番号 |   |  |  |  |  |  |  |
+28   |amivoice.common.telephony.monitoring.target.key | モニタリング対象識別名 |   |  |  |  |  |  |  |
+29   |amivoice.common.telephony.monitoring.target.name| モニタリング対象名称 |   |  |  |  |  |  |  |
+30   |amivoice.common.telephony.monitoring.target.phonenumber| モニタリング対象番号 |   |  |  |  |  |  |  |
+31   |amivoice.common.telephony.monitoring.target.type | 	モニタリング種別 |   |  |  |  |  |  |  |
+32   |amivoice.common.reference.global.id | グローバル参照用のID |   |  |  |  |  |  |  |
+33   |amivoice.common.reference.global.url | グローバル参照用のURL |   |  |  |  |  |  |  |
+34   |amivoice.common.reference.local.id| ローカル参照用のID |   |  |  |  |  |  |  |
+35   |amivoice.common.reference.local.url| ローカル参照用のURL |   |  |  |  |  |  |  |
+36   |amivoice.common.reference.site.id | サイト参照用のID|   |  |  |  |  |  |  |
+37   |amivoice.common.reference.site.url| サイト参照用のURL |   |  |  |  |  |  |  |
+38   |amivoice.common.reference.private.id| プライベート参照用のID |   |  |  |  |  |  |  |
+39   |amivoice.common.reference.private.url | プライベート参照用のURL |   |  |  |  |  |  |  |
+40   |amivoice.common.recording.limit| 録音制限時間到達 |   |  |  |  |  |  |  |
+41   |amivoice.common.recording.split| 録音分割 |   |  |  |  |  |  |  |
+42   |amivoice.common.recording.split.previous| 録音分割された直前の通話 |   |  |  |  |  |  |  |
+43   |amivoice.common.reference.recording.id | 録音区間参照用のID |   |  |  |  |  |  |  |
+44   |amivoice.common.reference.recording.url | 録音区間参照用のURL |   |  |  |  |  |  |  |
+45   |amivoice.common.telephony.distributing.phonenumber| 受電グループ番号|  |  |  |  |  |  |  |
+46   |amivoice.common.telephony.ivr.duration| IVR 応対時間 |   |  |  |  |  |  |  |
+47   |amivoice.common.telephony.queue.duration | 待ち時間 |   |  |  |  |  |  |  |
 
 
 
@@ -469,7 +519,7 @@ ControlCenter からの状態通知を OperatorAgent がなにかしらの理由
  通話フィルタの ControlCenter の詳細設定項目は以下です。   
 
   No. | 設定タブ項目 | 設定項目名                | 内容      |
- ----|---------------------|------------------|--------------|
+ ----:|---------------------|------------------|--------------|
  1   |OperatorAgent - 通知メッセージ |通話フィルタの通知時間の倍率 (短め) | あ   
  2   |OperatorAgent - 通知メッセージ | 通話フィルタの通知時間の倍率 (長め)| あ
  3   |OperatorAgent - 通知メッセージ | 通話フィルタの通知時間レベル| あ  
