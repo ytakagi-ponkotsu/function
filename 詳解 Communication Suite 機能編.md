@@ -397,7 +397,7 @@ ControlCenter - 認識オプションの設定で使用する音声認識エン�
 - **通話開始・通話終了の帯は表示されるが、テキスト結果が表示されない**  
   - クライアント端末から StreamingRecognizer のHTTPポートに接続ができていない  
   - ControlCenter - 認識オプションの音声認識エンジンモードが設定されていない   
-  - クライアント端末から StreamingRecognizer のHTTPポートに接続ができていない  
+
 - **OperatorAgent起動後の最初の通話で認識結果が遅れて表示される**  
   - 仕様となります。初回認識処理時にはテキスト化に利用するエンジンモードや  
   追加登録した辞書単語等の各種設定をダウンロードしているためです。
@@ -411,7 +411,7 @@ ControlCenter - 認識オプションの設定で使用する音声認識エン�
 
 2. 通話情報   
 通話中のオペレータの通話情報が表示されます。   
-この情報は通話属性が取得できる場合に（[@fig:callinfo] ）のように通話相手によって切り替わらない情報のみを表示します。  
+この情報は通話属性が取得できる場合に（[@fig:callinfo] ）のように通話相手によって変更されない情報のみを表示します。  
   `自分の電話番号`・・・自番号  
   `自分のID`・・・エージェントID  
 
@@ -419,7 +419,8 @@ ControlCenter - 認識オプションの設定で使用する音声認識エン�
 
 3. 通話相手  
  通話状態や通話相手の情報を表示します。（[@fig:callpartner] ）   
-この情報は通話相手が切り替わる度に表示されますが、取得可能な情報は通話プロバイダにより異なります。  
+この情報は通話相手が切り替わる度に、話者単位で作成されます。  
+取得可能な情報は通話プロバイダにより異なります。  
 
  ![通話相手の画面](images/2-1-通話相手.png){#fig:callpartner width=20% height=15%}  
 
@@ -431,7 +432,7 @@ ControlCenter - 認識オプションの設定で使用する音声認識エン�
  ----:|---------------------|------------------|--------------|
  1   |カスタマタブ | 性別識別 | 性別識別を利用するかどうか   
  2   |カスタマタブ | 性別識別用エンジンモード | 性別識別用エンジンを登録
- 3   |カスタマタブ | 性別識別の閾値| あああああ（よくわくらない）   
+ 3   |カスタマタブ | 性別識別の閾値| 性別識別の判定に使用する閾値   
  4   |カスタマタブ | 性別識別に使用する発話時間（最大） | 性別識別の判定に使用する発話時間の最大値   
  5   |カスタマタブ | 性別識別に使用する発話時間（最小） | 性別識別の判定に使用する発話時間の最小値
 
@@ -458,31 +459,31 @@ No. | 通話属性キー | 表示ラベル名                | Amazon Connect	  
 7   |amivoice.common.operator.key | 自分の識別名 |〇|〇|  |〇|〇|  |  |
 8   |amivoice.common.operator.name| 自分の名称|〇|  |  |  |〇|  |  |
 9   |amivoice.common.operator.phonenumber| 自番号 |〇|〇|〇|〇|〇|〇|〇|
-10   |amivoice.common.operator.group| 自分の所属グループ |〇|  |  |〇|  |  |  |
-11   |amivoice.common.operator.hostname | 自分のホスト名 |   |  |  |  |  |  |  |
-12   |amivoice.common.customer.key | 相手の識別名 |   |  |  |  |  |  |  |
-13   |amivoice.common.customer.name | 相手の名称 |   |  |  |  |  |  |  |
-14   |amivoice.common.customer.phonenumber| 相手番号 |   |  |  |  |  |  |  |
+10   |amivoice.common.operator.group| 自分の所属グループ |〇|  |  |  |〇|  |  |
+11   |amivoice.common.operator.hostname | 自分のホスト名 |   |  |  |  |〇|  |  |
+12   |amivoice.common.customer.key | 相手の識別名 |   |  |  |〇|〇|  |  |
+13   |amivoice.common.customer.name | 相手の名称 |   |  |  |  |〇|  |  |
+14   |amivoice.common.customer.phonenumber| 相手番号|〇|〇|〇|〇|〇|〇|〇|
 15   |amivoice.common.customer.gender | 相手の性別 |   |  |  |  |  |  |  |
-16  |amivoice.common.telephony.dialin.phonenumber | ダイヤルイン番号 |   |  |  |  |  |  |  |
-17   |amivoice.common.telephony.called.phonenumber | 掛先番号 |   |  |  |  |  |  |  |
-18   |amivoice.common.telephony.alerting.phonenumber | 呼出先番号|   |  |  |  |  |  |  |
-19   |amivoice.common.telephony.trunk.group | トランクグループ |  |  |  |  |  |  |  |
-20   |amivoice.common.telephony.trunk.member| トランクメンバ|   |  |  |  |  |  |  |
-21   |amivoice.common.telephony.queue.phonenumber| 通話キュー番号|   |  |  |  |  |  |  |
-22   |amivoice.common.telephony.transfer.source.key | 転送元識別名 |   |  |  |  |  |  |  |
-23   |amivoice.common.telephony.transfer.source.name | 転送元名称 |   |  |  |  |  |  |  |
-24   |amivoice.common.telephony.transfer.source.phonenumber | 転送元番号 |   |  |  |  |  |  |  |
-25   |amivoice.common.telephony.transfer.destination.key| 転送先識別名 |   |  |  |  |  |  |  |
-26   |amivoice.common.telephony.transfer.destination.name | 転送先名称 |   |  |  |  |  |  |  |
-27   |amivoice.common.telephony.transfer.destination.phonenumber | 転送先番号 |   |  |  |  |  |  |  |
-28   |amivoice.common.telephony.monitoring.target.key | モニタリング対象識別名 |   |  |  |  |  |  |  |
-29   |amivoice.common.telephony.monitoring.target.name| モニタリング対象名称 |   |  |  |  |  |  |  |
-30   |amivoice.common.telephony.monitoring.target.phonenumber| モニタリング対象番号 |   |  |  |  |  |  |  |
-31   |amivoice.common.telephony.monitoring.target.type | 	モニタリング種別 |   |  |  |  |  |  |  |
-32   |amivoice.common.reference.global.id | グローバル参照用のID |   |  |  |  |  |  |  |
+16  |amivoice.common.telephony.dialin.phonenumber | ダイヤルイン番号 |   |  |  |〇|〇|〇|  |
+17   |amivoice.common.telephony.called.phonenumber | 掛先番号 |  |〇|〇|  |  |  |  |
+18   |amivoice.common.telephony.alerting.phonenumber | 呼出先番号|   |〇|  |  |  |  |  |
+19   |amivoice.common.telephony.trunk.group | トランクグループ |  |〇|  |〇|〇|〇|〇|
+20   |amivoice.common.telephony.trunk.member| トランクメンバ|  |〇|  |  |  |〇|  |
+21   |amivoice.common.telephony.queue.phonenumber| 通話キュー番号|   |〇|  |〇|  |  |  |
+22   |amivoice.common.telephony.transfer.source.key | 転送元識別名 |   |  |  |  |〇|  |  |
+23   |amivoice.common.telephony.transfer.source.name | 転送元名称 |   |  |  |  |〇|〇|  |
+24   |amivoice.common.telephony.transfer.source.phonenumber | 転送元番号 |   |〇|  |  |〇|  |〇|
+25   |amivoice.common.telephony.transfer.destination.key| 転送先識別名 |   |  |  |  |〇|  |  |
+26   |amivoice.common.telephony.transfer.destination.name | 転送先名称 |   |  |  |  |〇|  |  |
+27   |amivoice.common.telephony.transfer.destination.phonenumber | 転送先番号 |   |〇|  |  |〇|〇|〇|
+28   |amivoice.common.telephony.monitoring.target.key | モニタリング対象識別名 |   |  |  |〇|  |  |  |
+29   |amivoice.common.telephony.monitoring.target.name| モニタリング対象名称 |   |  |  |〇|  |  |  |
+30   |amivoice.common.telephony.monitoring.target.phonenumber| モニタリング対象番号 |   |  |  |〇|  |  |  |
+31   |amivoice.common.telephony.monitoring.target.type | 	モニタリング種別  |   |  |  |〇|  |  |  |
+32   |amivoice.common.reference.global.id | グローバル参照用のID |〇|〇|  | 〇|〇|  |〇|
 33   |amivoice.common.reference.global.url | グローバル参照用のURL |   |  |  |  |  |  |  |
-34   |amivoice.common.reference.local.id| ローカル参照用のID |   |  |  |  |  |  |  |
+34   |amivoice.common.reference.local.id| ローカル参照用のID |   |〇|  |〇|  |  |  |
 35   |amivoice.common.reference.local.url| ローカル参照用のURL |   |  |  |  |  |  |  |
 36   |amivoice.common.reference.site.id | サイト参照用のID|   |  |  |  |  |  |  |
 37   |amivoice.common.reference.site.url| サイト参照用のURL |   |  |  |  |  |  |  |
@@ -493,9 +494,9 @@ No. | 通話属性キー | 表示ラベル名                | Amazon Connect	  
 42   |amivoice.common.recording.split.previous| 録音分割された直前の通話 |   |  |  |  |  |  |  |
 43   |amivoice.common.reference.recording.id | 録音区間参照用のID |   |  |  |  |  |  |  |
 44   |amivoice.common.reference.recording.url | 録音区間参照用のURL |   |  |  |  |  |  |  |
-45   |amivoice.common.telephony.distributing.phonenumber| 受電グループ番号|  |  |  |  |  |  |  |
-46   |amivoice.common.telephony.ivr.duration| IVR 応対時間 |   |  |  |  |  |  |  |
-47   |amivoice.common.telephony.queue.duration | 待ち時間 |   |  |  |  |  |  |  |
+45   |amivoice.common.telephony.distributing.phonenumber| 受電グループ番号|  |〇|  |  |  |  |  |
+46   |amivoice.common.telephony.ivr.duration| IVR 応対時間 |   |〇|  |  |  |  |  |
+47   |amivoice.common.telephony.queue.duration | 待ち時間 |   |〇|  |  |  |  |  |
 
 
 
@@ -507,8 +508,7 @@ No. | 通話属性キー | 表示ラベル名                | Amazon Connect	  
 
 
  `利用のヒント`  
- 通話が終了しているのに通話時間が継続してしまうなど、通話状態が正しく取得できない場合には   
-ControlCenter からの状態通知を OperatorAgent がなにかしらの理由で受信できていないことが原因です。   
+通話状態に表示される時刻（通話時間や保留時間）は〇〇から情報を取得して時間を表示しています。
 
 5. 通話フィルタ   
 登録したキーワードがテキスト化された場合に様々なアクションを実行できる機能です。（ [@fig:callfilter]）  
@@ -519,16 +519,42 @@ ControlCenter からの状態通知を OperatorAgent がなにかしらの理由
 
   No. | 設定タブ項目 | 設定項目名                | 内容      |
  ----:|---------------------|------------------|--------------|
- 1   |OperatorAgent - 通知メッセージ |通話フィルタの通知時間の倍率 (短め) | あ   
- 2   |OperatorAgent - 通知メッセージ | 通話フィルタの通知時間の倍率 (長め)| あ
- 3   |OperatorAgent - 通知メッセージ | 通話フィルタの通知時間レベル| あ  
- 4   |OperatorAgent - 通知メッセージ | 通話フィルタの表示時間| あ  
- 5   |OperatorAgent - 通知メッセージ | 一度に通知する通話フィルタの対象発話数| 隠し項目  
- 6   |共通 - 通話フィルタインポート | 通話フィルタインポートリクエストタイムアウト| あ
+ 1   |OperatorAgent - 通知メッセージ |通話フィルタの通知時間の倍率 (短め) | 通話フィルタの通知時間に対して通話時間レベルの「短め」とする時間を倍率で指定   
+ 2   |OperatorAgent - 通知メッセージ | 通話フィルタの通知時間の倍率 (長め)| 通話フィルタの通知時間に対して通話時間レベルの「長め」とする時間を倍率で指定
+ 3   |OperatorAgent - 通知メッセージ | 通話フィルタの通知時間レベル| 通話フィルタの表示時間を「0（普通）」とした場合に「-1（短め）」に表示するか「1（長め）」に表示するかを指定  
+ 4   |OperatorAgent - 通知メッセージ | 通話フィルタの表示時間|通話フィルタ検出時の通知メッセージの表示時間（秒）  
+ 5   |OperatorAgent - 通知メッセージ | 一度に通知する通話フィルタの対象発話数| OperatorAgent起動時に、検出済みの通話フィルタが大量に表示されるのを防止する機能。「-1」を指定した場合、通話内でそれまで検知した全ての通話フィルタの通知メッセージを表示  
+ 6   |共通 - 通話フィルタインポート | 通話フィルタインポートリクエストタイムアウト| インポート時にタイムアウトの有効値を増やすことによりインポート失敗を防ぐことを目的とした機能。有効値は「120以上の整数」
 
   `利用のヒント`   
-通話フィルタは発動条件として登録したキーワードを検知したタイミングで実行されます。   
-つまり１つのセグメント（発話）が終了するまで通話フィルタの処理が実行されないわけではありません。   
+通話フィルタはリアルタイムでレスポンスを返すことを重視した設計となっており、通話フィルタの発動条件としては以下になります。  
+
+- 登録したキーワードを検知したタイミング
+- 認識結果が確定前の状態（※）  
+（※）前後の文字の繋がりにより、最終的に認識結果が変更される場合があります。
+
+つまり、１つのセグメント（発話）が終了するまで通話フィルタの処理が実行されないわけではなく、キーワードを検知したタイミングで処理が実行されます。  
+
+  `よくある質問`
+
+- **通話開始の状態通知が表示されない**  
+	  - 対象内線で録音ができていない  
+	  - OperatorAgent でログインしている内線番号と通話中の内線番号が一致していない  
+	  - OperatorAgent をプロキシ経由で利用している
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  6. ヘルプ    
 OperatorAgent から SpeechVisualizer の座席表に登録したテンプレートでアラート通知する機能です。   
