@@ -69,7 +69,7 @@ tblPrefix: '表.'
 
 [@fig:login] は、OperatorAgent の基本的なログイン画面となります。
 
-![基本のログイン画面](images/1-1-operatoragent-baselogin.png){#fig:login width=50%}
+![基本のログイン画面](images/1-1-operatoragent-baselogin.png){#fig:login width=400px}
 
 #### 1-1-2. OperatorAgent のログインに関連する ControlCenter の詳細設定項目
 
@@ -86,7 +86,7 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 
  - [@tbl:table] の No.4 『内線番号の指定』 を **"true"** にすることで、ログインダイアログに内線番号入力欄が追加されます。（[@fig:naisenari]。VDI 等のシンクライアント環境で、クライアント PC と電話機を固定で紐付けできない場合に有効です。）  
 
-![内線番号入力可能なログイン画面](images/2020/02/1-1-operatoragent-naisenlogin.png){#fig:naisenari width=50%}
+![内線番号入力可能なログイン画面](images/2020/02/1-1-operatoragent-naisenlogin.png){#fig:naisenari width=400px}
 
   - OperatorAgent のインストール時に内線番号を指定している場合には、指定番号が内線番号入力欄に表示されます。（[@tbl:table] の No.6 『内線番号の保存』 が **"false"** の場合も表示されます。）  
   変更すると、ログイン出来なくなったり、他の席の電話番号と紐付けされてしまうので注意してください。
@@ -99,7 +99,7 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 	 [コントロールパネル] → [ユーザー アカウント] → [資格情報マネージャー]  
   に自動入力されたユーザIDに対応するパスワードが保存されます。（ [@fig:shikaku]。この設定値は最後にログインに成功したパスワードとなります。）  
 
-![資格情報マネージャーのログイン情報](images/1-1-win_shikaku.png){#fig:shikaku width=65%}  
+![資格情報マネージャーのログイン情報](images/1-1-win_shikaku.png){#fig:shikaku width=500px}  
 
    - [@tbl:table]  の No.6 内線番号は、  
 	 **`%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config`**  
@@ -110,23 +110,23 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 #### 1-1-3. プロジェクトの選択
 - ログインするユーザが複数のプロジェクトに所属している場合には、ログインダイアログに続けてプロジェクト選択ダイアログが表示されます。([@fig:project])
 
-![プロジェクト選択画面](images/2020/02/1-1-operatoragent-projectchoice.png){#fig:project width=50%}
+![プロジェクト選択画面](images/2020/02/1-1-operatoragent-projectchoice.png){#fig:project width=400px}
 
 #### 1-1-4. 統合 Windows 認証
 
  - 統合 Windows 認証機能を有効化している場合には、ログイン画面は表示されません。ただし、通常ログイン同様、ユーザが複数プロジェクトに所属していれば、[1-1-3. プロジェクトの選択](#1-1-3-選択) ： [@fig:project] のダイアログが表示されます。
  - インストール時に内線番号が指定されていない場合には、内線番号入力ダイアログ（[@fig:naisen]）が追加表示されます。  
 
-![内線番号入力ダイアログ](images/1-1-operatoragentLogin_naisenonly.png){#fig:naisen width=50%}
+![内線番号入力ダイアログ](images/1-1-operatoragentLogin_naisenonly.png){#fig:naisen width=400px}
 
 - 統合 Windows 認証を利用するための Communication Suite 上の設定はありません。  
   ただし、IIS に追加の設定が必要です。  
 	1. OS の "機能と役割の追加" から IIS - Web サーバ - セキュリティ 設定で **Windows 認証** を有効化してください。([@fig:role])
 	2. IIS マネージャーの Web サイトの設定で、ControlCenter と SpeechVisualizer のそれぞれのサイトの認証の設定を以下の図と同様に変更します。（[@fig:siteconfig]）  
 
-![機能と役割の追加](images/1-1-IIS_role_windowslogin.png){#fig:role width=50%}
+![機能と役割の追加](images/1-1-IIS_role_windowslogin.png){#fig:role width=400px}
 
-![Web サイトの設定](images/1-1-IIS_sitegonfig_login.png){#fig:siteconfig width=50%}
+![Web サイトの設定](images/1-1-IIS_sitegonfig_login.png){#fig:siteconfig width=400px}
 
 #### 1-1-5. OperatorAgent 自動ログイン（統合 Windows 認証を利用しない）
 - [1-1-2. OperatorAgent のログイン機能に関連する ControlCenter の詳細設定項目](#1-1-2-operatoragent-機能関連-controlcenter-詳細設定項目)  ：  [@tbl:table] の No.3 『自動ログイン』 が有効になっている場合には、統合 Windows 認証 を利用していなくてもログイン処理を省略可能です。
@@ -224,16 +224,16 @@ floating note right: ※ コマンドライン引数については \n 1-2-6. �
 ### 1-2. OperatorAgent のメイン画面
 #### 1-2-1.OperatorAgent メニュー
 
-  ![OperatorAgent メイン画面（起動直後）](images/2-1-operatoragentMain.png){#fig:mainblank width=70%}
+  ![OperatorAgent メイン画面（起動直後）](images/2-1-operatoragentMain.png){#fig:mainblank width=600px}
 
-![OperatorAgent メニュー](images/1-2-oa_header.png){#fig:oa_header width=70%}
+![OperatorAgent メニュー](images/1-2-oa_header.png){#fig:oa_header width=600px}
 
   1. OperatorAgent バージョン確認  
   画面の左上の OperatorAgent ロゴを右クリックすると表示されるメニュー（[@fig:logoclick]）から OperatorAgent のバージョンを確認することができます。（[@fig:oaversion]）  
 
-  ![バージョンの確認方法](images/2-1-operatoragent_versionmenu.png){#fig:logoclick width=60%}  
+  ![バージョンの確認方法](images/2-1-operatoragent_versionmenu.png){#fig:logoclick width=400px}  
 
-  ![バージョンの確認方法](images/2-1-operatoragent_version.png){#fig:oaversion width=60%}  
+  ![バージョンの確認方法](images/2-1-operatoragent_version.png){#fig:oaversion width=400px}  
 
   2. 通話リスト  
   指定した検索条件に適合する SpeechVisualizer の通話詳細へのリンクをリストアップします。[@tbl:oa_conlist] は、通話リストに関連する ControlCenter の詳細設定項目です。  
@@ -258,15 +258,15 @@ SpeechVisualizer の通話検索機能で設定したマイクエリへのリン
 		権限がある場合（[@fig:message_authok]）には、宛先入力欄でユーザ検索・指定してのメッセージ送信ができますが、権限が無い場合には宛先を指定できない（[@fig:message_authng]）ため、能動的なメッセージ送信ができません。  
 		権限が無い場合でも、座席表モニタ中の SV からの受信メッセージに対する返信は可能です。（[@fig:operatoragent_messagewindow]）また、SV とのチャット履歴がのこっている時間（受信後24時間以内）であれば、メッセージ受信履歴からの宛先指定が可能です。（[@fig:message_authngrireki]）
 
-![メッセージ送信権限](images/1-2-role_message.png){#fig:role_message width=60%}  
+![メッセージ送信権限](images/1-2-role_message.png){#fig:role_message width=500px}  
 
-![メッセージ送信権限有り](images/2-1-message_authok.png){#fig:message_authok width=40%}  
+![メッセージ送信権限有り](images/2-1-message_authok.png){#fig:message_authok width=300px}  
 
-![メッセージ送信権限無し](images/2-1-message_authng.png){#fig:message_authng width=40%}  
+![メッセージ送信権限無し](images/2-1-message_authng.png){#fig:message_authng width=300px}  
 
-![受信メッセージへの返信](images/2-1-operatoragent_messagewindow.png){#fig:operatoragent_messagewindow width=50%}
+![受信メッセージへの返信](images/2-1-operatoragent_messagewindow.png){#fig:operatoragent_messagewindow width=400px}
 
-![メッセージ送受信履歴あり](images/2-1-message_authngrireki.png){#fig:message_authngrireki width=40%}  
+![メッセージ送受信履歴あり](images/2-1-message_authngrireki.png){#fig:message_authngrireki width=300px}  
 
 
 No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
@@ -297,7 +297,7 @@ No. | 設定分類                 | 設定項目名       | デフォルト値 
 
   6. コンディション（感情メータ）  
 
-  ![オペレータコンディション](images/2-1-Condition.png){#fig:Condtiong width=40%}  
+  ![オペレータコンディション](images/2-1-Condition.png){#fig:Condtiong width=300px}  
 
 - 直近1時間分の通話のオペレータ感情の **ポジティブ・ネガティブ（nemesysco.qa5.excitement）**  の平均値をメータ表示しています。左に振れると "ネガティブ"、右に振れると "ポジティブ" という判断になります。[@tbl:oa_condition_con]  はコンディションに関連する ControlCenter の詳細設定項目です。
 
@@ -311,13 +311,13 @@ No. | 設定分類                 | 設定項目名       | デフォルト値 
 
 7. ログインユーザプロファイル
 - ログインユーザ名表示部分をクリックするとプロフィール機能が利用できます。  
-![ログイン情報](images/2-1-logininfo.png){#fig:logininfo width=40%}  
+![ログイン情報](images/2-1-logininfo.png){#fig:logininfo width=300px}  
 
 - プロフィールタブ（[@fig:oa_profile]）  
 ログイン情報の表示・画像の設定・削除・パスワード変更（関連する詳細設定項目は [@tbl:oa_pwchange_con]）が実施できます。  
 
 
-![プロフィール](images/2-1-profile.png){#fig:oa_profile width=40%}  
+![プロフィール](images/2-1-profile.png){#fig:oa_profile width=300px}  
 
 No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
 ---:|---------------------|------------------|--------------|------|
@@ -330,7 +330,7 @@ No. | 設定分類                 | 設定項目名       | デフォルト値 
 ControlCenter の詳細設定で設定された OperatorAgent の振る舞いを個人用にカスタマイズできます。  
 [@tbl:oa_user_con] は、表示項目と詳細設定項目の対応表です。
 
- ![OperatorAgent ユーザ設定](images/2-1-config.png){#fig:oa_user_con}  
+ ![OperatorAgent ユーザ設定](images/2-1-config.png){#fig:oa_user_con width=300px}  
 
 No. | 設定タブ項目 | 設定分類                 | 設定項目名       |
 ----:|---------------------|------------------|--------------|
@@ -615,17 +615,19 @@ No. | 設定分類| 設定項目名                | 内容      |
 
 #### 1-2-4. メイン画面機能 - 通話終了後の機能
 
-#### 1-2-5. OperatorAgent の起動・終了時の動作
-1. OperatorAgent 起動時の処理  
-  - OperatorAgent の自動更新処理  
-  OperatorAgent を起動すると、ログインダイアログが表示される前に自身のバージョンとサーバ側のバージョンの比較を行います。  
-    - OperatorAgent のバージョンがサーバのバージョンより古い場合には、自動的に更新処理が行われ OperatorAgent が自動的にバージョンアップします。この更新処理は機能として、正常なバージョンアップがされることが保証されています。  
+#### 1-2-5. OperatorAgent の起動・終了時の動作  
 
-    - OperatorAgent のバージョンがサーバのバージョンより新しい場合も同様に自動更新処理が行われ、 OperatorAgent の自動バージョンダウン処理が行われますが、この処理は機能によって正常更新が保証されない場合があります。  
+1. OperatorAgent 起動時の処理  
+- OperatorAgent の自動更新処理  
+  OperatorAgent を起動すると、ログインダイアログが表示される前に自身のバージョンとサーバ側のバージョンの比較を行います。  
+<br/>
+  - OperatorAgent のバージョンがサーバのバージョンより古い場合には、自動的に更新処理が行われ OperatorAgent が自動的にバージョンアップします。この更新処理は機能として、正常なバージョンアップがされることが保証されています。  
+<br/>
+  - OperatorAgent のバージョンがサーバのバージョンより新しい場合も同様に自動更新処理が行われ、 OperatorAgent の自動バージョンダウン処理が行われますが、この処理は機能によって正常更新が保証されない場合があります。  
   バージョンダウン処理がサポートされるかどうかは、そのときのバージョン次第です。必要がある場合には、サポートへお問合せください。  
-  #### `更新処理の注意事項`  
-  更新処理には、 **Windows Script Host （WSH）** の vbs がいくつか実行されます。セキュリティソフトによって、WSH の実行が阻害されてしまう環境では、自動更新処理が正常に行われません。（インストーラによる初期インストールでもバージョンアップインストールでも、WSH は実行されます。）  
-  自動更新処理で実行されるスクリプトは以下です。
+	<br/>`更新処理の注意事項`  
+  更新処理には、 **Windows Script Host （WSH）** の vbs がいくつか実行されます。（[@tbl:vbslist]）  
+	セキュリティソフトによって、WSH の実行が阻害されてしまう環境では、自動更新処理が正常に行われません。（インストーラによる初期インストールでもバージョンアップインストールでも、WSH は実行されます。）  
 
     No. | ファイル名 | 説明  |
     ----|---------------------|------------------|
@@ -636,8 +638,14 @@ No. | 設定分類| 設定項目名                | 内容      |
  5   | @352_SR_Web_RemoveFiles.vbs | バージョン毎にファイルのハッシュ値の変更はありませんが将来のバージョンで削除となる可能性はあります。 |
  6   | @Updater.vbs | ファイルが更新されていればハッシュ値も変更になります。 |
 
-    **※** 「@数字_モジュール_処理名.vbs」のファイルは、自動アップデート時に特定の処理を行う (不要になったファイルの削除や、不具合修正のための処理とか) 為にあるので、以降のバージョンで追加になる可能性があります。
-  - ライセンス引当  
+ 	: OperatorAgent のアップデート時に実行される vbs のリスト {#tbl:vbslist}  
+
+    **※ \@数字_モジュール_処理名.vbs のファイルは、特定の処理を行う (不要になったファイルの削除や、不具合修正のための処理とか) 為にあるので、以降のバージョンで追加になる可能性があります。**  
+		**※ 自動アップデート処理は、OperatorAgent の起動時の引数で停止できます。**
+
+<br/>
+
+- ライセンス引当  
     処理詳細は【要確認】  
 
 2. OperatorAgent 終了時の処理  
@@ -651,14 +659,31 @@ No. | 設定分類| 設定項目名                | 内容      |
   - あ
 
 #### 1-2-7. コマンドラインからの OperatorAgent 操作
-  1. OperatorAgent をコマンドラインから起動する
-  OperatorAgent は、コマンドラインから
-```
-  インストールパス\OperatorAgent.exe
-```
-  のように起動できます。  
+  1. OperatorAgent をコマンドラインから操作する  
+  OperatorAgent は、コマンドラインから  
+`インストールパス\OperatorAgent.exe --オプション＝値（-オプション 値）`  
+	のように起動（終了）できます。  
+	[@tbl:oa-option] はコマンドラインで指定可能なオプションの一覧です。  
 
-  2. OperatorAgent をコマンドラインから終了する  
+		No.| 内容 | オプション名 | 短いオプション名  
+--:|---|---|--
+1| ControlCenterの指定 | --server=[ControlCenterURL] | -s [ControlCenterURL]  
+2| ユーザIDの指定 | --user=[ユーザID] | -u [ユーザID]  
+3| パスワードの指定 | --password=[パスワード] | -p [パスワード]  
+4| 内線番号の指定 | --line=[内線番号] | -l [内線番号]  
+5| 自動アップデート禁止 | --disable-update |  
+6| 言語の指定 | --culture=[カルチャ名(\<languagecode2>-\<country/regioncode2>)] |  
+7| 起動中のOAを終了 | --exit |  
 
+		: OperatorAgent のコマンドラインオプション {#tbl:oa-option}  
+
+		![](images/Tips.jpg){width=50px}  
+		1. 一時的に OperatorAgent　の接続先をステージング環境に向けたいときなどに利用します。  
+		2. 3 パスワードと組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
+		3. 2 ユーザID と組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
+		4. 一時的に設定済みの内線番号ではない電話機と組み合わせてテストするときなどに指定します。  
+		5. なんらかの事情で OperatorAgent の自動バージョンアップをさせたくない場合に指定します。
+		5. 【要確認】
+		5. 端末の操作が著しく限定されていて、かつ、端末シャットダウン時には全てのアプリケーションを終了させないとシャットダウンできないような環境で利用されています。
 
 #### 1-2-8. OperatorAgent のインストール
