@@ -222,9 +222,11 @@ floating note right: ※ コマンドライン引数については \n 1-2-6. �
 <hr/>
 
 ### 1-2. OperatorAgent のメイン画面
-#### 1-2-1. メイン画面機能（常時利用可能）
+#### 1-2-1.OperatorAgent メニュー
 
   ![OperatorAgent メイン画面（起動直後）](images/2-1-operatoragentMain.png){#fig:mainblank width=70%}
+
+![OperatorAgent メニュー](images/1-2-oa_header.png){#fig:oa_header width=70%}
 
   1. OperatorAgent バージョン確認  
   画面の左上の OperatorAgent ロゴを右クリックすると表示されるメニュー（[@fig:logoclick]）から OperatorAgent のバージョンを確認することができます。（[@fig:oaversion]）  
@@ -350,15 +352,12 @@ No. | 設定タブ項目 | 設定分類                 | 設定項目名       
 #### 1-2-2. メイン画面機能 - 通話中の機能
 
 1. 通話内容  
-
-OperatorAgentにログイン中の内線番号に関する通話のイベントが表示されます。   
-
-
-① 状態通知  
+OperatorAgentにログイン中の内線番号に関する通話のイベントが表示されます。  
+<br/>
+ 	1. 状態通知  
 対象内線の通話状態を通知します。この通知は ControlCenter から OperatorAgent に対して http を経由して通知されます。  
 状態通知として表示されるイベントは次の通りです。  
-
-  `通話開始 / 通話終了`・・・OperatorAgentでログインした内線番号で通話が開始/終了した際に通知します。（[@fig:startobi] ）  
+`通話開始 / 通話終了`・・・OperatorAgentでログインした内線番号で通話が開始/終了した際に通知します。（[@fig:startobi] ）  
 
 ![通話開始/通話終了の状態通知](images/2-1-通話開始.png){#fig:startobi width=60% height=60%}  
 
