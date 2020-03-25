@@ -8,38 +8,32 @@ tblPrefix: '表.'
 ---
 
 # 詳解 Communication Suite 機能編
-## 誰も知らない Communication Suite の謎
 
 ## 目次
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [詳解 Communication Suite 機能編](#詳解-communication-suite-機能編)
-	- [誰も知らない Communication Suite の謎](#誰知-communication-suite-謎)
-	- [目次](#目次)
-	- [序章 トレーニングにあたって](#序章-)
-		- [トレーニングの目的](#目的)
-		- [トレーニング中の諸注意](#中諸注意)
-	- [第1章 OperatorAgent](#第1章-operatoragent)
-		- [1-1. OperatorAgent のログイン](#1-1-operatoragent-)
-			- [1-1-1. OperatorAgent でログインすることの意味](#1-1-1-operatoragent-意味)
-			- [1-1-2. OperatorAgent のログイン機能に関連する ControlCenter の詳細設定項目](#1-1-2-operatoragent-機能関連-controlcenter-詳細設定項目)
-			- [1-1-3. プロジェクトの選択](#1-1-3-選択)
-			- [1-1-4. 統合 Windows 認証](#1-1-4-統合-windows-認証)
-			- [1-1-5. OperatorAgent 自動ログイン（統合 Windows 認証を利用しない）](#1-1-5-operatoragent-自動統合-windows-認証利用)
-			- [1-1-5. OperatorAgent へのログイン失敗事由](#1-1-5-operatoragent-失敗事由)
-			- [1-1-6. 1-1 のまとめ](#1-1-6-1-1-)
-		- [1-2. OperatorAgent のメイン画面](#1-2-operatoragent-画面)
-			- [1-2-1. メイン画面機能](#1-2-1-画面機能)
-			- [1-2-2. メイン画面機能 - 通話中の機能](#1-2-2-画面機能-通話中機能)
-			- [1-2-2. メイン画面機能 - 通話中の機能](#1-2-2-画面機能-通話中機能)
-			- [1-2-3. メイン画面機能 - 通話終了後の機能](#1-2-3-画面機能-通話終了後機能)
-			- [1-2-４. OperatorAgent の起動・終了時の動作](#1-2-operatoragent-起動終了時動作)
-			- [1-2-5. OperatorAgent からのコマンド実行](#1-2-5-operatoragent-実行)
-			- [1-2-6. コマンドラインからの OperatorAgent 操作](#1-2-6-operatoragent-操作)
-			- [1-2-7. OperatorAgent のインストール](#1-2-7-operatoragent-)
+- [目次](#目次)
+- [序章 トレーニングにあたって](#序章-)
+	- [トレーニングの目的](#目的)
+	- [トレーニング中の諸注意](#中諸注意)
+- [第1章 OperatorAgent](#第1章-operatoragent)
+	- [1-1. OperatorAgent のログイン](#1-1-operatoragent-)
+		- [1-1-1. OperatorAgent でログインすることの意味](#1-1-1-operatoragent-意味)
+		- [1-1-2. OperatorAgent のログインに関連する ControlCenter の詳細設定項目](#1-1-2-operatoragent-関連-controlcenter-詳細設定項目)
+		- [1-1-3. プロジェクトの選択](#1-1-3-選択)
+		- [1-1-4. 統合 Windows 認証](#1-1-4-統合-windows-認証)
+		- [1-1-5. OperatorAgent 自動ログイン（統合 Windows 認証を利用しない）](#1-1-5-operatoragent-自動統合-windows-認証利用)
+		- [1-1-6. 本節のまとめ](#1-1-6-本節)
+	- [1-2. OperatorAgent のメイン画面](#1-2-operatoragent-画面)
+		- [1-2-1.OperatorAgent メニュー](#1-2-1operatoragent-)
+		- [1-2-2. 通話表示機能](#1-2-2-通話表示機能)
+		- [1-2-4. メイン画面機能 - 通話終了後の機能](#1-2-4-画面機能-通話終了後機能)
+		- [1-2-5. OperatorAgent の起動・終了時の動作](#1-2-5-operatoragent-起動終了時動作)
+		- [1-2-6. OperatorAgent からのコマンド実行](#1-2-6-operatoragent-実行)
+		- [1-2-7. コマンドラインからの OperatorAgent 操作](#1-2-7-operatoragent-操作)
+		- [1-2-8. OperatorAgent のインストール](#1-2-8-operatoragent-)
 
 <!-- /TOC -->
-
 ## 序章 トレーニングにあたって
 
 ### トレーニングの目的
@@ -189,7 +183,6 @@ floating note right: ※ コマンドライン引数については \n 1-2-6. �
 @enduml
 ```
 
-#### 1-1-5. OperatorAgent へのログイン失敗事由
 - [@tbl:oalogin] は、OperatorAgent の正常系ログインエラーをまとめたものです。（異常系は含んでいません。）
 
 	No. | 事由                 | ログインダイアログのメッセージ       | デバッグログへの出力 |
@@ -697,8 +690,8 @@ No. | 設定分類| 設定項目名                | 設定内容      |
 <br/>
   - OperatorAgent のバージョンがサーバのバージョンより新しい場合も同様に自動更新処理が行われ、 OperatorAgent の自動バージョンダウン処理が行われますが、この処理は機能によって正常更新が保証されない場合があります。  
   バージョンダウン処理がサポートされるかどうかは、そのときのバージョン次第です。必要がある場合には、サポートへお問合せください。  
-	<br/>`更新処理の注意事項`  
-  更新処理には、 **Windows Script Host （WSH）** の vbs がいくつか実行されます。（[@tbl:vbslist]）  
+	![](images/NOTICE.png){width=50px}  
+  更新処理では、 **Windows Script Host （WSH）** の vbs がいくつか実行されます。（[@tbl:vbslist]）  
 	セキュリティソフトによって、WSH の実行が阻害されてしまう環境では、自動更新処理が正常に行われません。（インストーラによる初期インストールでもバージョンアップインストールでも、WSH は実行されます。）  
 
     No. | ファイル名 | 説明  |
@@ -713,7 +706,11 @@ No. | 設定分類| 設定項目名                | 設定内容      |
  	: OperatorAgent のアップデート時に実行される vbs のリスト {#tbl:vbslist}  
 
     **※ \@数字_モジュール_処理名.vbs のファイルは、特定の処理を行う (不要になったファイルの削除や、不具合修正のための処理とか) 為にあるので、以降のバージョンで追加になる可能性があります。**  
-		**※ 自動アップデート処理は、OperatorAgent の起動時の引数で停止できます。**
+
+	<br/>  
+
+	![](images/Tips.jpg){width=50px}  
+		OperatorAgent をコマンドラインから引数付きで起動することで自動更新を抑制できます。（[1-2-6. コマンドラインからの OperatorAgent 操作](#1-2-6-operatoragent-操作) 参照。）  
 
 <br/>
 
