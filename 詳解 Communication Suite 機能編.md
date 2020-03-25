@@ -357,11 +357,11 @@ No. | 設定タブ項目 | 設定分類                 | 設定項目名       
   `通話切替`・・・録音対象としていたRTPパケットが切り替わったときに発生します。（[@fig:kirikaeobi] ）  
 
 
-![通話開始/通話終了の状態通知](images/2-1-通話開始.png){#fig:startobi width=60% height=60%}  
+![通話開始/通話終了の状態通知](images/2-1-通話開始.png){#fig:startobi width=600px}  
 
-![保留/保留解除の状態通知](images/2-1-保留.png){#fig:holdobi width=60% height=60%}  
+![保留/保留解除の状態通知](images/2-1-保留.png){#fig:holdobi width=600px}  
 
-![通話切替の状態通知](images/2-1-通話切替.png){#fig:kirikaeobi width=60% height=60%}  
+![通話切替の状態通知](images/2-1-通話切替.png){#fig:kirikaeobi width=600px}  
 
 <!-- 【要確認】![](images/Tips.jpg){width=50px}  
 OperatorAgent は Internet Explorer の設定を利用して通信します。  
@@ -372,7 +372,7 @@ OperatorAgent は Internet Explorer の設定を利用して通信します。
 認識結果は StreamingRecognizer と OperatorAgent の間で http で通信します。（[@fig:hatuwa] ）  
 通話内容は1文字ごとにテキスト配信されて発話単位で吹き出しが区切られます。
 
- ![認識結果の画面](images/2-1-通話内容.png){#fig:hatuwa width=60% height=60%}  
+ ![認識結果の画面](images/2-1-通話内容.png){#fig:hatuwa width=600px}  
 
 <p style="text-indent:2em">送話と受話で使用する音声認識エンジンは異なります。<br />　　ControlCenter - 認識オプションの設定で使用する音声認識エンジンを設定します。</p>
 
@@ -400,19 +400,19 @@ OperatorAgent は Internet Explorer の設定を利用して通信します。
   追加登録した辞書単語等の各種設定をダウンロードしているためです。
 
 
-2. 通話情報   
+2. 通話情報ビュー   
 通話中のオペレータの通話情報が表示されます。   
 この情報は通話相手によって変わらない情報のみを表示します。（[@fig:callinfo] ）  
   `自分の電話番号`・・・自番号  
   `自分のID　　　`・・・エージェントID  
 
-![通話情報の画面](images/2-1-通話情報.png){#fig:callinfo width=30% height=30%}  
+![通話情報の画面](images/2-1-通話情報.png){#fig:callinfo width=300px}  
 
-3. 通話相手  
+3. 通話相手ビュー  
  通話状態や通話相手の情報を表示します。   
 この情報は通話相手ごとに作成されます。（[@fig:callpartner] ）  
 
- ![通話相手の画面](images/2-1-通話相手.png){#fig:callpartner width=20% height=15%}  
+ ![通話相手の画面](images/2-1-通話相手.png){#fig:callpartner width=250px}  
 
 ![](images/Tips.jpg){width=50px}  
 相手の性別 は通話プロバイダから情報を取得するのではなく、性別識別用エンジンにて判断しています。   
@@ -490,10 +490,10 @@ No. | 通話属性キー | 表示ラベル名                | Amazon Connect	  
 
 
 
-4. 通話状態   
+4. 通話状態ビュー   
 通話状態にあわせてアイコンや時間が変化します。（ [@fig:callstate]）  
 
-![通話状態](images/2-1-通話状態.png){#fig:callstate width=25% height=25%}  
+![通話状態](images/2-1-通話状態.png){#fig:callstate width=250px}  
 
   `利用のヒント`  
 通話状態に表示される時間はキャプチャサーバの時刻を参照しています。  
@@ -501,13 +501,13 @@ No. | 通話属性キー | 表示ラベル名                | Amazon Connect	  
 - 通話時間・・・録音開始 / 録音終了時刻から取得
 - 保留・・・SIPまたはCTIイベントから取得
 
-5. 通話フィルタ   
+5. 通話フィルタビュー   
 登録したキーワードがテキスト化された場合に様々なアクションを実行できる機能です。  （ [@fig:callfilter1]）  （ [@fig:callfilter2]）  
 
- ![OperatorAgent 上の通話フィルタ画面](images/2-1-通話フィルタ1.png){#fig:callfilter1 width=25% height=25%}  
+ ![OperatorAgent 上の通話フィルタ画面](images/2-1-通話フィルタ1.png){#fig:callfilter1 width=250px}  
 
 
- ![OperatorAgent 通話フィルタポップアップ画面](images/2-1-通話フィルタ2.png){#fig:callfilter2 width=25% height=25%}  
+ ![OperatorAgent 通話フィルタポップアップ画面](images/2-1-通話フィルタ2.png){#fig:callfilter2 width=250px}  
 
 
 
@@ -546,7 +546,7 @@ No. | 通話属性キー | 表示ラベル名                | Amazon Connect	  
  6. ヘルプ    
 OperatorAgent から SpeechVisualizer の座席表に登録したヘルプ要求理由でアラート通知する機能です。([@fig:helpb]）  
 
- ![ヘルプボタン](images/2-1-ヘルプ.png){#fig:helpb width=20% height=20%}  
+ ![ヘルプボタン](images/2-1-ヘルプ.png){#fig:helpb width=200px}  
 
   `利用上の注意`  
 ヘルプを利用するには ControlCenter/モニタリング/ヘルプ要求理由管理、ヘルプ要求解除理由に登録が必要です。   
@@ -577,11 +577,11 @@ OperatorAgent から SpeechVisualizer の座席表に登録したヘルプ要求
 オペレータとカスタマの通話中の発話をリアルタイムで感情を数値化して表示する機能です。  
 この感情解析 ([@fig:emo]) は StreamingRecognizer から取得して表示しています。  
 
-  ![感情解析ポップアップ画面](images/2-1-感情解析.png){#fig:emo width=25% height=25%}
+  ![感情解析ポップアップ画面](images/2-1-感情解析.png){#fig:emo width=250px}
 
 通話終了後には通話の開始から通話終了までの感情のサマリ値([@fig:emosama])が表示されます。  
 
-![感情解析のサマリ画面](images/2-1-感情解析2.png){#fig:emosama width=35% height=35%}  
+![感情解析のサマリ画面](images/2-1-感情解析2.png){#fig:emosama width=350px}  
 
 感情解析ポップアップに表示する感情一覧は ControlCenter の詳細設定項目にあります。   
 
@@ -678,6 +678,15 @@ No. | 設定分類| 設定項目名                | 設定内容      |
 
 
 #### 1-2-4. メイン画面機能 - 通話終了後の機能
+
+1. SpeechVisualizer を開く  
+
+
+
+
+
+
+
 
 #### 1-2-5. OperatorAgent の起動・終了時の動作  
 
