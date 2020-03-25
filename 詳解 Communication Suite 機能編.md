@@ -346,10 +346,10 @@ No. | 設定タブ項目 | 設定分類                 | 設定項目名       
 
 1. 通話内容ビュー  
 
-   OperatorAgentにログインした内線のリアルタイムテキストと関連する通話状態や通知イベントを表示します。  
+   OperatorAgentにログインした内線番号の通話の認識結果と関連する通話状態や通知イベントを表示します。  
 
 - 状態通知  
-状態通知は ControlCenter から OperatorAgent に対して httpプロトコル を利用して通知されます。  
+状態通知は ControlCenter と OperatorAgent の間で http で通信します。  
 
 
   `通話開始 / 通話終了`・・・通話開始 / 通話終了した際に通知します。（[@fig:startobi] ）  
@@ -363,10 +363,10 @@ No. | 設定タブ項目 | 設定分類                 | 設定項目名       
 
 ![通話切替の状態通知](images/2-1-通話切替.png){#fig:kirikaeobi width=60% height=60%}  
 
-![](images/Tips.jpg){width=50px}  
+<!-- 【要確認】![](images/Tips.jpg){width=50px}  
 OperatorAgent は Internet Explorer の設定を利用して通信します。  
 インターネットオプションの設定でプロキシが設定されている場合、状態通知がブロックされます。  
-対処としてプロキシの例外リストにWEBサーバ のIPアドレスを登録する方法があります。   
+対処としてプロキシの例外リストにWEBサーバ のIPアドレスを登録する方法があります。    -->
 
 - リアルタイムテキスト配信  
 認識結果は StreamingRecognizer から OperatorAgent に対して httpプロトコル を利用して通知されます。（[@fig:hatuwa] ）  
@@ -374,8 +374,7 @@ OperatorAgent は Internet Explorer の設定を利用して通信します。
 
  ![認識結果の画面](images/2-1-通話内容.png){#fig:hatuwa width=60% height=60%}  
 
-送話と受話で使用する音声認識エンジンは異なります。  
-ControlCenter - 認識オプションの設定で使用する音声認識エンジンを設定します。  
+<p style="text-indent:2em">送話と受話で使用する音声認識エンジンは異なります。<br />　　ControlCenter - 認識オプションの設定で使用する音声認識エンジンを設定します。</p>
 
  No. | 設定タブ項目 | 設定項目名                | 設定値      |
  ----:|---------------------|------------------|--------------|
