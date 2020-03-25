@@ -346,31 +346,31 @@ No. | 設定タブ項目 | 設定分類                 | 設定項目名       
 
 1. 通話内容ビュー  
 
-   ログインした内線のリアルタイムテキストと関連する通話状態や通知イベントを表示します。  
+   OperatorAgentにログインした内線のリアルタイムテキストと関連する通話状態や通知イベントを表示します。  
 
 - 状態通知  
-状態通知は ControlCenter から OperatorAgent に対して http を経由して通知されます。  
+状態通知は ControlCenter から OperatorAgent に対して httpプロトコル を利用して通知されます。  
 
 
-  `通話開始 / 通話終了`・・・OperatorAgentでログインした内線番号で通話が開始/終了した際に通知します。（[@fig:startobi] ）  
-  `保留 / 保留解除`・・・オペレータ側で保留/保留解除をした際に通知します。（[@fig:holdobi] ）  
+  `通話開始 / 通話終了`・・・通話開始 / 通話終了した際に通知します。（[@fig:startobi] ）  
+  `保留 / 保留解除　　`・・・オペレータ側の操作で保留 / 保留解除をした際に通知します。（[@fig:holdobi] ）  
   `通話切替`・・・録音対象としていたRTPパケットが切り替わったときに発生します。（[@fig:kirikaeobi] ）  
 
 
 ![通話開始/通話終了の状態通知](images/2-1-通話開始.png){#fig:startobi width=60% height=60%}  
 
-
-
-
 ![保留/保留解除の状態通知](images/2-1-保留.png){#fig:holdobi width=60% height=60%}  
-
-
-
 
 ![通話切替の状態通知](images/2-1-通話切替.png){#fig:kirikaeobi width=60% height=60%}  
 
-- 認識結果  
-通話開始後、StreamingRecognizer から認識結果を取得して送話と受話の認識結果（[@fig:hatuwa] ）を表示します。  
+![](images/Tips.jpg){width=50px}  
+OperatorAgent は Internet Explorer の設定を利用して通信します。  
+インターネットオプションの設定でプロキシが設定されている場合、状態通知がブロックされます。  
+対処としてプロキシの例外リストにWEBサーバ のIPアドレスを登録する方法があります。   
+
+- リアルタイムテキスト配信  
+認識結果は StreamingRecognizer から OperatorAgent に対して httpプロトコル を利用して通知されます。（[@fig:hatuwa] ）  
+通話内容は1文字ごとにテキスト配信されて発話単位で吹き出しが区切られます。
 
  ![認識結果の画面](images/2-1-通話内容.png){#fig:hatuwa width=60% height=60%}  
 
@@ -388,35 +388,34 @@ ControlCenter - 認識オプションの設定で使用する音声認識エン�
 - **通話開始の状態通知が表示されない**  
   - 対象内線で録音ができていない  
   - OperatorAgent でログインしている内線番号と通話中の内線番号が一致していない  
-  - OperatorAgent をプロキシ経由で利用している
+  - Internet Explorer でプロキシが設定されている
 
 
 
-- **通話開始・通話終了の帯は表示されるが、テキスト結果が表示されない**  
-  - クライアント端末から StreamingRecognizer のHTTPポートに接続ができていない  
+- **通話開始・通話終了の状態通知は表示されるが、テキスト結果が表示されない**  
+  - OperatorAgent から StreamingRecognizer のHTTPポートに接続ができていない  
   - ControlCenter - 認識オプションの音声認識エンジンモードが設定されていない   
 
-- **OperatorAgent起動後の最初の通話で認識結果が遅れて表示される**  
+- **OperatorAgent起動後の一番最初の通話で認識結果が遅れて表示される**  
   - 仕様となります。初回認識処理時にはテキスト化に利用するエンジンモードや  
   追加登録した辞書単語等の各種設定をダウンロードしているためです。
 
 
 2. 通話情報   
 通話中のオペレータの通話情報が表示されます。   
-この情報は通話属性が取得できる場合に（[@fig:callinfo] ）のように通話相手によって変更されない情報のみを表示します。  
+この情報は通話相手によって変わらない情報のみを表示します。（[@fig:callinfo] ）  
   `自分の電話番号`・・・自番号  
-  `自分のID`・・・エージェントID  
+  `自分のID　　　`・・・エージェントID  
 
 ![通話情報の画面](images/2-1-通話情報.png){#fig:callinfo width=30% height=30%}  
 
 3. 通話相手  
- 通話状態や通話相手の情報を表示します。（[@fig:callpartner] ）   
-この情報は通話相手が切り替わる度に作成されます。  
-取得可能な情報は通話プロバイダにより異なります。  
+ 通話状態や通話相手の情報を表示します。   
+この情報は通話相手ごとに作成されます。（[@fig:callpartner] ）  
 
  ![通話相手の画面](images/2-1-通話相手.png){#fig:callpartner width=20% height=15%}  
 
-   `補足情報 1`   
+![](images/Tips.jpg){width=50px}  
 相手の性別 は通話プロバイダから情報を取得するのではなく、性別識別用エンジンにて判断しています。   
 相手の性別 に関連する設定項目は ControlCenter/認識管理/認識オプション にあります。   
 
@@ -428,7 +427,7 @@ ControlCenter - 認識オプションの設定で使用する音声認識エン�
  4   |カスタマタブ | 性別識別に使用する発話時間（最大） | 性別識別の判定に使用する発話時間の最大値   
  5   |カスタマタブ | 性別識別に使用する発話時間（最小） | 性別識別の判定に使用する発話時間の最小値
 
-  `補足情報 2`   
+![](images/Tips.jpg){width=50px}  
 オペレータ側の性別判断は性別識別用エンジンを利用していません。   
 オペレータ側の性別判断は ControlCenter/ユーザ管理/ のユーザごとのユーザ管理 - 詳細 設定の性別から判断しています。
 
@@ -500,7 +499,7 @@ No. | 通話属性キー | 表示ラベル名                | Amazon Connect	  
   `利用のヒント`  
 通話状態に表示される時間はキャプチャサーバの時刻を参照しています。  
 
-- 通話時間・・・録音開始/録音終了時刻から取得
+- 通話時間・・・録音開始 / 録音終了時刻から取得
 - 保留・・・SIPまたはCTIイベントから取得
 
 5. 通話フィルタ   
@@ -601,9 +600,9 @@ No. | 設定分類| 設定項目名                | 設定内容      |
   1   |共通 - 感情解析| 保存する感情スコア| （感情解析識別名）.（話者)で指定    
 
  `表示する感情の注意点`   
-**表示する感情はパフォーマンスの観点からデフォルトで登録されている８つまでの感情に抑えるようにしてください。**   
-  保存する感情スコアに設定した感情のみが感情のサマリ値（最小/平均/最大/開始/終了）をデータベースに保存します。  
-  表示する感情スコアに登録されていない感情は発話単位の感情値のみがデータベースに保存されます。   
+**表示する感情はデータベースのパフォーマンスの観点からデフォルトで登録されている８つまでの感情に抑えるようにしてください。  
+  「保存する感情スコア」に設定した感情のみが感情のサマリ値（最小/平均/最大/開始/終了）をデータベースに保存されます。  
+  「保存する感情スコア」に登録されていない感情については発話単位の感情値は取得できます。 Emotion ファイルに保存されます。**
 
 
 
@@ -641,18 +640,18 @@ No. | 設定分類| 設定項目名                | 設定内容      |
   29   |nemesysco.qa5.voicevolume      |ボリューム         |  |「音のエネルギー」とは別の計算方法で算出した音の強さ(Volume)を示す値      |
   30   |nemesysco.qa5.anticipation      |期待         |  |期待・興味を示す値      |
   31   |nemesysco.qa5.dissatisfaction      |不満         |  |不満かどうかを示す値      |
-	32   |nemesysco.qa5.callpriority      |通話重要度         |  |      |
-  33   |nemesysco.qa5.agentscore      |エージェントスコア         |  |      |
-  34  |nemesysco.qa5.emotionlevel      |感情レベル         |  |      |
-  35   |nemesysco.qa5.logicallevel      |倫理的レベル         |  |      |
-  36   |nemesysco.qa5.hesitantlevel      |困惑レベル         |  |      |
-  37   |nemesysco.qa5.stresslevel      |緊張レベル         |  |      |
-	38   |nemesysco.qa5.energeticlevel      |活動レベル         |  |      |
-  39   |nemesysco.qa5.thinkinglevel      |思考レベル         |  |      |
-  40  |nemesysco.qa5.passionlevel      |情熱レベル         |  |      |
-  41   |nemesysco.qa5.concentrationlevel      |集中レベル         |  |      |
-  42   |nemesysco.qa5.shylevel      |疑いレベル         |  |      |
-  43   |nemesysco.qa5.anticipationlevel      |期待レベル         |  |      |
+	32   |nemesysco.qa5.callpriority      |通話重要度         |  |通話の中で重要と思われる箇所を複数の感情から算出して値を示す      |
+  33   |nemesysco.qa5.agentscore      |エージェントスコア         |  |関連するいくつかの感情の要約を示す。値が大きいほど、変化の度合いが激しいことを示す。      |
+  34  |nemesysco.qa5.emotionlevel      |感情レベル         |  |利用用途については検討中      |
+  35   |nemesysco.qa5.logicallevel      |倫理的レベル         |  |利用用途については検討中      |
+  36   |nemesysco.qa5.hesitantlevel      |困惑レベル         |  |利用用途については検討中      |
+  37   |nemesysco.qa5.stresslevel      |緊張レベル         |  |利用用途については検討中      |
+	38   |nemesysco.qa5.energeticlevel      |活動レベル         |  |利用用途については検討中      |
+  39   |nemesysco.qa5.thinkinglevel      |思考レベル         |  |利用用途については検討中      |
+  40  |nemesysco.qa5.passionlevel      |情熱レベル         |  |利用用途については検討中      |
+  41   |nemesysco.qa5.concentrationlevel      |集中レベル         |  |利用用途については検討中      |
+  42   |nemesysco.qa5.shylevel      |疑いレベル         |  |利用用途については検討中      |
+  43   |nemesysco.qa5.anticipationlevel      |期待レベル         |  |利用用途については検討中      |
 
 
 
