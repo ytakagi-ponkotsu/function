@@ -76,7 +76,7 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 5   |  内線番号の情報が必要かどうか | S        | R = 必須, S = サーバ版では必須, N = 入力しない |
 6   |  内線番号の保存 | false        | 最後にログイン成功した内線番号を保存する |
 
-: 詳細設定 設定分類 : OperatorAgent - ログイン {#tbl:table}  
+: 詳細設定 設定分 : OperatorAgent - ログイン {#tbl:table}  
 
  - [@tbl:table] の No.4 『内線番号の指定』 を **"true"** にすることで、ログインダイアログに内線番号入力欄が追加されます。（[@fig:naisenari]。VDI 等のシンクライアント環境で、クライアント PC と電話機を固定で紐付けできない場合に有効です。）  
 
@@ -357,11 +357,11 @@ No. | 設定タブ項目 | 設定分類                 | 設定項目名       
   `通話切替`・・・録音対象としていたRTPパケットが切り替わったときに発生します。（[@fig:kirikaeobi] ）  
 
 
-![通話開始/通話終了の状態通知](images/2-1-通話開始.png){#fig:startobi width=60% height=60%}  
+![通話開始/通話終了の状態通知](images/2-1-通話開始.png){#fig:startobi width=600px}  
 
-![保留/保留解除の状態通知](images/2-1-保留.png){#fig:holdobi width=60% height=60%}  
+![保留/保留解除の状態通知](images/2-1-保留.png){#fig:holdobi width=600px}  
 
-![通話切替の状態通知](images/2-1-通話切替.png){#fig:kirikaeobi width=60% height=60%}  
+![通話切替の状態通知](images/2-1-通話切替.png){#fig:kirikaeobi width=600px}  
 
 <!-- 【要確認】![](images/Tips.jpg){width=50px}  
 OperatorAgent は Internet Explorer の設定を利用して通信します。  
@@ -369,18 +369,22 @@ OperatorAgent は Internet Explorer の設定を利用して通信します。
 対処としてプロキシの例外リストにWEBサーバ のIPアドレスを登録する方法があります。    -->
 
 - リアルタイムテキスト配信  
-認識結果は StreamingRecognizer から OperatorAgent に対して httpプロトコル を利用して通知されます。（[@fig:hatuwa] ）  
+認識結果は StreamingRecognizer と OperatorAgent の間で http で通信します。（[@fig:hatuwa] ）  
 通話内容は1文字ごとにテキスト配信されて発話単位で吹き出しが区切られます。
 
- ![認識結果の画面](images/2-1-通話内容.png){#fig:hatuwa width=60% height=60%}  
+ ![認識結果の画面](images/2-1-通話内容.png){#fig:hatuwa width=600px}  
 
-<p style="text-indent:2em">送話と受話で使用する音声認識エンジンは異なります。<br />　　ControlCenter - 認識オプションの設定で使用する音声認識エンジンを設定します。</p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[@tbl:enjin] は、送話と受話で使用する音声認識エンジンの設定です。  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ ControlCenter - 認識オプションに設定項目があります。
 
  No. | 設定タブ項目 | 設定項目名                | 設定値      |
  ----:|---------------------|------------------|--------------|
  1   | オペレータ | 音声認識用エンジンモード | AMI提供のオペレータ用音声認識エンジンを登録 |
  2   | カスタマ | 音声認識用エンジンモード | AMI提供のカスタマ用音声認識エンジンを登録 |  
 
+: 音声認識エンジンモードの設定 {#tbl:enjin}  
 
 `よくある質問`  
 
@@ -400,23 +404,87 @@ OperatorAgent は Internet Explorer の設定を利用して通信します。
   追加登録した辞書単語等の各種設定をダウンロードしているためです。
 
 
-2. 通話情報   
+2. 通話情報ビュー   
 通話中のオペレータの通話情報が表示されます。   
 この情報は通話相手によって変わらない情報のみを表示します。（[@fig:callinfo] ）  
   `自分の電話番号`・・・自番号  
   `自分のID　　　`・・・エージェントID  
 
-![通話情報の画面](images/2-1-通話情報.png){#fig:callinfo width=30% height=30%}  
+![通話情報の画面](images/2-1-通話情報.png){#fig:callinfo width=300px}  
 
-3. 通話相手  
+3. 通話相手ビュー  
  通話状態や通話相手の情報を表示します。   
 この情報は通話相手ごとに作成されます。（[@fig:callpartner] ）  
 
- ![通話相手の画面](images/2-1-通話相手.png){#fig:callpartner width=20% height=15%}  
+ ![通話相手の画面](images/2-1-通話相手.png){#fig:callpartner width=250px}  
+
+[@tbl:callb] は、通話情報ビュー、通話相手ビューの設定項目です。
+ControlCenter の詳細設定に設定項目があります。
+
+  No. | 設定タブ項目 | 設定項目名                | 設定内容      |
+  ----:|---------------------|------------------|--------------|
+  1   |OperatorAgent - 通話 | 表示する通話属性の一覧 | （通話属性識別名）＝（名称)で指定  
+
+: OperatorAgent 表示する通話属性の設定 {#tbl:callb}  
+
+[@tbl:callb2] は、表示する通話属性で利用可能な通話属性の一覧です。(通話プロバイダにより利用できる通話属性が異なります。)
+
+ No. | 通話属性識別名 | 名称                | Amazon Connect	      | Avaya AES    | Avaya     | SIP CIC     | SIP CTstage    |SIP OAI     | SIP T-Server      |
+ ----:|---------------------|------------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|
+ 1   |amivoice.common.description | 備考 |  |  |  |  |  |  |  |
+ 2   |amivoice.common.direction | 向き|〇|〇|〇|〇|〇|〇|〇|
+ 3   |amivoice.common.linetype | 通話回線種別 |  |〇|  |〇|〇|〇|〇|
+ 4   |amivoice.common.summary| 要約 |   |  |  |  |  |  |  |
+ 5   |amivoice.common.headline| 見出し |   |  |  |  |  |  |  |
+ 6   |amivoice.common.mark | マーク |   |  |  |  |  |  |  |
+ 7   |amivoice.common.operator.key | 自分の識別名 |〇|〇|  |〇|〇|  |  |
+ 8   |amivoice.common.operator.name| 自分の名称|〇|  |  |  |〇|  |  |
+ 9   |amivoice.common.operator.phonenumber| 自番号 |〇|〇|〇|〇|〇|〇|〇|
+ 10   |amivoice.common.operator.group| 自分の所属グループ |〇|  |  |  |〇|  |  |
+ 11   |amivoice.common.operator.hostname | 自分のホスト名 |   |  |  |  |〇|  |  |
+ 12   |amivoice.common.customer.key | 相手の識別名 |   |  |  |〇|〇|  |  |
+ 13   |amivoice.common.customer.name | 相手の名称 |   |  |  |  |〇|  |  |
+ 14   |amivoice.common.customer.phonenumber| 相手番号|〇|〇|〇|〇|〇|〇|〇|
+ 15   |amivoice.common.customer.gender | 相手の性別 |   |  |  |  |  |  |  |
+ 16  |amivoice.common.telephony.dialin.phonenumber | ダイヤルイン番号 |   |  |  |〇|〇|〇|  |
+ 17   |amivoice.common.telephony.called.phonenumber | 掛先番号 |  |〇|〇|  |  |  |  |
+ 18   |amivoice.common.telephony.alerting.phonenumber | 呼出先番号|   |〇|  |  |  |  |  |
+ 19   |amivoice.common.telephony.trunk.group | トランクグループ |  |〇|  |〇|〇|〇|〇|
+ 20   |amivoice.common.telephony.trunk.member| トランクメンバ|  |〇|  |  |  |〇|  |
+ 21   |amivoice.common.telephony.queue.phonenumber| 通話キュー番号|   |〇|  |〇|  |  |  |
+ 22   |amivoice.common.telephony.transfer.source.key | 転送元識別名 |   |  |  |  |〇|  |  |
+ 23   |amivoice.common.telephony.transfer.source.name | 転送元名称 |   |  |  |  |〇|〇|  |
+ 24   |amivoice.common.telephony.transfer.source.phonenumber | 転送元番号 |   |〇|  |  |〇|  |〇|
+ 25   |amivoice.common.telephony.transfer.destination.key| 転送先識別名 |   |  |  |  |〇|  |  |
+ 26   |amivoice.common.telephony.transfer.destination.name | 転送先名称 |   |  |  |  |〇|  |  |
+ 27   |amivoice.common.telephony.transfer.destination.phonenumber | 転送先番号 |   |〇|  |  |〇|〇|〇|
+ 28   |amivoice.common.telephony.monitoring.target.key | モニタリング対象識別名 |   |  |  |〇|  |  |  |
+ 29   |amivoice.common.telephony.monitoring.target.name| モニタリング対象名称 |   |  |  |〇|  |  |  |
+ 30   |amivoice.common.telephony.monitoring.target.phonenumber| モニタリング対象番号 |   |  |  |〇|  |  |  |
+ 31   |amivoice.common.telephony.monitoring.target.type | 	モニタリング種別  |   |  |  |〇|  |  |  |
+ 32   |amivoice.common.reference.global.id | グローバル参照用のID |〇|〇|  | 〇|〇|  |〇|
+ 33   |amivoice.common.reference.global.url | グローバル参照用のURL |   |  |  |  |  |  |  |
+ 34   |amivoice.common.reference.local.id| ローカル参照用のID |   |〇|  |〇|  |  |  |
+ 35   |amivoice.common.reference.local.url| ローカル参照用のURL |   |  |  |  |  |  |  |
+ 36   |amivoice.common.reference.site.id | サイト参照用のID|   |  |  |  |  |  |  |
+ 37   |amivoice.common.reference.site.url| サイト参照用のURL |   |  |  |  |  |  |  |
+ 38   |amivoice.common.reference.private.id| プライベート参照用のID |   |  |  |  |  |  |  |
+ 39   |amivoice.common.reference.private.url | プライベート参照用のURL |   |  |  |  |  |  |  |
+ 40   |amivoice.common.recording.limit| 録音制限時間到達 |   |  |  |  |  |  |  |
+ 41   |amivoice.common.recording.split| 録音分割 |   |  |  |  |  |  |  |
+ 42   |amivoice.common.recording.split.previous| 録音分割された直前の通話 |   |  |  |  |  |  |  |
+ 43   |amivoice.common.reference.recording.id | 録音区間参照用のID |   |  |  |  |  |  |  |
+ 44   |amivoice.common.reference.recording.url | 録音区間参照用のURL |   |  |  |  |  |  |  |
+ 45   |amivoice.common.telephony.distributing.phonenumber| 受電グループ番号|  |〇|  |  |  |  |  |
+ 46   |amivoice.common.telephony.ivr.duration| IVR 応対時間 |   |〇|  |  |  |  |  |
+ 47   |amivoice.common.telephony.queue.duration | 待ち時間 |   |〇|  |  |  |  |  |
+
+: OperatorAgent 表示する通話属性で利用可能な通話属性一覧 {#tbl:callb2}  
+
 
 ![](images/Tips.jpg){width=50px}  
 相手の性別 は通話プロバイダから情報を取得するのではなく、性別識別用エンジンにて判断しています。   
-相手の性別 に関連する設定項目は ControlCenter/認識管理/認識オプション にあります。   
+[@tbl:seibetuenjin] は性別識別エンジンに関連する設定項目となり、ControlCenter/認識管理/認識オプション にあります。   
 
  No. | 設定タブ項目 | 設定項目名                | 内容      |
  ----:|---------------------|------------------|--------------|
@@ -426,74 +494,17 @@ OperatorAgent は Internet Explorer の設定を利用して通信します。
  4   |カスタマタブ | 性別識別に使用する発話時間（最大） | 性別識別の判定に使用する発話時間の最大値   
  5   |カスタマタブ | 性別識別に使用する発話時間（最小） | 性別識別の判定に使用する発話時間の最小値
 
+: カスタマ 性別識別用エンジン設定 {#tbl:seibetuenjin}  
+
 ![](images/Tips.jpg){width=50px}  
 オペレータ側の性別判断は性別識別用エンジンを利用していません。   
 オペレータ側の性別判断は ControlCenter/ユーザ管理/ のユーザごとのユーザ管理 - 詳細 設定の性別から判断しています。
 
-通話情報、通話相手の ControlCenter の詳細設定項目は以下です。   
 
- No. | 設定タブ項目 | 設定項目名                | 設定内容      |
- ----:|---------------------|------------------|--------------|
- 1   |OperatorAgent - 通話 | 表示する通話属性の一覧 | （通話属性キー）＝（表示ラベル名)で指定  
-
-利用可能な設定値は以下です。(通話プロバイダにより取得できる属性が異なります。)
-
-No. | 通話属性キー | 表示ラベル名                | Amazon Connect	      | Avaya AES    | Avaya     | SIP CIC     | SIP CTstage    |SIP OAI     | SIP T-Server      |
-----:|---------------------|------------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|
-1   |amivoice.common.description | 備考 |  |  |  |  |  |  |  |
-2   |amivoice.common.direction | 向き|〇|〇|〇|〇|〇|〇|〇|
-3   |amivoice.common.linetype | 通話回線種別 |  |〇|  |〇|〇|〇|〇|
-4   |amivoice.common.summary| 要約 |   |  |  |  |  |  |  |
-5   |amivoice.common.headline| 見出し |   |  |  |  |  |  |  |
-6   |amivoice.common.mark | マーク |   |  |  |  |  |  |  |
-7   |amivoice.common.operator.key | 自分の識別名 |〇|〇|  |〇|〇|  |  |
-8   |amivoice.common.operator.name| 自分の名称|〇|  |  |  |〇|  |  |
-9   |amivoice.common.operator.phonenumber| 自番号 |〇|〇|〇|〇|〇|〇|〇|
-10   |amivoice.common.operator.group| 自分の所属グループ |〇|  |  |  |〇|  |  |
-11   |amivoice.common.operator.hostname | 自分のホスト名 |   |  |  |  |〇|  |  |
-12   |amivoice.common.customer.key | 相手の識別名 |   |  |  |〇|〇|  |  |
-13   |amivoice.common.customer.name | 相手の名称 |   |  |  |  |〇|  |  |
-14   |amivoice.common.customer.phonenumber| 相手番号|〇|〇|〇|〇|〇|〇|〇|
-15   |amivoice.common.customer.gender | 相手の性別 |   |  |  |  |  |  |  |
-16  |amivoice.common.telephony.dialin.phonenumber | ダイヤルイン番号 |   |  |  |〇|〇|〇|  |
-17   |amivoice.common.telephony.called.phonenumber | 掛先番号 |  |〇|〇|  |  |  |  |
-18   |amivoice.common.telephony.alerting.phonenumber | 呼出先番号|   |〇|  |  |  |  |  |
-19   |amivoice.common.telephony.trunk.group | トランクグループ |  |〇|  |〇|〇|〇|〇|
-20   |amivoice.common.telephony.trunk.member| トランクメンバ|  |〇|  |  |  |〇|  |
-21   |amivoice.common.telephony.queue.phonenumber| 通話キュー番号|   |〇|  |〇|  |  |  |
-22   |amivoice.common.telephony.transfer.source.key | 転送元識別名 |   |  |  |  |〇|  |  |
-23   |amivoice.common.telephony.transfer.source.name | 転送元名称 |   |  |  |  |〇|〇|  |
-24   |amivoice.common.telephony.transfer.source.phonenumber | 転送元番号 |   |〇|  |  |〇|  |〇|
-25   |amivoice.common.telephony.transfer.destination.key| 転送先識別名 |   |  |  |  |〇|  |  |
-26   |amivoice.common.telephony.transfer.destination.name | 転送先名称 |   |  |  |  |〇|  |  |
-27   |amivoice.common.telephony.transfer.destination.phonenumber | 転送先番号 |   |〇|  |  |〇|〇|〇|
-28   |amivoice.common.telephony.monitoring.target.key | モニタリング対象識別名 |   |  |  |〇|  |  |  |
-29   |amivoice.common.telephony.monitoring.target.name| モニタリング対象名称 |   |  |  |〇|  |  |  |
-30   |amivoice.common.telephony.monitoring.target.phonenumber| モニタリング対象番号 |   |  |  |〇|  |  |  |
-31   |amivoice.common.telephony.monitoring.target.type | 	モニタリング種別  |   |  |  |〇|  |  |  |
-32   |amivoice.common.reference.global.id | グローバル参照用のID |〇|〇|  | 〇|〇|  |〇|
-33   |amivoice.common.reference.global.url | グローバル参照用のURL |   |  |  |  |  |  |  |
-34   |amivoice.common.reference.local.id| ローカル参照用のID |   |〇|  |〇|  |  |  |
-35   |amivoice.common.reference.local.url| ローカル参照用のURL |   |  |  |  |  |  |  |
-36   |amivoice.common.reference.site.id | サイト参照用のID|   |  |  |  |  |  |  |
-37   |amivoice.common.reference.site.url| サイト参照用のURL |   |  |  |  |  |  |  |
-38   |amivoice.common.reference.private.id| プライベート参照用のID |   |  |  |  |  |  |  |
-39   |amivoice.common.reference.private.url | プライベート参照用のURL |   |  |  |  |  |  |  |
-40   |amivoice.common.recording.limit| 録音制限時間到達 |   |  |  |  |  |  |  |
-41   |amivoice.common.recording.split| 録音分割 |   |  |  |  |  |  |  |
-42   |amivoice.common.recording.split.previous| 録音分割された直前の通話 |   |  |  |  |  |  |  |
-43   |amivoice.common.reference.recording.id | 録音区間参照用のID |   |  |  |  |  |  |  |
-44   |amivoice.common.reference.recording.url | 録音区間参照用のURL |   |  |  |  |  |  |  |
-45   |amivoice.common.telephony.distributing.phonenumber| 受電グループ番号|  |〇|  |  |  |  |  |
-46   |amivoice.common.telephony.ivr.duration| IVR 応対時間 |   |〇|  |  |  |  |  |
-47   |amivoice.common.telephony.queue.duration | 待ち時間 |   |〇|  |  |  |  |  |
-
-
-
-4. 通話状態   
+4. 通話状態ビュー   
 通話状態にあわせてアイコンや時間が変化します。（ [@fig:callstate]）  
 
-![通話状態](images/2-1-通話状態.png){#fig:callstate width=25% height=25%}  
+![通話状態](images/2-1-通話状態.png){#fig:callstate width=250px}  
 
   `利用のヒント`  
 通話状態に表示される時間はキャプチャサーバの時刻を参照しています。  
@@ -501,13 +512,13 @@ No. | 通話属性キー | 表示ラベル名                | Amazon Connect	  
 - 通話時間・・・録音開始 / 録音終了時刻から取得
 - 保留・・・SIPまたはCTIイベントから取得
 
-5. 通話フィルタ   
+5. 通話フィルタビュー   
 登録したキーワードがテキスト化された場合に様々なアクションを実行できる機能です。  （ [@fig:callfilter1]）  （ [@fig:callfilter2]）  
 
- ![OperatorAgent 上の通話フィルタ画面](images/2-1-通話フィルタ1.png){#fig:callfilter1 width=25% height=25%}  
+ ![OperatorAgent 上の通話フィルタ画面](images/2-1-通話フィルタ1.png){#fig:callfilter1 width=250px}  
 
 
- ![OperatorAgent 通話フィルタポップアップ画面](images/2-1-通話フィルタ2.png){#fig:callfilter2 width=25% height=25%}  
+ ![OperatorAgent 通話フィルタポップアップ画面](images/2-1-通話フィルタ2.png){#fig:callfilter2 width=250px}  
 
 
 
@@ -515,15 +526,13 @@ No. | 通話属性キー | 表示ラベル名                | Amazon Connect	  
 通話フィルタはリアルタイムでレスポンスを返すことを重視した設計となっており、発動条件としては以下になります。  
 
 - 登録したキーワードを検知したタイミング
-- 認識結果が確定前の状態（※）  
+- 認識結果が確定前の（※）  
 （※）前後の文字の繋がりにより、最終的に認識結果が変わる場合があります。
 
 つまり、１つのセグメント（発話）が完了するまで通話フィルタの処理を待つわけではなく  
 キーワードを検知したタイミングですぐに処理が実行されます。  
 
-
-
- 通話フィルタの ControlCenter の詳細設定項目は以下です。   
+[@tbl:callfilter] は、通話フィルタの ControlCenter の詳細設定項目です。  
 
   No. | 設定タブ項目 | 設定項目名                | 内容      |
  ----:|---------------------|------------------|--------------|
@@ -534,7 +543,7 @@ No. | 通話属性キー | 表示ラベル名                | Amazon Connect	  
  5   |OperatorAgent - 通知メッセージ | 一度に通知する通話フィルタの対象発話数| OperatorAgent起動時に、検出済みの通話フィルタが大量に表示されるのを防止する機能。「-1」を指定した場合、通話内でそれまで検知した全ての通話フィルタの通知メッセージを表示  
  6   |共通 - 通話フィルタインポート | 通話フィルタインポートリクエストタイムアウト| インポート失敗を防ぐことを目的とした機能。有効値は「120以上の整数」
 
-
+: OperatorAgent 通話フィルタの設定 {#tbl:callfilter}  
 
   `よくある質問`
 
@@ -546,7 +555,7 @@ No. | 通話属性キー | 表示ラベル名                | Amazon Connect	  
  6. ヘルプ    
 OperatorAgent から SpeechVisualizer の座席表に登録したヘルプ要求理由でアラート通知する機能です。([@fig:helpb]）  
 
- ![ヘルプボタン](images/2-1-ヘルプ.png){#fig:helpb width=20% height=20%}  
+ ![ヘルプボタン](images/2-1-ヘルプ.png){#fig:helpb width=200px}  
 
   `利用上の注意`  
 ヘルプを利用するには ControlCenter/モニタリング/ヘルプ要求理由管理、ヘルプ要求解除理由に登録が必要です。   
@@ -559,7 +568,7 @@ OperatorAgent から SpeechVisualizer の座席表に登録したヘルプ要求
 - 通話中にヘルプ要求を実施、通話終了後にヘルプ要求を自動解除
 
 
- ヘルプに関する ControlCenter の詳細設定項目は以下です。
+[@tbl:help] は、ヘルプに関する ControlCenter の詳細設定項目は以下です。
 
  No. | 設定分類| 設定項目名                | 内容      |
 ----:|---------------------|------------------|--------------|
@@ -571,40 +580,47 @@ OperatorAgent から SpeechVisualizer の座席表に登録したヘルプ要求
 6   |OperatorAgent - 通話  |通話開始時にヘルプを解除する |通話開始時にヘルプ要求中だった場合、自動で解除するかどうか
 7   |OperatorAgent - 通話  |通話終了時にヘルプを解除する |通話終了時にヘルプ要求中だった場合、解除するかどうか  
 
-
+: OperatorAgent ヘルプ設定 {#tbl:help}  
 
 7. 感情解析ポップアップ   
 オペレータとカスタマの通話中の発話をリアルタイムで感情を数値化して表示する機能です。  
 この感情解析 ([@fig:emo]) は StreamingRecognizer から取得して表示しています。  
 
-  ![感情解析ポップアップ画面](images/2-1-感情解析.png){#fig:emo width=25% height=25%}
+  ![感情解析ポップアップ画面](images/2-1-感情解析.png){#fig:emo width=250px}
 
 通話終了後には通話の開始から通話終了までの感情のサマリ値([@fig:emosama])が表示されます。  
 
-![感情解析のサマリ画面](images/2-1-感情解析2.png){#fig:emosama width=35% height=35%}  
+![感情解析のサマリ画面](images/2-1-感情解析2.png){#fig:emosama width=350px}  
 
-感情解析ポップアップに表示する感情一覧は ControlCenter の詳細設定項目にあります。   
+[@tbl:emopop] は、表示する感情の設定項目です。ControlCenter の詳細設定項目にあります。  
 
 No. | 設定分類| 設定項目名                | 設定内容      |
   ----:|---------------------|------------------|--------------|
   1   |OperatorAgent - 感情解析| 表示する感情（オペレータ）| （感情解析識別名）＝（感情名)で指定   
   2   |OperatorAgent - 感情解析| 表示する感情（カスタマ） | （感情解析識別名）＝（感情名)で指定  |  
 
+: OperatorAgent の感情解析ポップアップ {#tbl:emopop}  
+
+
  `表示する感情の注意事項`   
  **表示する感情を変更する場合には詳細設定の 「保存する感情スコア」 の設定変更も必要です。   
  保存する感情スコアに設定されていない感情は感情値が取得できず、感情解析ポップアップに対象の感情が表示されません。**  
+
+[@tbl:emoscore] は、保存する感情スコアの設定項目です。ControlCenter の詳細設定項目にあります。  
 
   No. | 設定分類| 設定項目名                | 設定内容      |
   ----:|---------------------|------------------|--------------|
   1   |共通 - 感情解析| 保存する感情スコア| （感情解析識別名）.（話者)で指定    
 
+: 保存する感情スコア {#tbl:emoscore}  
+
  `表示する感情の注意点`   
 **表示する感情はデータベースのパフォーマンスの観点からデフォルトで登録されている８つまでの感情に抑えるようにしてください。  
   「保存する感情スコア」に設定した感情のみが感情のサマリ値（最小/平均/最大/開始/終了）をデータベースに保存されます。  
-  「保存する感情スコア」に登録されていない感情については発話単位の感情値は取得できます。 Emotion ファイルに保存されます。**
+  「保存する感情スコア」に登録されていない感情については発話単位の感情値は取得可能で Emotion ファイルに保存されます。**
 
 
-
+[@tbl:emolist] は、「表示する感情」、「保存する感情スコア」で利用可能な感情一覧です。ControlCenter の詳細設定項目にあります。
 
   No. | 感情解析識別名| 感情名                | 複合型| 説明 |
   ----:|---------------------|------------------|----------|---------|
@@ -652,34 +668,49 @@ No. | 設定分類| 設定項目名                | 設定内容      |
   42   |nemesysco.qa5.shylevel      |疑いレベル         |  |利用用途については検討中      |
   43   |nemesysco.qa5.anticipationlevel      |期待レベル         |  |利用用途については検討中      |
 
+: 利用可能な感情一覧 {#tbl:emolist}
+
+#### 1-2-3. 通話終了後の機能
+
+1. SpeechVisualizer ボタン  
+OperatorAgent 上に表示されている通話の SpeechVisualizer の通話詳細画面を呼び出します。 ([@fig:opsv])  
+
+ ![SpeechVisualizer ボタン](images/2-1-opsv.png){#fig:opsv width=100px}  
+
+　　`利用のヒント`  
+　　Speech Visualizer ボタンは条件を満たしたタイミングで活性化されます。  
+　　ボタンが活性化される条件としては以下です。  
+　　・通話が終了していること  
+　　・StreamingRecognizer の通話アップロードが完了していること  
+
+　　[@tbl:svshort] は、「SpeechVisualizer を開く」 際に起動するブラウザを指定する設定です。  
+　　設定は ControlCenter の詳細設定の項目にあります。  
+
+
+No. | 設定分類| 設定項目名                | 設定内容      |
+----:|---------------------|------------------|--------------|
+1   |OperatorAgent - Web| SpeechVisualizer を表示するウェブブラウザ|SpeechVisualizer を表示するウェブブラウザのパスを指定     
+
+: OperatorAgent SpeechVisualizerを表示するブラウザ設定 {#tbl:svshort}  
+
+
+2. 手動で通話属性の追加  
+通話終了後に通話に紐づく属性情報を手動で追加することができる機能です。([@fig:callp2])  
+
+![手動通話属性の入力画面](images/2-1-通話属性ポップアップ画面.png){#fig:callp2 width=200px}  
 
 
 
+No. | 設定分類| 設定項目名                | 設定内容      |
+----:|---------------------|------------------|--------------|
+1   |OperatorAgent - 通話| 通話終了後に手動で通話属性を設定可能にする|True で手動通話属性の設定可能  
+1   |共通 - 通話| 手動で設定可能な通話属性|手動で設定可能な通話属性を指定。  
+
+手動で追加可能な通話属性は（[1-2-2. 通話表示機能　表 11: OperatorAgent 表示する通話属性で利用可能な通話属性一覧](#1-2-2. 通話表示機能) 参照。）  
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#### 1-2-4. メイン画面機能 - 通話終了後の機能
-
-#### 1-2-5. OperatorAgent の起動・終了時の動作  
+#### 1-2-4. OperatorAgent の起動・終了時の動作  
 
 1. OperatorAgent 起動時の処理  
 - OperatorAgent の自動更新処理  
@@ -788,7 +819,7 @@ end;
   ControlCenter にレジストされた、OperatorAgent のレジスト情報（ユーザ・座席表の位置・内線番号との関連付け）などをリリースします。  
   OperatorAgent を VDI オプション付きでインストールしている場合には、ライセンスのリリースも実施します。
 
-#### 1-2-6. OperatorAgent からのコマンド実行
+#### 1-2-5. OperatorAgent からのコマンド実行
   - あ
   - あ
   - あ
@@ -821,4 +852,4 @@ end;
 	5. 【要確認】  
 	5. 端末の操作が著しく限定されている。<br />かつ、端末シャットダウン時に実行中のアプリケーションの全終了が条件の環境で利用しています。
 
-#### 1-2-8. OperatorAgent のインストール
+#### 1-2-7. OperatorAgent のインストール
