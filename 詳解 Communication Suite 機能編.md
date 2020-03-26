@@ -819,14 +819,36 @@ end;
   ControlCenter にレジストされた、OperatorAgent のレジスト情報（ユーザ・座席表の位置・内線番号との関連付け）などをリリースします。  
   OperatorAgent を VDI オプション付きでインストールしている場合には、ライセンスのリリースも実施します。
 
+	<br />
+	![](images/NOTICE.png){width=50px}
+　OperatorAgent を明示的に終了せずに PC のシャットダウンを行った場合、OperatorAgent は自身が終了処理を完了させるまでの間 OS のシャットダウンを待機させます。  
+	ただし、OS 側でも各種終了処理が並行で実施させるため、OperatorAgent の終了処理中に、ControlCenter と通信を実施するタイミングで既に、OS の通信デバイスが停止していると、OperatorAgent の終了のタイミングで、ControlCenter 上のレジスト情報がリリースされない可能性があります。  
+
+	<br />
+	![](images/Check.png){width=50px}
+　ControlCenter と OperatorAgent 間では、【要確認】  （[@tbl:oaping]）  
+ControlCenter にレジストされた OperatorAgent のログイン情報はリリースされます。  
+ControlCenter 上での OperatorAgent のログイン情報は、ControlCenter のモニタリングメニューから『ログイン状況』機能で確認できます。  
+SpeechVisualizer の座席表機能では、タイムアウトした OperatorAgent の座席にはタイムアウトアイコンが表示されます。([@fig:ismto])  
+この状態は、該当座席に対して、新たな OperatorAgent がログインすることで解消されます。それまでは、タイムアウト前の OperatorAgent からのレジスト情報が表示され続けます。  
+
+	![座席表でのタイムアウト表示](images/1-2-ism_to.png){#fig:ismto width=250px}  
+
+	No. | 設定項目名                | デフォルト値  | 内容 |
+----:|------------------|------|----|
+1   | データ送信最長間隔 | 90000（ミリ秒） | 【要確認】  
+2   | 再接続間隔 | 60000（ミリ秒） | 【要確認】  
+3   | 受信タイムアウト | 120000（ミリ秒） | 【要確認】  
+
+	: 詳細設定 項目分類 『OperatorAgent - 状態通知』 {#tbl:oaping}
+
 #### 1-2-5. OperatorAgent からのコマンド実行
   - あ
   - あ
   - あ
 
 #### 1-2-7. コマンドラインからの OperatorAgent 操作
-- OperatorAgent をコマンドラインから操作する  
-  OperatorAgent は、コマンドラインから  
+- OperatorAgent は、コマンドラインから  
 `インストールパス\OperatorAgent.exe --オプション＝値（-オプション 値）`  
 	のように起動（終了）できます。  
 	[@tbl:oa-option] はコマンドラインで指定可能なオプションの一覧です。  
@@ -844,7 +866,7 @@ end;
 	: OperatorAgent のコマンドラインオプション {#tbl:oa-option}  
 
 	![](images/Tips.jpg){width=50px}  
-	1. 一時的に OperatorAgent　の接続先をステージング環境に向けたいときなどに利用します。  
+	1. 一時的に OperatorAgent の接続先をステージング環境に向けたいときなどに利用します。  
 	2. 3 パスワードと組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
 	3. 2 ユーザID と組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
 	4. 一時的に設定済みの内線番号ではない電話機と組み合わせてテストするときなどに指定します。  
