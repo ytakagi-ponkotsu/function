@@ -136,16 +136,16 @@ skinparam activity  {
 BackgroundColor #afeeee
 BorderColor #000080
 }
-title アクティビティ図.1 [OA 自動ログイン判定]
+title アクティビティ図.1 [OA 自動ログイン判定]\n
 
 
 start
 :OperatorAgent 起動;
 if (内線番号の情報が必要かどうか) then (不要 ： 設定値『N』)
-else (必要)
+else (\n必要)
 	if (設定値 『S』 or 『R』) then (設定値『S』)
-		if (サーバ版？) then (YES)
-			if (内線番号) then (未入力)
+		if (サーバ版？) then (\nYES)
+			if (内線番号) then (\n未入力)
 				-ログインダイアログ表示
 				end
 			else (自動入力済)
@@ -153,23 +153,23 @@ else (必要)
 		else (クライアント版)
 		endif
 	else (設定値『R』)
-		if (内線番号) then (未入力)
+		if (内線番号) then (\n未入力)
 			-ログインダイアログ表示
 			end
 		else (自動入力済)
 		endif
 	endif
 endif
-if (ユーザIDとパスワードの両方が\n自動入力されている) then (YES)
+if (\nユーザIDとパスワードの両方が\n自動入力されている\n) then (YES)
 	if (自動ログインの設定は有効か？) then (有効)
-	else (無効)
+	else (\n無効)
 	  -ログインダイアログ表示
 		end
 	endif
 else (いずれかもしくは両方が未入力)
-	if (コマンドライン実行(※) で、引数により\nユーザIDとパスワードが設定されている) then (YES)
+	if (\nコマンドライン実行(※) で、引数により\nユーザIDとパスワードが設定されている\n) then (YES)
 		if (自動ログインの設定は有効か？) then (有効)
-		else (無効)
+		else (\n無効)
 		  -ログインダイアログ表示
 			end
 		endif
@@ -727,18 +727,61 @@ No. | 設定分類| 設定項目名                | 設定内容      |
   - 通常起動  
 	1. `C:\Users\%UserName%\AppData\Local\Advanced_Media,_Inc` に設定ファイルが有れば、通常起動として動作します。  
 	2. [@tbl:oa_window] の  No.1 の設定値を判断し、ウィンドウ表示を制御します。  
-	3. 表示しない設定の場合、[@tbl:oa_window] の  No.3 の設定値を判断し、タスクバー or 通知領域に情報を表示します。
+	3. 表示しない設定の場合、[@tbl:oa_window] の  No.3 の設定値を判断し、タスクバー or 通知領域に情報を表示します。  
 
-No. | 設定分類| 設定項目名                | デフォルト値  | 内容 |
+	No. | 設定分類| 設定項目名                | デフォルト値  | 内容 |
 ----:|---------------------|------------------|------|----|
 1   | OperatorAgent - 起動時動作 | 起動時にウィンドウを表示状態に戻す | true | OperatorAgent 起動毎に、終了時のウィンドウ状態に依存せずメインウィンドウを画面表示状態に戻します。false の場合には、OperatorAgent の終了時の状態を引き継ぎます。
 2   | OperatorAgent - 起動時動作 | 初回起動時にウィンドウを表示状態にする | true | 初回起動時の メインウィンドウの表示状態を設定します。オペレータさんに基本的に画面を一度も見せたくない場合などに false 設定しておきます。  
 3   | OperatorAgent - 全般 | 閉じたときにタスクバーに表示しない | False | true にするとメインウィンドウの　× ボタンでウィンドウを閉じたときに、通知領域にのみアイコンが表示されます。  
 
-: OperatorAgent のウィンドウ表示に関わる詳細設定項目 {#tbl:oa_window}  
+	: OperatorAgent のウィンドウ表示に関わる詳細設定項目 {#tbl:oa_window}  
 
 
+```plantuml
+@startuml
+skinparam {
+defaultFontName BIZ UDPゴシック
+}
+skinparam backgroundColor #fffacd
+skinparam activity  {
+BackgroundColor #afeeee
+BorderColor #000080
+}
+title アクティビティ図.2 [OA ウィンドウ表示判定]\n
 
+start;
+-[#black]-> OperatorAgent 起動;
+if (設定ファイルあり) then
+  -[#blue]-> True : 通常起動;
+	if (\n初回起動時に\nウィンドウを表示状態にする\n) then
+		-[#blue]-> \nTrue;
+		:OperatorAgent ウィンドウ表示;
+		-[#black]->
+		end;
+	endif
+else
+  -> False : 初回起動処理;
+		if (\n初回起動時に\nウィンドウを表示状態にする\n) then
+			-[#blue]-> \nTrue;
+			:OperatorAgent ウィンドウ表示;
+			-[#black]->
+			end;
+		endif
+endif
+if (\n閉じたときに\nタスクバーに表示しない\n) then
+	-[#blue]-> \nTrue;
+	:OperatorAgent を最小化し、\n通知領域に格納;
+	-[#black]->
+else
+	-> \nFalse;
+	:OperatorAgent を\n最小化してタスクバー表示;
+	-[#black]->
+endif
+-[#black]->
+end;
+@enduml
+```
 
 2. OperatorAgent 終了時の処理  
   - ログオフ処理  
@@ -751,13 +794,13 @@ No. | 設定分類| 設定項目名                | デフォルト値  | 内�
   - あ
 
 #### 1-2-7. コマンドラインからの OperatorAgent 操作
-  1. OperatorAgent をコマンドラインから操作する  
+- OperatorAgent をコマンドラインから操作する  
   OperatorAgent は、コマンドラインから  
 `インストールパス\OperatorAgent.exe --オプション＝値（-オプション 値）`  
 	のように起動（終了）できます。  
 	[@tbl:oa-option] はコマンドラインで指定可能なオプションの一覧です。  
 
-		No.| 内容 | オプション名 | 短いオプション名  
+	No.| 内容 | オプション名 | 短いオプション名  
 --:|---|---|--
 1| ControlCenterの指定 | --server=[ControlCenterURL] | -s [ControlCenterURL]  
 2| ユーザIDの指定 | --user=[ユーザID] | -u [ユーザID]  
@@ -767,15 +810,15 @@ No. | 設定分類| 設定項目名                | デフォルト値  | 内�
 6| 言語の指定 | --culture=[カルチャ名(\<languagecode2>-\<country/regioncode2>)] |  
 7| 起動中のOAを終了 | --exit |  
 
-		: OperatorAgent のコマンドラインオプション {#tbl:oa-option}  
+	: OperatorAgent のコマンドラインオプション {#tbl:oa-option}  
 
-		![](images/Tips.jpg){width=50px}  
-		1. 一時的に OperatorAgent　の接続先をステージング環境に向けたいときなどに利用します。  
-		2. 3 パスワードと組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
-		3. 2 ユーザID と組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
-		4. 一時的に設定済みの内線番号ではない電話機と組み合わせてテストするときなどに指定します。  
-		5. なんらかの事情で OperatorAgent の自動バージョンアップをさせたくない場合に指定します。
-		5. 【要確認】
-		5. 端末の操作が著しく限定されていて、かつ、端末シャットダウン時には全てのアプリケーションを終了させないとシャットダウンできないような環境で利用されています。
+	![](images/Tips.jpg){width=50px}  
+	1. 一時的に OperatorAgent　の接続先をステージング環境に向けたいときなどに利用します。  
+	2. 3 パスワードと組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
+	3. 2 ユーザID と組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
+	4. 一時的に設定済みの内線番号ではない電話機と組み合わせてテストするときなどに指定します。  
+	5. なんらかの事情で OperatorAgent の自動バージョンアップをさせたくない場合に指定します。  
+	5. 【要確認】  
+	5. 端末の操作が著しく限定されている。<br />かつ、端末シャットダウン時に実行中のアプリケーションの全終了が条件の環境で利用しています。
 
 #### 1-2-8. OperatorAgent のインストール
