@@ -123,66 +123,67 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 ![Web サイトの設定](images/1-1-IIS_sitegonfig_login.png){#fig:siteconfig width=400px}
 
 #### 1-1-5. OperatorAgent 自動ログイン（統合 Windows 認証を利用しない）
-- [1-1-2. OperatorAgent のログイン機能に関連する ControlCenter の詳細設定項目](#1-1-2-operatoragent-機能関連-controlcenter-詳細設定項目)  ：  [@tbl:table] の No.3 『自動ログイン』 が有効になっている場合には、統合 Windows 認証 を利用していなくてもログイン処理を省略可能です。
+- [1-1-2. OperatorAgent のログイン機能に関連する ControlCenter の詳細設定項目](#1-1-2-operatoragent-機能関連-controlcenter-詳細設定項目)  ：  [@tbl:table] の No.3 『自動ログイン』 が有効になっている場合には、統合 Windows 認証 を利用していなくてもログイン処理を省略可能です。  
+	<br />  
+
+	```plantuml
+	@startuml
+	skinparam {
+	defaultFontName BIZ UDPゴシック
+	}
+	skinparam backgroundColor #fffacd
+	skinparam activity  {
+	BackgroundColor #afeeee
+	BorderColor #000080
+	}
+	title アクティビティ図.1 [OA 自動ログイン判定]\n
 
 
-```plantuml
-@startuml
-skinparam {
-defaultFontName BIZ UDPゴシック
-}
-skinparam backgroundColor #fffacd
-skinparam activity  {
-BackgroundColor #afeeee
-BorderColor #000080
-}
-title アクティビティ図.1 [OA 自動ログイン判定]
-
-
-start
-:OperatorAgent 起動;
-if (内線番号の情報が必要かどうか) then (不要 ： 設定値『N』)
-else (必要)
-	if (設定値 『S』 or 『R』) then (設定値『S』)
-		if (サーバ版？) then (YES)
-			if (内線番号) then (未入力)
+	start
+	:OperatorAgent 起動;
+	if (内線番号の情報が必要かどうか) then (不要 ： 設定値『N』)
+	else (\n必要)
+		if (設定値 『S』 or 『R』) then (設定値『S』)
+			if (サーバ版？) then (\nYES)
+				if (内線番号) then (\n未入力)
+					-ログインダイアログ表示
+					end
+				else (自動入力済)
+				endif
+			else (クライアント版)
+			endif
+		else (設定値『R』)
+			if (内線番号) then (\n未入力)
 				-ログインダイアログ表示
 				end
 			else (自動入力済)
 			endif
-		else (クライアント版)
-		endif
-	else (設定値『R』)
-		if (内線番号) then (未入力)
-			-ログインダイアログ表示
-			end
-		else (自動入力済)
 		endif
 	endif
-endif
-if (ユーザIDとパスワードの両方が\n自動入力されている) then (YES)
-	if (自動ログインの設定は有効か？) then (有効)
-	else (無効)
-	  -ログインダイアログ表示
-		end
-	endif
-else (いずれかもしくは両方が未入力)
-	if (コマンドライン実行(※) で、引数により\nユーザIDとパスワードが設定されている) then (YES)
+	if (\nユーザIDとパスワードの両方が\n自動入力されている\n) then (YES)
 		if (自動ログインの設定は有効か？) then (有効)
-		else (無効)
+		else (\n無効)
 		  -ログインダイアログ表示
 			end
 		endif
-	else
-		-ログインダイアログ表示
-		end
+	else (いずれかもしくは両方が未入力)
+		if (\nコマンドライン実行(※) で、引数により\nユーザIDとパスワードが設定されている\n) then (YES)
+			if (自動ログインの設定は有効か？) then (有効)
+			else (\n無効)
+			  -ログインダイアログ表示
+				end
+			endif
+		else
+			-ログインダイアログ表示
+			end
+		endif
 	endif
-endif
-#plum:自動ログイン実行;
-floating note right: ※ コマンドライン引数については \n 1-2-6. コマンドラインからの OperatorAgent 操作 \nを参照して下さい。
-@enduml
-```
+	#plum:自動ログイン実行;
+	floating note right: ※ コマンドライン引数については \n 1-2-6. コマンドラインからの OperatorAgent 操作 \nを参照して下さい。
+	@enduml
+	```
 
+	<br />
 - [@tbl:oalogin] は、OperatorAgent の正常系ログインエラーをまとめたものです。（異常系は含んでいません。）
 
 	No. | 事由                 | ログインダイアログのメッセージ       | デバッグログへの出力 |
@@ -205,7 +206,7 @@ floating note right: ※ コマンドライン引数については \n 1-2-6. �
 
 
 #### 1-1-6. 本節のまとめ
-- [ ] OperatorAgent でのログインに関わる設定項目について理解ができた。  
+  - [ ] OperatorAgent でのログインに関わる設定項目について理解ができた。  
 - [ ] OperatorAgent でのログインが単に認証しているだけでは無いことが理解できた。
 - [ ] OperatorAgent の自動ログインについて理解ができた。  
 - [ ] OperatorAgent にログインできないときに原因の切り分けができそうだ。
@@ -345,61 +346,78 @@ No. | 設定タブ項目 | 設定分類                 | 設定項目名       
 #### 1-2-2. 通話表示機能
 
 1. 通話内容ビュー  
+OperatorAgent にログインした内線番号(モニタ内線番号)の通話の認識結果と関連する通話イベントを表示します。  
 
-   OperatorAgentにログインした内線番号の通話の認識結果と関連する通話状態や通知イベントを表示します。  
+- 通話イベント  
+通話イベント（[@tbl:callevent]）は ControlCenter から OperatorAgent へ通知されます。  
 
-- 状態通知  
-状態通知は ControlCenter と OperatorAgent の間で http で通信します。  
+	No. | イベント | 詳細 | 参考 |
+----:|---------|-------|---|
+1 | 通話開始 | RealTimeRecorder でモニタ内線番号の通話開始を検出時に通知されます。 | [@fig:startobi]  
+2 | 通話終了 | RealTimeRecorder でモニタ内線番号の通話終了を検出時に通知されます。 | [@fig:startobi]  
+3 | 保留開始 | RealTimeRecorder でモニタ内線番号の録音中に保留開始を検出時に通知されます。 | [@fig:holdobi]  
+4 | 保留解除 | RealTimeRecorder でモニタ内線番号の通話保留中、保留解除を検出時に通知されます。 | [@fig:startobi]  
+5 | 通話切替 | RealTimeRecorder でモニタ内線番号の録音中、録音対象の RTP の MediaResource が切り替わったときに通知されます。 | [@fig:kirikaeobi]  
 
+	: 通話イベントの種類 {#tbl:callevent}
 
-  `通話開始 / 通話終了`・・・通話開始 / 通話終了した際に通知します。（[@fig:startobi] ）  
-  `保留 / 保留解除　　`・・・オペレータ側の操作で保留 / 保留解除をした際に通知します。（[@fig:holdobi] ）  
-  `通話切替`・・・録音対象としていたRTPパケットが切り替わったときに発生します。（[@fig:kirikaeobi] ）  
+![通話イベント ： 通話開始 ＆ 通話終了](images/2-1-通話開始.png){#fig:startobi width=500px}
 
+![通話イベント ： 保留開始 ＆ 保留解除](images/2-1-保留.png){#fig:holdobi width=500px}
 
-![通話開始/通話終了の状態通知](images/2-1-通話開始.png){#fig:startobi width=600px}  
-
-![保留/保留解除の状態通知](images/2-1-保留.png){#fig:holdobi width=600px}  
-
-![通話切替の状態通知](images/2-1-通話切替.png){#fig:kirikaeobi width=600px}  
+![通話イベント ： 通話切替](images/2-1-通話切替.png){#fig:kirikaeobi width=500px}  
 
 <!-- 【要確認】![](images/Tips.jpg){width=50px}  
 OperatorAgent は Internet Explorer の設定を利用して通信します。  
 インターネットオプションの設定でプロキシが設定されている場合、状態通知がブロックされます。  
 対処としてプロキシの例外リストにWEBサーバ のIPアドレスを登録する方法があります。    -->
 
-- リアルタイムテキスト配信  
-認識結果は StreamingRecognizer と OperatorAgent の間で http で通信します。（[@fig:hatuwa] ）  
-通話内容は1文字ごとにテキスト配信されて発話単位で吹き出しが区切られます。
-
- ![認識結果の画面](images/2-1-通話内容.png){#fig:hatuwa width=600px}  
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-[@tbl:enjin] は、送話と受話で使用する音声認識エンジンの設定です。  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- ControlCenter - 認識オプションに設定項目があります。
-
- No. | 設定タブ項目 | 設定項目名                | 設定値      |
- ----:|---------------------|------------------|--------------|
- 1   | オペレータ | 音声認識用エンジンモード | AMI提供のオペレータ用音声認識エンジンを登録 |
- 2   | カスタマ | 音声認識用エンジンモード | AMI提供のカスタマ用音声認識エンジンを登録 |  
-
-: 音声認識エンジンモードの設定 {#tbl:enjin}  
-
-`よくある質問`  
-
-- **通話開始の状態通知が表示されない**  
-  - 対象内線で録音ができていない  
-  - OperatorAgent でログインしている内線番号と通話中の内線番号が一致していない  
-  - Internet Explorer でプロキシが設定されている
+- 認識結果  
+認識結果は StreamingRecognizer から OperatorAgent へ送信されます。  
+通話内容は単語ごとにテキスト化され、順番に送信されますが、後から認識した単語によって既に表示されている単語が置き換わることもあります。発話単位で吹出で表現されます。発話の区切りは無音が一定時間以上（【要確認】 一定時間）継続することで行われます。（[@fig:hatuwa]）  
 
 
+	<br/>  
 
-- **通話開始・通話終了の状態通知は表示されるが、テキスト結果が表示されない**  
+	- 緑の吹出は、録音対象の電話機を主体として、送話音声の認識結果になります。送話側音声の認識は、認識オプション設定のオペレータタブに設定されたエンジンモードで処理されます。（[@fig:txengine]）  
+
+		<br/>  
+
+	- オレンジの吹出は、録音対象の電話機を主体として受話音声の認識結果となります。受話側音声の認識は、認識オプション設定のカスタマタブに設定されたエンジンモードで処理されます。（[@fig:rxengine]）  
+
+ ![認識結果の表示](images/2-1-通話内容.png){#fig:hatuwa width=500px}  
+
+ ![送話音声認識用エンジンモード](images/1-2-tx_engine.png){#fig:txengine width=400px}  
+
+ ![受話音声認識用エンジンモード](images/1-2-rx_engine.png){#fig:rxengine width=400px}  
+
+- 通話内容ビューの表示不具合のトラブルシューティング  
+
+	<br/>  
+
+	**区分 A ： 通話イベントが表示されない**  
+　このケースは通話録音設定の不備か、スパンデータの不備による可能性が疑われます。（[@tbl:calleventerr]）  
+
+	<br/>  
+
+	**区分 B ： 通話イベントのみ表示され、認識結果が表示されない**  
+　このケースは通話録音・認識は正常に完了しているにも関わらず、 <br />　　**OperatorAgent と StreamingRecognizer 間の通信に不備がある** 可能性が疑われます。  
+　ただし、各種設定の不備の可能性が無いわけではありません。
+
+	<br />  
+
+	**区分 C ： 認識結果表示が発話よりも遅れて表示される**  
+
+	No. | 原因| 対処 |
+----:|---------|-------|
+1 | RealTimeRecorder で通話録音ができていない | サーバ版であれば各種設定とパケットキャプチャの状況、クライアント版の場合には各種設定と録音デバイス関連を確認してください。  
+2 | サーバ版の場合 OperatorAgent でログインしている内線番号と通話中の内線番号が一致していない | OperatorAgent ログイン時に設定する内線番号と通話する電話機の内線番号は一致させてください。  
+3 | データベースの ServiceBroker が無効になっている | 有効化してください。  
+
+	: 区分 A の原因と対処 {#tbl:calleventerr}
+
   - OperatorAgent から StreamingRecognizer のHTTPポートに接続ができていない  
-  - ControlCenter - 認識オプションの音声認識エンジンモードが設定されていない   
-
-- **OperatorAgent起動後の一番最初の通話で認識結果が遅れて表示される**  
+  - ControlCenter - 認識オプションの音声認識エンジンモードが設定されていない
   - 仕様となります。初回認識処理時にはテキスト化に利用するエンジンモードや  
   追加登録した辞書単語等の各種設定をダウンロードしているためです。
 
@@ -723,8 +741,9 @@ No. | 設定分類| 設定項目名                | 設定内容      |
 <br/>
   - OperatorAgent のバージョンがサーバのバージョンより新しい場合も同様に自動更新処理が行われ、 OperatorAgent の自動バージョンダウン処理が行われますが、この処理は機能によって正常更新が保証されない場合があります。  
   バージョンダウン処理がサポートされるかどうかは、そのときのバージョン次第です。必要がある場合には、サポートへお問合せください。  
-	![](images/NOTICE.png){width=50px}  
-  更新処理では、 **Windows Script Host （WSH）** の vbs がいくつか実行されます。（[@tbl:vbslist]）  
+	<br />
+	![](images/NOTICE.png){width=50px}
+  　自動更新では処理中に **Windows Script Host （WSH）** の vbs がいくつか実行されます。（[@tbl:vbslist]）  
 	セキュリティソフトによって、WSH の実行が阻害されてしまう環境では、自動更新処理が正常に行われません。（インストーラによる初期インストールでもバージョンアップインストールでも、WSH は実行されます。）  
 
     No. | ファイル名 | 説明  |
@@ -742,8 +761,8 @@ No. | 設定分類| 設定項目名                | 設定内容      |
 
 	<br/>  
 
-	![](images/Tips.jpg){width=50px}  
-		OperatorAgent をコマンドラインから引数付きで起動することで自動更新を抑制できます。（[1-2-6. コマンドラインからの OperatorAgent 操作](#1-2-6-operatoragent-操作) 参照。）  
+	![](images/Tips.jpg){width=50px}
+		　OperatorAgent をコマンドラインから引数付きで起動することで自動更新を抑制できます。（[1-2-6. コマンドラインからの OperatorAgent 操作](#1-2-6-operatoragent-操作) 参照。）  
 
 <br/>
 
@@ -761,23 +780,89 @@ No. | 設定分類| 設定項目名                | 設定内容      |
   - 通常起動  
 	1. `C:\Users\%UserName%\AppData\Local\Advanced_Media,_Inc` に設定ファイルが有れば、通常起動として動作します。  
 	2. [@tbl:oa_window] の  No.1 の設定値を判断し、ウィンドウ表示を制御します。  
-	3. 表示しない設定の場合、[@tbl:oa_window] の  No.3 の設定値を判断し、タスクバー or 通知領域に情報を表示します。
+	3. 表示しない設定の場合、[@tbl:oa_window] の  No.3 の設定値を判断し、タスクバー or 通知領域に情報を表示します。  
 
-No. | 設定分類| 設定項目名                | デフォルト値  | 内容 |
+	No. | 設定分類| 設定項目名                | デフォルト値  | 内容 |
 ----:|---------------------|------------------|------|----|
 1   | OperatorAgent - 起動時動作 | 起動時にウィンドウを表示状態に戻す | true | OperatorAgent 起動毎に、終了時のウィンドウ状態に依存せずメインウィンドウを画面表示状態に戻します。false の場合には、OperatorAgent の終了時の状態を引き継ぎます。
 2   | OperatorAgent - 起動時動作 | 初回起動時にウィンドウを表示状態にする | true | 初回起動時の メインウィンドウの表示状態を設定します。オペレータさんに基本的に画面を一度も見せたくない場合などに false 設定しておきます。  
 3   | OperatorAgent - 全般 | 閉じたときにタスクバーに表示しない | False | true にするとメインウィンドウの　× ボタンでウィンドウを閉じたときに、通知領域にのみアイコンが表示されます。  
 
-: OperatorAgent のウィンドウ表示に関わる詳細設定項目 {#tbl:oa_window}  
+	: OperatorAgent のウィンドウ表示に関わる詳細設定項目 {#tbl:oa_window}  
 
 
+	```plantuml
+	@startuml
+	skinparam {
+	defaultFontName BIZ UDPゴシック
+	}
+	skinparam backgroundColor #fffacd
+	skinparam activity  {
+	BackgroundColor #afeeee
+	BorderColor #000080
+	}
+	title アクティビティ図.2 [OA ウィンドウ表示判定]\n
 
+	start;
+	-[#black]-> OperatorAgent 起動;
+	if (設定ファイルあり) then
+	  -[#blue]-> True : 通常起動;
+		if (\n初回起動時に\nウィンドウを表示状態にする\n) then
+			-[#blue]-> \nTrue;
+			:OperatorAgent ウィンドウ表示;
+			-[#black]->
+			end;
+		endif
+	else
+	  -> False : 初回起動処理;
+			if (\n初回起動時に\nウィンドウを表示状態にする\n) then
+				-[#blue]-> \nTrue;
+				:OperatorAgent ウィンドウ表示;
+				-[#black]->
+				end;
+			endif
+	endif
+	if (\n閉じたときに\nタスクバーに表示しない\n) then
+		-[#blue]-> \nTrue;
+		:OperatorAgent を最小化し、\n通知領域に格納;
+		-[#black]->
+	else
+		-> \nFalse;
+		:OperatorAgent を\n最小化してタスクバー表示;
+		-[#black]->
+	endif
+	-[#black]->
+	end;
+	@enduml
+	```
 
 2. OperatorAgent 終了時の処理  
   - ログオフ処理  
   ControlCenter にレジストされた、OperatorAgent のレジスト情報（ユーザ・座席表の位置・内線番号との関連付け）などをリリースします。  
   OperatorAgent を VDI オプション付きでインストールしている場合には、ライセンスのリリースも実施します。
+
+	<br />
+	![](images/NOTICE.png){width=50px}
+　OperatorAgent を明示的に終了せずに PC のシャットダウンを行った場合、OperatorAgent は自身が終了処理を完了させるまでの間 OS のシャットダウンを待機させます。  
+	ただし、OS 側でも各種終了処理が並行で実施させるため、OperatorAgent の終了処理中に、ControlCenter と通信を実施するタイミングで既に、OS の通信デバイスが停止していると、OperatorAgent の終了のタイミングで、ControlCenter 上のレジスト情報がリリースされない可能性があります。  
+
+	<br />
+	![](images/Check.png){width=50px}
+　ControlCenter と OperatorAgent 間では、【要確認】  （[@tbl:oaping]）  
+ControlCenter にレジストされた OperatorAgent のログイン情報はリリースされます。  
+ControlCenter 上での OperatorAgent のログイン情報は、ControlCenter のモニタリングメニューから『ログイン状況』機能で確認できます。  
+SpeechVisualizer の座席表機能では、タイムアウトした OperatorAgent の座席にはタイムアウトアイコンが表示されます。([@fig:ismto])  
+この状態は、該当座席に対して、新たな OperatorAgent がログインすることで解消されます。それまでは、タイムアウト前の OperatorAgent からのレジスト情報が表示され続けます。  
+
+	![座席表でのタイムアウト表示](images/1-2-ism_to.png){#fig:ismto width=250px}  
+
+	No. | 設定項目名                | デフォルト値  | 内容 |
+----:|------------------|------|----|
+1   | データ送信最長間隔 | 90000（ミリ秒） | 【要確認】  
+2   | 再接続間隔 | 60000（ミリ秒） | 【要確認】  
+3   | 受信タイムアウト | 120000（ミリ秒） | 【要確認】  
+
+	: 詳細設定 項目分類 『OperatorAgent - 状態通知』 {#tbl:oaping}
 
 #### 1-2-5. OperatorAgent からのコマンド実行
   - あ
@@ -785,13 +870,12 @@ No. | 設定分類| 設定項目名                | デフォルト値  | 内�
   - あ
 
 #### 1-2-6. コマンドラインからの OperatorAgent 操作
-  1. OperatorAgent をコマンドラインから操作する  
-  OperatorAgent は、コマンドラインから  
+- OperatorAgent は、コマンドラインから  
 `インストールパス\OperatorAgent.exe --オプション＝値（-オプション 値）`  
 	のように起動（終了）できます。  
 	[@tbl:oa-option] はコマンドラインで指定可能なオプションの一覧です。  
 
-		No.| 内容 | オプション名 | 短いオプション名  
+	No.| 内容 | オプション名 | 短いオプション名  
 --:|---|---|--
 1| ControlCenterの指定 | --server=[ControlCenterURL] | -s [ControlCenterURL]  
 2| ユーザIDの指定 | --user=[ユーザID] | -u [ユーザID]  
@@ -801,15 +885,15 @@ No. | 設定分類| 設定項目名                | デフォルト値  | 内�
 6| 言語の指定 | --culture=[カルチャ名(\<languagecode2>-\<country/regioncode2>)] |  
 7| 起動中のOAを終了 | --exit |  
 
-		: OperatorAgent のコマンドラインオプション {#tbl:oa-option}  
+	: OperatorAgent のコマンドラインオプション {#tbl:oa-option}  
 
-		![](images/Tips.jpg){width=50px}  
-		1. 一時的に OperatorAgent　の接続先をステージング環境に向けたいときなどに利用します。  
-		2. 3 パスワードと組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
-		3. 2 ユーザID と組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
-		4. 一時的に設定済みの内線番号ではない電話機と組み合わせてテストするときなどに指定します。  
-		5. なんらかの事情で OperatorAgent の自動バージョンアップをさせたくない場合に指定します。
-		5. 【要確認】
-		5. 端末の操作が著しく限定されていて、かつ、端末シャットダウン時には全てのアプリケーションを終了させないとシャットダウンできないような環境で利用されています。
+	![](images/Tips.jpg){width=50px}  
+	1. 一時的に OperatorAgent の接続先をステージング環境に向けたいときなどに利用します。  
+	2. 3 パスワードと組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
+	3. 2 ユーザID と組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
+	4. 一時的に設定済みの内線番号ではない電話機と組み合わせてテストするときなどに指定します。  
+	5. なんらかの事情で OperatorAgent の自動バージョンアップをさせたくない場合に指定します。  
+	5. 【要確認】  
+	5. 端末の操作が著しく限定されている。<br />かつ、端末シャットダウン時に実行中のアプリケーションの全終了が条件の環境で利用しています。
 
 #### 1-2-7. OperatorAgent のインストール
