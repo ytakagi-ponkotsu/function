@@ -883,9 +883,110 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	: 詳細設定 項目分類 『OperatorAgent - 状態通知』 {#tbl:oaping}
 
 #### 1-2-5. OperatorAgent からのコマンド実行
-  - あ
-  - あ
-  - あ
+  - OperatorAgent からは、詳細設定項目（[@tbl:oacommand]）を設定することで指定したタイミングでコマンドを実行することができます。
+
+	No. | 設定項目名
+	---:|------------------
+	1   |  OperatorAgent起動時に実行するコマンド
+	2   | OperatorAgent終了時に実行するコマンド
+	3   | ログアウト直後に実行するコマンド
+	4   | ログイン直後に実行するコマンド
+	5   | 通話開始直後に実行するコマンド
+	6   | 通話終了直後に実行するコマンド
+
+	: OperatorAgent コマンド実行 {#tbl:oacommand}
+
+      - コマンド は任意で指定可能で、  
+        1. Exe ファイルなどのアプリケーション  
+        2. Bat or Cmd などの実行可能ファイル  
+        3. ファイル名 or フォルダパス  
+        4. URL  
+
+      	などを適宜指定します。  
+				基本的には、Windows の 『ファイル名を指定して実行』 で上記を指定したときと同じ挙動になります。  
+				この機能で保証されるのは、指定コマンドが実行したか否かであって、**期待した結果が得られるかどうかではありません**。  
+  <br />
+  - [@tbl:oacommand] から実行するコマンドには、以下の書式で通話から取得できる情報を付加することが可能です。  
+  記述するフォーマットは以下の通りです。  
+
+	```
+	${'メインキー文字列', 'サブキー文字列', 'オプション'}
+	```  
+
+	通話関連情報の場合は、メインキーは 『call』 に固定されます。  
+
+	```
+	${call, 'サブキー'}
+	```  
+
+	通話情報の会話識別子をそのままコマンドの引数として使用したい場合は  
+
+	```
+	${call, Key}
+	```  
+
+	となり、実際に コマンドとして利用するには、  
+
+	```
+	http://webserver/SpeechVisualizer/Detail.aspx?key=${call, Key}
+	```  
+
+	のように記述します。
+
+	オプションに **_urlencode_** を指定すると、値が URLエンコードされ置き換えられます。(※一部例外あり)  
+	※本機能で使用するため文字 `$` は特殊文字として予約されています。  
+	コマンドの設定で `$` を文字として使用したい場合は、`\` でエスケープしてください。  
+	同様に `"` や `\` も特殊文字ですので、文字として使用する場合は `\` でエスケープしてください。  
+	<br />
+	指定可能な **サブキー** は（[@tbl:commandsubkey]）の通りです。
+
+	No. | サブキー名 | 置換される値 | 備考
+	---:|------------------|---|--
+	1   |  Key | 会話識別子 | あああ
+	2   |  ConversationKey | 会話識別子 | あああ
+	3   |  ProjectName | プロジェクト名 | あああ
+	4   |  UserKey | ユーザID | Communication Suite へのログイン情報
+	5   |  LineKey | 内線番号 | あああ
+	6   |  Date | 通話開始日時 | あああ
+	7   |  StartDate | 通話開始日時 | あああ
+	8   |  StartDateTime | 通話開始日時 | あああ
+	9   |  EndDate | 通話終了日時 | あああ
+	10   |  EndDateTime | 通話終了日時 | あああ
+	11   |  Duration | 通話時間(秒) | あああ
+	12   |  HoldDuration | 累積保留時間(秒) | あああ
+	13   |  HoldCount | 保留回数 | あああ
+	14   |  DetailViewUrl | 詳細表示のURL | あああ
+	15   |  OperatorPhoneNumber | 自番号 | あああ
+	16   |  OperatorPhoneLabel | 自分のID | 電話基盤へのログイン情報
+	17   |  OperatorGroup | 受電グループ | 受電スキル
+	18   |  OperatorHostName | 自分のホスト名 | 【要確認】
+	19   |  Direction | 通話の向き | あああ
+	20   |  LineType | 会話識別子 | あああ
+	21   |  CustomerPhoneNumber | 会話識別子 | あああ
+	22   |  CustomerPhoneLabel | 会話識別子 | あああ
+	23   |  TrunkGroup | 会話識別子 | あああ
+	24   |  TrunkMember | 会話識別子 | あああ
+	25   |  CalledPhoneNumber | 会話識別子 | あああ
+	26   |  AlertingPhoneNumber | 会話識別子 | あああ
+	27   |  QueuePhoneNumber | 会話識別子 | あああ
+	28   |  DialInPhoneNumber | 会話識別子 | あああ
+	29   |  TransferSourcePhoneNumber | 会話識別子 | あああ
+	30   |  TransferSourceLabel | 会話識別子 | あああ
+	31   |  TransferDestinationPhoneNumber | 会話識別子 | あああ
+	32   |  TransferDestinationLabel | 会話識別子 | あああ
+	33   |  MonitoringType | 会話識別子 | あああ
+	34   |  MonitoringPhoneNumber | 会話識別子 | あああ
+	35   |  MonitoringLabel | 会話識別子 | あああ
+	36   |  GlobalReferenceId | 会話識別子 | あああ
+	37   |  GlobalReferenceUrl | 会話識別子 | あああ
+	38   |  LocalReferenceId | 会話識別子 | あああ
+	39   |  LocalReferenceUrl | 会話識別子 | あああ
+	40   |  SiteReferenceId | 会話識別子 | あああ
+	41   |  SiteReferenceUrl | 会話識別子 | あああ
+	42   |  PrivateReferenceId | 会話識別子 | あああ
+	43   |  PrivateReferenceUrl | 会話識別子 | あああ
+
+	: サブキーの一覧 {#tbl:commandsubkey}
 
 #### 1-2-6. コマンドラインからの OperatorAgent 操作
 - OperatorAgent は、コマンドラインから  
@@ -906,12 +1007,12 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	: OperatorAgent のコマンドラインオプション {#tbl:oa-option}  
 
 	![](images/Tips.jpg){width=50px}  
-	1. 一時的に OperatorAgent の接続先をステージング環境に向けたいときなどに利用します。  
-	2. 3 パスワードと組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
-	3. 2 ユーザID と組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
-	4. 一時的に設定済みの内線番号ではない電話機と組み合わせてテストするときなどに指定します。  
-	5. なんらかの事情で OperatorAgent の自動バージョンアップをさせたくない場合に指定します。  
-	5. 【要確認】  
-	5. 端末の操作が著しく限定されている。<br />かつ、端末シャットダウン時に実行中のアプリケーションの全終了が条件の環境で利用しています。
+	No.1. 一時的に OperatorAgent の接続先をステージング環境に向けたいときなどに利用します。  
+	No.2. No.3 のパスワードと組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
+	No.3. No.2 のユーザID と組み合わせて、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
+	No.4. 一時的に設定済みの内線番号ではない電話機と組み合わせてテストするときなどに指定します。  
+	No.5. なんらかの事情で OperatorAgent の自動バージョンアップをさせたくない場合に指定します。  
+	No.6. 【要確認】  
+	No.7. 端末の操作が著しく限定されている。<br />　 　 かつ、端末シャットダウン時に実行中のアプリケーションの全終了が条件の環境で利用しています。
 
 #### 1-2-7. OperatorAgent のインストール
