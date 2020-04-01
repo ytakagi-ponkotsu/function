@@ -925,7 +925,8 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	${call, Key}
 	```  
 
-	となり、実際に コマンドとして利用するには、  
+	と記述します。  
+	実際に コマンドとして利用するには、  
 
 	```
 	http://webserver/SpeechVisualizer/Detail.aspx?key=${call, Key}
@@ -934,7 +935,13 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	のように記述します。
 
 	オプションに **_urlencode_** を指定すると、値が URLエンコードされ置き換えられます。(※一部例外あり)  
-	※本機能で使用するため文字 `$` は特殊文字として予約されています。  
+
+	```
+	http://webserver/SpeechVisualizer/Detail.aspx?key=${call, Key, urlencode}
+	```  
+
+	![](images/NOTICE.png){width=50px}
+	　本機能では、 `$` は特殊文字として予約されています。  
 	コマンドの設定で `$` を文字として使用したい場合は、`\` でエスケープしてください。  
 	同様に `"` や `\` も特殊文字ですので、文字として使用する場合は `\` でエスケープしてください。  
 	<br />
