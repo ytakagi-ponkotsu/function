@@ -940,53 +940,55 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	<br />
 	指定可能な **サブキー** は（[@tbl:commandsubkey]）の通りです。
 
-	No. | サブキー名 | 置換される値 | 備考
-	---:|------------------|---|--
-	1   |  Key | 会話識別子 | あああ
-	2   |  ConversationKey | 会話識別子 | あああ
-	3   |  ProjectName | プロジェクト名 | あああ
-	4   |  UserKey | ユーザID | Communication Suite へのログイン情報
-	5   |  LineKey | 内線番号 | あああ
-	6   |  Date | 通話開始日時 | あああ
-	7   |  StartDate | 通話開始日時 | あああ
-	8   |  StartDateTime | 通話開始日時 | あああ
-	9   |  EndDate | 通話終了日時 | あああ
-	10   |  EndDateTime | 通話終了日時 | あああ
-	11   |  Duration | 通話時間(秒) | あああ
-	12   |  HoldDuration | 累積保留時間(秒) | あああ
-	13   |  HoldCount | 保留回数 | あああ
-	14   |  DetailViewUrl | 詳細表示のURL | あああ
-	15   |  OperatorPhoneNumber | 自番号 | あああ
-	16   |  OperatorPhoneLabel | 自分のID | 電話基盤へのログイン情報
-	17   |  OperatorGroup | 受電グループ | 受電スキル
-	18   |  OperatorHostName | 自分のホスト名 | 【要確認】
-	19   |  Direction | 通話の向き | あああ
-	20   |  LineType | 会話識別子 | あああ
-	21   |  CustomerPhoneNumber | 会話識別子 | あああ
-	22   |  CustomerPhoneLabel | 会話識別子 | あああ
-	23   |  TrunkGroup | 会話識別子 | あああ
-	24   |  TrunkMember | 会話識別子 | あああ
-	25   |  CalledPhoneNumber | 会話識別子 | あああ
-	26   |  AlertingPhoneNumber | 会話識別子 | あああ
-	27   |  QueuePhoneNumber | 会話識別子 | あああ
-	28   |  DialInPhoneNumber | 会話識別子 | あああ
-	29   |  TransferSourcePhoneNumber | 会話識別子 | あああ
-	30   |  TransferSourceLabel | 会話識別子 | あああ
-	31   |  TransferDestinationPhoneNumber | 会話識別子 | あああ
-	32   |  TransferDestinationLabel | 会話識別子 | あああ
-	33   |  MonitoringType | 会話識別子 | あああ
-	34   |  MonitoringPhoneNumber | 会話識別子 | あああ
-	35   |  MonitoringLabel | 会話識別子 | あああ
-	36   |  GlobalReferenceId | 会話識別子 | あああ
-	37   |  GlobalReferenceUrl | 会話識別子 | あああ
-	38   |  LocalReferenceId | 会話識別子 | あああ
-	39   |  LocalReferenceUrl | 会話識別子 | あああ
-	40   |  SiteReferenceId | 会話識別子 | あああ
-	41   |  SiteReferenceUrl | 会話識別子 | あああ
-	42   |  PrivateReferenceId | 会話識別子 | あああ
-	43   |  PrivateReferenceUrl | 会話識別子 | あああ
+	No. | サブキー名 | 置換される値 | [@tbl:callb2] との対応 | 備考
+	---:|---------------|---|---|--
+	1   |  Key | 会話識別子 | - | ConversationKey と同じ
+	2   |  ConversationKey | 会話識別子 | - | Key と同じ
+	3   |  ProjectName | プロジェクト名 | - |
+	4   |  UserKey | ユーザID | - | Communication Suite へのログイン情報
+	5   |  LineKey | 内線番号 | - |
+	6   |  Date | 通話開始日時 | - |
+	7   |  StartDate | 通話開始日時 | - |
+	8   |  StartDateTime | 通話開始日時 | - |
+	9   |  EndDate | 通話終了日時 | - |
+	10   |  EndDateTime | 通話終了日時 | - |
+	11   |  Duration | 通話時間(秒) | - |
+	12   |  HoldDuration | 累積保留時間(秒) | - |
+	13   |  HoldCount | 保留回数 | - |
+	14   |  DetailViewUrl | 詳細表示のURL | - |
+	15   |  OperatorPhoneNumber | 自番号 | No.9 |
+	16   |  OperatorPhoneLabel | 自分のID | No.8 | 電話基盤へのログイン情報
+	17   |  OperatorGroup | 受電グループ | No.10 | 受電スキル
+	18   |  OperatorHostName | 自分のホスト名 | No.11 | 【要確認】
+	19   |  Direction | 通話の向き | No.2 |
+	20   |  LineType | 通話種別 | No.3 |
+	21   |  CustomerPhoneNumber | 相手番号 | No.14 |
+	22   |  CustomerPhoneLabel | 相手の名称 | No.13 |
+	23   |  TrunkGroup | トランクグループ | No.19 |
+	24   |  TrunkMember | トランクメンバ | No.20 |
+	25   |  CalledPhoneNumber | ダイヤル番号 | No.17 |
+	26   |  AlertingPhoneNumber | 呼出先番号 | No.18 |
+	27   |  QueuePhoneNumber | キュー番号 | No.21 |
+	28   |  DialInPhoneNumber | ダイヤルイン番号 | No.16 |
+	29   |  TransferSourcePhoneNumber | 転送元番号 | No.24 |
+	30   |  TransferSourceLabel | 転送元名称 | No.23 |
+	31   |  TransferDestinationPhoneNumber | 転送先番号 | No.27 |
+	32   |  TransferDestinationLabel | 転送先名称 | No.26 |
+	33   |  MonitoringType | モニタリング種別 | No.31 |
+	34   |  MonitoringPhoneNumber | モニタリング対象の内線番号 | No.30 |
+	35   |  MonitoringLabel | モニタリング対象の名称 | No.29 |
+	36   |  GlobalReferenceId | グローバル参照用の ID | No.32 |
+	37   |  GlobalReferenceUrl | グローバル参照用の URL | No.33 |
+	38   |  LocalReferenceId | ローカル参照用の ID | No.34 |
+	39   |  LocalReferenceUrl | ローカル参照用の URL | No.35 |
+	40   |  SiteReferenceId | サイト参照用の ID | No.36 |
+	41   |  SiteReferenceUrl | サイト参照用の URL | No.37 |
+	42   |  PrivateReferenceId | プライベート参照用の ID | No.38 |
+	43   |  PrivateReferenceUrl | プライベート参照用の URL | No.39 |   
 
-	: サブキーの一覧 {#tbl:commandsubkey}
+	: サブキーの一覧 {#tbl:commandsubkey}  
+
+	サブキーの指定に制限はありませんが、値に置換できるかは利用している通話プロバイダによります。
 
 #### 1-2-6. コマンドラインからの OperatorAgent 操作
 - OperatorAgent は、コマンドラインから  
