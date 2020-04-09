@@ -9,31 +9,36 @@ tblPrefix: '表.'
 
 # 詳解 Communication Suite 機能編
 
-## 目次
-<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [目次](#目次)
-- [序章 トレーニングにあたって](#序章-)
-	- [トレーニングの目的](#目的)
-	- [トレーニング中の諸注意](#中諸注意)
-- [第1章 OperatorAgent](#第1章-operatoragent)
-	- [1-1. OperatorAgent のログイン](#1-1-operatoragent-)
-		- [1-1-1. OperatorAgent でログインすることの意味](#1-1-1-operatoragent-意味)
-		- [1-1-2. OperatorAgent のログインに関連する ControlCenter の詳細設定項目](#1-1-2-operatoragent-関連-controlcenter-詳細設定項目)
-		- [1-1-3. プロジェクトの選択](#1-1-3-選択)
-		- [1-1-4. 統合 Windows 認証](#1-1-4-統合-windows-認証)
-		- [1-1-5. OperatorAgent 自動ログイン（統合 Windows 認証を利用しない）](#1-1-5-operatoragent-自動統合-windows-認証利用)
-		- [1-1-6. 本節のまとめ](#1-1-6-本節)
-	- [1-2. OperatorAgent のメイン画面](#1-2-operatoragent-画面)
-		- [1-2-1.OperatorAgent メニュー](#1-2-1operatoragent-)
-		- [1-2-2. 通話表示機能](#1-2-2-通話表示機能)
-		- [1-2-4. メイン画面機能 - 通話終了後の機能](#1-2-4-画面機能-通話終了後機能)
-		- [1-2-5. OperatorAgent の起動・終了時の動作](#1-2-5-operatoragent-起動終了時動作)
-		- [1-2-6. OperatorAgent からのコマンド実行](#1-2-6-operatoragent-実行)
-		- [1-2-7. コマンドラインからの OperatorAgent 操作](#1-2-7-operatoragent-操作)
-		- [1-2-8. OperatorAgent のインストール](#1-2-8-operatoragent-)
+
+## 目次
+
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [詳解 Communication Suite 機能編](#詳解-communication-suite-機能編)
+	- [目次](#目次)
+	- [序章 トレーニングにあたって](#序章-)
+		- [トレーニングの目的](#目的)
+		- [トレーニング中の諸注意](#中諸注意)
+	- [第1章 OperatorAgent](#第1章-operatoragent)
+		- [1-1. OperatorAgent のログイン](#1-1-operatoragent-)
+			- [1-1-1. OperatorAgent でログインすることの意味](#1-1-1-operatoragent-意味)
+			- [1-1-2. OperatorAgent のログインに関連する ControlCenter の詳細設定項目](#1-1-2-operatoragent-関連-controlcenter-詳細設定項目)
+			- [1-1-3. プロジェクトの選択](#1-1-3-選択)
+			- [1-1-4. 統合 Windows 認証](#1-1-4-統合-windows-認証)
+			- [1-1-5. OperatorAgent 自動ログイン（統合 Windows 認証を利用しない）](#1-1-5-operatoragent-自動統合-windows-認証利用)
+			- [1-1-6. 本節のまとめ](#1-1-6-本節)
+		- [1-2. OperatorAgent のメイン画面](#1-2-operatoragent-画面)
+			- [1-2-1.OperatorAgent メニュー](#1-2-1operatoragent-)
+			- [1-2-2. 通話表示機能](#1-2-2-通話表示機能)
+			- [1-2-3. 通話終了後の機能](#1-2-3-通話終了後機能)
+			- [1-2-4. OperatorAgent の起動・終了時の動作](#1-2-4-operatoragent-起動終了時動作)
+			- [1-2-5. OperatorAgent からのコマンド実行](#1-2-5-operatoragent-実行)
+			- [1-2-6. コマンドラインからの OperatorAgent 操作](#1-2-6-operatoragent-操作)
+			- [1-2-7. OperatorAgent のインストール](#1-2-7-operatoragent-)
 
 <!-- /TOC -->
+
 ## 序章 トレーニングにあたって
 
 ### トレーニングの目的
@@ -85,8 +90,11 @@ No. | 設定項目名       | デフォルト値 | 内容 |
   - OperatorAgent のインストール時に内線番号を指定している場合には、指定番号が内線番号入力欄に表示されます。（[@tbl:table] の No.6 『内線番号の保存』 が **"false"** の場合も表示されます。）  
   変更すると、ログイン出来なくなったり、他の席の電話番号と紐付けされてしまうので注意してください。
   - [@tbl:table] の No.4 『内線番号の指定』 が **"false"** の場合でも、インストール時に内線番号が指定されていない場合で、かつ [@tbl:table] の No.5 『内線番号の情報が必要かどうか』 が "S" でかつサーバ版利用時 or "R" の場合には、内線番号入力欄が強制的に表示されます。
-   - [@tbl:table] の No.1 ユーザID は、  
-**`%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config`**  
+  - [@tbl:table] の No.1 ユーザID は、  
+
+    ```
+    %USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config  
+    ```
   の **LoginSettings/@LatestLoginUserId** に保存されます。 [^2] （この設定値は最後にログインに成功したユーザIDとなります。）
 
    - [@tbl:table]  の No.2 ログインパスワードは、Windows の  
@@ -96,8 +104,11 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 ![資格情報マネージャーのログイン情報](images/1-1-win_shikaku.png){#fig:shikaku width=500px}  
 
    - [@tbl:table]  の No.6 内線番号は、  
-	 **`%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config`**  
-	 の **LoginSettings/@LatestLoginLineKey** に保存されます。（この設定値は最後にログインに成功した内線番号となります。）
+
+       ```
+       %USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config  
+       ```
+  の **LoginSettings/@LatestLoginLineKey** に保存されます。（この設定値は最後にログインに成功した内線番号となります。）
 
 [^2]:最後に
 
@@ -755,14 +766,15 @@ No. | 設定分類| 設定項目名                | 設定内容      |
 - OperatorAgent の自動更新処理  
   OperatorAgent を起動すると、ログインダイアログが表示される前に自身のバージョンとサーバ側のバージョンの比較を行います。  
 <br/>
-  - OperatorAgent のバージョンがサーバのバージョンより古い場合には、自動的に更新処理が行われ OperatorAgent が自動的にバージョンアップします。この更新処理は機能として、正常なバージョンアップがされることが保証されています。  
+  - OperatorAgent のバージョンがサーバのバージョンより古い場合には、自動的に更新処理が行われ OperatorAgent がサーバ側のバージョンに合わせてバージョンアップします。この更新処理はメジャーバージョンアップ時を除き、正常なバージョンアップが機能として保証されています。  
 <br/>
-  - OperatorAgent のバージョンがサーバのバージョンより新しい場合も同様に自動更新処理が行われ、 OperatorAgent の自動バージョンダウン処理が行われますが、この処理は機能によって正常更新が保証されない場合があります。  
-  バージョンダウン処理がサポートされるかどうかは、そのときのバージョン次第です。必要がある場合には、サポートへお問合せください。  
+  - OperatorAgent のバージョンがサーバのバージョンより新しい場合も同様に自動的に更新処理が行われ、 OperatorAgent がサーバ側のバージョンに合わせてバージョンダウンします。  
+	    ただし、この更新処理は OperatorAgent の更新内容等によっては、正常なバージョンダウンが保証されない場合があります。（その場合には、一度 OperatorAgent をアンインストールして、古いバージョンの OperatorAgent を新規インストールしてください。）  
+  自動バージョンダウン処理がサポートされるかどうかは、バージョンアップの内容次第です。切り戻し時の作業内容を検討する際には、リリースノートを確認するか、サポートへお問合せください。  
 	<br />
 	![](images/NOTICE.png){width=50px}
   　自動更新では処理中に **Windows Script Host （WSH）** の vbs がいくつか実行されます。（[@tbl:vbslist]）  
-	セキュリティソフトによって、WSH の実行が阻害されてしまう環境では、自動更新処理が正常に行われません。（インストーラによる初期インストールでもバージョンアップインストールでも、WSH は実行されます。）  
+	セキュリティソフトによって、WSH の実行が阻害されてしまう環境では、自動更新処理が正常に行われません。（インストーラによるインストールでもバージョンアップインストールでも、WSH は実行されます。）  
 
     No. | ファイル名 | 説明  |
     ----|---------------------|------------------|
@@ -856,21 +868,17 @@ No. | 設定分類| 設定項目名                | 設定内容      |
 
 2. OperatorAgent 終了時の処理  
   - ログオフ処理  
-  ControlCenter にレジストされた、OperatorAgent のレジスト情報（ユーザ・座席表の位置・内線番号との関連付け）などをリリースします。  
+  ControlCenter にレジストされた、OperatorAgent のログイン情報（ユーザ・座席表の位置・内線番号との関連付け）などをリリースします。  
   OperatorAgent を VDI オプション付きでインストールしている場合には、ライセンスのリリースも実施します。
 
 	<br />
 	![](images/NOTICE.png){width=50px}
-　OperatorAgent を明示的に終了せずに PC のシャットダウンを行った場合、OperatorAgent は自身が終了処理を完了させるまでの間 OS のシャットダウンを待機させます。  
-	ただし、OS 側でも各種終了処理が並行で実施させるため、OperatorAgent の終了処理中に、ControlCenter と通信を実施するタイミングで既に、OS の通信デバイスが停止していると、OperatorAgent の終了のタイミングで、ControlCenter 上のレジスト情報がリリースされない可能性があります。  
-
-	<br />
-	![](images/Check.png){width=50px}
-　ControlCenter と OperatorAgent 間では、【要確認】  （[@tbl:oaping]）  
-ControlCenter にレジストされた OperatorAgent のログイン情報はリリースされます。  
-ControlCenter 上での OperatorAgent のログイン情報は、ControlCenter のモニタリングメニューから『ログイン状況』機能で確認できます。  
+　OperatorAgent を手動で終了せずに PC のシャットダウンを行った場合、PC がシャットダウンシーケンス開始を検出した OperatorAgent は自身も終了処理を実施します。さらに、終了処理が完了するまでの OS が完全にシャットダウンすることを待機させます。  
+	ただし、OS 側でも各種終了処理が並行で実施されるため、OperatorAgent が ControlCenter と通信しログオフ処理を完了する前に OS の通信デバイスが停止している可能性があります。その場合、OperatorAgent のログイン情報が ControlCenter 上に残り続けます。  
+ControlCenter は各 OperatorAgent の生存確認のための通信を実施しており、【要確認】  （[@tbl:oaping]） ControlCenter にレジストされた OperatorAgent のログイン情報はリリースされます。  
+ControlCenter 上での OperatorAgent のログイン情報は、ControlCenter のモニタリングメニューの `『ログイン状況』` 機能で確認できます。  
 SpeechVisualizer の座席表機能では、タイムアウトした OperatorAgent の座席にはタイムアウトアイコンが表示されます。([@fig:ismto])  
-この状態は、該当座席に対して、新たな OperatorAgent がログインすることで解消されます。それまでは、タイムアウト前の OperatorAgent からのレジスト情報が表示され続けます。  
+この状態は、該当座席に対して新たな OperatorAgent がログインすることで解消されます。それまではタイムアウト済みの OperatorAgent からのレジスト情報が表示され続けます。  
 
 	![座席表でのタイムアウト表示](images/1-2-ism_to.png){#fig:ismto width=250px}  
 
@@ -904,7 +912,7 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 
       	などを適宜指定します。  
 				基本的には、Windows の 『ファイル名を指定して実行』 で上記を指定したときと同じ挙動になります。  
-				この機能で保証されるのは、指定コマンドが実行したか否かであって、**期待した結果が得られるかどうかではありません**。  
+				この機能で保証されるのは、指定コマンドの実行であって、**期待した結果が得られるかどうかではありません**。  
   <br />
   - [@tbl:oacommand] から実行するコマンドには、以下の書式で通話から取得できる情報を付加することが可能です。  
   記述するフォーマットは以下の通りです。  
@@ -934,14 +942,14 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 
 	のように記述します。
 
-	オプションに **_urlencode_** を指定すると、値が URLエンコードされ置き換えられます。(※一部例外あり)  
+	オプションに **_urlencode_** を指定すると、値が URLエンコードされます。(※一部例外あり)  
 
 	```
 	http://webserver/SpeechVisualizer/Detail.aspx?key=${call, Key, urlencode}
 	```  
 
 	![](images/NOTICE.png){width=50px}
-	　本機能では、 `$` は特殊文字として予約されています。  
+	　本機能では、`$` は特殊文字として予約されています。  
 	コマンドの設定で `$` を文字として使用したい場合は、`\` でエスケープしてください。  
 	同様に `"` や `\` も特殊文字ですので、文字として使用する場合は `\` でエスケープしてください。  
 	<br />
@@ -949,16 +957,16 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 
 	No. | サブキー名 | 置換される値 | [@tbl:callb2] との対応 | 備考
 	---:|---------------|---|---|--
-	1   |  Key | 会話識別子 | - | ConversationKey と同じ
-	2   |  ConversationKey | 会話識別子 | - | Key と同じ
+	1   |  Key | 会話識別子 | - |
+	2   |  ConversationKey | 会話識別子 | - |
 	3   |  ProjectName | プロジェクト名 | - |
 	4   |  UserKey | ユーザID | - | Communication Suite へのログイン情報
 	5   |  LineKey | 内線番号 | - |
-	6   |  Date | 通話開始日時 | - |
-	7   |  StartDate | 通話開始日時 | - |
-	8   |  StartDateTime | 通話開始日時 | - |
-	9   |  EndDate | 通話終了日時 | - |
-	10   |  EndDateTime | 通話終了日時 | - |
+	6   |  Date | 通話開始日時 | - | 日時系は、urlencode の指定ができません。代わりに [カスタム日時形式文字列](https://docs.microsoft.com/ja-jp/dotnet/standard/base-types/custom-date-and-time-format-strings?redirectedfrom=MSDN) の指定が可能です。<br />${call, StartDateTime, yyyy-MM-dd}
+	7   |  StartDate | 通話開始日時 | - | 日時系
+	8   |  StartDateTime | 通話開始日時 | - | 日時系
+	9   |  EndDate | 通話終了日時 | - | 日時系
+	10   |  EndDateTime | 通話終了日時 | - | 日時系
 	11   |  Duration | 通話時間(秒) | - |
 	12   |  HoldDuration | 累積保留時間(秒) | - |
 	13   |  HoldCount | 保留回数 | - |
@@ -995,11 +1003,14 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 
 	: サブキーの一覧 {#tbl:commandsubkey}  
 
-	サブキーの指定に制限はありませんが、値に置換できるかは利用している通話プロバイダによります。
+	サブキーの指定に制限はありませんが、有用な値に置換できるかは利用している通話プロバイダと電話機基盤の設定によります。
 
 #### 1-2-6. コマンドラインからの OperatorAgent 操作
 - OperatorAgent は、コマンドラインから  
-`インストールパス\OperatorAgent.exe --オプション＝値（-オプション 値）`  
+
+	```
+	インストールパス\OperatorAgent.exe --オプション＝値（-オプション 値）
+	```  
 	のように起動（終了）できます。  
 	[@tbl:oa-option] はコマンドラインで指定可能なオプションの一覧です。  
 
@@ -1025,3 +1036,4 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	No.7. 端末の操作が著しく限定されている。<br />　 　 かつ、端末シャットダウン時に実行中のアプリケーションの全終了が条件の環境で利用しています。
 
 #### 1-2-7. OperatorAgent のインストール
+- OperatorAgent は、インストーラを起動してウィザード形式で手動インストールする方法と  
