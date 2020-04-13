@@ -1076,25 +1076,25 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 
 	No.| Component | 内容  
 	--:|---|--
-	1 | ControlCenter | AmiVoice ControlCenter  
-	1 | SpeechVisualizer | AmiVoice SpeechVisualizer  
-	1 | RealTimeRecorder | AmiVoice RealTimeRecorder  
-	1 | RealTimeRecorder\AvayaAES | + Avaya AES 連携  
-	1 | RealTimeRecorder\AvayaPC | + Avaya Proactive Contact 連携  
-	1 | RealTimeRecorder\OKICTstage | + OKI CTstage 連携  
-	1 | RealTimeRecorder\GenesysTServer | + Genesys T-Server 連携  
-	1 | RealTimeRecorder\ININCIC | + ININ CIC 連携  
-	1 | RealTimeRecorder\NECOAI | + NEC OAI 連携  
-	1 | RealTimeRecorder\AmazonConnectI | + AmazonConnect 連携  
-	1 | StreamingRecognizer |   
-	1 | TaskRunner |   
-	1 | TaskRunner\Recognition |   
-	1 | TaskRunner\Database |   
-	1 | TaskRunner\Maintenance |   
-	1 | TaskRunner\ControlCenter |   
-	1 | TaskRunner\BayesScoring |   
-	1 | DownloadModule |   
-	1 | DownloadModule\OperatorAgent |   
-	1 | DownloadModule\RealTimeRecorder |   
-	1 | DownloadModule\StreamingRecognizer |   
-	1 | DownloadModule\ConvergerTool |   
+	1 | ControlCenter | インストーラに Web アプリケーション系のダイアログが表示されるようになります。  
+	2 | SpeechVisualizer | インストーラに Web アプリケーション系のダイアログが表示されるようになります。  
+	3 | RealTimeRecorder | 単体でインストールしても、RealTimeRecorder は機能しますが、CTI 連携機能を利用する場合には以下のコンポーネントを選択します。  
+	4 | RealTimeRecorder\AvayaAES | Avaya AES 連携に必要な TSAPI クライントが追加でインストールされます。イインストールウィザードに AES 関連項目が追加されます（[@tbl:oainstalloption] No.28～30）。  
+	5 | RealTimeRecorder\AvayaPC | + Avaya Proactive Contact 連携 【要確認】 選択する意味ある？  
+	6 | RealTimeRecorder\OKICTstage | + OKI CTstage 連携 【要確認】 選択する意味ある？  
+	7 | RealTimeRecorder\GenesysTServer | + Genesys T-Server 連携 【要確認】 選択する意味ある？  
+	8 | RealTimeRecorder\ININCIC | + ININ CIC 連携 【要確認】 選択する意味ある？  
+	9 | RealTimeRecorder\NECOAI | + NEC OAI 連携 【要確認】 選択する意味ある？  
+	10 | RealTimeRecorder\AmazonConnectI | + AmazonConnect 連携 【要確認】 選択する意味ある？  
+	11 | StreamingRecognizer | -  
+	12 | TaskRunner | TaskRunnerをインストールします。以下 13 ～ 17 までのタスクを選択する必要があります。  
+	13 | TaskRunner\Recognition | 認識処理関連のタスクがインストールされます。 【要確認】 Task 名とリンク  
+	14 | TaskRunner\Database | データベース関連のタスクがインストールされます。 【要確認】 Task 名とリンク  
+	15 | TaskRunner\Maintenance | メンテナン関連のタスクがインストールされます。 【要確認】 Task 名とリンク  
+	16 | TaskRunner\ControlCenter | ライセンス関連のタスクがインストールされます。 【要確認】 Task 名とリンク  
+	17 | TaskRunner\BayesScoring | 通話スコアリング関連のタスクがインストールされます。 【要確認】 Task 名とリンク  
+	18 | DownloadModule | ダウンロードモジュールを ControlCenter に配置します。通話プロバイダに合わせて以下 19 ～ 20 のモジュールを選択する必要があります。  
+	19 | DownloadModule\OperatorAgent | OperatorAgent 本体です。MediaScriber 以外の全ての通話プロバイダで必要です。  
+	20 | DownloadModule\RealTimeRecorder | クライアント認識の通話プロバイダで必要です。  
+	21 | DownloadModule\StreamingRecognizer | クライアント認識の通話プロバイダで必要です。  
+	22 | DownloadModule\ConvergerTool | クライアント認識 ＆ 音声デバイス型の通話プロバイダでコンバージャーを利用する場合には必要です。  
