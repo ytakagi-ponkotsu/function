@@ -1039,4 +1039,65 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	No.7. 端末の操作が著しく限定されている。<br />　 　 かつ、端末シャットダウン時に実行中のアプリケーションの全終了が条件の環境で利用しています。
 
 #### 1-2-7. OperatorAgent のインストール
-- OperatorAgent は、インストーラを起動してウィザード形式で手動インストールする方法と  
+- OperatorAgent は、インストーラを通常起動してウィザード形式で手動インストールする方法と、インストーラ実行時に引数付きで起動し自動インストールする方法と2種類のインストールがサポートされています。  
+- 自動インストール時に引数指定するオプション（[@tbl:oainstalloption]）次第ではサイレントインストールが可能です。  
+
+	No.| オプション | 内容  
+	--:|---|--
+	1 | /SILENT | インストールの進捗を示すウィンドウ以外表示されなくなります。 ウィザードによる指定が出来なくなるので、必要なオプションを指定する必要があります。  
+	2 | /VERYSILENT | すべてのウィンドウが表示されなくなります。 ウィザードによる指定が出来なくなるので、必要なオプションを指定する必要があります。  
+	3 | /SUPPRESSMSGBOXES | 表示されるメッセージボックスを抑制します。/SILENT または /VERYSILENT オプションを指定したときのみ効果があります。  
+	4 | /LOG | インストールのログが、ユーザのテンポラリフォルダ内に作成されます。  
+	5 | /LOG="filename" | インストールのログが、filename に指定されたファイルに作成されます。  
+	6 | /NOCANCEL | キャンセルボタンと閉じるボタンがクリックできなくなります。/SILENT オプションと同時に指定すれば、インストール中にキャンセルされなくなります。  
+	7 | /NORESTART | 再起動が必要の場合でも、再起動しなくなります。  
+	8 | /RESTARTEXITCODE=exit_code | 再起動が必要な場合に返す終了コードを指定します。この指定が無いと 0 が返ります。 通常は /NORESTART オプションと共に使用します。  
+	9 | /LOADINF="filename" | インストーラが、指定した filename より設定を読み込んで実行します。/SAVEINFO コマンドにより保存したファイルを使用できます。  
+	10 | /SAVEINF="filename" | インストール中に指定した設定を filename に保存します。  
+	11 | /DIR="x:\dirname" | インストール先のディレクトリを指定します。これは「インストール先の指定」画面のインストールフォルダに相当します。  
+	12 | /GROUP="folder name" | プログラムグループを指定します。 これは「プログラムグループの指定」画面のプログラムグループ名に相当します。  
+	13 | /NOICONS | プログラムグループを作成しなくなります。 これは「プログラムグループの指定」画面の「プログラムグループを作成しない」にチェックを入れるのに相当します。  
+	14 | /TYPE=type_name | インストールするコンポーネントのセットを指定します。 これは「コンポーネントの選択」画面のコンボボックスによる選択に相当します。 指定できる値は  の通りです。  
+	15 | /COMPONENTS="component_names" | インストールするコンポーネントを指定します。カンマ「,」で区切ることにより複数指定できます。 ここで指定されたコンポーネントだけがインストールされます。 これは「コンポーネントの選択」画面のチェックボックスによる選択に相当します。 指定できる値は  の通りです。  
+	16 | /TASKS="task_names" | 実行するタスクを指定します。カンマ「,」で区切ることにより複数指定できます。 ここで指定されたタスクだけが実行されます。 これは「追加タスクの選択」画面のチェックボックスによる選択に相当します。 指定できる値は  の通りです。  
+	17 | /MERGETASKS="task_names" | 実行するタスクを指定します。カンマ「,」で区切ることにより複数指定できます。 /TASKS オプションと似ていますが、デフォルトでチェックされているタスクと、このオプションで指定されたタスクが実行されます。  
+	18 | /LicenseNumber=license_number | ライセンス番号を指定します。 これは「ユーザ情報」画面の「ライセンス情報」に相当します。  
+	19 | /InstallKey=install_key | インストールキーを指定します。 これは「ユーザ情報」画面の「インストールキー」に相当します。  
+	20 | /LogPath=log_folder | Communication Suite のログの出力先のフォルダを指定します。 これは「ログ出力先の指定」画面の「ログ出力先」に相当します。  
+	21 |/DecryptionKey=decryption_key  | 暗号化に使用する暗号化キーの値を指定します。この値は48文字からなる16進数形式です。 これは「暗号化キーの指定」画面の「暗号化キー」に相当します。  
+	22 | /CommonDatabaseInstance=instance_name | 使用するデータベースインスタンス名を指定します。 同じマシン上の SQLServer であれば「.」または「(local)」、 同じマシン上の SQLServer Express であれば「.\SQLEXPRESS」、 別のマシン上の SQLServer であれば「サーバ名」の様になります。 これは「SQLServer データベースの選択」画面の「インスタンス名」に相当します。  
+	23 | /CommonDatabaseCatalog=database_name | 使用するデータベース名を指定します。 これは「SQLServer データベースの選択」画面の「データベース名」に相当します。  
+	24 | /ControlCenterTargetName=website_name | ControlCenter 用の仮想ディレクトリを作成する Web サイト名を指定します。 これは「ControlCenter 用の IIS セットアップ」画面の「ControlCenter 用の仮想ディレクトリを作成する Web サイト」に相当します。  
+	25 | /ControlCenterVDirName=vdir_name | ControlCenter 用の仮想ディレクトリ名を指定します。 これは「ControlCenter 用の IIS セットアップ」画面の「ControlCenter 用仮想ディレクトリ名」に相当します。  
+	26 | /SpeechVisualizerTargetName=website_name | SpeechVisualizer 用の仮想ディレクトリを作成する Web サイト名を指定します。 これは「SpeechVisualizerr 用の IIS セットアップ」画面の「SpeechVisualizer 用の仮想ディレクトリを作成する Web サイト」に相当します。  
+	27 | /SpeechVisualizerVDirName=vdir_name | SpeechVisualizer 用の仮想ディレクトリ名を指定します。 これは「SpeechVisualizer 用の IIS セットアップ」画面の「SpeechVisualizer 用仮想ディレクトリ名」に相当します。  
+	28 | /ControlCenterServerUrl=controlcenter_url | 接続する ControlCenter サーバのURLを指定します。 これは「サーバURLの指定」画面の「サーバURL」に相当します。 RealTimeRecorder や StreamingRecognizer をインストールする場合に必須となります。  
+	29 | /AvayaAESServerName=aes_server_address | Avaya AES 連携で使用する、 Avaya AES サーバに接続可能なホスト名、または IP アドレスを指定します。 これは「Avaya AES 接続先の指定」画面の「Avaya AES サーバ名」に相当します。 AvayaAESTsapiClientConfig タスクを指定した場合は必須となります。  
+	30 | /AvayaAESServerName=aes_port_no | Avaya AES 連携で使用する、Avaya AES サーバで TSAPI の接続を受け入れるポート番号を指定します。 これは「Avaya AES 接続先の指定」画面の「Avaya AES TSAPI 用ポート番号」に相当します。 AvayaAESTsapiClientConfig タスクを指定した場合は必須となります。  
+
+	: OperatorAgent インストールオプション {#tbl:oainstalloption}
+
+	No.| Component | 内容  
+	--:|---|--
+	1 | ControlCenter | AmiVoice ControlCenter  
+	1 | SpeechVisualizer | AmiVoice SpeechVisualizer  
+	1 | RealTimeRecorder | AmiVoice RealTimeRecorder  
+	1 | RealTimeRecorder\AvayaAES | + Avaya AES 連携  
+	1 | RealTimeRecorder\AvayaPC | + Avaya Proactive Contact 連携  
+	1 | RealTimeRecorder\OKICTstage | + OKI CTstage 連携  
+	1 | RealTimeRecorder\GenesysTServer | + Genesys T-Server 連携  
+	1 | RealTimeRecorder\ININCIC | + ININ CIC 連携  
+	1 | RealTimeRecorder\NECOAI | + NEC OAI 連携  
+	1 | RealTimeRecorder\AmazonConnectI | + AmazonConnect 連携  
+	1 | StreamingRecognizer |   
+	1 | TaskRunner |   
+	1 | TaskRunner\Recognition |   
+	1 | TaskRunner\Database |   
+	1 | TaskRunner\Maintenance |   
+	1 | TaskRunner\ControlCenter |   
+	1 | TaskRunner\BayesScoring |   
+	1 | DownloadModule |   
+	1 | DownloadModule\OperatorAgent |   
+	1 | DownloadModule\RealTimeRecorder |   
+	1 | DownloadModule\StreamingRecognizer |   
+	1 | DownloadModule\ConvergerTool |   
