@@ -1084,8 +1084,8 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	1 | RealTimeRecorder\OKICTstage | + OKI CTstage 連携  
 	1 | RealTimeRecorder\GenesysTServer | + Genesys T-Server 連携  
 	1 | RealTimeRecorder\ININCIC | + ININ CIC 連携  
-	1 | 【要確認】 RealTimeRecorder\SVOAI | + SV9500 OAI 連携  
-	1 | 【要確認】 RealTimeRecorder\AmazonConnectI | + AmazonConnect 連携  
+	1 | RealTimeRecorder\NECOAI | + NEC OAI 連携  
+	1 | RealTimeRecorder\AmazonConnectI | + AmazonConnect 連携  
 	1 | StreamingRecognizer |   
 	1 | TaskRunner |   
 	1 | TaskRunner\Recognition |   
