@@ -1049,52 +1049,47 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	6 | /NOCANCEL | キャンセルボタンと閉じるボタンがクリックできなくなります。/SILENT オプションと同時に指定すれば、インストール中にキャンセルされなくなります。  
 	7 | /NORESTART | 再起動が必要の場合でも、再起動しなくなります。  
 	8 | /RESTARTEXITCODE=exit_code | 再起動が必要な場合に返す終了コードを指定します。この指定が無いと 0 が返ります。 通常は /NORESTART オプションと共に使用します。  
-	9 | /LOADINF="filename" | インストーラが、指定した filename より設定を読み込んで実行します。/SAVEINFO コマンドにより保存したファイルを使用できます。  
-	10 | /SAVEINF="filename" | インストール中に指定した設定を filename に保存します。  
-	11 | /DIR="x:\dirname" | インストール先のディレクトリを指定します。これは「インストール先の指定」画面のインストールフォルダに相当します。  
-	12 | /GROUP="folder name" | プログラムグループを指定します。 これは「プログラムグループの指定」画面のプログラムグループ名に相当します。  
-	13 | /NOICONS | プログラムグループを作成しなくなります。 これは「プログラムグループの指定」画面の「プログラムグループを作成しない」にチェックを入れるのに相当します。  
-	14 | /TYPE=type_name | インストールするコンポーネントのセットを指定します。 これは「コンポーネントの選択」画面のコンボボックスによる選択に相当します。 指定できる値は  の通りです。  
-	15 | /COMPONENTS="component_names" | インストールするコンポーネントを指定します。カンマ「,」で区切ることにより複数指定できます。 ここで指定されたコンポーネントだけがインストールされます。 これは「コンポーネントの選択」画面のチェックボックスによる選択に相当します。 指定できる値は  の通りです。  
-	16 | /TASKS="task_names" | 実行するタスクを指定します。カンマ「,」で区切ることにより複数指定できます。 ここで指定されたタスクだけが実行されます。 これは「追加タスクの選択」画面のチェックボックスによる選択に相当します。 指定できる値は  の通りです。  
-	17 | /MERGETASKS="task_names" | 実行するタスクを指定します。カンマ「,」で区切ることにより複数指定できます。 /TASKS オプションと似ていますが、デフォルトでチェックされているタスクと、このオプションで指定されたタスクが実行されます。  
-	18 | /LicenseNumber=license_number | ライセンス番号を指定します。 これは「ユーザ情報」画面の「ライセンス情報」に相当します。  
-	19 | /InstallKey=install_key | インストールキーを指定します。 これは「ユーザ情報」画面の「インストールキー」に相当します。  
-	20 | /LogPath=log_folder | Communication Suite のログの出力先のフォルダを指定します。 これは「ログ出力先の指定」画面の「ログ出力先」に相当します。  
-	21 |/DecryptionKey=decryption_key  | 暗号化に使用する暗号化キーの値を指定します。この値は48文字からなる16進数形式です。 これは「暗号化キーの指定」画面の「暗号化キー」に相当します。  
-	22 | /CommonDatabaseInstance=instance_name | 使用するデータベースインスタンス名を指定します。 同じマシン上の SQLServer であれば「.」または「(local)」、 同じマシン上の SQLServer Express であれば「.\SQLEXPRESS」、 別のマシン上の SQLServer であれば「サーバ名」の様になります。 これは「SQLServer データベースの選択」画面の「インスタンス名」に相当します。  
-	23 | /CommonDatabaseCatalog=database_name | 使用するデータベース名を指定します。 これは「SQLServer データベースの選択」画面の「データベース名」に相当します。  
-	24 | /ControlCenterTargetName=website_name | ControlCenter 用の仮想ディレクトリを作成する Web サイト名を指定します。 これは「ControlCenter 用の IIS セットアップ」画面の「ControlCenter 用の仮想ディレクトリを作成する Web サイト」に相当します。  
-	25 | /ControlCenterVDirName=vdir_name | ControlCenter 用の仮想ディレクトリ名を指定します。 これは「ControlCenter 用の IIS セットアップ」画面の「ControlCenter 用仮想ディレクトリ名」に相当します。  
-	26 | /SpeechVisualizerTargetName=website_name | SpeechVisualizer 用の仮想ディレクトリを作成する Web サイト名を指定します。 これは「SpeechVisualizerr 用の IIS セットアップ」画面の「SpeechVisualizer 用の仮想ディレクトリを作成する Web サイト」に相当します。  
-	27 | /SpeechVisualizerVDirName=vdir_name | SpeechVisualizer 用の仮想ディレクトリ名を指定します。 これは「SpeechVisualizer 用の IIS セットアップ」画面の「SpeechVisualizer 用仮想ディレクトリ名」に相当します。  
-	28 | /ControlCenterServerUrl=controlcenter_url | 接続する ControlCenter サーバのURLを指定します。 これは「サーバURLの指定」画面の「サーバURL」に相当します。 RealTimeRecorder や StreamingRecognizer をインストールする場合に必須となります。  
-	29 | /AvayaAESServerName=aes_server_address | Avaya AES 連携で使用する、 Avaya AES サーバに接続可能なホスト名、または IP アドレスを指定します。 これは「Avaya AES 接続先の指定」画面の「Avaya AES サーバ名」に相当します。 AvayaAESTsapiClientConfig タスクを指定した場合は必須となります。  
-	30 | /AvayaAESServerName=aes_port_no | Avaya AES 連携で使用する、Avaya AES サーバで TSAPI の接続を受け入れるポート番号を指定します。 これは「Avaya AES 接続先の指定」画面の「Avaya AES TSAPI 用ポート番号」に相当します。 AvayaAESTsapiClientConfig タスクを指定した場合は必須となります。  
+	9 | /CLOSEAPPLICATIONS | OperatorAgent やコンバージャ調整ツールが起動している場合に、それらのアプリケーションを終了します。（以下 10 ～12 を指定しない場合この挙動となります。）  
+	10 | /NOCLOSEAPPLICATIONS | OperatorAgent やコンバージャ調整ツールが起動している場合に、それらのアプリケーションを終了せずにインストールを試みます。  
+	11 | /FORCECLOSEAPPLICATIONS | OperatorAgent やコンバージャ調整ツールが起動している場合に、それらのアプリケーションを強制的に終了します。  
+	12 | /RESTARTAPPLICATIONS | インストーラが終了させたアプリケーションを、インストール完了後に起動します。 `/CLOSEAPPLICATIONS` オプションと共に使⽤します。  
+	13 | /LOADINF="filename" | インストーラが、指定した filename より設定を読み込んで実行します。/SAVEINFO コマンドにより保存したファイルを使用できます。  
+	14 | /SAVEINF="filename" | インストール中に指定した設定を filename に保存します。  
+	15 | /DIR="x:\dirname" | インストール先のディレクトリを指定します。これは「インストール先の指定」画面のインストールフォルダに相当します。  
+	16 | /GROUP="folder name" | プログラムグループを指定します。 これは「プログラムグループの指定」画面のプログラムグループ名に相当します。  
+	17 | /NOICONS | プログラムグループを作成しなくなります。 これは「プログラムグループの指定」画面の「プログラムグループを作成しない」にチェックを入れるのに相当します。  
+	18 | /TYPE=type_name | インストールするコンポーネントのセットを指定します。 これは「コンポーネントの選択」画面のコンボボックスによる選択に相当します。 指定できる値は [@tbl:oainstalltype] の通りです。  
+	19 | /COMPONENTS="component_names" | インストールするコンポーネントを指定します。カンマ「,」で区切ることにより複数指定できます。 ここで指定されたコンポーネントだけがインストールされます。 これは「コンポーネントの選択」画面のチェックボックスによる選択に相当します。 指定できる値は [@tbl:oainstallcomponent] の通りです。  
+	20 | /TASKS="task_names" | 実行するタスクを指定します。カンマ「,」で区切ることにより複数指定できます。 ここで指定されたタスクだけが実行されます。 これは「追加タスクの選択」画面のチェックボックスによる選択に相当します。 指定できる値は  の通りです。  
+	21 | /MERGETASKS="task_names" | 実行するタスクを指定します。カンマ「,」で区切ることにより複数指定できます。 /TASKS オプションと似ていますが、デフォルトでチェックされているタスクと、このオプションで指定されたタスクが実行されます。  
+	22 | /LicenseNumber=license_number | ライセンス番号を指定します。 これは「ユーザ情報」画面の「ライセンス情報」に相当します。  
+	23 | /InstallKey=install_key | インストールキーを指定します。 これは「ユーザ情報」画面の「インストールキー」に相当します。  
+	24 | /LogPath=log_folder | Communication Suite のログの出力先のフォルダを指定します。 これは「ログ出力先の指定」画面の「ログ出力先」に相当します。  
+	25 | /ControlCenterServerUrl=controlcenter_url | 接続する ControlCenter サーバのURLを指定します。 これは「サーバURLの指定」画⾯の「サーバURL」に相当します。 どのコンポーネントをインストールする場合でも必須となります。  
+	26 | /NodeGroup=nodegroup_name | 使⽤するノードグループを指定します。 これは「ノードグループ名の指定」画⾯の「ノードグループ名」に相当します。 RealTimeRecorder または StreamingRecognizer をインストールする場合は必須となります。インストールするコンポーネントに RealTimeRecorder、StreamingRecognizer が含まれていない場合は無視されます。  
+	27 | /LineNo=line_key | 端末で使⽤する内線番号を指定します。 これは「内線番号の指定」画⾯の「内線番号」に相当します。OperatorAgent をインストールせずに RealTimeRecorder または StreamingRecognizer をインストールする場合は必須となります。 インストールするコンポーネントに OperatorAgent、RealTimeRecorder、StreamingRecognizer が含まれていない場合は無視されます。  
+	28 | /RDS=1 | RemoteDesktop を使った仮想環境3にインストールする場合に指定します。これにより、⾃動アップデートは動作しなくなり、OperatorAgent でログイン中のみ OperatorAgent のライセンスが消費されます。 インストールするコンポーネントに、RealTimeRecorder、StreamingRecognizer 等のクライアント録⾳、クライアント認識に関係するコンポーネントを含めることは出来ません。この引数を指定してインストールした場合、アップデートインストール時には必ずこの引数を指定してアップデートする必要があります。  
+	29 | /VDI=1 | VDI を使った仮想環境にインストールする場合に指定します。これにより、通常通り⾃動アップデートは動作しますが、OperatorAgent でログイン中のみ OperatorAgent のライセンスが消費されます。 インストールするコンポーネントに、RealTimeRecorder、StreamingRecognizer 等のクライアント録⾳、クライアント認識に関係するコンポーネントを含めることは出来ません。この引数を指定してインストールした場合、アップデートインストール時には必ずこの引数を指定してアップデートする必要があります。  
 
 	: OperatorAgent インストールオプション {#tbl:oainstalloption}
 
+	No.| type_name | 内容  
+	--:|---|--
+	1 | full | フルインストールします。  
+	2 | oa | OperatorAgent のみをインストールします。  
+	3 | rc | コンバージャー版 OperatorAgent をインストールします。  
+	4 | rp | クライアントパケットキャプチャ版 OperatorAgent をインストールします。  
+
+	: OperatorAgent のインストールタイプ {#tbl:oainstalltype}
+
 	No.| Component | 内容  
 	--:|---|--
-	1 | ControlCenter | インストーラに Web アプリケーション系のダイアログが表示されるようになります。  
-	2 | SpeechVisualizer | インストーラに Web アプリケーション系のダイアログが表示されるようになります。  
+	1 | OperatorAgent | 全ての通話プロバイダで必要です。  
 	3 | RealTimeRecorder | 単体でインストールしても、RealTimeRecorder は機能しますが、CTI 連携機能を利用する場合には以下のコンポーネントを選択します。  
-	4 | RealTimeRecorder\AvayaAES | Avaya AES 連携に必要な TSAPI クライントが追加でインストールされます。イインストールウィザードに AES 関連項目が追加されます（[@tbl:oainstalloption] No.28～30）。  
-	5 | RealTimeRecorder\AvayaPC | + Avaya Proactive Contact 連携 【要確認】 選択する意味ある？  
-	6 | RealTimeRecorder\OKICTstage | + OKI CTstage 連携 【要確認】 選択する意味ある？  
-	7 | RealTimeRecorder\GenesysTServer | + Genesys T-Server 連携 【要確認】 選択する意味ある？  
-	8 | RealTimeRecorder\ININCIC | + ININ CIC 連携 【要確認】 選択する意味ある？  
-	9 | RealTimeRecorder\NECOAI | + NEC OAI 連携 【要確認】 選択する意味ある？  
-	10 | RealTimeRecorder\AmazonConnectI | + AmazonConnect 連携 【要確認】 選択する意味ある？  
+	4 | RealTimeRecorder\Converger | Avaya AES 連携に必要な TSAPI クライントが追加でインストールされます。イインストールウィザードに AES 関連項目が追加されます（[@tbl:oainstalloption] No.28～30）。  
+	5 | RealTimeRecorder\PacketCapture | + Avaya Proactive Contact 連携 【要確認】 選択する意味ある？  
+	6 | RealTimeRecorder\PacketCapture\Avaya | + OKI CTstage 連携 【要確認】 選択する意味ある？  
+	7 | RealTimeRecorder\CTILink | + Genesys T-Server 連携 【要確認】 選択する意味ある？  
 	11 | StreamingRecognizer | -  
-	12 | TaskRunner | TaskRunnerをインストールします。以下 13 ～ 17 までのタスクを選択する必要があります。  
-	13 | TaskRunner\Recognition | 認識処理関連のタスクがインストールされます。 【要確認】 Task 名とリンク  
-	14 | TaskRunner\Database | データベース関連のタスクがインストールされます。 【要確認】 Task 名とリンク  
-	15 | TaskRunner\Maintenance | メンテナン関連のタスクがインストールされます。 【要確認】 Task 名とリンク  
-	16 | TaskRunner\ControlCenter | ライセンス関連のタスクがインストールされます。 【要確認】 Task 名とリンク  
-	17 | TaskRunner\BayesScoring | 通話スコアリング関連のタスクがインストールされます。 【要確認】 Task 名とリンク  
-	18 | DownloadModule | ダウンロードモジュールを ControlCenter に配置します。通話プロバイダに合わせて以下 19 ～ 20 のモジュールを選択する必要があります。  
-	19 | DownloadModule\OperatorAgent | OperatorAgent 本体です。MediaScriber 以外の全ての通話プロバイダで必要です。  
-	20 | DownloadModule\RealTimeRecorder | クライアント認識の通話プロバイダで必要です。  
-	21 | DownloadModule\StreamingRecognizer | クライアント認識の通話プロバイダで必要です。  
-	22 | DownloadModule\ConvergerTool | クライアント認識 ＆ 音声デバイス型の通話プロバイダでコンバージャーを利用する場合には必要です。  
+	12 | ConvergerTool | TaskRunnerをインストールします。以下 13 ～ 17 までのタスクを選択する必要があります。  
+	: OperatorAgent インストール時に選択可能なコンポーネント {#tbl:oainstallcomponent}
