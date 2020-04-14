@@ -1079,20 +1079,20 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	1 | ControlCenter | インストーラに Web アプリケーション系のダイアログが表示されるようになります。  
 	2 | SpeechVisualizer | インストーラに Web アプリケーション系のダイアログが表示されるようになります。  
 	3 | RealTimeRecorder | 単体でインストールしても、RealTimeRecorder は機能しますが、CTI 連携機能を利用する場合には以下のコンポーネントを選択します。  
-	4 | RealTimeRecorder\AvayaAES | Avaya AES 連携に必要な TSAPI クライントが追加でインストールされます。イインストールウィザードに AES 関連項目が追加されます（[@tbl:oainstalloption] No.28～30）。  
-	5 | RealTimeRecorder\AvayaPC | + Avaya Proactive Contact 連携 【要確認】 選択する意味ある？  
-	6 | RealTimeRecorder\OKICTstage | + OKI CTstage 連携 【要確認】 選択する意味ある？  
-	7 | RealTimeRecorder\GenesysTServer | + Genesys T-Server 連携 【要確認】 選択する意味ある？  
-	8 | RealTimeRecorder\ININCIC | + ININ CIC 連携 【要確認】 選択する意味ある？  
-	9 | RealTimeRecorder\NECOAI | + NEC OAI 連携 【要確認】 選択する意味ある？  
-	10 | RealTimeRecorder\AmazonConnectI | + AmazonConnect 連携 【要確認】 選択する意味ある？  
+	4 | RealTimeRecorder\AvayaAES | Avaya AES 連携に必要な TSAPI クライアントが追加でインストールされます。インストールウィザードに AES 関連項目が追加されます（[@tbl:oainstalloption] No.28～30）。  
+	5 | RealTimeRecorder\AvayaPC | Avaya Proactive Contact 連携に必要なライブラリが追加でインストールされます。  
+	6 | RealTimeRecorder\OKICTstage | OKI CTstage 連携に必要なライブラリが追加でインストールされます。  
+	7 | RealTimeRecorder\GenesysTServer | Genesys T-Server 連携に必要なライブラリが追加でインストールされます。  
+	8 | RealTimeRecorder\ININCIC | ININ CIC 連携 に必要なライブラリが追加でインストールされます。  
+	9 | RealTimeRecorder\NECOAI | NEC OAI 連携に必要なライブラリが追加でインストールされます。   
+	10 | RealTimeRecorder\AmazonConnectI | AmazonConnect 連携に必要なライブラリが追加でインストールされます。  
 	11 | StreamingRecognizer | -  
 	12 | TaskRunner | TaskRunnerをインストールします。以下 13 ～ 17 までのタスクを選択する必要があります。  
-	13 | TaskRunner\Recognition | 認識処理関連のタスクがインストールされます。 【要確認】 Task 名とリンク  
-	14 | TaskRunner\Database | データベース関連のタスクがインストールされます。 【要確認】 Task 名とリンク  
-	15 | TaskRunner\Maintenance | メンテナン関連のタスクがインストールされます。 【要確認】 Task 名とリンク  
-	16 | TaskRunner\ControlCenter | ライセンス関連のタスクがインストールされます。 【要確認】 Task 名とリンク  
-	17 | TaskRunner\BayesScoring | 通話スコアリング関連のタスクがインストールされます。 【要確認】 Task 名とリンク  
+	13 | TaskRunner\Recognition | 認識処理関連のタスクがインストールされます。TaskRunnerで RecognitionEnqueue、RecognitionQueueDeletion、RecognitionQueueRecoveryタスクが利用可能になります。  
+	14 | TaskRunner\Database | データベース関連のタスクがインストールされます。TaskRunnerでDbIndexMaintenance,DbStateReport,DbStatisticsUpdate,StorageObjectExport,StorageObjectHashChecker,StorageObjectImportタスクが利用可能になります。  
+	15 | TaskRunner\Maintenance | メンテナンス関連のタスクがインストールされます。TaskRunnerで AudioFileDeletion,ConversationExport,ConversationMaintenance,ConversationTerminate,DictionaryMaintenance,EngineModeImport,ExtensionNumberMaintenance,FileDeletion,LicenseRegister,NodeOperation,QualityEvaluation,UserMaintenanceタスクが利用可能になります。  
+	16 | TaskRunner\ControlCenter | 感情解析ライセンス関連のタスクがインストールされます。TaskRunnerでNemesyscoPreparationタスクが利用可能になります。  
+	17 | TaskRunner\BayesScoring | 通話スコアリング関連のタスクがインストールされます。TaskRunnerでStatisticalModelEvaluation,StatisticalModelUpdaterタスクが利用可能になります。  
 	18 | DownloadModule | ダウンロードモジュールを ControlCenter に配置します。通話プロバイダに合わせて以下 19 ～ 20 のモジュールを選択する必要があります。  
 	19 | DownloadModule\OperatorAgent | OperatorAgent 本体です。MediaScriber 以外の全ての通話プロバイダで必要です。  
 	20 | DownloadModule\RealTimeRecorder | クライアント認識の通話プロバイダで必要です。  
