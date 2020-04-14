@@ -1085,11 +1085,11 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	No.| Component | 内容  
 	--:|---|--
 	1 | OperatorAgent | 全ての通話プロバイダで必要です。  
-	3 | RealTimeRecorder | 単体でインストールしても、RealTimeRecorder は機能しますが、CTI 連携機能を利用する場合には以下のコンポーネントを選択します。  
-	4 | RealTimeRecorder\Converger | Avaya AES 連携に必要な TSAPI クライントが追加でインストールされます。イインストールウィザードに AES 関連項目が追加されます（[@tbl:oainstalloption] No.28～30）。  
-	5 | RealTimeRecorder\PacketCapture | + Avaya Proactive Contact 連携 【要確認】 選択する意味ある？  
-	6 | RealTimeRecorder\PacketCapture\Avaya | + OKI CTstage 連携 【要確認】 選択する意味ある？  
-	7 | RealTimeRecorder\CTILink | + Genesys T-Server 連携 【要確認】 選択する意味ある？  
-	11 | StreamingRecognizer | -  
-	12 | ConvergerTool | TaskRunnerをインストールします。以下 13 ～ 17 までのタスクを選択する必要があります。  
+	2 | RealTimeRecorder | 単体でインストールしても、RealTimeRecorder は機能しますが、CTI 連携機能を利用する場合には以下のコンポーネントを選択します。  
+	3 | RealTimeRecorder\Converger | Avaya AES 連携に必要な TSAPI クライントが追加でインストールされます。イインストールウィザードに AES 関連項目が追加されます（[@tbl:oainstalloption] No.28～30）。  
+	4 | RealTimeRecorder\PacketCapture | + Avaya Proactive Contact 連携 【要確認】 選択する意味ある？  
+	5 | RealTimeRecorder\PacketCapture\Avaya | + OKI CTstage 連携 【要確認】 選択する意味ある？  
+	6 | RealTimeRecorder\CTILink | + Genesys T-Server 連携 【要確認】 選択する意味ある？  
+	7 | StreamingRecognizer | -  
+	8 | ConvergerTool | TaskRunnerをインストールします。以下 13 ～ 17 までのタスクを選択する必要があります。  
 	: OperatorAgent インストール時に選択可能なコンポーネント {#tbl:oainstallcomponent}
