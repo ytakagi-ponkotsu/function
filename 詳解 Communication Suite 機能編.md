@@ -1086,7 +1086,7 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	--:|---|--
 	1 | OperatorAgent | 全ての通話プロバイダで必要です。  
 	2 | RealTimeRecorder | 単体でインストールしても、RealTimeRecorder は機能しますが、CTI 連携機能を利用する場合には以下のコンポーネントを選択します。  
-	3 | RealTimeRecorder\Converger | Avaya AES 連携に必要な TSAPI クライントが追加でインストールされます。イインストールウィザードに AES 関連項目が追加されます（[@tbl:oainstalloption] No.28～30）。  
+	3 | RealTimeRecorder\Converger |   
 	4 | RealTimeRecorder\PacketCapture | + Avaya Proactive Contact 連携 【要確認】 選択する意味ある？  
 	5 | RealTimeRecorder\PacketCapture\Avaya | + OKI CTstage 連携 【要確認】 選択する意味ある？  
 	6 | RealTimeRecorder\CTILink | + Genesys T-Server 連携 【要確認】 選択する意味ある？  
