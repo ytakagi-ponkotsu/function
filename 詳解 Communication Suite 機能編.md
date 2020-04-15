@@ -1093,7 +1093,7 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	17 | /NOICONS | プログラムグループを作成しなくなります。 これは「プログラムグループの指定」画面の「プログラムグループを作成しない」にチェックを入れるのに相当します。  
 	18 | /TYPE=type_name | インストールするコンポーネントのセットを指定します。 これは「コンポーネントの選択」画面のコンボボックスによる選択に相当します。 指定できる値は [@tbl:oainstalltype] の通りです。  
 	19 | /COMPONENTS="component_names" | インストールするコンポーネントを指定します。カンマ「,」で区切ることにより複数指定できます。 ここで指定されたコンポーネントだけがインストールされます。 これは「コンポーネントの選択」画面のチェックボックスによる選択に相当します。 指定できる値は [@tbl:oainstallcomponent] の通りです。  
-	20 | /TASKS="task_names" | 実行するタスクを指定します。カンマ「,」で区切ることにより複数指定できます。 ここで指定されたタスクだけが実行されます。 これは「追加タスクの選択」画面のチェックボックスによる選択に相当します。 指定できる値は  の通りです。  
+	20 | /TASKS="task_names" | 実行するタスクを指定します。カンマ「,」で区切ることにより複数指定できます。 ここで指定されたタスクだけが実行されます。 これは「追加タスクの選択」画面のチェックボックスによる選択に相当します。 指定できる値は [@tbl:oainstalltasks] の通りです。  
 	21 | /MERGETASKS="task_names" | 実行するタスクを指定します。カンマ「,」で区切ることにより複数指定できます。 /TASKS オプションと似ていますが、デフォルトでチェックされているタスクと、このオプションで指定されたタスクが実行されます。  
 	22 | /LicenseNumber=license_number | ライセンス番号を指定します。 これは「ユーザ情報」画面の「ライセンス情報」に相当します。  
 	23 | /InstallKey=install_key | インストールキーを指定します。 これは「ユーザ情報」画面の「インストールキー」に相当します。  
@@ -1118,11 +1118,22 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	No.| Component | 内容  
 	--:|---|--
 	1 | OperatorAgent | 全ての通話プロバイダで必要です。  
-	2 | RealTimeRecorder | 単体でインストールしても、RealTimeRecorder は機能しますが、CTI 連携機能を利用する場合には以下のコンポーネントを選択します。  
-	3 | RealTimeRecorder\Converger |   
-	4 | RealTimeRecorder\PacketCapture | + Avaya Proactive Contact 連携 【要確認】 選択する意味ある？  
-	5 | RealTimeRecorder\PacketCapture\Avaya | + OKI CTstage 連携 【要確認】 選択する意味ある？  
-	6 | RealTimeRecorder\CTILink | + Genesys T-Server 連携 【要確認】 選択する意味ある？  
-	7 | StreamingRecognizer | -  
-	8 | ConvergerTool | TaskRunnerをインストールします。以下 13 ～ 17 までのタスクを選択する必要があります。  
+	2 | RealTimeRecorder | PCのサービスとして RealTimeRecorder をインストールします。クライアント版を利用する場合には必要です。  
+	3 | RealTimeRecorder\Converger | 通話プロバイダで、音声デバイス方式でコンバージャーを利用する場合に必要です。具体的になにが行われるかは 【要確認】  
+	4 | RealTimeRecorder\PacketCapture | 【要確認】  
+	5 | RealTimeRecorder\PacketCapture\Avaya | 【要確認】  
+	6 | RealTimeRecorder\CTILink | CTI 連携用の DLL をインストールします。  
+	7 | StreamingRecognizer | PC のサービスとして StreamingRecognizer をインストールします。クライアント版を利用する場合には必要です。  
+	8 | ConvergerTool | コンバージャー調整ツールをインストールします。  
+
 	: OperatorAgent インストール時に選択可能なコンポーネント {#tbl:oainstallcomponent}
+
+	No.| task_name | 内容  
+	--:|---|--
+	1 | DesktopIcon | デスクトップにアイコンを作成します。  
+	2 | RegisterStartup | スタートアップに登録します。  
+
+	: OperatorAgent インストールタスク {#tbl:oainstalltasks}
+
+	![](images/Tips.jpg){width=50px}　OperatorAgent は、⼀つの PC にインストールフォルダを変えて複数インストールすることが可能です。  
+	PC に複数の OperatorAgent をインストールしている場合、コントロールパネルの 「アプリケーションの追加と削除 (プログラムと機能)」 からアンインストールできるのは、一番最後にインストールしたインスタンスだけです。それ以外のインスタンスをアンインストールする場合、 インストールフォルダ直下の `『uninstall\unins000.exe』` を実⾏してください。
