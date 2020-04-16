@@ -1109,3 +1109,11 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 
 	![](images/Tips.jpg){width=50px}　OperatorAgent は、⼀つの PC にインストールフォルダを変えて複数インストールすることが可能です。  
 	PC に複数の OperatorAgent をインストールしている場合、コントロールパネルの 「アプリケーションの追加と削除 (プログラムと機能)」 からアンインストールできるのは、一番最後にインストールしたインスタンスだけです。それ以外のインスタンスをアンインストールする場合、 インストールフォルダ直下の `『uninstall\unins000.exe』` を実⾏してください。
+
+	<div style="page-break-before:always"></div>
+
+	<hr/>
+
+## 第2章 SpeechVisualizer
+
+### 1-1. SpeechVisualizer のログイン
