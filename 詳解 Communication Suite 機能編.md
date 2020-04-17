@@ -184,7 +184,7 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 			  -ログインダイアログ表示
 				end
 			endif
-		else
+		else (NO)
 			-ログインダイアログ表示
 			end
 		endif
@@ -607,7 +607,9 @@ No. | 原因| 対処 |
  6. ヘルプ    
 OperatorAgent から SpeechVisualizer の座席表に登録したヘルプ要求理由でアラート通知する機能です。([@fig:helpb]）  
 
+<div style="text-align:center">
  ![ヘルプボタン](images/2-1-ヘルプ.png){#fig:helpb width=200px}  
+</div>
 
   `利用上の注意`  
 ヘルプを利用するには ControlCenter/モニタリング/ヘルプ要求理由管理、ヘルプ要求解除理由に登録が必要です。   
