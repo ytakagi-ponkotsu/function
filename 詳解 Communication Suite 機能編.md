@@ -64,9 +64,9 @@ tblPrefix: '表.'
 2. ユーザアカウント権限のチェック
 3. ユーザと通話（内線番号）の関連付け
 4. 通話とプロジェクトの関連付け
-5. クライアント PC を OperatorAgent ノードとして ControlCenter にレジスト
-
-[@fig:login] は、OperatorAgent の基本的なログイン画面となります。
+5. クライアント PC を OperatorAgent ノードとして ControlCenter にレジスト  
+	<br />
+	[@fig:login] は、OperatorAgent の基本的なログイン画面となります。
 
 ![基本のログイン画面](images/1-1-operatoragent-baselogin.png){#fig:login width=400px}
 
