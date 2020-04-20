@@ -1186,6 +1186,52 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
   OperatorAgent の各種機能から SpeechVisualizer を呼び出します。（呼出のための設定は、[@tbl:svshort] を参照してください。）  
 	このログイン方法では、手動ログイン操作は発生せずに自動でログイン処理が実施されますが、上記の2つと異なる第3 のログイン方法ではなく、実際には有効になっている 『フォーム認証』 か 『統合 Windows 認証』 いずれかのログインが裏側で実行されています。
 
+
+```plantuml
+@startuml
+skinparam {
+defaultFontName BIZ UDPゴシック
+}
+skinparam backgroundColor #fffacd
+skinparam activity  {
+BackgroundColor #afeeee
+BorderColor #000080
+}
+title アクティビティ図.3 [SpeechVisualizer ログイン]\n
+
+start;
+-[#black]-> SpeechVisualizer 起動;
+if (OperatorAgent 連携) then
+  -[#blue]-> Yes : 通常起動;
+	if (\n初回起動時に\nウィンドウを表示状態にする\n) then
+		-[#blue]-> \nTrue;
+		:OperatorAgent ウィンドウ表示;
+		-[#black]->
+		end;
+	endif
+else
+  -> False : 初回起動処理;
+		if (\n初回起動時に\nウィンドウを表示状態にする\n) then
+			-[#blue]-> \nTrue;
+			:OperatorAgent ウィンドウ表示;
+			-[#black]->
+			end;
+		endif
+endif
+if (\n閉じたときに\nタスクバーに表示しない\n) then
+	-[#blue]-> \nTrue;
+	:OperatorAgent を最小化し、\n通知領域に格納;
+	-[#black]->
+else
+	-> \nFalse;
+	:OperatorAgent を\n最小化してタスクバー表示;
+	-[#black]->
+endif
+-[#black]->
+end;
+@enduml
+```
+
 #### 2-1-3. SpeechVisualizer ログインタイムアウトについて  
 - [@tbl:svlogin] は、SpeechVisualizer のログインに関わる詳細設定項目です。設定分類は、
 
