@@ -250,7 +250,16 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 
 		: OperatorAgent - 通話リストの設定 {#tbl:oa_conlist}  
 
-		※ 検索条件の書式は SpeechVisualizer の通話検索条件と同じ書式が利用できます。
+		※ 検索条件の書式は SpeechVisualizer の通話検索条件と同じ書式が利用できます。  
+		<br />
+		[@tbl:svshort] は、OperatorAgent から、SpeechVisualizer の機能にリンクするための設定項目です。
+
+		No. | 設定分類| 設定項目名                | 設定内容      |
+		----:|---------------------|------------------|--------------|
+		1   |OperatorAgent - Web| SpeechVisualizer を表示するウェブブラウザ| SpeechVisualizer を利用するウェブブラウザの実行ファイルのパスを指定  
+		2   | 共通 - システム | SpeechVisualizer の URL | OperatorAgent からは、この URL にアクセスします。  
+
+		: OperatorAgent SpeechVisualizerを表示するブラウザ設定 {#tbl:svshort}  
 
   3. マイクエリ  
 SpeechVisualizer の通話検索機能で設定したマイクエリへのリンク（マイクエリの条件で検索した状態の検索画面へのリンク）をリストアップします。
@@ -781,31 +790,18 @@ No. | 設定分類| 設定項目名                | 設定内容      |
 
 #### 1-2-3. 通話終了後の機能
 
-1. SpeechVisualizer ボタン  
+ 1. SpeechVisualizer ボタン  
 OperatorAgent 上で表示されている通話の SpeechVisualizer の通話詳細画面を呼び出します。 ([@fig:opsv])  
-Speech Visualizer ボタンは条件を満たするとボタンが活性化されます。  
+Speech Visualizer ボタンは条件を満たすとボタンが活性化されます。（SpeechVisualizer 機能を呼び出すための各種設定は [@tbl:svshort]）  
 
  ![SpeechVisualizer ボタン](images/2-1-opsv.png){#fig:opsv width=100px}  
 
-　　![](images/Tips.jpg){width=50px}  
-　　Speech Visualizer ボタンが活性化される条件としては以下です。  
 
-- OperatorAgent 上の通話が終了していること
-- StreamingRecognizer で通話アップロードが完了していること
+   No. | 条件内容
+  ----:|---------
+  1   | 【要確認】 OperatorAgent 上で通話が終了と、StreamingRecognizer~~って結局同じことじゃない？
 
-
-　　[@tbl:svshort] は、「SpeechVisualizer を開く」 際に起動するブラウザを指定する設定です。  
-　　設定は ControlCenter の詳細設定の項目にあります。  
-
-
-No. | 設定分類| 設定項目名                | 設定内容      |
-----:|---------------------|------------------|--------------|
-1   |OperatorAgent - Web| SpeechVisualizer を表示するウェブブラウザ|SpeechVisualizer を表示するウェブブラウザのパスを指定  
-
-: OperatorAgent SpeechVisualizerを表示するブラウザ設定 {#tbl:svshort}  
-
-
-2. 通話終了後に通話属性を設定する  
+ 2. 通話終了後に通話属性を設定する  
 通話終了後に通話に紐づく通話属性を追加することができる機能です。  
 通話終了後、([@fig:callp2])がポップアップ表示されて通話属性を登録することが可能です。  
 
@@ -1197,7 +1193,7 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
   2. 統合 Windows 認証  
 	SpeechVisualizer の Web アプリケーショの認証設定で、**Windows 認証** が適切に有効化されている場合、ログイン画面は表示されず、自動的にログインします。
   3. OperatorAgent 連携  
-  OperatorAgent の各種機能から SpeechVisualizer を呼び出します。
+  OperatorAgent の各種機能から SpeechVisualizer を呼び出します。（呼出のための設定は、[@tbl:svshort] を参照してください。）  
 
 #### 2-1-3. SpeechVisualizer ログインタイムアウトについて  
 - [@tbl:svlogin] は、SpeechVisualizer のログインに関わる詳細設定項目です。設定分類は、
