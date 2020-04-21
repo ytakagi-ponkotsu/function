@@ -134,7 +134,7 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 ![Web サイトの設定](images/1-1-IIS_sitegonfig_login.png){#fig:siteconfig width=400px}
 
 #### 1-1-5. OperatorAgent 自動ログイン（統合 Windows 認証を利用しない）
-- [1-1-2. OperatorAgent のログイン機能に関連する ControlCenter の詳細設定項目](#1-1-2-operatoragent-機能関連-controlcenter-詳細設定項目)  ：  [@tbl:table] の No.3 『自動ログイン』 が有効になっている場合には、統合 Windows 認証 を利用していなくてもログイン処理を省略可能です。  
+- [1-1-2. OperatorAgent のログイン機能に関連する ControlCenter の詳細設定項目](#1-1-2-operatoragent-機能関連-controlcenter-詳細設定項目)  ：  [@tbl:table] の 『自動ログイン』 が有効になっている場合には、統合 Windows 認証 を利用していなくてもログイン処理を省略可能です。  
 	<br />  
 
 	```plantuml
@@ -888,7 +888,7 @@ No. | 設定分類| 設定項目名                | 設定内容      |
 	-[#black]-> OperatorAgent 起動;
 	if (設定ファイルあり) then
 	  -[#blue]-> True : 通常起動;
-		if (\n初回起動時に\nウィンドウを表示状態にする\n) then
+		if (\n起動時に\nウィンドウを表示状態に戻す\n) then
 			-[#blue]-> \nTrue;
 			:OperatorAgent ウィンドウ表示;
 			-[#black]->
@@ -1185,53 +1185,54 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	SpeechVisualizer の Web アプリケーショの認証設定で、**Windows 認証** が適切に有効化されている場合、ログイン画面は表示されず、自動的にログインします。
   3. OperatorAgent 連携  
   OperatorAgent の各種機能から SpeechVisualizer を呼び出します。（呼出のための設定は、[@tbl:svshort] を参照してください。）  
-	このログイン方法では、手動ログイン操作は発生せずに自動でログイン処理が実施されますが、上記の2つと異なる第3 のログイン方法ではなく、実際には有効になっている 『フォーム認証』 か 『統合 Windows 認証』 いずれかのログインが裏側で実行されています。
+	このログイン方法では、手動ログイン操作は発生せずに自動でログイン処理が実施されますが、上記の2つと異なる第3 のログイン方法ではなく、実際には有効になっている 『フォーム認証』 か 『統合 Windows 認証』 いずれかのログインが裏側で実行されています。  
+<br />
 
+		```plantuml
+		@startuml
+		skinparam {
+		defaultFontName BIZ UDPゴシック
+		}
+		skinparam backgroundColor #fffacd
+		skinparam activity  {
+		BackgroundColor #afeeee
+		BorderColor #000080
+		}
+		title アクティビティ図.3 [SpeechVisualizer ログイン]\n
 
-```plantuml
-@startuml
-skinparam {
-defaultFontName BIZ UDPゴシック
-}
-skinparam backgroundColor #fffacd
-skinparam activity  {
-BackgroundColor #afeeee
-BorderColor #000080
-}
-title アクティビティ図.3 [SpeechVisualizer ログイン]\n
-
-start;
--[#black]-> SpeechVisualizer 起動;
-if (OperatorAgent 連携) then
-  -[#blue]-> Yes : 通常起動;
-	if (\n初回起動時に\nウィンドウを表示状態にする\n) then
-		-[#blue]-> \nTrue;
-		:OperatorAgent ウィンドウ表示;
-		-[#black]->
-		end;
-	endif
-else
-  -> False : 初回起動処理;
-		if (\n初回起動時に\nウィンドウを表示状態にする\n) then
-			-[#blue]-> \nTrue;
-			:OperatorAgent ウィンドウ表示;
+		start;
+		-[#black]-> SpeechVisualizer にアクセス;
+		if (\n認証 Cookie が有効期限内\n) then
+		  -[#blue]-> Yes;
+			:SpeechVisualizer 起動;
 			-[#black]->
 			end;
+		else
+		  -> No;
+				if (\n統合 Windows 認証\n) then
+					-[#blue]-> \nYes;
+					:SpeechVisualizer 起動;
+					-[#black]->
+					end;
+				else
+				  -> \nNo;
+				  :フォーム認証;
+					-[#black]->
+				endif
 		endif
-endif
-if (\n閉じたときに\nタスクバーに表示しない\n) then
-	-[#blue]-> \nTrue;
-	:OperatorAgent を最小化し、\n通知領域に格納;
-	-[#black]->
-else
-	-> \nFalse;
-	:OperatorAgent を\n最小化してタスクバー表示;
-	-[#black]->
-endif
--[#black]->
-end;
-@enduml
-```
+		if (\nOperatorAgent 連携起動\n) then
+			-[#blue]-> \nYes;
+		else
+			-> \nNo;
+			:ログイン画面表示 ＆ \n手動ログイン処理;
+			-[#black]->
+		endif
+		-[#black]->
+		:SpeechVisualizer 起動;
+		-[#black]->
+		end;
+		@enduml
+		```
 
 #### 2-1-3. SpeechVisualizer ログインタイムアウトについて  
 - [@tbl:svlogin] は、SpeechVisualizer のログインに関わる詳細設定項目です。設定分類は、
