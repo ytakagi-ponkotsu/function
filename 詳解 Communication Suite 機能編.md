@@ -27,7 +27,7 @@ tblPrefix: '表.'
 			- [1-1-3. プロジェクトの選択](#1-1-3-選択)
 			- [1-1-4. 統合 Windows 認証](#1-1-4-統合-windows-認証)
 			- [1-1-5. OperatorAgent 自動ログイン（統合 Windows 認証を利用しない）](#1-1-5-operatoragent-自動統合-windows-認証利用)
-			- [1-1-6. 本節のまとめ](#1-1-6-本節)
+			- [1-1-6. 本項のまとめ](#1-1-6-本項)
 		- [1-2. OperatorAgent のメイン画面](#1-2-operatoragent-画面)
 			- [1-2-1.OperatorAgent メニュー](#1-2-1operatoragent-)
 			- [1-2-2. 通話表示機能](#1-2-2-通話表示機能)
@@ -36,9 +36,22 @@ tblPrefix: '表.'
 			- [1-2-5. OperatorAgent からのコマンド実行](#1-2-5-operatoragent-実行)
 			- [1-2-6. コマンドラインからの OperatorAgent 操作](#1-2-6-operatoragent-操作)
 			- [1-2-7. OperatorAgent のインストール](#1-2-7-operatoragent-)
+	- [第2章 SpeechVisualizer](#第2章-speechvisualizer)
+		- [2-1. SpeechVisualizer のログイン](#2-1-speechvisualizer-)
+			- [2-1-1. SpeechVisualizer のログインに関連する ControlCenter の詳細設定項目](#2-1-1-speechvisualizer-関連-controlcenter-詳細設定項目)
+			- [2-1-2. SpeechVisualizer へのログイン方法](#2-1-2-speechvisualizer-方法)
+			- [2-1-3. SpeechVisualizer ログインタイムアウトについて](#2-1-3-speechvisualizer-)
+		- [2-2. SpeechVisualizer ホーム画面](#2-2-speechvisualizer-画面)
+		- [2-3. SpeechVisualizer 通話検索](#2-3-speechvisualizer-通話検索)
+			- [2-3-1. 検索モジュールの通話アイコン（プロバイダ）](#2-3-1-検索通話)
+		- [2-4. SpeechVisualizer 通話詳細](#2-4-speechvisualizer-通話詳細)
+		- [2-5. SpeechVisualizer 座席表](#2-5-speechvisualizer-座席表)
+			- [2-5-1. 座席モジュールについて](#2-5-1-座席)
+			- [2-5-2. 通信仕様](#2-5-2-通信仕様)
+			- [2-5-3. 座席モジュールの表示設定](#2-5-3-座席表示設定)
+			- [2-5-4. 座席モジュールの表示設定](#2-5-4-座席表示設定)
 
 <!-- /TOC -->
-
 ## 序章 トレーニングにあたって
 
 ### トレーニングの目的
@@ -1239,11 +1252,10 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 
 	No. | 設定項目名       | デフォルト値 | 内容 |
 	---:|------------------|--------------|------|
-	1   |  ブラウザログインタイムアウト | 1800        | ログインの認証結果の Cookie の生存期間です
-	2   |  ブラウザログインを継続するための通知間隔 | 20        | 座席表画面で 『ブラウザログインタイムアウト』 が発生しないようにする |
+	1   |  ブラウザログインタイムアウト | 1800        | 認証 Cookie の生存期間です
+	2   |  ブラウザログインを継続するための通知間隔 | 20        | 座席表画面で 『ブラウザログインタイムアウト』 が発生しないようにするための設定値です |
 	3   |  ログイン維持の通知間隔 | 180       | 【要確認】 no2 との違いが不明、OperatorAgent の項目？
-	4   |  ログイン状況タイムアウト | 600        | 【要確認】  ?
-
+	4   |  ログイン状況タイムアウト | 600        | 【要確認】  これも OperatorAgent 用の項目か？
 
 
 ### 2-2. SpeechVisualizer ホーム画面  
@@ -1376,3 +1388,29 @@ No. | キー       | 説明|
 
 ### 2-4. SpeechVisualizer 通話詳細  
 ### 2-5. SpeechVisualizer 座席表
+
+#### 2-5-1. 座席モジュールについて
+座席モジュールには以下の2つの種類があります。  
+
+1. 内線番号  
+2. ユーザID
+
+![](images/Tips.jpg){width=50px}　ユーザID タイプの座席モジュールの使い所  
+固定座席のコールセンターでは利用しても良いかもしれません。
+メリットは、OperatorAgent にログインしていない状態でも、座席にユーザ名が表示されているので、レイアウトを把握しやすいことです。【要確認】 他にもいいとこあるのかな？
+
+#### 2-5-2. 通信仕様
+
+No. | Source | Destination | Protocol | 内容
+---:|------------------|--------------|-------|-------
+1   | 座席表画面 | RealTimeRecorder  | RTSP | 音声モニタリングの通信です。デフォルトの通信ポートは 10554 ですが、`ノード管理 - ノード詳細 - RealTimeRecorder タブ` の 『ストリーミングポート番号』 を編集することで変更できます。  
+2   | 座席表画面 | ControlCenter | HTTP | ブラウザタイムアウト延長のための通信です。 [2-1. SpeechVisualizer のログイン](#2-1-speechvisualizer-) の [@tbl:svlogin]の 『ブラウザログインを継続するための通知間隔』 で変更します。   
+3   | 座席表画面 | ControlCenter | HTTP | メッセージ  
+4   | 座席表画面 | ControlCenter | HTTP | 画面全体の状態変更通知（モニタリングリスト・通知リスト・メッセージ受信）  
+5   | 座席モジュール | StreamingRecognizer | HTTP | テキストモニタリング  
+6   | 座席モジュール | ControlCenter | HTTP | テキストモニタリング  
+7   | 座席モジュール | ControlCenter | HTTP | 該当座席の状態変更通知（通話関連イベント、各種アラート、ヘルプ、フォロー情報）  
+
+#### 2-5-3. 座席モジュールの表示設定
+
+#### 2-5-4. 座席モジュールの表示設定
