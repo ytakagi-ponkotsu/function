@@ -1266,53 +1266,58 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 
 ![検索モジュールのプロバイダ](images/2-3-検索モジュールのプロバイダ.png){#fig:provider width=600px}  
 
-**1．検索モジュールのプロバイダ設定**  
-検索モジュールのプロバイダは ContorlCenter の詳細設定より追加・削除が可能です。( [@tbl:provider0])  
+<pre style="color: red; font-size: 20px!important;">書式修正 ============ ここから =============</pre>
 
-No. | 設定項目名       | 設定値 | 内容 |
----:|------------------|--------------|------|
-1   |  検索モジュールのプロバイダ  | プロバイダ名を指定 ([@tbl:provider] 参照)        | 検索モジュールを提供するプロバイダのリストです。追加する際には各プロバイダを改行で区切ります。 |
+ 1.  検索モジュールのプロバイダ設定  
+	検索モジュールのプロバイダは ContorlCenter の詳細設定より追加・削除が可能です。( [@tbl:provider0])  
 
-: 表示する検索モジュールのプロバイダ設定 {#tbl:provider0}
+		No. | 設定項目名       | 設定値 | 内容 |
+		---:|------------------|--------------|------|
+		1   |  検索モジュールのプロバイダ  | プロバイダ名を指定 ([@tbl:provider] 参照)        | 検索モジュールを提供するプロバイダのリストです。追加する際には各プロバイダを改行で区切ります。 |
 
-No. | 検索条件       | プロバイダ名
----:|------------------|--------------|
-1   |  プロジェクト 　　　　　　　　　 |ProjectCondition　　　　 |
-2   |  検索対象の日付  | DateRangeCondition　　　　　　　　　|
-3   |  検索対象の時間帯  | TimeRangeCondition |
-4   |  時間  | DurationCondition |
-5   |  保留時間  | HoldDurationCondition |
-6   |  オペレータ  | OperatorCondition |
-7   |  最終更新者  | EditorCondition|
-8   |  電話番号  |TelCondition|
-9   |  通話タグ  |TagCondition |
-10   |  通話フィルタ  |FilterCondition|
-11  |  通話の向き  | DirectionCondition |
-12   |  相手の性別  | GenderCondition |
-13   |  通話スコアリング  | ScoreCondition|
-14   |  通話品質評価  |QualityEvaluationCondition |
-15   |  ソート順  | SortCondition|
-16   |  マイクエリ  | MyQueryPanel |
-17  |  自分の通話  | MineCondition |
-18  |  お気に入りの通話  |FavoriteCondition|
-19  |  通話の操作履歴  | HistoryCondition|
+		: 表示する検索モジュールのプロバイダ設定 {#tbl:provider0}
 
-: 選択可能な検索モジュールのプロバイダ一覧 {#tbl:provider}
+		No. | 検索条件       | プロバイダ名
+		---:|------------------|--------------|
+		1   |  プロジェクト 　　　　　　　　　 |ProjectCondition　　　　 |
+		2   |  検索対象の日付  | DateRangeCondition　　　　　　　　　|
+		3   |  検索対象の時間帯  | TimeRangeCondition |
+		4   |  時間  | DurationCondition |
+		5   |  保留時間  | HoldDurationCondition |
+		6   |  オペレータ  | OperatorCondition |
+		7   |  最終更新者  | EditorCondition|
+		8   |  電話番号  |TelCondition|
+		9   |  通話タグ  |TagCondition |
+		10   |  通話フィルタ  |FilterCondition|
+		11  |  通話の向き  | DirectionCondition |
+		12   |  相手の性別  | GenderCondition |
+		13   |  通話スコアリング  | ScoreCondition|
+		14   |  通話品質評価  |QualityEvaluationCondition |
+		15   |  ソート順  | SortCondition|
+		16   |  マイクエリ  | MyQueryPanel |
+		17  |  自分の通話  | MineCondition |
+		18  |  お気に入りの通話  |FavoriteCondition|
+		19  |  通話の操作履歴  | HistoryCondition|
 
-**表示する検索モジュールのプロバイダに通話属性を追加することも可能です。  
-追加する場合は [@tbl:provider3] の書式に合わせて登録してください。**
+		: 選択可能な検索モジュールのプロバイダ一覧 {#tbl:provider}
 
-No. | 項目識別名       | 名称| 値 | 説明      |省略可否|
----:|------------------|--------------|------|------|------|
-1   |  AttributeCondition | 接頭語        | なし| 項目を追加する際の定型文です。| ×|
-2   |  prefixes| プレフィックス        | 文字列| 通話検索条件を識別する接頭語です。| ×|
-3   |  attributes | 通話属性識別名        | 文字列 (注1)| 通話検索条件に追加する通話属性識別子です。| ×|
-4   |  iconName | アイコン名        | 文字列 (注2)| 通話検索入力欄に表示するアイコン名です。| 〇|
-5   |  lessQueryLabel | 入力文字数が少ないときに表示するラベル        |文字列| 通話検索条件入力欄にプレフィックスを入力した際に表示される説明文です。| 〇|
-6   |  iconLabel | アイコンのラベル        | 文字列|話検索入力欄のアイコンをマウスオーバーした時に表示される名称です。(注3)| 〇|
-7   |  autoCompleteLength | オートコンプリートを表示させるまでの文字数        | 整数| オートコンプリートが表示されるまでに入力する文字数です。| 〇|
+		表示する検索モジュールのプロバイダに通話属性を追加することも可能です。  
+		追加する場合は [@tbl:provider3] の書式に合わせて登録してください。
 
-: 追加する通話属性の書式 {#tbl:provider3}
+		No. | 項目識別名       | 名称| 値 | 説明      |省略可否|
+		---:|------------------|--------------|------|------|------|
+		1   |  AttributeCondition | 接頭語        | なし| 項目を追加する際の定型文です。| ×|
+		2   |  prefixes| プレフィックス        | 文字列| 通話検索条件を識別する接頭語です。| ×|
+		3   |  attributes | 通話属性識別名        | 文字列 (注1)| 通話検索条件に追加する通話属性識別子です。| ×|
+		4   |  iconName | アイコン名        | 文字列 (注2)| 通話検索入力欄に表示するアイコン名です。| 〇|
+		5   |  lessQueryLabel | 入力文字数が少ないときに表示するラベル        |文字列| 通話検索条件入力欄にプレフィックスを入力した際に表示される説明文です。| 〇|
+		6   |  iconLabel | アイコンのラベル        | 文字列|話検索入力欄のアイコンをマウスオーバーした時に表示される名称です。(注3)| 〇|
+		7   |  autoCompleteLength | オートコンプリートを表示させるまでの文字数        | 整数| オートコンプリートが表示されるまでに入力する文字数です。| 〇|
+
+		: 追加する通話属性の書式 {#tbl:provider3}
+
+		<pre style="color: red; font-size: 20px!important;">書式修正 ============ ここまで =============</pre>
+
 
 各項目識別名は \| で区切ります。複数追加する場合は、改行区切り接頭語以外は順不同です。  
 
@@ -1388,6 +1393,9 @@ No. | 属性       | 説明|
 
 
 **2.検索で使用する並び順の設定**  
+
+ 1. 検索条件で使用する
+
 検索条件で使用する項目の並び順を設定することが可能です。 ([@fig:narabijun])  
 
 ![並び順の選択時の画面](images/2-3-並び順.png){#fig:narabijun width=500px}  
