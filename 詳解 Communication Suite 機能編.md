@@ -1246,7 +1246,7 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 		```
 
 #### 2-1-3. SpeechVisualizer ログインタイムアウトについて  
-- [@tbl:svlogin] は、SpeechVisualizer のログインに関わる詳細設定項目です。設定分類は、
+- [@tbl:svloginto] は、SpeechVisualizer のログインタイムアウトに関わる詳細設定項目です。設定分類は全て、『共通 - セキュリティ』 です。
 
 	No. | 設定項目名       | デフォルト値 | 内容 |
 	---:|------------------|--------------|------|
@@ -1254,6 +1254,8 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	2   |  ブラウザログインを継続するための通知間隔 | 20        | 座席表画面で 『ブラウザログインタイムアウト』 が発生しないようにするための設定値です |
 	3   |  ログイン維持の通知間隔 | 180       | 【要確認】 no2 との違いが不明、OperatorAgent の項目？
 	4   |  ログイン状況タイムアウト | 600        | 【要確認】  これも OperatorAgent 用の項目か？
+
+	: SpeechVisualizer ブラウザログインタイムアウト {#tbl:svloginto}
 
 ### 2-2. SpeechVisualizer ホーム画面  
 ### 2-3. SpeechVisualizer 通話検索  
