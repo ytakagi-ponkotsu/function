@@ -71,16 +71,17 @@ tblPrefix: '表.'
 ## 第1章 OperatorAgent
 
 ### 1-1. OperatorAgent のログイン
-#### 1-1-1. OperatorAgent でログインすることの意味
-1. ユーザアカウントの認証（ユーザID と パスワード）
-2. ユーザアカウント権限のチェック
-3. ユーザと通話（内線番号）の関連付け
-4. 通話とプロジェクトの関連付け
+#### 1-1-1. OperatorAgent でログインすることの意味  
+
+1. ユーザアカウントの認証（ユーザID と パスワード）  
+2. ユーザアカウント権限のチェック  
+3. ユーザと通話（内線番号）の関連付け  
+4. 通話とプロジェクトの関連付け  
 5. クライアント PC を OperatorAgent ノードとして ControlCenter にレジスト  
 	<br />
-	[@fig:login] は、OperatorAgent の基本的なログイン画面となります。
+	[@fig:login] は、OperatorAgent の基本的なログイン画面となります。  
 
-![基本のログイン画面](images/1-1-operatoragent-baselogin.png){#fig:login width=400px}
+	![基本のログイン画面](images/1-1-operatoragent-baselogin.png){#fig:login width=400px}
 
 #### 1-1-2. OperatorAgent のログインに関連する ControlCenter の詳細設定項目
 
