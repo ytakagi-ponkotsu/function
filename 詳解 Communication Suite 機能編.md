@@ -13,45 +13,22 @@ tblPrefix: '表.'
 
 ## 目次
 
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+<!-- TOC START min:2 max:3 link:true asterisk:false update:true -->
+- [目次](#目次)
+- [序章 トレーニングにあたって](#序章-トレーニングにあたって)
+	- [トレーニング中の諸注意](#トレーニング中の諸注意)
+- [第1章 OperatorAgent](#第1章-operatoragent)
+	- [1-1. OperatorAgent のログイン](#1-1-operatoragent-のログイン)
+	- [1-2. OperatorAgent のメイン画面](#1-2-operatoragent-のメイン画面)
+- [第2章 SpeechVisualizer](#第2章-speechvisualizer)
+	- [2-1. SpeechVisualizer のログイン](#2-1-speechvisualizer-のログイン)
+	- [2-2. SpeechVisualizer ホーム画面](#2-2-speechvisualizer-ホーム画面)
+	- [2-3. SpeechVisualizer 通話検索](#2-3-speechvisualizer-通話検索)
+	- [2-4. SpeechVisualizer 通話詳細](#2-4-speechvisualizer-通話詳細)
+	- [2-5. SpeechVisualizer 座席表](#2-5-speechvisualizer-座席表)
+<!-- TOC END -->
 
-- [詳解 Communication Suite 機能編](#詳解-communication-suite-機能編)
-	- [目次](#目次)
-	- [序章 トレーニングにあたって](#序章-)
-		- [トレーニングの目的](#目的)
-		- [トレーニング中の諸注意](#中諸注意)
-	- [第1章 OperatorAgent](#第1章-operatoragent)
-		- [1-1. OperatorAgent のログイン](#1-1-operatoragent-)
-			- [1-1-1. OperatorAgent でログインすることの意味](#1-1-1-operatoragent-意味)
-			- [1-1-2. OperatorAgent のログインに関連する ControlCenter の詳細設定項目](#1-1-2-operatoragent-関連-controlcenter-詳細設定項目)
-			- [1-1-3. プロジェクトの選択](#1-1-3-選択)
-			- [1-1-4. 統合 Windows 認証](#1-1-4-統合-windows-認証)
-			- [1-1-5. OperatorAgent 自動ログイン（統合 Windows 認証を利用しない）](#1-1-5-operatoragent-自動統合-windows-認証利用)
-			- [1-1-6. 本項のまとめ](#1-1-6-本項)
-		- [1-2. OperatorAgent のメイン画面](#1-2-operatoragent-画面)
-			- [1-2-1.OperatorAgent メニュー](#1-2-1operatoragent-)
-			- [1-2-2. 通話表示機能](#1-2-2-通話表示機能)
-			- [1-2-3. 通話終了後の機能](#1-2-3-通話終了後機能)
-			- [1-2-4. OperatorAgent の起動・終了時の動作](#1-2-4-operatoragent-起動終了時動作)
-			- [1-2-5. OperatorAgent からのコマンド実行](#1-2-5-operatoragent-実行)
-			- [1-2-6. コマンドラインからの OperatorAgent 操作](#1-2-6-operatoragent-操作)
-			- [1-2-7. OperatorAgent のインストール](#1-2-7-operatoragent-)
-	- [第2章 SpeechVisualizer](#第2章-speechvisualizer)
-		- [2-1. SpeechVisualizer のログイン](#2-1-speechvisualizer-)
-			- [2-1-1. SpeechVisualizer のログインに関連する ControlCenter の詳細設定項目](#2-1-1-speechvisualizer-関連-controlcenter-詳細設定項目)
-			- [2-1-2. SpeechVisualizer へのログイン方法](#2-1-2-speechvisualizer-方法)
-			- [2-1-3. SpeechVisualizer ログインタイムアウトについて](#2-1-3-speechvisualizer-)
-		- [2-2. SpeechVisualizer ホーム画面](#2-2-speechvisualizer-画面)
-		- [2-3. SpeechVisualizer 通話検索](#2-3-speechvisualizer-通話検索)
-			- [2-3-1. 検索モジュールの通話アイコン（プロバイダ）](#2-3-1-検索通話)
-		- [2-4. SpeechVisualizer 通話詳細](#2-4-speechvisualizer-通話詳細)
-		- [2-5. SpeechVisualizer 座席表](#2-5-speechvisualizer-座席表)
-			- [2-5-1. 座席モジュールについて](#2-5-1-座席)
-			- [2-5-2. 通信仕様](#2-5-2-通信仕様)
-			- [2-5-3. 座席モジュールの表示設定](#2-5-3-座席表示設定)
-			- [2-5-4. 座席モジュールの表示設定](#2-5-4-座席表示設定)
-
-<!-- /TOC -->
+[2-1. SpeechVisualizer のログイン](#2-1-speechvisualizer-%E3%81%AE%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3
 ## 序章 トレーニングにあたって
  トレーニングの目的
 
@@ -1261,59 +1238,45 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 ### 2-2. SpeechVisualizer ホーム画面  
 - Speechvisualizerへのログイン時に表示されるホーム画面のガジェットについて説明していきます。
 
-<<<<<<< HEAD
-#### 2-2-1. ホームモジュールのプロバイダとレイアウト情報
-=======
 #### 2-2-1. ホーム画面のガジェットとプロバイダ
->>>>>>> 90fd1046d1f84084dfdd3776d438b1eb4a38f2a8
 - ContorlCenterの詳細設定で設定されたホーム画面のガジェットをユーザごとにレイアウト変更できます。
 [@tbl:ｓｖhomepara]は表示される種類およびレイアウトと詳細設定項目の対応表です。
 
-No. | ホーム画面 | 設定分類 | 設定項目名       | 設定値 |
----:|------|------------------|--------------|------|
-1   |  ガジェットの種類 | SpeechVisualizer - ホーム | ホームモジュールのプロバイダ |  プロバイダ名を指定 ([@tbl:homeprovider] 参照) |  
-<<<<<<< HEAD
-2  |  ガジェットのレイアウト | SpeechVisualizer - ホーム | ホーム画面のレイアウト (配置情報)  | プロバイダ名をもとに配置情報を指定 (表～参照) |  
+	No. | ホーム画面 | 設定分類 | 設定項目名       | 設定値 |
+	---:|------|------------------|--------------|------|
+	1   |  ガジェットの種類 | SpeechVisualizer - ホーム | ホームモジュールのプロバイダ |  プロバイダ名を指定 ([@tbl:homeprovider] 参照) |  
+	2  |  ガジェットのレイアウト | SpeechVisualizer - ホーム | ホーム画面のレイアウト (配置情報)  | プロバイダ名をもとに配置情報を指定 (表～参照) |  
 
-: ホームモジュールと詳細設定との対応 {#tbl:ｓｖhomepara}
-
-No. | ガジェット名       | プロバイダ名 | デフォルトでの配置 |内容 |
-=======
-2  |  ガジェットのレイアウト | SpeechVisualizer - ホーム | ホーム画面のレイアウト (配置情報)  | プロバイダ名をもとに配置情報を指定|  
-
-: ホームモジュールと詳細設定との対応 {#tbl:ｓｖhomepara}
+	: ホームモジュールと詳細設定との対応 {#tbl:ｓｖhomepara}
 
 - ホーム画面に配置できるガジェットは『ホームモジュールのプロバイダ』で設定されてるプロバイダのみです。デフォルトの設定ではすべてのガジェットが配置できるようになっています。[@tbl:homeprovider]はガジェットと対応するプロバイダの一覧です。
 
-No. | ガジェット名       | プロバイダ名 | デフォルトでの画面配置 |内容 |
->>>>>>> 90fd1046d1f84084dfdd3776d438b1eb4a38f2a8
----:|------------------|--------------|------|------|
-1 |プロフィール |Profile |〇|自分のプロフィールを表示します。|
-2 |リンク |Link |〇|リンクの一覧を表示します。|
-3 |お知らせ |Announcement |〇|お知らせの一覧を表示します。|
-4 |自分の通話 |MyRecentConversation |〇|自分の通話の一覧を表示します。|
-5 |自分の通話(IN) |MyRecentConversation ||自分のINBOUND通話の一覧を表示します。|
-6 |自分の通話(OUT) |MyRecentConversation ||自分のOUTBOUND通話の一覧を表示します。|
-7 |所属プロジェクトの通話 |ProjectRecentConversation |〇|自分が所属しているプロジェクトの通話の一覧を表示します。|
-8 |所属プロジェクトの通話(IN) |ProjectRecentConversation ||自分が所属しているプロジェクトのINBOUND通話の一覧を表示します。|
-9 |所属プロジェクトの通話(OUT) |ProjectRecentConversation ||自分が所属しているプロジェクトのOUTBOUND通話の一覧を表示します。|
-10 |自分が最近再生した通話 |RecentHistory |〇|自分が再生した通話の一覧を表示します。|
-11 |自分が最近参照した通話 |RecentHistory |〇|自分が参照した通話の一覧を表示します。|
-12 |自分が最近編集した通話 |RecentHistory |〇|自分が編集した通話の一覧を表示します。|
-13 |自分の通話に対する最近のコメント |RecentComment |〇|自分の通話に対するコメントの一覧を表示します。|
-14 |自分が最近投稿したコメント |RecentComment ||自分が通話に対して投稿したコメントの一覧を表示します。|
-15 |お気に入り |Favorite |〇|自分のお気に入りの通話を表示します。|
-16 |評価の遷移 |RatingCurve |〇|自分の通話に対する評価グラフを表示します。|
-17 |感情の遷移 |EmotionCurve ||任意のユーザの感情グラフを表示します。|
-18 |マイクエリ |MyQuery ||任意のマイクエリを検索条件にして取得した通話の一覧を表示します。|
-19 |通話スコアリング |Score ||任意の通話スコアリングが適応された通話の一覧を表示します。|
-20 |通話品質評価テンプレート |QualityEvaluationTemplate ||任意の通話品質評価テンプレートによって評価された通話の一覧を表示します。|
-21 |スキル |AgentSkill ||任意のスキルに関連する情報をグラフ化したものを表示します。|
+	No. | ガジェット名       | プロバイダ名 | デフォルトでの画面配置 |内容 |
+	---:|------------------|--------------|------|------|
+	1 |プロフィール |Profile |〇|自分のプロフィールを表示します。|
+	2 |リンク |Link |〇|リンクの一覧を表示します。|
+	3 |お知らせ |Announcement |〇|お知らせの一覧を表示します。|
+	4 |自分の通話 |MyRecentConversation |〇|自分の通話の一覧を表示します。|
+	5 |自分の通話(IN) |MyRecentConversation ||自分のINBOUND通話の一覧を表示します。|
+	6 |自分の通話(OUT) |MyRecentConversation ||自分のOUTBOUND通話の一覧を表示します。|
+	7 |所属プロジェクトの通話 |ProjectRecentConversation |〇|自分が所属しているプロジェクトの通話の一覧を表示します。|
+	8 |所属プロジェクトの通話(IN) |ProjectRecentConversation ||自分が所属しているプロジェクトのINBOUND通話の一覧を表示します。|
+	9 |所属プロジェクトの通話(OUT) |ProjectRecentConversation ||自分が所属しているプロジェクトのOUTBOUND通話の一覧を表示します。|
+	10 |自分が最近再生した通話 |RecentHistory |〇|自分が再生した通話の一覧を表示します。|
+	11 |自分が最近参照した通話 |RecentHistory |〇|自分が参照した通話の一覧を表示します。|
+	12 |自分が最近編集した通話 |RecentHistory |〇|自分が編集した通話の一覧を表示します。|
+	13 |自分の通話に対する最近のコメント |RecentComment |〇|自分の通話に対するコメントの一覧を表示します。|
+	14 |自分が最近投稿したコメント |RecentComment ||自分が通話に対して投稿したコメントの一覧を表示します。|
+	15 |お気に入り |Favorite |〇|自分のお気に入りの通話を表示します。|
+	16 |評価の遷移 |RatingCurve |〇|自分の通話に対する評価グラフを表示します。|
+	17 |感情の遷移 |EmotionCurve ||任意のユーザの感情グラフを表示します。|
+	18 |マイクエリ |MyQuery ||任意のマイクエリを検索条件にして取得した通話の一覧を表示します。|
+	19 |通話スコアリング |Score ||任意の通話スコアリングが適応された通話の一覧を表示します。|
+	20 |通話品質評価テンプレート |QualityEvaluationTemplate ||任意の通話品質評価テンプレートによって評価された通話の一覧を表示します。|
+	21 |スキル |AgentSkill ||任意のスキルに関連する情報をグラフ化したものを表示します。|
 
-: モジュールとプロバイダの対応 {#tbl:homeprovider}
+	: モジュールとプロバイダの対応 {#tbl:homeprovider}
 
-<<<<<<< HEAD
-=======
 (ここにTips：重要な通話ガジェットは将来予定されている機能、設定しないことを記載)
 
 #### 2-2-2. ホーム画面のレイアウト情報
@@ -1371,7 +1334,6 @@ No. | ガジェット名       | プロバイダ名 | デフォルトでの画�
 #### 2-2-3. ホーム画面での感情解析表示
 詳細設定など書く。
 
->>>>>>> 90fd1046d1f84084dfdd3776d438b1eb4a38f2a8
 ### 2-3. SpeechVisualizer 通話検索  
 Communication Suite データベースに蓄積した通話を通話検索画面の検索モジュールを利用して検索する機能です。  
 通話検索の要素として次の３つがあります。
@@ -1430,7 +1392,7 @@ Communication Suite データベースに蓄積した通話を通話検索画面
 
 
 
-	
+
 		表示する検索モジュールのプロバイダに通話属性を追加することも可能です。  
 		追加する場合は [@tbl:provider3] の書式に合わせて登録してください。
 
