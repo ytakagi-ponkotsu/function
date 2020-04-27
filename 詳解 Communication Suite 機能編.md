@@ -28,7 +28,6 @@ tblPrefix: '表.'
 	- [2-5. SpeechVisualizer 座席表](#2-5-speechvisualizer-座席表)
 <!-- TOC END -->
 
-[2-1. SpeechVisualizer のログイン](#2-1-speechvisualizer-%E3%81%AE%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3
 ## 序章 トレーニングにあたって
  トレーニングの目的
 
@@ -218,136 +217,136 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 
 ### 1-2. OperatorAgent のメイン画面
 #### 1-2-1.OperatorAgent メニュー
+OpertorAgentのメニュー画面について解説いたします、[@fig:mainblank] はメイン画面、[@fig:oa_header] はOpertorAgentのメニューです。  
 
-  ![OperatorAgent メイン画面（起動直後）](images/2-1-operatoragentMain.png){#fig:mainblank width=600px}
+![OperatorAgent メイン画面（起動直後）](images/2-1-operatoragentMain.png){#fig:mainblank width=600px}
 
-  ![OperatorAgent メニュー](images/1-2-oa_header.png){#fig:oa_header width=600px  }
+![OperatorAgent メニュー](images/1-2-oa_header.png){#fig:oa_header width=600px  }
 
-  1. OperatorAgent バージョン確認  
+1. OperatorAgent バージョン確認  
   画面の左上の OperatorAgent ロゴを右クリックすると表示されるメニュー（[@fig:logoclick]）から OperatorAgent のバージョンを確認することができます。（[@fig:oaversion]）  
 
-  ![バージョンの確認方法](images/2-1-operatoragent_versionmenu.png){#fig:logoclick width=400px}  
+	![バージョンの確認方法](images/2-1-operatoragent_versionmenu.png){#fig:logoclick width=400px}  
 
-  ![バージョンの確認方法](images/2-1-operatoragent_version.png){#fig:oaversion width=400px}  
+	![バージョンの確認方法](images/2-1-operatoragent_version.png){#fig:oaversion width=400px}  
 
-  2. 通話リスト  
-  指定した検索条件に適合する SpeechVisualizer の通話詳細へのリンクをリストアップします。[@tbl:oa_conlist] は、通話リストに関連する ControlCenter の詳細設定項目です。  
-
-		No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
----:|---------------------|------------------|--------------|------|
-1   | OperatorAgent - 通話 | 検索条件 | mine:* d:1d | 今日の自分の通話 |
-2   | OperatorAgent - 通話 | 最大表示件数 | 20 | 上位 20 件まで |
-
-		: OperatorAgent - 通話リストの設定 {#tbl:oa_conlist}  
-
-		※ 検索条件の書式は SpeechVisualizer の通話検索条件と同じ書式が利用できます。  
-		<br />
-		[@tbl:svshort] は、OperatorAgent から、SpeechVisualizer の機能にリンクするための設定項目です。
-
-		No. | 設定分類| 設定項目名                | 設定内容      |
-		----:|---------------------|------------------|--------------|
-		1   |OperatorAgent - Web| SpeechVisualizer を表示するウェブブラウザ| SpeechVisualizer を利用するウェブブラウザの実行ファイルのパスを指定  
-		2   | 共通 - システム | SpeechVisualizer の URL | OperatorAgent からは、この URL にアクセスします。  
-
-		: OperatorAgent SpeechVisualizerを表示するブラウザ設定 {#tbl:svshort}  
-
-  3. マイクエリ  
-SpeechVisualizer の通話検索機能で設定したマイクエリへのリンク（マイクエリの条件で検索した状態の検索画面へのリンク）をリストアップします。
- 4. メッセージ  
- チャット機能です。  
-
-    ![](images/Tips.jpg){width=50px}　
-    オペレータ同士のチャットは禁止し、座席表モニタ中の SV とのチャットのみ許可したい場合には、ロールに  **『OperatorAgent からのメッセージ送信』** 権限（[@fig:role_message]） を付与しないでください。その場合、OperatorAgent からユーザを検索・指定しての能動的なメッセージ送信ができません。  
-		権限がある場合（[@fig:message_authok]）には、宛先入力欄でユーザ検索・指定してのメッセージ送信ができますが、権限が無い場合には宛先を指定できない（[@fig:message_authng]）ため、能動的なメッセージ送信ができません。  
-		権限が無い場合でも、座席表モニタ中の SV からの受信メッセージに対する返信は可能です。（[@fig:operatoragent_messagewindow]）また、SV とのチャット履歴が残っている間（受信後24時間以内）であれば、メッセージ受信履歴からの宛先指定が可能です。（[@fig:message_authngrireki]）
-
-![メッセージ送信権限](images/1-2-role_message.png){#fig:role_message width=500px}  
-
-![メッセージ送信権限有り](images/2-1-message_authok.png){#fig:message_authok width=300px}  
-
-![メッセージ送信権限無し](images/2-1-message_authng.png){#fig:message_authng width=300px}  
-
-![受信メッセージへの返信](images/2-1-operatoragent_messagewindow.png){#fig:operatoragent_messagewindow width=400px}
-
-![メッセージ送受信履歴あり](images/2-1-message_authngrireki.png){#fig:message_authngrireki width=300px}  
-
-
-No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
----:|:--------------------|------------------|--------------|------|
-1   | OperatorAgent - メッセージ | Enter キーでメッセージを送信 | true | false の場合には改行します |
-2   | OperatorAgent - メッセージ | ヘルプ対応時にメッセージウインドウを自動的に開く | true | SV がヘルプ対応操作を行ったことがメッセージとして通知されます |  
-
-: OperatorAgent - メッセージの詳細設定項目 {#tbl:oa_message_con}  
-
-
-`メッセージの保存期間`  
-
-  - メッセージは、通話中にも非通話時にも送受信が可能です。  
-  - 通話中のメッセージ - 通話の属性情報として扱われます。通話データが削除されるタイミングで消去されます。
-  - 非通話中のメッセージ - 単純チャット情報として扱われます。24時間後に消去されます。  
-
-![](images/NOTICE.png){width=50px}　**通話中のメッセージも非通話中のメッセージも閲覧する機能はありません。**  
-
-5. お知らせ  
-  ControlCenter のお知らせ管理で登録されたお知らせのリストです。
+1. 通話リスト  
+指定した検索条件に適合する SpeechVisualizer の通話詳細へのリンクをリストアップします。[@tbl:oa_conlist] は、通話リストに関連する ControlCenter の詳細設定項目です。  
 
 	No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
----:|:--------------------|:-----------------|------------:|:-----|
-1   | OperatorAgent - お知らせ | 更新間隔 | 3600 | 単位は秒 |
-2   | OperatorAgent - お知らせ | 最大表示件数 | 20 | 上位 20 件まで |
+	---:|---------------------|------------------|--------------|------|
+	1   | OperatorAgent - 通話 | 検索条件 | mine:* d:1d | 今日の自分の通話 |
+	2   | OperatorAgent - 通話 | 最大表示件数 | 20 | 上位 20 件まで |
+
+	: OperatorAgent - 通話リストの設定 {#tbl:oa_conlist}  
+
+	※ 検索条件の書式は SpeechVisualizer の通話検索条件と同じ書式が利用できます。  
+	[@tbl:svshort] は、OperatorAgent から、SpeechVisualizer の機能にリンクするための設定項目です。
+
+	No. | 設定分類| 設定項目名                | 設定内容      |
+	----:|---------------------|------------------|--------------|
+	1   |OperatorAgent - Web| SpeechVisualizer を表示するウェブブラウザ| SpeechVisualizer を利用するウェブブラウザの実行ファイルのパスを指定  
+	2   | 共通 - システム | SpeechVisualizer の URL | OperatorAgent からは、この URL にアクセスします。  
+
+	: OperatorAgent SpeechVisualizerを表示するブラウザ設定 {#tbl:svshort}  
+
+1. マイクエリ  
+SpeechVisualizer の通話検索機能で設定したマイクエリへのリンク（マイクエリの条件で検索した状態の検索画面へのリンク）をリストアップします。  
+
+1. メッセージ  
+チャット機能です。  
+
+	![](images/Tips.jpg){width=50px}　 オペレータ同士のチャットは禁止し、座席表モニタ中の SV とのチャットのみ許可したい場合には、ロールに  **『OperatorAgent からのメッセージ送信』** 権限（[@fig:role_message]） を付与しないでください。その場合、OperatorAgent からユーザを検索・指定しての能動的なメッセージ送信ができません。  
+
+	![メッセージ送信権限](images/1-2-role_message.png){#fig:role_message width=500px}  
+
+	権限がある場合（[@fig:message_authok]）には、宛先入力欄でユーザ検索・指定してのメッセージ送信ができますが、権限が無い場合には宛先を指定できない（[@fig:message_authng]）ため、能動的なメッセージ送信ができません。  
+
+	![メッセージ送信権限有り](images/2-1-message_authok.png){#fig:message_authok width=300px}  
+
+	![メッセージ送信権限無し](images/2-1-message_authng.png){#fig:message_authng width=300px}  
+
+	権限が無い場合でも、座席表モニタ中の SV からの受信メッセージに対する返信は可能です。（[@fig:operatoragent_messagewindow]）また、SV とのチャット履歴が残っている間（受信後24時間以内）であれば、メッセージ受信履歴からの宛先指定が可能です。（[@fig:message_authngrireki]）
+
+	![受信メッセージへの返信](images/2-1-operatoragent_messagewindow.png){#fig:operatoragent_messagewindow width=400px}
+
+	![メッセージ送受信履歴あり](images/2-1-message_authngrireki.png){#fig:message_authngrireki width=300px}  
+
+	No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
+	---:|:--------------------|------------------|--------------|------|
+	1   | OperatorAgent - メッセージ | Enter キーでメッセージを送信 | true | false の場合には改行します |
+	2   | OperatorAgent - メッセージ | ヘルプ対応時にメッセージウインドウを自動的に開く | true | SV がヘルプ対応操作を行ったことがメッセージとして通知されます |  
+
+	: OperatorAgent - メッセージの詳細設定項目 {#tbl:oa_message_con}  
+
+
+	![](images/Check.png){width=50px}　`メッセージの保存期間`  
+	- メッセージは、通話中にも非通話時にも送受信が可能です。  
+	- 通話中のメッセージ - 通話の属性情報として扱われます。通話データが削除されるタイミングで消去されます。
+	- 非通話中のメッセージ - 単純チャット情報として扱われます。24時間後に消去されます。  
+
+	<br />
+	![](images/NOTICE.png){width=50px}　**通話中のメッセージも非通話中のメッセージも閲覧する機能はありません。**  
+
+1. お知らせ  
+ControlCenter のお知らせ管理で登録されたお知らせのリストです。  
+
+	No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
+	---:|:--------------------|:-----------------|------------:|:-----|
+	1   | OperatorAgent - お知らせ | 更新間隔 | 3600 | 単位は秒 |
+	2   | OperatorAgent - お知らせ | 最大表示件数 | 20 | 上位 20 件まで |
 
 	: OperatorAgent - お知らせの詳細設定項目 {#tbl:oa_news_con}  
 
-  6. コンディション（感情メータ）  
+1. コンディション（感情メータ）  
 
-  ![オペレータコンディション](images/2-1-Condition.png){#fig:Condtiong width=300px}  
+	![オペレータコンディション](images/2-1-Condition.png){#fig:Condtiong width=300px}  
 
-  - 直近1時間分の通話のオペレータ感情の **ポジティブ・ネガティブ（nemesysco.qa5.excitement）**  の平均値をメータ表示しています。左に振れると "ネガティブ"、右に振れると "ポジティブ" という判断になります。[@tbl:oa_condition_con]  はコンディションに関連する ControlCenter の詳細設定項目です。
+   	- 直近1時間分の通話のオペレータ感情の **ポジティブ・ネガティブ（nemesysco.qa5.excitement）**  の平均値をメータ表示しています。左に振れると "ネガティブ"、右に振れると "ポジティブ" という判断になります。[@tbl:oa_condition_con]  はコンディションに関連する ControlCenter の詳細設定項目です。
 
-	No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
----:|---------------------|------------------|--------------|------|
-1   | OperatorAgent - 感情解析 | コンディションの表示 | true | false で表示しない |
-2   | OperatorAgent - 感情解析 | コンディションのレッドゾーンの閾値 | 1.0 | 隠し項目 |
-3| 共通 - 感情解析  | 感情解析の使用  | true  |  false = 感情解析に関するあらゆる UI を表示しない |  
+		No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
+		---:|---------------------|------------------|--------------|------|
+		1   | OperatorAgent - 感情解析 | コンディションの表示 | true | false で表示しない |
+		2   | OperatorAgent - 感情解析 | コンディションのレッドゾーンの閾値 | 1.0 | 隠し項目 |
+		3| 共通 - 感情解析  | 感情解析の使用  | true  |  false = 感情解析に関するあらゆる UI を表示しない |  
 
-	: OperatorAgent - コンディションの詳細設定項目 {#tbl:oa_condition_con}  
+		: OperatorAgent - コンディションの詳細設定項目 {#tbl:oa_condition_con}  
 
-7. ログインユーザプロファイル  
- - ログインユーザ名表示部分をクリックするとプロフィール機能が利用できます。  
+1. ログインユーザプロファイル  
+ログインユーザ名表示部分をクリックするとプロフィール機能が利用できます。  
 
-![ログイン情報](images/2-1-logininfo.png){#fig:logininfo width=300px}  
+	![ログイン情報](images/2-1-logininfo.png){#fig:logininfo width=300px}  
 
- - プロフィールタブ（[@fig:oa_profile]）  
+	- プロフィールタブ（[@fig:oa_profile]）  
 ログイン情報の表示・画像の設定・削除・パスワード変更（関連する詳細設定項目は [@tbl:oa_pwchange_con]）が実施できます。  
 
+		![プロフィール](images/2-1-profile.png){#fig:oa_profile width=300px}  
 
-![プロフィール](images/2-1-profile.png){#fig:oa_profile width=300px}  
+		No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
+		---:|---------------------|------------------|--------------|------|
+		1   | 共通  - セキュリティ | パスワードのポリシー | 未定義 | パスワードのフォーマット定義 |
+		2   | 共通  - セキュリティ | パスワードの最小桁数 | 1 |  |
 
-No. | 設定分類                 | 設定項目名       | デフォルト値 | 内容 |
----:|---------------------|------------------|--------------|------|
-1   | 共通  - セキュリティ | パスワードのポリシー | 未定義 | パスワードのフォーマット定義 |
-2   | 共通  - セキュリティ | パスワードの最小桁数 | 1 |  |
+		: OperatorAgent - パスワード変更の詳細設定項目 {#tbl:oa_pwchange_con}  
 
-: OperatorAgent - パスワード変更の詳細設定項目 {#tbl:oa_pwchange_con}  
-
-- 設定タブ（[@fig:oa_user_con]）  
+	- 設定タブ（[@fig:oa_user_con]）  
 ControlCenter の詳細設定で設定された OperatorAgent の振る舞いを個人用にカスタマイズできます。  
 [@tbl:oa_user_con] は、表示項目と詳細設定項目の対応表です。
 
- ![OperatorAgent ユーザ設定](images/2-1-config.png){#fig:oa_user_con width=300px}  
+		![OperatorAgent ユーザ設定](images/2-1-config.png){#fig:oa_user_con width=300px}  
 
-No. | 設定タブ項目 | 設定分類                 | 設定項目名       |
-----:|---------------------|------------------|--------------|
-1   | 起動時にウィンドウを表示 | OperatorAgent - 起動時動作 | 起動時にウィンドウを表示状態に戻す |
-2   | 閉じたときにタスクバーに表示しない | OperatorAgent - 全般 | 閉じたときにタスクバーに表示しない |
-3   | 感情解析ポップアップを自動表示 | OperatorAgent - 通知メッセージ | 感情解析の自動表示 |
-4   | 通話フィルタの通知時間 | OperatorAgent - 通知メッセージ | 通話フィルタの通知時間レベル |
-5   | チャンネル名を含める | OperatorAgent - 通話全文コピー | コピー時にチャンネル名を含める |
-6   | 発話開始時間を含める | OperatorAgent - 通話全文コピー | コピー時に開始時間を含める |
-7   | 発話終端時間を含める | OperatorAgent - 通話全文コピー | 終了時間を含めるか |
-8   | Enter キーで送信 | OperatorAgent - メッセージ | Enter キーでメッセージを送信 |
+		No. | 設定タブ項目 | 設定分類                 | 設定項目名       |
+		----:|---------------------|------------------|--------------|
+		1   | 起動時にウィンドウを表示 | OperatorAgent - 起動時動作 | 起動時にウィンドウを表示状態に戻す |
+		2   | 閉じたときにタスクバーに表示しない | OperatorAgent - 全般 | 閉じたときにタスクバーに表示しない |
+		3   | 感情解析ポップアップを自動表示 | OperatorAgent - 通知メッセージ | 感情解析の自動表示 |
+		4   | 通話フィルタの通知時間 | OperatorAgent - 通知メッセージ | 通話フィルタの通知時間レベル |
+		5   | チャンネル名を含める | OperatorAgent - 通話全文コピー | コピー時にチャンネル名を含める |
+		6   | 発話開始時間を含める | OperatorAgent - 通話全文コピー | コピー時に開始時間を含める |
+		7   | 発話終端時間を含める | OperatorAgent - 通話全文コピー | 終了時間を含めるか |
+		8   | Enter キーで送信 | OperatorAgent - メッセージ | Enter キーでメッセージを送信 |
 
-: OperatorAgent - ユーザ設定項目と詳細設定項目の対応 {#tbl:oa_user_con}  
+		: OperatorAgent - ユーザ設定項目と詳細設定項目の対応 {#tbl:oa_user_con}  
 
 <div style="page-break-before:always"></div>
 
@@ -358,99 +357,77 @@ No. | 設定タブ項目 | 設定分類                 | 設定項目名       
 1. 通話内容ビュー  
 OperatorAgent にログインした内線番号(モニタ内線番号)の通話の認識結果と関連する通話イベントを表示します。  
 
-- 通話イベント  
+	- 通話イベント  
 通話イベント（[@tbl:callevent]）は ControlCenter から OperatorAgent へ通知されます。  
 
-	No. | イベント | 詳細 | 参考 |
-----:|---------|-------|---|
-1 | 通話開始 | RealTimeRecorder でモニタ内線番号の通話開始を検出時に通知されます。 | [@fig:startobi]  
-2 | 通話終了 | RealTimeRecorder でモニタ内線番号の通話終了を検出時に通知されます。 | [@fig:startobi]  
-3 | 保留開始 | RealTimeRecorder でモニタ内線番号の録音中に保留開始を検出時に通知されます。 | [@fig:holdobi]  
-4 | 保留解除 | RealTimeRecorder でモニタ内線番号の通話保留中、保留解除を検出時に通知されます。 | [@fig:startobi]  
-5 | 通話切替 | RealTimeRecorder でモニタ内線番号の録音中、録音対象の RTP の MediaResource が切り替わったときに通知されます。 | [@fig:kirikaeobi]  
+		No. | イベント | 詳細 | 参考 |
+		----:|---------|-------|---|
+		1 | 通話開始 | RealTimeRecorder でモニタ内線番号の通話開始を検出時に通知されます。 | [@fig:startobi]  
+		2 | 通話終了 | RealTimeRecorder でモニタ内線番号の通話終了を検出時に通知されます。 | [@fig:startobi]  
+		3 | 保留開始 | RealTimeRecorder でモニタ内線番号の録音中に保留開始を検出時に通知されます。 | [@fig:holdobi]  
+		4 | 保留解除 | RealTimeRecorder でモニタ内線番号の通話保留中、保留解除を検出時に通知されます。 | [@fig:startobi]  
+		5 | 通話切替 | RealTimeRecorder でモニタ内線番号の録音中、録音対象の RTP の MediaResource が切り替わったときに通知されます。 | [@fig:kirikaeobi]  
 
-	: 通話イベントの種類 {#tbl:callevent}
+		: 通話イベントの種類 {#tbl:callevent}
 
-![通話イベント ： 通話開始 ＆ 通話終了](images/2-1-通話開始.png){#fig:startobi width=500px}
+		![通話イベント ： 通話開始 ＆ 通話終了](images/2-1-通話開始.png){#fig:startobi width=500px}
 
-![通話イベント ： 保留開始 ＆ 保留解除](images/2-1-保留.png){#fig:holdobi width=500px}
+		![通話イベント ： 保留開始 ＆ 保留解除](images/2-1-保留.png){#fig:holdobi width=500px}
 
-![通話イベント ： 通話切替](images/2-1-通話切替.png){#fig:kirikaeobi width=500px}  
+		![通話イベント ： 通話切替](images/2-1-通話切替.png){#fig:kirikaeobi width=500px}  
 
-<!-- 【要確認】![](images/Tips.jpg){width=50px}  
-OperatorAgent は Internet Explorer の設定を利用して通信します。  
-インターネットオプションの設定でプロキシが設定されている場合、状態通知がブロックされます。  
-対処としてプロキシの例外リストにWEBサーバ のIPアドレスを登録する方法があります。    -->
-
-- 認識結果  
+	- 認識結果  
 認識結果は StreamingRecognizer から OperatorAgent へ送信されます。  
 通話内容は単語ごとにテキスト化され、順番に送信されますが、後から認識した単語によって既に表示されている単語が置き換わることもあります。発話単位で吹出で表現されます。発話の区切りは無音が一定時間以上（【要確認】 一定時間）継続することで行われます。（[@fig:hatuwa]）  
 
+		![認識結果の表示](images/2-1-通話内容.png){#fig:hatuwa width=500px}  
 
-	<br/>  
+		- 緑の吹出は、録音対象の電話機を主体として、送話音声の認識結果になります。送話側音声は、認識オプション設定のオペレータタブに設定されたエンジンモードでテキスト化されます。（[@fig:txengine]）  
 
-	- 緑の吹出は、録音対象の電話機を主体として、送話音声の認識結果になります。送話側音声の認識は、認識オプション設定のオペレータタブに設定されたエンジンモードで処理されます。（[@fig:txengine]）  
+			![送話音声認識用エンジンモード](images/1-2-tx_engine.png){#fig:txengine width=400px}  
 
-		<br/>  
+		- オレンジの吹出は、録音対象の電話機を主体として受話音声の認識結果となります。受話側音声は、認識オプション設定のカスタマタブに設定されたエンジンモードでテキスト化されます。（[@fig:rxengine]）  
 
-	- オレンジの吹出は、録音対象の電話機を主体として受話音声の認識結果となります。受話側音声の認識は、認識オプション設定のカスタマタブに設定されたエンジンモードで処理されます。（[@fig:rxengine]）  
+			![受話音声認識用エンジンモード](images/1-2-rx_engine.png){#fig:rxengine width=400px}  
 
- ![認識結果の表示](images/2-1-通話内容.png){#fig:hatuwa width=500px}  
+	- 通話内容ビューの表示不具合のトラブルシューティング  
 
- ![送話音声認識用エンジンモード](images/1-2-tx_engine.png){#fig:txengine width=400px}  
+  		1. 通話イベントが表示されない（**区分A**）  
+このケースは通話録音設定の不備か、スパンデータの不備による可能性が疑われます。  
 
- ![受話音声認識用エンジンモード](images/1-2-rx_engine.png){#fig:rxengine width=400px}  
+			No. | 原因| 対処 |
+			----:|---------|-------|
+			1 | RealTimeRecorder で通話録音ができていない | サーバ版であれば各種設定とパケットキャプチャの状況、クライアント版の場合には各種設定と録音デバイス関連を確認してください。  
+			2 | サーバ版の場合 OperatorAgent でログインしている内線番号と通話中の内線番号が一致していない | OperatorAgent ログイン時に設定する内線番号と通話する電話機の内線番号は一致させてください。  
+			3 | データベースの ServiceBroker が無効になっている | 有効化してください。  
 
-- 通話内容ビューの表示不具合のトラブルシューティング  
+			: 区分 A の主な原因と対処の目安 {#tbl:kubunA}
 
+  		1. 通話イベントのみ表示され、認識結果が表示されない（**区分B**）  
+このケースは通話録音・認識は正常に完了しているにも関わらず、**OperatorAgent と StreamingRecognizer 間の通信に不備がある** 可能性が疑われます。  
+ただし、各種設定の不備が完全に否定されるわけではありません。
 
+			No. | 原因| 対処 |
+			----:|---------|-------|
+			1 | OperatorAgent と StreamingRecognizer 間の接続が確立していない可能性があります。 | ノード管理で設定している、StreamingRecognizer の HTTP のポートに対して、OperatorAgent がアクセスできる状況にあるかを確認してください。  
+			2 | 認識オプションが未設定の可能性があります| 認識オプションの設定を実施してください。  
+			3 | 大規模な認識処理遅延が発生している可能性があります | 認識オプションの設定を実施してください。  
 
-	<br/>  
+			: 区分 B の主な原因と対処の目安 {#tbl:kubunB}
 
-	**区分 A ： 通話イベントが表示されない**  
-　このケースは通話録音設定の不備か、スパンデータの不備による可能性が疑われます。（[@tbl:kubunA]）  
+  		1. その他（**区分C**）  
+その他、よくある、通話内容表示不具合の例についてです。  
 
-	<br/>  
+			No. | 症状 | 原因| 対処 |
+			----:|---------|---|-------|
+			1 | クライアント版（コンバージャー録音）で、通話していないのに 『通話開始』 と 『通話終了』 繰り返し表示される | コンバージャーの調整不足です | 恐らく無音がとれない電話機なので、有音 + 短い通話録音を切り捨てる設定にしてください  
+			2 | クライアント版（コンバージャー録音）で、保留したタイミングで 『通話終了』 イベントが表示されてしまう | コンバージャー録音の性能限界の可能性があります | その時点のコンバージャー調整値では保留とオンフック状態の判別ができていません。調整によって解消する可能性もありますが、概ね IP  電話機の場合には保留とオンフックの判断はつかないようです。  
+			3 | 認識結果の表示が遅延する（業務開始直後、オペレータのみ） | クライアント認識版では顕著に現れる症状ですが、StreamingRecognizer が初回認識処理時に認識オプションに沿って、各種設定やエンジンモードのロードを行うためです。 | 仕様であり、限定的にしか発生しませんので特に対処は必要はありません。気になるようであれば業務開始前にダミー通話を実施するようにしてください。  
+			4 | 認識結果の表示が遅延する（通話開始直後） | 通話冒頭の 30 秒間は、通話環境の音響を学習しています。エンジンモードの音響モデルの情報と環境の音響情報の乖離が激しい場合、認識負荷があがるため冒頭30秒程度オペレータの認識結果の表示が遅延することがあります。 | 無線 ヘッドセットを利用しているケースなどで起きがちです。その場合、有線ヘッドセットに変えるなどで症状が改善します。  
 
-	**区分 B ： 通話イベントのみ表示され、認識結果が表示されない**  
-　このケースは通話録音・認識は正常に完了しているにも関わらず、 <br />　　**OperatorAgent と StreamingRecognizer 間の通信に不備がある** 可能性が疑われます。  
-　ただし、各種設定の不備の可能性が無いわけではありません。
+			: 区分 C の主な症状及び原因と対処の目安 {#tbl:kubunC}
 
-	<br />  
-
-	**区分 C ： その他**  
-　その他、よくある、通話内容表示不具合の例についてです。  
-
-	No. | 原因| 対処 |
-----:|---------|-------|
-1 | RealTimeRecorder で通話録音ができていない | サーバ版であれば各種設定とパケットキャプチャの状況、クライアント版の場合には各種設定と録音デバイス関連を確認してください。  
-2 | サーバ版の場合 OperatorAgent でログインしている内線番号と通話中の内線番号が一致していない | OperatorAgent ログイン時に設定する内線番号と通話する電話機の内線番号は一致させてください。  
-3 | データベースの ServiceBroker が無効になっている | 有効化してください。  
-
-	: 区分 A の主な原因と対処の目安 {#tbl:kubunA}
-
-	No. | 原因| 対処 |
-----:|---------|-------|
-1 | OperatorAgent と StreamingRecognizer 間の接続が確立していない可能性があります。 | ノード管理で設定している、StreamingRecognizer の HTTP のポートに対して、OperatorAgent がアクセスできる状況にあるかを確認してください。  
-2 | 認識オプションが未設定の可能性があります| 認識オプションの設定を実施してください。  
-3 | 大規模な認識処理遅延が発生している可能性があります | 認識オプションの設定を実施してください。  
-
-	: 区分 B の主な原因と対処の目安 {#tbl:kubunB}
-
-	No. | 症状 | 原因| 対処 |
-----:|---------|---|-------|
-1 | クライアント版（コンバージャー録音）で、通話していないのに 『通話開始』 と 『通話終了』 繰り返し表示される | コンバージャーの調整不足です | 恐らく無音がとれない電話機なので、有音 + 短い通話録音を切り捨てる設定にしてください  
-2 | クライアント版（コンバージャー録音）で、保留したタイミングで 『通話終了』 イベントが表示されてしまう | コンバージャー録音の性能限界の可能性があります | その時点のコンバージャー調整値では保留とオンフック状態の判別ができていません。調整によって解消する可能性もありますが、概ね IP  電話機の場合には保留とオンフックの判断はつかないようです。  
-3 | 認識結果の表示が遅延する（業務開始直後、オペレータのみ） | クライアント認識版では顕著に現れる症状ですが、StreamingRecognizer が初回認識処理時に認識オプションに沿って、各種設定やエンジンモードのロードを行うため | 仕様かつ、1日の最初の通話でしか発生しませんので特に対処は必要ないですが  
-4 | 認識結果の表示が遅延する（通話開始直後） | 通話冒頭の 30 秒間は、通話環境の音響を学習しています。エンジンモードの音響モデルの情報と環境の音響情報の乖離が激しい場合、認識負荷があがるため冒頭30秒程度オペレータの認識結果の表示が遅延することがあります。 | 無線 ヘッドセットを利用しているケースなどで起きがちです。その場合、有線ヘッドセットに変えるなどで症状が改善します。  
-
-	: 区分 C の主な症状及び原因と対処の目安 {#tbl:kubunC}
-
-  - 仕様となります。初回認識処理時にはテキスト化に利用するエンジンモードや  
-  追加登録した辞書単語等の各種設定をダウンロードしているためです。
-
-
-2. 通話情報ビュー   
+1. 通話情報ビュー  
 通話中のオペレータの通話情報が表示されます。   
 この情報は通話相手によって変わらない情報のみを表示します。（[@fig:callinfo] ）  
   `自分の電話番号`・・・自番号  
@@ -606,9 +583,7 @@ No. | 原因| 対処 |
  6. ヘルプ    
 OperatorAgent から SpeechVisualizer の座席表に登録したヘルプ要求理由でアラート通知する機能です。([@fig:helpb]）  
 
-<div style="text-align:center">
  ![ヘルプボタン](images/2-1-ヘルプ.png){#fig:helpb width=200px}  
-</div>
 
   `利用上の注意`  
 ヘルプを利用するには ControlCenter/モニタリング/ヘルプ要求理由管理、ヘルプ要求解除理由に登録が必要です。   
