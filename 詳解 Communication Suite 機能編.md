@@ -1217,10 +1217,10 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 	: SpeechVisualizer ブラウザログインタイムアウト {#tbl:svloginto}
 
 ### 2-2. SpeechVisualizer ホーム画面  
-- Speechvisualizerへのログイン時に表示されるホーム画面のガジェットについて説明していきます。
+- Speechvisualizer へのログイン時に表示されるホーム画面のガジェットについて説明していきます。
 
 #### 2-2-1. ホーム画面のガジェットとプロバイダ
-- ContorlCenterの詳細設定で設定されたホーム画面のガジェットをユーザごとにレイアウト変更できます。
+- ContorlCenter の詳細設定で設定されたホーム画面のガジェットをユーザごとにレイアウト変更できます。
 [@tbl:ｓｖhomepara]は表示される種類およびレイアウトと詳細設定項目の対応表です。
 
 	No. | ホーム画面 | 設定分類 | 設定項目名       | 設定値 |
@@ -1234,81 +1234,51 @@ SpeechVisualizer の座席表機能では、タイムアウトした OperatorAge
 
 	No. | ガジェット名       | プロバイダ名 | デフォルトでの画面配置 |内容 |
 	---:|------------------|--------------|------|------|
-	1 |プロフィール |Profile |〇|自分のプロフィールを表示します。|
-	2 |リンク |Link |〇|リンクの一覧を表示します。|
-	3 |お知らせ |Announcement |〇|お知らせの一覧を表示します。|
-	4 |自分の通話 |MyRecentConversation |〇|自分の通話の一覧を表示します。|
-	5 |自分の通話(IN) |MyRecentConversation ||自分のINBOUND通話の一覧を表示します。|
-	6 |自分の通話(OUT) |MyRecentConversation ||自分のOUTBOUND通話の一覧を表示します。|
-	7 |所属プロジェクトの通話 |ProjectRecentConversation |〇|自分が所属しているプロジェクトの通話の一覧を表示します。|
-	8 |所属プロジェクトの通話(IN) |ProjectRecentConversation ||自分が所属しているプロジェクトのINBOUND通話の一覧を表示します。|
-	9 |所属プロジェクトの通話(OUT) |ProjectRecentConversation ||自分が所属しているプロジェクトのOUTBOUND通話の一覧を表示します。|
-	10 |自分が最近再生した通話 |RecentHistory |〇|自分が再生した通話の一覧を表示します。|
-	11 |自分が最近参照した通話 |RecentHistory |〇|自分が参照した通話の一覧を表示します。|
-	12 |自分が最近編集した通話 |RecentHistory |〇|自分が編集した通話の一覧を表示します。|
-	13 |自分の通話に対する最近のコメント |RecentComment |〇|自分の通話に対するコメントの一覧を表示します。|
-	14 |自分が最近投稿したコメント |RecentComment ||自分が通話に対して投稿したコメントの一覧を表示します。|
-	15 |お気に入り |Favorite |〇|自分のお気に入りの通話を表示します。|
-	16 |評価の遷移 |RatingCurve |〇|自分の通話に対する評価グラフを表示します。|
-	17 |感情の遷移 |EmotionCurve ||任意のユーザの感情グラフを表示します。|
-	18 |マイクエリ |MyQuery ||任意のマイクエリを検索条件にして取得した通話の一覧を表示します。|
-	19 |通話スコアリング |Score ||任意の通話スコアリングが適応された通話の一覧を表示します。|
-	20 |通話品質評価テンプレート |QualityEvaluationTemplate ||任意の通話品質評価テンプレートによって評価された通話の一覧を表示します。|
-	21 |スキル |AgentSkill ||任意のスキルに関連する情報をグラフ化したものを表示します。|
+	1 |プロフィール | Profile |〇|自分のプロフィールを表示します。|
+	2 |リンク | Link |〇|リンクの一覧を表示します。|
+	3 |お知らせ | Announcement |〇|お知らせの一覧を表示します。|
+	4 |自分の通話 | MyRecentConversation |〇|自分の通話の一覧を表示します。|
+	5 |自分の通話 (IN) | MyRecentConversation ||自分のINBOUND通話の一覧を表示します。|
+	6 |自分の通話 (OUT) | MyRecentConversation ||自分のOUTBOUND通話の一覧を表示します。|
+	7 |所属プロジェクトの通話 | ProjectRecentConversation |〇|自分が所属しているプロジェクトの通話の一覧を表示します。|
+	8 |所属プロジェクトの通話 (IN) | ProjectRecentConversation ||自分が所属しているプロジェクトのINBOUND通話の一覧を表示します。|
+	9 |所属プロジェクトの通話 (OUT) | ProjectRecentConversation ||自分が所属しているプロジェクトのOUTBOUND通話の一覧を表示します。|
+	10 |自分が最近再生した通話 | RecentHistory |〇|自分が再生した通話の一覧を表示します。|
+	11 |自分が最近参照した通話 | RecentHistory |〇|自分が参照した通話の一覧を表示します。|
+	12 |自分が最近編集した通話 | RecentHistory |〇|自分が編集した通話の一覧を表示します。|
+	13 |自分の通話に対する最近のコメント | RecentComment |〇|自分の通話に対するコメントの一覧を表示します。|
+	14 |自分が最近投稿したコメント | RecentComment ||自分が通話に対して投稿したコメントの一覧を表示します。|
+	15 |お気に入り | Favorite |〇|自分のお気に入りの通話を表示します。|
+	16 |評価の遷移 | RatingCurve |〇|自分の通話に対する評価グラフを表示します。|
+	17 |感情の遷移 | EmotionCurve ||任意のユーザの感情グラフを表示します。|
+	18 |マイクエリ | MyQuery ||任意のマイクエリを検索条件にして取得した通話の一覧を表示します。|
+	19 |通話スコアリング | Score ||任意の通話スコアリングが適応された通話の一覧を表示します。|
+	20 |通話品質評価テンプレート | QualityEvaluationTemplate ||任意の通話品質評価テンプレートによって評価された通話の一覧を表示します。|
+	21 |スキル | AgentSkill ||任意のスキルに関連する情報をグラフ化したものを表示します。|
 
-	: モジュールとプロバイダの対応 {#tbl:homeprovider}
+	: ガジェットとプロバイダの対応 {#tbl:homeprovider}
 
 
-	『ホームモジュールのプロバイダ』は、ホーム画面に設定可能にしたいガジェットのプロバイダ名ごとに、1つづつ改行して記載します。
+	『ホームモジュールのプロバイダ』は、以下のようにホーム画面に設定可能にしたいガジェットのプロバイダ名ごとに、1つづつ改行して記載します。
 
 	```
 	Profile
-Link
-Announcement
-・・・中略・・・
-Score
-QualityEvaluationTemplate
-AgentSkill
+	Link
+	Announcement
+	・・・中略・・・
+	Score
+	QualityEvaluationTemplate
+	AgentSkill
 	```
 
 	<br />
 
 	**[@tbl:homeprovider]の内容以外に、重要な通話ガジェット(HighCallPriorityConversation)が用意されております。このガジェットは将来予定されているバージョンアップで追加予定の機能になります。現段階では表示のみのため、設定しないことを推奨いたします。**
 
+	<br />
 
-#### 2-2-2. ホーム画面のレイアウト情報
+	また、一部のガジェットは内容の自動再読込の設定が可能です。[@tbl:svhomeautoupdate]は自動再読込間隔を設定する詳細設定項目です。
 
-- ホーム画面のガジェット配置を詳細設定から設定可能です。配置情報で使われるガジェット名は[@tbl:homeprovider]で記載したプロバイダ名と一部内容が異なります。。[@tbl:homeprovider]プロバイダ名に対応するガシェット名の一覧です。
-
-	No. | ガジェット名       | プロバイダ名 | レイアウト設定上のガジェット名 |
-	---:|------------------|--------------|------|
-	1 |プロフィール |Profile |Profile|
-	2 |リンク |Link |Link|
-	3 |お知らせ |Announcement |Announcement|
-	4 |自分の通話 |MyRecentConversation |MyRecent|
-	5 |自分の通話(IN) |MyRecentConversation ||
-	6 |自分の通話(OUT) |MyRecentConversation ||
-	7 |所属プロジェクトの通話 |ProjectRecentConversation |〇|
-	8 |所属プロジェクトの通話(IN) |ProjectRecentConversation ||
-	9 |所属プロジェクトの通話(OUT) |ProjectRecentConversation ||
-	10 |自分が最近再生した通話 |RecentHistory |〇|
-	11 |自分が最近参照した通話 |RecentHistory |〇|
-	12 |自分が最近編集した通話 |RecentHistory |〇|
-	13 |自分の通話に対する最近のコメント |RecentComment |〇|
-	14 |自分が最近投稿したコメント |RecentComment ||
-	15 |お気に入り |Favorite |〇|
-	16 |評価の遷移 |RatingCurve |〇|
-	17 |感情の遷移 |EmotionCurve ||
-	18 |マイクエリ |MyQuery ||
-	19 |通話スコアリング |Score ||
-	20 |通話品質評価テンプレート |QualityEvaluationTemplate ||
-	21 |スキル |AgentSkill ||
-
-
-  詳細設定内で、表示したい列をセミコロンで区切り、列内のガジェット名をカンマで区切ります。また設定項目のあるガジェットはコロンで区切ることで追加設定できます（省略した場合はデフォルトが適用される）。
-
-
-	一部のガジェットは内容の自動再読込の設定が可能です。[@tbl:svhomeautoupdate]は自動再読込間隔を設定する詳細設定項目です。
 
 	No. | 設定項目名       | 設定値 | 内容 |
 	---:|------------------|--------------|------|
@@ -1316,16 +1286,72 @@ AgentSkill
 
 	: ホーム画面の自動更新設定 {#tbl:svhomeautoupdate}
 
-	![](images/Tips.jpg){width=50px}　ホーム画面のレイアウトはシステム全体のデフォルト設定とユーザごとの個人設定が有り、ユーザごとの個人設定が設定されている場合は、個人設定が優先されます。
+
+#### 2-2-2. ホーム画面のレイアウト情報
+
+- ホーム画面のガジェット配置を詳細設定から設定可能です。配置情報で使われるガジェット名は[@tbl:homeprovider]で記載したプロバイダ名と一部内容が異なります。[@tbl:layoutgadget]はプロバイダ名に対応するガシェット名の一覧です。
+
+	No. | ガジェット名       | プロバイダ名 | レイアウト設定上のガジェット名 |
+	---:|------------------|--------------|------|
+	1 |プロフィール | Profile | Profile |
+	2 |リンク | Link | Link |
+	3 |お知らせ | Announcement | Announcement |
+	4 |自分の通話 | MyRecentConversation | MyRecent |
+	5 |自分の通話(IN) | MyRecentConversation | MyRecentInbound |
+	6 |自分の通話(OUT) | MyRecentConversation | MyRecentOutbound |
+	7 |所属プロジェクトの通話 | ProjectRecentConversation | ProjectRecent |
+	8 |所属プロジェクトの通話 (IN) | ProjectRecentConversation | ProjectRecentInbound |
+	9 |所属プロジェクトの通話 (OUT) | ProjectRecentConversation | ProjectRecentOutbound |
+	10 |自分が最近再生した通話 | RecentHistory | MyRecentPlayHistory |
+	11 |自分が最近参照した通話 | RecentHistory | MyRecentViewHistory |
+	12 |自分が最近編集した通話 | RecentHistory | MyRecentEditHistory |
+	13 |自分の通話に対する最近のコメント | RecentComment | RecentComment |
+	14 |自分が最近投稿したコメント | RecentComment | RecentPostComment |
+	15 |お気に入り | Favorite | Favorite |
+	16 |評価の遷移 | RatingCurve | RatingCurve |
+	17 |感情の遷移 | EmotionCurve | emotionCurve |
+	18 |マイクエリ | MyQuery | MyQuery |
+	19 |通話スコアリング | Score | Score |
+	20 |通話品質評価テンプレート |QualityEvaluationTemplate | QualityEvaluation |
+	21 |スキル |AgentSkill | AgentSkill |
+
+	: レイアウト設定上のガジェット名とプロバイダ名の一覧 {#tbl:layoutgadget}
+
+	<br />
+
+	システム全体のレイアウト設定は詳細設定内で設定できます。表示したい列を`;`で区切り、列内のガジェット名を`,`で区切ります。以下はデフォルトの設定内容です。
+
+
+	```
+	Profile,Link,RatingCurve,Announcement;MyRecent,RecentComment,Favorite;ProjectRecent,MyRecentViewHistory,MyRecentPlayHistory,MyRecentEditHistory
+	```
+
+	[@fig:home_defaultlayout] はデフォルト設定の状態で初回ログインしたユーザのガジェットレイアウトです。
+
+	![デフォルト設定のホーム画面レイアウト](images/home_defaultlayout.png){#fig:home_defaultlayout width=700px}
+
+
+
+
+	![](images/Tips.jpg){width=50px}　ホーム画面のレイアウトはシステム全体のデフォルト設定とユーザごとの個人設定が有り、ユーザごとの個人設定が設定されている場合は、個人設定の内容が優先されます。
 
 	<br />
 
  	1. プロフィール（Profile）
 
       	- ログインしているユーザのプロフィール設定です。ガジェット名はProfileになります。  
-[@fig:home_profile] はプロフィールガジェット、[@tbl:svhomeprofile] はレイアウト配置設定項目です。  
+      	ユーザ個人設定の『ホーム画面のレイアウト』には以下のように表示されます。
+
+      		```
+      		Profile:"設定なし":"自動更新の有効化"
+      		```
+
+
+      	[@fig:home_profile] はプロフィールガジェット、[@tbl:svhomeprofile] はレイアウト配置設定項目です。  
 
       	![プロフィールガジェットと設定項目](images/home_profile.png){#fig:home_profile width=400px}
+
+
 
       	No. | 設定項目      | デフォルトの設定 |設定内容
       	---:|------|------------------|-  |   
