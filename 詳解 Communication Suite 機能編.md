@@ -1447,24 +1447,22 @@ AgentSkill
 
 ### 2-3. SpeechVisualizer 通話検索  
 Communication Suite データベースに蓄積した通話を通話検索画面の検索モジュールを利用して検索する機能です。  
-通話検索の要素としは次の通りです。
+通話検索の要素として以下があります。
 
  - 検索モジュール  
-	通話検索画面の検索部品です。並び順やマイクエリも含めて検索モジュールです。
+	通話検索画面の検索部品です。並び順やマイクエリも含めて検索モジュールになります。
  - プロバイダ  
 	検索モジュールに機能を提供します。各プロバイダごとに参照するデータやフォーマットが変わります。  
  - 検索条件  
-	検索モジュールに任意のプロバイダを指定して通話の絞り込み条件を構成します。
+	検索モジュールに任意のプロバイダを指定して通話の絞り込み条件を構成します。  
 
+通話検索に利用する検索モジュールは[@fig:provider][@fig:provider2]が対象になります。
+
+![検索モジュール 1](images/2-3-検索モジュールのプロバイダ.png){#fig:provider width=600px}  
+
+![検索モジュール 2](images/2-3-マイクエリ.png){#fig:provider2 width=200px}  
 
 #### 2-3-1. 通話検索に利用する検索モジュールのプロバイダ  
-
-通話検索に利用する検索モジュールについて説明していきます。([@fig:provider])  
-
-![検索モジュール](images/2-3-検索モジュールのプロバイダ.png){#fig:provider width=600px}  
-
-
-<pre style="color: red; font-size: 20px!important;">書式修正 ============ ここから =============</pre>
 
  1.  検索モジュールのプロバイダ設定  
 	検索モジュールに利用するプロバイダは、ControlCenter 詳細設定の [@tbl:provider0] の項目を編集して構成します。  
@@ -1515,23 +1513,21 @@ Communication Suite データベースに蓄積した通話を通話検索画面
 
 		: 追加する通話属性の書式 {#tbl:provider3}
 
-		<pre style="color: red; font-size: 20px!important;">書式修正 ============ ここまで =============</pre>  
-
-
 		No. | 表示されるアイコン      | アイコンの種類| アイコン名
 		---:|------------------|--------------|------|
-		1   | images/2-3-icon1.png 【アイコンの表示方法要確認】 | 人物        | person1|
-		2   | images/2-3-icon2.png 【アイコンの表示方法要確認】   | 電話1       | tel1|
-		3   | images/2-3-icon3.png 【アイコンの表示方法要確認】  | 電話2        | tel2|
-		4   | images/2-3-icon4.png 【アイコンの表示方法要確認】  | 電話3        | tel3|
-		5   | images/2-3-icon5.png 【アイコンの表示方法要確認】  |  星1        | star1
-		6   | images/2-3-icon6.png 【アイコンの表示方法要確認】   | 星2       | star2|
-		7   | images/2-3-icon7.png 【アイコンの表示方法要確認】   | 吹き出し1        | balloon1|
-		8   | images/2-3-icon8.png 【アイコンの表示方法要確認】  | 吹き出し2       | balloon2|
+		1   | images/2-3-icon1.png 【ここにアイコンを表示する方法を要確認】 | 人物        | person1|
+		2   | images/2-3-icon2.png 【ここにアイコンを表示する方法を要確認】 | 電話1       | tel1|
+		3   | images/2-3-icon3.png 【ここにアイコンを表示する方法を要確認】 | 電話2        | tel2|
+		4   | images/2-3-icon4.png 【ここにアイコンを表示する方法を要確認】  | 電話3        | tel3|
+		5   | images/2-3-icon5.png 【ここにアイコンを表示する方法を要確認】 |  星1        | star1
+		6   | images/2-3-icon6.png 【ここにアイコンを表示する方法を要確認】 | 星2       | star2|
+		7   | images/2-3-icon7.png 【ここにアイコンを表示する方法を要確認】   | 吹き出し1        | balloon1|
+		8   | images/2-3-icon8.png 【ここにアイコンを表示する方法を要確認】  | 吹き出し2       | balloon2|
 
 		: 表示するアイコン {#tbl:icon1}
 
-		- 検索モジュールのプロバイダ ( [@tbl:provider0]) をカスタマイズする場合にはプロバイダごとに区切って記載します。  
+ 2.  検索モジュールのプロバイダの変更  
+		検索モジュールのプロバイダ ( [@tbl:provider0]) をカスタマイズする場合にはプロバイダごとに区切って記述します。  
 		上から記述した順番通りに検索モジュールが左から右へ並んで表示されます。  
 
 		```
@@ -1541,13 +1537,19 @@ Communication Suite データベースに蓄積した通話を通話検索画面
 		AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|iconName=person1|lessQueryLabel=UCIDの一部を入力してください...|iconLabel=UCID|autoCompleteLength=0
 		```
 
-		- 通話属性を検索プロバイダとして追加する書式は以下です。  
+ 3.  検索プロバイダに通話属性を追加  
+		通話属性を検索プロバイダとして追加する書式は以下です。  
 		例） UCID の追加例  
 
 		```
 		AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|iconName=person1|lessQueryLabel=UCIDの一部を入力してください...|iconLabel=UCID|autoCompleteLength=0
 		```
-		- 電話番号系の検索プロバイダをカスタマイズする場合にはプロバイダ名 \"TelCondition" に属性 ([@tbl:zokuseikey] 参照) を書式に合わせて登録します。
+ 4.  電話番号のプロバイダに通話属性を追加  
+		プロバイダ名 \"TelCondition" に書式に合わせて属性 ([@tbl:zokuseikey] ) を登録します。  
+		**書式**  : 電話番号のプロバイダ \" TelCondition \" の後に \" | \"を記述し、\" targets= \" の後に追加する属性を\" , \"区切りで列挙します。  
+		明記しない場合(デフォルト)は \" \*all\*\,\*op\,cu\*\,line\ " が設定されている状態になりますが、属性を追加する場合は、この値を追記してください。  
+		\* を前か後ろに付けると、ワイルドカード扱いになり、前方一致、後方一致、中間一致になります。  
+
 
 		No. | 属性       | 説明|
 		---:|------------------|--------------|
@@ -1561,19 +1563,18 @@ Communication Suite データベースに蓄積した通話を通話検索画面
 		8   |  ts| 転送元番号 検索        |  
 		9   | td| 転送先番号 検索      |   
 
-		: 電話番号に追加可能な属性 {#tbl:zokuseikey}
+		: 電話番号に追加可能な属性 {#tbl:zokuseikey}  
 
 
-		**書式**  : 電話番号のプロバイダ \" TelCondition \" の後に \" | \"を記述し、\" targets= \" の後に追加する属性を\" , \"区切りで列挙してください。  
-		明記しない場合(デフォルト)は \" \*all\*\,\*op\,cu\*\,line\ " が設定されている状態になっています。属性を追加する場合は、上記値も追記してください。  
-		\* を前か後ろに付けると、ワイルドカード扱いになり、前方一致、後方一致、中間一致になります。  
-		例） 通話キュー番号を既存の検索条件に追加する場合
+		例） 電話番号プロバイダに通話キュー番号を追加する書式 ([@fig:denwa1]は設定後の状態)  
 
 		```
 		TelCondition|targets=*all*,*op,cu*,line,queue
 		```
-		- 検索結果で表示する並び順の設定  
-		並び順で表示する項目を編集することが可能です。 ([@fig:narabijun])  
+		![通話キュー番号を追加時の結果](images/2-3-電話番号1.png){#fig:denwa1 width=300px}  
+
+ 5.  検索結果の並び順の設定  
+		検索結果の並び順で表示する項目を設定することが可能です。 ([@fig:narabijun])  
 
 		![並び順の画面](images/2-3-並び順.png){#fig:narabijun width=500px}  
 
@@ -1586,7 +1587,7 @@ Communication Suite データベースに蓄積した通話を通話検索画面
 		: 検索で使用する並び順の設定 {#tbl:narabi}
 
 		例） 並び順のカスタム例  
-		上から記述した順番通りに並び順のリストが上から下に並んで表示されます。  
+		上から記述した順番通りに並び順のリストが上から下に表示されます。  
 
 		```
 		date
