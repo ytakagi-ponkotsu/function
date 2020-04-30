@@ -1691,14 +1691,14 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 
 		No. | 表示されるアイコン      | アイコンの種類| アイコン名
 		---:|------------------|--------------|------|
-		1   | images/2-3-icon1.png 【ここにアイコンを表示する方法を要確認】 | 人物        | person1|
-		2   | images/2-3-icon2.png 【ここにアイコンを表示する方法を要確認】 | 電話1       | tel1|
-		3   | images/2-3-icon3.png 【ここにアイコンを表示する方法を要確認】 | 電話2        | tel2|
-		4   | images/2-3-icon4.png 【ここにアイコンを表示する方法を要確認】  | 電話3        | tel3|
-		5   | images/2-3-icon5.png 【ここにアイコンを表示する方法を要確認】 |  星1        | star1
-		6   | images/2-3-icon6.png 【ここにアイコンを表示する方法を要確認】 | 星2       | star2|
-		7   | images/2-3-icon7.png 【ここにアイコンを表示する方法を要確認】   | 吹き出し1        | balloon1|
-		8   | images/2-3-icon8.png 【ここにアイコンを表示する方法を要確認】  | 吹き出し2       | balloon2|
+		1   | ![](images/2-3-icon1.png){#fig:aaa width=20px}| 人物        | person1|
+		2   | ![](images/2-3-icon2.png){#fig:aaa width=20px} | 電話1       | tel1|
+		3   | ![](images/2-3-icon3.png){#fig:aaa width=20px} | 電話2        | tel2|
+		4   | ![](images/2-3-icon4.png){#fig:aaa width=20px} | 電話3        | tel3|
+		5   | ![](images/2-3-icon5.png){#fig:aaa width=20px} |  星1        | star1
+		6   |  ![](images/2-3-icon6.png){#fig:aaa width=20px} | 星2       | star2|
+		7   | ![](images/2-3-icon7.png){#fig:aaa width=20px}  | 吹き出し1        | balloon1|
+		8   | ![](images/2-3-icon8.png){#fig:aaa width=20px} | 吹き出し2       | balloon2|
 
 		: 表示するアイコン {#tbl:icon1}
 
