@@ -24,6 +24,7 @@ tblPrefix: '表.'
 	- [2-1. SpeechVisualizer のログイン](#2-1-speechvisualizer-のログイン)
 	- [2-2. SpeechVisualizer ホーム画面](#2-2-speechvisualizer-ホーム画面)
 	- [2-3. SpeechVisualizer 通話検索](#2-3-speechvisualizer-通話検索)
+	- [2-4. SpeechVisualizer 通話詳細](#2-4-speechvisualizer-通話詳細)
 	- [2-5. SpeechVisualizer 座席表](#2-5-speechvisualizer-座席表)
 <!-- TOC END -->
 
@@ -1336,29 +1337,24 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 
 	<br />
 
- 	1. プロフィール（Profile）
+ 	1. プロフィール（Profile） 【[@fig:home_profile]】  
+ログインしているユーザのプロフィール設定です。  
+ユーザ個人設定の『ホーム画面のレイアウト』での書式設定は以下です。  
 
-      	- ログインしているユーザのプロフィール設定です。  
-      	ユーザ個人設定の『ホーム画面のレイアウト』での書式設定は以下です。
-
-      		```
-      		Profile:"設定なし":"自動更新の有効化"
-      		```
+		![プロフィールガジェットと設定項目](images/home_profile.png){#fig:home_profile width=400px}  
 
 
-      	[@fig:home_profile] はプロフィールガジェット、[@tbl:svhomeprofile] はレイアウト配置設定項目です。  
+		```
+		Profile:"設定なし":"自動更新の有効化"
+		```
 
-      	![プロフィールガジェットと設定項目](images/home_profile.png){#fig:home_profile width=400px}
+		No. | 設定項目      | デフォルトの設定 |設定内容
+		---:|------|------------------|-  |   
+		1  |ガジェット名   | Profile  | プロフィールガジェットを配置する  |  
+		2   | 設定なし  |   | 【要確認】 内容不明 |    
+		3  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
 
-
-
-      	No. | 設定項目      | デフォルトの設定 |設定内容
-      	---:|------|------------------|-  |   
-      	1  |ガジェット名   | Profile  | プロフィールガジェットを配置する  |  
-      	2   | 設定なし  |   | 【要確認】 内容不明 |    
-      	3  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
-
-      	: プロフィールガジェットの設定項目 {#tbl:svhomeprofile}  
+		: プロフィールガジェットの書式説明 {#tbl:svhomeprofile}  
 
  	1. リンク  
 	      - ControlCenterで登録したリンクの設定です 。ログインしているユーザの所属プロジェクトによって表示する項目がコントロール可能です。
