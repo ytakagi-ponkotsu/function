@@ -430,96 +430,123 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 		[@fig:callinfo] は通話情報ビューで表示される情報です。  
 		この情報は通話相手によって変わらないオペレータ情報のみを表示します。  
 
-	![通話情報の画面](images/2-1-通話情報.png){#fig:callinfo width=300px}  
+	![通話情報の画面](images/2-1-通話情報.png){#fig:callinfo width=250px}  
+
+	No. | 表示情報 |説明                | 備考      |
+	----:|---------------------|------------------|--------------|
+	1   |自分の電話番号 | 通話属性の自番号から情報を表示します。 |自番号が取得可能な環境であればデフォルト設定で表示されます。  
+	2   |自分のID |通話属性の自分の識別名から情報を表示します。 |[@tbl:callb] の設定で自分の識別名の登録が必要です。
+
+	: 通話情報ビューの詳細 {#tbl:callview}  
+
 
  3. 通話相手ビュー  
 		[@fig:callpartner] は通話相手ビューで表示される情報です。  
 		この情報は通話相手ごとに作成され、通話状態や通話相手の情報を表示します。   
 
-	![通話相手の画面](images/2-1-通話相手.png){#fig:callpartner width=250px}  
+	![通話相手の画面 （左図：単体相手　右図：通話相手が変わった場合）](images/2-1-通話相手.png){#fig:callpartner width=500px}  
 
-[@tbl:callb] は、通話情報ビュー、通話相手ビューの設定項目です。
-ControlCenter の詳細設定に設定項目があります。
+	[@tbl:callb] は、通話情報ビュー、通話相手ビューで表示する通話属性の設定項目です。  
+	ControlCenter の詳細設定を編集して構成します。  
 
-  No. | 設定タブ項目 | 設定項目名                | 設定内容      |
-  ----:|---------------------|------------------|--------------|
-  1   |OperatorAgent - 通話 | 表示する通話属性の一覧 | （通話属性識別名）＝（名称)で指定  
+	No. | 設定タブ項目 | 設定項目名                | 設定内容      |
+	----:|---------------------|------------------|--------------|
+	1   |OperatorAgent - 通話 | 表示する通話属性の一覧 |[@tbl:callb2] の（通話属性識別名）＝（名称)で指定  
 
-: OperatorAgent 表示する通話属性の設定 {#tbl:callb}  
-
-[@tbl:callb2] は、表示する通話属性で利用可能な通話属性の一覧です。(通話プロバイダにより利用できる通話属性が異なります。)
-
- No. | 通話属性識別名 | 名称                | Amazon Connect	      | Avaya AES    | Avaya     | SIP CIC     | SIP CTstage    |SIP OAI     | SIP T-Server      |
- ----:|---------------------|------------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|
- 1   |amivoice.common.description | 備考 |  |  |  |  |  |  |  |
- 2   |amivoice.common.direction | 向き|〇|〇|〇|〇|〇|〇|〇|
- 3   |amivoice.common.linetype | 通話回線種別 |  |〇|  |〇|〇|〇|〇|
- 4   |amivoice.common.summary| 要約 |   |  |  |  |  |  |  |
- 5   |amivoice.common.headline| 見出し |   |  |  |  |  |  |  |
- 6   |amivoice.common.mark | マーク |   |  |  |  |  |  |  |
- 7   |amivoice.common.operator.key | 自分の識別名 |〇|〇|  |〇|〇|  |  |
- 8   |amivoice.common.operator.name| 自分の名称|〇|  |  |  |〇|  |  |
- 9   |amivoice.common.operator.phonenumber| 自番号 |〇|〇|〇|〇|〇|〇|〇|
- 10   |amivoice.common.operator.group| 自分の所属グループ |〇|  |  |  |〇|  |  |
- 11   |amivoice.common.operator.hostname | 自分のホスト名 |   |  |  |  |〇|  |  |
- 12   |amivoice.common.customer.key | 相手の識別名 |   |  |  |〇|〇|  |  |
- 13   |amivoice.common.customer.name | 相手の名称 |   |  |  |  |〇|  |  |
- 14   |amivoice.common.customer.phonenumber| 相手番号|〇|〇|〇|〇|〇|〇|〇|
- 15   |amivoice.common.customer.gender | 相手の性別 |   |  |  |  |  |  |  |
- 16  |amivoice.common.telephony.dialin.phonenumber | ダイヤルイン番号 |   |  |  |〇|〇|〇|  |
- 17   |amivoice.common.telephony.called.phonenumber | 掛先番号 |  |〇|〇|  |  |  |  |
- 18   |amivoice.common.telephony.alerting.phonenumber | 呼出先番号|   |〇|  |  |  |  |  |
- 19   |amivoice.common.telephony.trunk.group | トランクグループ |  |〇|  |〇|〇|〇|〇|
- 20   |amivoice.common.telephony.trunk.member| トランクメンバ|  |〇|  |  |  |〇|  |
- 21   |amivoice.common.telephony.queue.phonenumber| 通話キュー番号|   |〇|  |〇|  |  |  |
- 22   |amivoice.common.telephony.transfer.source.key | 転送元識別名 |   |  |  |  |〇|  |  |
- 23   |amivoice.common.telephony.transfer.source.name | 転送元名称 |   |  |  |  |〇|〇|  |
- 24   |amivoice.common.telephony.transfer.source.phonenumber | 転送元番号 |   |〇|  |  |〇|  |〇|
- 25   |amivoice.common.telephony.transfer.destination.key| 転送先識別名 |   |  |  |  |〇|  |  |
- 26   |amivoice.common.telephony.transfer.destination.name | 転送先名称 |   |  |  |  |〇|  |  |
- 27   |amivoice.common.telephony.transfer.destination.phonenumber | 転送先番号 |   |〇|  |  |〇|〇|〇|
- 28   |amivoice.common.telephony.monitoring.target.key | モニタリング対象識別名 |   |  |  |〇|  |  |  |
- 29   |amivoice.common.telephony.monitoring.target.name| モニタリング対象名称 |   |  |  |〇|  |  |  |
- 30   |amivoice.common.telephony.monitoring.target.phonenumber| モニタリング対象番号 |   |  |  |〇|  |  |  |
- 31   |amivoice.common.telephony.monitoring.target.type | 	モニタリング種別  |   |  |  |〇|  |  |  |
- 32   |amivoice.common.reference.global.id | グローバル参照用のID |〇|〇|  | 〇|〇|  |〇|
- 33   |amivoice.common.reference.global.url | グローバル参照用のURL |   |  |  |  |  |  |  |
- 34   |amivoice.common.reference.local.id| ローカル参照用のID |   |〇|  |〇|  |  |  |
- 35   |amivoice.common.reference.local.url| ローカル参照用のURL |   |  |  |  |  |  |  |
- 36   |amivoice.common.reference.site.id | サイト参照用のID|   |  |  |  |  |  |  |
- 37   |amivoice.common.reference.site.url| サイト参照用のURL |   |  |  |  |  |  |  |
- 38   |amivoice.common.reference.private.id| プライベート参照用のID |   |  |  |  |  |  |  |
- 39   |amivoice.common.reference.private.url | プライベート参照用のURL |   |  |  |  |  |  |  |
- 40   |amivoice.common.recording.limit| 録音制限時間到達 |   |  |  |  |  |  |  |
- 41   |amivoice.common.recording.split| 録音分割 |   |  |  |  |  |  |  |
- 42   |amivoice.common.recording.split.previous| 録音分割された直前の通話 |   |  |  |  |  |  |  |
- 43   |amivoice.common.reference.recording.id | 録音区間参照用のID |   |  |  |  |  |  |  |
- 44   |amivoice.common.reference.recording.url | 録音区間参照用のURL |   |  |  |  |  |  |  |
- 45   |amivoice.common.telephony.distributing.phonenumber| 受電グループ番号|  |〇|  |  |  |  |  |
- 46   |amivoice.common.telephony.ivr.duration| IVR 応対時間 |   |〇|  |  |  |  |  |
- 47   |amivoice.common.telephony.queue.duration | 待ち時間 |   |〇|  |  |  |  |  |
-
-: OperatorAgent 表示する通話属性で利用可能な通話属性一覧 {#tbl:callb2}  
+	: OperatorAgent 表示する通話属性の設定 {#tbl:callb}  
 
 
-![](images/Tips.jpg){width=50px}  
-相手の性別 は通話プロバイダから情報を取得するのではなく、性別識別用エンジンにて判断しています。   
-[@tbl:seibetuenjin] は性別識別エンジンに関連する設定項目となり、ControlCenter/認識管理/認識オプション にあります。   
+	表示する通話属性を追加する書式は以下です。複数追加する場合は、改行区切りで記述します。  
+	追加例)  
 
- No. | 設定タブ項目 | 設定項目名                | 内容      |
- ----:|---------------------|------------------|--------------|
- 1   |カスタマタブ | 性別識別 | 性別識別を利用するかどうか   
- 2   |カスタマタブ | 性別識別用エンジンモード | 性別識別用エンジンを登録
- 3   |カスタマタブ | 性別識別の閾値| 性別識別の判定に使用する閾値   
- 4   |カスタマタブ | 性別識別に使用する発話時間（最大） | 性別識別の判定に使用する発話時間の最大値   
- 5   |カスタマタブ | 性別識別に使用する発話時間（最小） | 性別識別の判定に使用する発話時間の最小値
+	```
+	amivoice.common.operator.key=自分の識別名
+	amivoice.common.operator.phonenumber=自番号
+	amivoice.common.customer.phonenumber=相手番号
+	amivoice.common.customer.gender=相手の性別
+	```
 
-: カスタマ 性別識別用エンジン設定 {#tbl:seibetuenjin}  
 
-オペレータ側は性別識別用エンジンで性別を判断していません。   
-オペレータ側は ControlCenter/ユーザ管理/ ユーザごとのユーザ管理 - 詳細 設定の性別から判断しています。（ [@fig:usrprofile]）  
 
-![ユーザ管理](images/2-1-ユーザ管理.png){#fig:usrprofile width=350px}  
+
+
+
+
+
+	[@tbl:callb2] は、表示する通話属性で利用可能な通話属性の一覧です。通話プロバイダにより表示できる通話属性が異なります。  
+	OA に 〇 が付いているものはデフォルト設定で表示される通話属性です。  
+
+	No. | 通話属性識別名 | 名称                | OA | Amazon Connect	      | Avaya AES    | Avaya     | SIP CIC     | SIP CTstage    |SIP OAI     | SIP T-Server      |
+	----:|---------------------|------------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|
+	1   |amivoice.common.description | 備考 ||   |  |  |  |  |  |  |
+	2   |amivoice.common.direction | 向き|〇| 〇|〇|〇|〇|〇|〇|〇|
+	3   |amivoice.common.linetype | 通話回線種別 |〇 |  |〇|  |〇|〇|〇|〇|
+	4   |amivoice.common.summary| 要約 ||    |  |  |  |  |  |  |
+	5   |amivoice.common.headline| 見出し | |   |  |  |  |  |  |  |
+	6   |amivoice.common.mark | マーク| 〇 |   |  |  |  |  |  |  |
+	7   |amivoice.common.operator.key | 自分の識別名 | |〇|〇|  |〇|〇|  |  |
+	8   |amivoice.common.operator.name| 自分の名称|| 〇|  |  |  |〇|  |  |
+	9   |amivoice.common.operator.phonenumber| 自番号|〇|〇|〇|〇|〇|〇|〇|〇|
+	10   |amivoice.common.operator.group| 自分の所属グループ | |〇|  |  |  |〇|  |  |
+	11   |amivoice.common.operator.hostname | 自分のホスト名|  |   |  |  |  |〇|  |  |
+	12   |amivoice.common.customer.key | 相手の識別名|  |   |  |  |〇|〇|  |  |
+	13   |amivoice.common.customer.name | 相手の名称|  |   |  |  |  |〇|  |  |
+	14   |amivoice.common.customer.phonenumber| 相手番号|〇 |〇|〇|〇|〇|〇|〇|〇|
+	15   |amivoice.common.customer.gender | 相手の性別|  |   |  |  |  |  |  |  |
+	16  |amivoice.common.telephony.dialin.phonenumber | ダイヤルイン番号|  |   |  |  |〇|〇|〇|  |
+	17   |amivoice.common.telephony.called.phonenumber | 掛先番号 | |  |〇|〇|  |  |  |  |
+	18   |amivoice.common.telephony.alerting.phonenumber | 呼出先番号| |   |〇|  |  |  |  |  |
+	19   |amivoice.common.telephony.trunk.group | トランクグループ|  |  |〇|  |〇|〇|〇|〇|
+	20   |amivoice.common.telephony.trunk.member| トランクメンバ| |  |〇|  |  |  |〇|  |
+	21   |amivoice.common.telephony.queue.phonenumber| 通話キュー番号| |   |〇|  |〇|  |  |  |
+	22   |amivoice.common.telephony.transfer.source.key | 転送元識別名 | |   |  |  |  |〇|  |  |
+	23   |amivoice.common.telephony.transfer.source.name | 転送元名称|  |   |  |  |  |〇|〇|  |
+	24   |amivoice.common.telephony.transfer.source.phonenumber | 転送元番号|  |   |〇|  |  |〇|  |〇|
+	25   |amivoice.common.telephony.transfer.destination.key| 転送先識別名|  |   |  |  |  |〇|  |  |
+	26   |amivoice.common.telephony.transfer.destination.name | 転送先名称 | |   |  |  |  |〇|  |  |
+	27   |amivoice.common.telephony.transfer.destination.phonenumber | 転送先番号 | |   |〇|  |  |〇|〇|〇|
+	28   |amivoice.common.telephony.monitoring.target.key | モニタリング対象識別名|  |   |  |  |〇|  |  |  |
+	29   |amivoice.common.telephony.monitoring.target.name| モニタリング対象名称|  |   |  |  |〇|  |  |  |
+	30   |amivoice.common.telephony.monitoring.target.phonenumber| モニタリング対象番号|  |   |  |  |〇|  |  |  |
+	31   |amivoice.common.telephony.monitoring.target.type | 	モニタリング種別|   |   |  |  |〇|  |  |  |
+	32   |amivoice.common.reference.global.id | グローバル参照用のID|  |〇|〇|  | 〇|〇|  |〇|
+	33   |amivoice.common.reference.global.url | グローバル参照用のURL|  |   |  |  |  |  |  |  |
+	34   |amivoice.common.reference.local.id| ローカル参照用のID|  |   |〇|  |〇|  |  |  |
+	35   |amivoice.common.reference.local.url| ローカル参照用のURL|  |   |  |  |  |  |  |  |
+	36   |amivoice.common.reference.site.id | サイト参照用のID| |   |  |  |  |  |  |  |
+	37   |amivoice.common.reference.site.url| サイト参照用のURL|  |   |  |  |  |  |  |  |
+	38   |amivoice.common.reference.private.id| プライベート参照用のID|  |   |  |  |  |  |  |  |
+	39   |amivoice.common.reference.private.url | プライベート参照用のURL|  |   |  |  |  |  |  |  |
+	40   |amivoice.common.recording.limit| 録音制限時間到達|  |   |  |  |  |  |  |  |
+	41   |amivoice.common.recording.split| 録音分割|  |   |  |  |  |  |  |  |
+	42   |amivoice.common.recording.split.previous| 録音分割された直前の通話|  |   |  |  |  |  |  |  |
+	43   |amivoice.common.reference.recording.id | 録音区間参照用のID|  |   |  |  |  |  |  |  |
+	44   |amivoice.common.reference.recording.url | 録音区間参照用のURL|  |   |  |  |  |  |  |  |
+	45   |amivoice.common.telephony.distributing.phonenumber| 受電グループ番号| |  |〇|  |  |  |  |  |
+	46   |amivoice.common.telephony.ivr.duration| IVR 応対時間|  |   |〇|  |  |  |  |  |
+	47   |amivoice.common.telephony.queue.duration | 待ち時間|  |   |〇|  |  |  |  |  |
+
+	: OperatorAgent 表示する通話属性で利用可能な通話属性一覧 {#tbl:callb2}  
+
+
+	![](images/Tips.jpg){width=50px}  
+	相手の性別 は通話プロバイダから情報を取得するのではなく、性別識別用エンジンにて判断しています。   
+	[@tbl:seibetuenjin] は性別識別エンジンに関連する設定項目となり、ControlCenter/認識管理/認識オプション にあります。   
+
+	No. | 設定タブ項目 | 設定項目名                | 内容      |
+	----:|---------------------|------------------|--------------|
+	1   |カスタマタブ | 性別識別 | 性別識別を利用するかどうか   
+	2   |カスタマタブ | 性別識別用エンジンモード | 性別識別用エンジンを登録
+	3   |カスタマタブ | 性別識別の閾値| 性別識別の判定に使用する閾値   
+	4   |カスタマタブ | 性別識別に使用する発話時間（最大） | 性別識別の判定に使用する発話時間の最大値   
+	5   |カスタマタブ | 性別識別に使用する発話時間（最小） | 性別識別の判定に使用する発話時間の最小値
+
+	: カスタマ 性別識別用エンジン設定 {#tbl:seibetuenjin}  
+
+	オペレータ側は性別識別用エンジンで性別を判断していません。   
+	オペレータ側は ControlCenter/ユーザ管理/ ユーザごとのユーザ管理 - 詳細 設定の性別から判断しています。（ [@fig:usrprofile]）  
+
+	![ユーザ管理](images/2-1-ユーザ管理.png){#fig:usrprofile width=350px}  
 
 
 4. 通話状態ビュー   
