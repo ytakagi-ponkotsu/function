@@ -24,7 +24,6 @@ tblPrefix: '表.'
 	- [2-1. SpeechVisualizer のログイン](#2-1-speechvisualizer-のログイン)
 	- [2-2. SpeechVisualizer ホーム画面](#2-2-speechvisualizer-ホーム画面)
 	- [2-3. SpeechVisualizer 通話検索](#2-3-speechvisualizer-通話検索)
-	- [2-4. SpeechVisualizer 通話詳細](#2-4-speechvisualizer-通話詳細)
 	- [2-5. SpeechVisualizer 座席表](#2-5-speechvisualizer-座席表)
 <!-- TOC END -->
 
@@ -1337,24 +1336,29 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 
 	<br />
 
- 	1. プロフィール（Profile） 【[@fig:home_profile]】  
-ログインしているユーザのプロフィール設定です。  
-ユーザ個人設定の『ホーム画面のレイアウト』での書式設定は以下です。  
+ 	1. プロフィール（Profile）
 
-		![プロフィールガジェットと設定項目](images/home_profile.png){#fig:home_profile width=400px}  
+      	- ログインしているユーザのプロフィール設定です。  
+      	ユーザ個人設定の『ホーム画面のレイアウト』での書式設定は以下です。
+
+      		```
+      		Profile:"設定なし":"自動更新の有効化"
+      		```
 
 
-		```
-		Profile:"設定なし":"自動更新の有効化"
-		```
+      	[@fig:home_profile] はプロフィールガジェット、[@tbl:svhomeprofile] はレイアウト配置設定項目です。  
 
-		No. | 設定項目      | デフォルトの設定 |設定内容
-		---:|------|------------------|-  |   
-		1  |ガジェット名   | Profile  | プロフィールガジェットを配置する  |  
-		2   | 設定なし  |   | 【要確認】 内容不明 |    
-		3  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
+      	![プロフィールガジェットと設定項目](images/home_profile.png){#fig:home_profile width=400px}
 
-		: プロフィールガジェットの書式説明 {#tbl:svhomeprofile}  
+
+
+      	No. | 設定項目      | デフォルトの設定 |設定内容
+      	---:|------|------------------|-  |   
+      	1  |ガジェット名   | Profile  | プロフィールガジェットを配置する  |  
+      	2   | 設定なし  |   | 【要確認】 内容不明 |    
+      	3  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
+
+      	: プロフィールガジェットの設定項目 {#tbl:svhomeprofile}  
 
  	1. リンク  
 ControlCenterで登録したリンクの設定です 。ログインしているユーザの所属プロジェクトによって表示する項目がコントロール可能です。
@@ -1750,6 +1754,16 @@ No. | ガジェット名       | プロバイダ名 | デフォルトでの画�
 
 		: 表示する検索モジュールのプロバイダ設定 {#tbl:provider0}
 
+		[@tbl:provider0] の検索モジュールのプロバイダをカスタマイズする場合にはプロバイダごとに区切って記述します。  
+		上から記述した順番通りに検索モジュールが左から右へ並んで表示されます。  
+
+		```
+		ProjectCondition  
+		DteRangeCondition  
+		TimeRangeCondition  
+		AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|iconName=person1|lessQueryLabel=UCIDの一部を入力してください...|iconLabel=UCID|autoCompleteLength=0
+		```
+
 		No. | 検索条件       | プロバイダ名
 		---:|------------------|--------------|
 		1   |  プロジェクト 　　　　　　　　　 |ProjectCondition　　　　 |
@@ -1774,9 +1788,16 @@ No. | ガジェット名       | プロバイダ名 | デフォルトでの画�
 
 		: はデフォルト時の検索モジュールのプロバイダ一覧です。 {#tbl:provider}
 
-		検索モジュールのプロバイダに通話属性を追加することができます。  
-		通話属性を追加する場合は [@tbl:provider3] の書式に合わせて登録が必要です。  
+		表15 の各種通話属性を、検索条件プロバイダとして検索モジュールに追加することができます。  
+	 	通話属性を検索プロバイダとして追加する書式は以下です。  
 		各項目識別名は \| で区切ります。複数追加する場合は、改行区切り接頭語以外は順不同です。  
+		例） UCID の追加例  
+
+		```
+		AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|iconName=person1|lessQueryLabel=UCIDの一部を入力してください...|iconLabel=UCID|autoCompleteLength=0
+		```
+
+		[@tbl:provider3] と [@tbl:icon1]は通話属性の書式と利用可能なアイコンになります。
 
 		No. | 項目識別名       | 名称| 値 | 説明      |省略可否|
 		---:|------------------|--------------|------|------|------|
@@ -1790,43 +1811,41 @@ No. | ガジェット名       | プロバイダ名 | デフォルトでの画�
 
 		: 追加する通話属性の書式 {#tbl:provider3}
 
-		No. | 表示されるアイコン      | アイコンの種類| アイコン名
+		No. | 利用可能なアイコン      | アイコンの種類| アイコン名
 		---:|------------------|--------------|------|
-		1   | ![](images/2-3-icon1.png){#fig:aaa width=20px}| 人物        | person1|
-		2   | ![](images/2-3-icon2.png){#fig:aaa width=20px} | 電話1       | tel1|
-		3   | ![](images/2-3-icon3.png){#fig:aaa width=20px} | 電話2        | tel2|
-		4   | ![](images/2-3-icon4.png){#fig:aaa width=20px} | 電話3        | tel3|
-		5   | ![](images/2-3-icon5.png){#fig:aaa width=20px} |  星1        | star1
-		6   |  ![](images/2-3-icon6.png){#fig:aaa width=20px} | 星2       | star2|
-		7   | ![](images/2-3-icon7.png){#fig:aaa width=20px}  | 吹き出し1        | balloon1|
-		8   | ![](images/2-3-icon8.png){#fig:aaa width=20px} | 吹き出し2       | balloon2|
+		1   |　　　 ![](images/2-3-icon1.png){#fig:aaa width=20px} | 人物        | person1|
+		2   |　　　 ![](images/2-3-icon2.png){#fig:aaa width=20px} | 電話1       | tel1|
+		3   |　　　 ![](images/2-3-icon3.png){#fig:aaa width=20px} | 電話2        | tel2|
+		4   |　　　 ![](images/2-3-icon4.png){#fig:aaa width=20px} | 電話3        | tel3|
+		5   |　　　 ![](images/2-3-icon5.png){#fig:aaa width=20px} |  星1        | star1
+		6   |　　　 ![](images/2-3-icon6.png){#fig:aaa width=20px} | 星2       | star2|
+		7   |　　　 ![](images/2-3-icon7.png){#fig:aaa width=20px}  | 吹き出し1        | balloon1|
+		8   |　　　 ![](images/2-3-icon8.png){#fig:aaa width=20px} | 吹き出し2       | balloon2|
 
-		: 表示するアイコン {#tbl:icon1}
+		: 利用可能なアイコン {#tbl:icon1}
 
- 2.  検索モジュールのプロバイダの変更  
-		検索モジュールのプロバイダ ( [@tbl:provider0]) をカスタマイズする場合にはプロバイダごとに区切って記述します。  
-		上から記述した順番通りに検索モジュールが左から右へ並んで表示されます。  
-
-		```
-		ProjectCondition  
-		DteRangeCondition  
-		TimeRangeCondition  
-		AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|iconName=person1|lessQueryLabel=UCIDの一部を入力してください...|iconLabel=UCID|autoCompleteLength=0
-		```
-
- 3.  検索プロバイダに通話属性を追加  
-		通話属性を検索プロバイダとして追加する書式は以下です。  
-		例） UCID の追加例  
+		![](images/Tips.jpg){width=50px}  
+		追加した通話属性を１つにまとめる場合  
+		例）通話属性で追加した UCID、CALLID をまとめた場合 ([@fig:denwa2]は設定後の状態)  
 
 		```
-		AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|iconName=person1|lessQueryLabel=UCIDの一部を入力してください...|iconLabel=UCID|autoCompleteLength=0
+		AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|lessQueryLabel=UCIDの一部を入力してください...|iconName=tel1|iconLabel=UCID
+AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id|lessQueryLabel=CALLIDの一部を入力してください...|iconName=tel1|iconLabel=CALLID
 		```
- 4.  電話番号のプロバイダに通話属性を追加  
+		![追加のプロバイダをまとめた結果](images/2-3-追加プロバイダまとめ.png){#fig:denwa2 width=300px}  
+
+ 2.  電話番号のプロバイダに通話属性を追加  
 		プロバイダ名 \"TelCondition" に書式に合わせて属性 ([@tbl:zokuseikey] ) を登録します。  
 		**書式**  : 電話番号のプロバイダ \" TelCondition \" の後に \" | \"を記述し、\" targets= \" の後に追加する属性を\" , \"区切りで列挙します。  
 		明記しない場合(デフォルト)は \" \*all\*\,\*op\,cu\*\,line\ " が設定されている状態になりますが、属性を追加する場合は、この値を追記してください。  
 		\* を前か後ろに付けると、ワイルドカード扱いになり、前方一致、後方一致、中間一致になります。  
 
+		例） 電話番号の通話属性を追加する場合 ([@fig:denwa1]は設定後の状態)
+
+		```
+		TelCondition|targets=*all*,*op,cu*,line*,queue*
+		```
+		![通話キュー番号を追加時の結果](images/2-3-電話番号1.png){#fig:denwa1 width=300px}  
 
 		No. | 属性       | 説明|
 		---:|------------------|--------------|
@@ -1842,22 +1861,6 @@ No. | ガジェット名       | プロバイダ名 | デフォルトでの画�
 
 		: 電話番号に追加可能な属性 {#tbl:zokuseikey}  
 
-		例） 番号系の通話属性を追加する場合 ([@fig:denwa1]は設定後の状態)
-
-		```
-		TelCondition|targets=*all*,*op,cu*,line*,queue*
-		```
-		![通話キュー番号を追加時の結果](images/2-3-電話番号1.png){#fig:denwa1 width=300px}  
-
-		![](images/Tips.jpg){width=50px}  
-		追加したプロバイダをまとめる場合  
-		例）通話属性で追加した UCID、CALLID をまとめた場合 ([@fig:denwa2]は設定後の状態)  
-
-		```
-		AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|lessQueryLabel=UCIDの一部を入力してください...|iconName=tel1|iconLabel=UCID
-AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id|lessQueryLabel=CALLIDの一部を入力してください...|iconName=tel1|iconLabel=CALLID
-		```
-		![追加のプロバイダをまとめた結果](images/2-3-追加プロバイダまとめ.png){#fig:denwa2 width=300px}  
 
  5.  検索結果の並び順の設定  
 		検索結果の並び順で表示する項目を設定することが可能です。 ([@fig:narabijun])  
@@ -1884,8 +1887,7 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
 
 #### 2-3-2. 通話検索の条件  
 検索条件の機能です。  
-複数の検索条件を組み合わせた場合は、常に and 条件となります。  
-１つの検索条件内ではオプションを利用することができます。
+複数の検索条件を組み合わせた場合は、常に and 条件となり、１つの検索条件内ではオプションを利用することができます。
 
  1.  検索条件のオプション  
 		検索条件を指定する際に利用可能なオプションです。  
@@ -1915,13 +1917,13 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
 		例3） OR 検索指定
 
 		```
-		アップル or オレンジ
+		単語1 or 単語2
 		```
 
 		例4） AND 検索指定
 
 		```
-		アップル オレンジ
+		単語1 単語2
 		```
 
  2. 検索条件ごとに利用可能なオプション  
@@ -1940,7 +1942,7 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
 	10   | 相手の性別|×      |×        |×         |×         |         |    
 	12   | 通話品質評価|×      |×        |×         |×        |         |    
 	13   | 並び順|×      |×        |×         |×         |         |    
-	14   | フリーワード|×      |×        | 〇        | 〇        |フリーワードは NOT 検索のみを対象とする条件では利用できません。「アップル -オレンジ」のように検索対象と検索対象外の単語の組み合わせで利用可能です。         |    
+	14   | フリーワード|×      |×        | 〇        | 〇        |フリーワードは NOT 検索のみを対象とする条件では利用できません。「単語1 -単語2」のように検索対象と検索対象外の単語の組み合わせで利用可能です。         |    
 
 	: 検索条件ごとに利用可能なオプション一覧 {#tbl:kensaku2}  
 
@@ -1983,7 +1985,7 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
  2.  認識結果  
 
 		[@fig:kekka2] は通話に紐づいた認識結果です。  
-		検索結果に表示される認識結果は不要語を除外して表示します。  
+		検索結果に表示される認識結果は不要語を除外して表示しています。  
 
 		![検索結果上の通話に紐づいた認識結果](images/2-3-検索結果2.png){#fig:kekka2 width=900px}  
 
@@ -2071,12 +2073,63 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
 
 #### 2-5-3. 通信仕様
 
- - 座席モジュールは、それぞれが画面全体とは別に独立して通信を行います。画面に表示されているときのみ、画面に表示されている情報量に応じて通信を行います。  
- 座席表をズームアウトすると、座席モジュールに表示できる情報種別・量は減ります。（非ピン留め状態では、テキストの遡りはできません。）  
-認識結果テキストも表示可能な情報分のみを通信し、テキストが表示されない大きさまでズームアウトした場合には、テキストモニタリング通信は行いません。（[@fig:seatsize]）  
+- 座席表画面は、画面に表示している座席モジュールやログインユーザへのイベント通信を受信して動作します。  
+
+	1. 状態変更通知
+	2. 認識結果通知
+
+	これらの通知通信は、`Comet` という非同期通信で実装されています。
+
+	```plantuml
+	@startuml
+	autonumber "00"
+
+	skinparam {
+		shadowing false
+		defaultFontName "Segoe UI, BIZ UDPゴシック, sans-serif"
+		BackgroundColor #afeeee
+		ParticipantBorderColor black
+		LifeLineBorderColor black
+		SequenceLifeLineBorderColor black
+		ArrowColor black
+		ActorBorderColor black
+	}
+
+	title シーケンス図.1 [座席モジュール Comet による非同期通信]\n
+
+	participant "座席モジュール\n内線番号 : 1000" as 1000
+	participant "StreamingRecognizer" as sr
+	participant "ControlCenter" as cc
+
+	1000 -[#red]>> cc ++ : モニタ開始要求
+	cc <-] : 通話開始\n（内線番号 1000）
+	1000 <<-[#red]- cc : 状態変更通知 <b>[通話開始]
+	1000 -> 1000 : 画面描画 <b>[通話開始]
+	1000 -[#blue]>> sr ++ : モニタリングテキスト要求
+
+	loop 音声が終わるまで
+		sr -> sr : テキスト化
+		1000 <<-[#blue]- sr : 認識結果通知
+		1000 -> 1000 : 画面描画 <b>[認識結果]
+	end
+	1000 <<-[#red]- cc : 状態変更通知 <b>[通話終了]
+	1000 -> 1000 : 画面描画 <b>[通話終了]
+	deactivate sr
+
+	@enduml
+	```
+
+	通知通信に関する設定は、[@tbl:seatmapdc] の No.3, 4, 21, 22, 23, 24, 25, 27, 28 となります。  
+	<br/>
+
+- 座席モジュールに対する変更通知通信は画面に表示されているときのみ、画面に表示されている情報量に応じて行います。  
+座席表をズームアウトすると、座席モジュールに表示できる情報種別・量は減ります。（非ピン留め状態では、テキストの遡りはできません。）  
+認識結果テキストも表示可能な情報分のみを通信し、テキストが表示されない大きさまでズームアウトした場合には、認識結果通知通信は行いません。（[@fig:seatsize]）  
 
 	![](images/Tips.jpg){width=50px}　座席レイアウトを作成する際には、座席モジュールは少し大きめに作成するのがコツです。利用環境に合わせる必要があるので、定量的な数値を示すことは難しいですが **デフォルトの拡大率にて1画面に座席モジュールが10個見える程度** が適正なサイズとなります。  
 	目安として、[@fig:seatsize] を参考にレイアウトしてください。  
+
+	![座席モジュールサイズと表示内容](images/2-5_seatsize.png){#fig:seatsize width=400px}
 
 	1. 拡大率デフォルトで10席表示 : 左の画像（表示されるセグメントは5～6個程度）  
 	1. 拡大率を2段階縮小して1画面20席表示 : 中央の画像（表示されるセグメントは１個）  
@@ -2084,13 +2137,12 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
 
 	座席モジュールが多数1画面に表示された状態で、各座席モジュールに表示される発話テキストの量が多いとブラウザの負荷があがり、`PC 全体の処理が重たくなる可能性があります。`  
  - 座席モジュールをピン留め状態にすると、継続している通話のテキスト全文を通信し取得します。（[@fig:seatclip]）  
-ピン留め操作実施時の詳細設定項目は、 [@tbl:seatclip] です。  
- - アラートは座席モジュール上にのみ表示され、目視確認を行います。そのため、表示範囲外の座席モジュールのアラートは確認することができません。ただし、モニタリングリストを設定することにより有効化される 『通知リスト』 に対しては、表示範囲外の座席モジュールのアラートも通知されます。  
-	![](images/Tips.jpg){width=50px}　画面を常に注視していなくても、アラートの発生をモニタするために、『通知リスト』 へ発報時に音声を再生することが可能です。発報音声に関する詳細設定は [@tbl:alertonsei] です。
-
-	![座席モジュールサイズと表示内容](images/2-5_seatsize.png){#fig:seatsize width=400px}
+ピン留め操作実施時の詳細設定項目は、 [@tbl:seatmapdc] の 『ピン留め時にメッセージパネルを開く』 と 『ピン留め時に認識結果パネルを開く』 です。  
 
 	![ピン留めした座席モジュール](images/2-5_seat_clip.png){#fig:seatclip width=300px}
+
+ - アラートは座席モジュール上にのみ表示され、目視確認を行います。そのため、表示範囲外の座席モジュールのアラートは確認することができません。ただし、モニタリングリストを設定することにより有効化される 『通知リスト』 に対しては、表示範囲外の座席モジュールのアラートも通知されます。  
+	![](images/Tips.jpg){width=50px}　画面を常に注視していなくても、アラートの発生をモニタするために、『通知リスト』 へ発報時に音声を再生することが可能です。発報音声に関する詳細設定は [@tbl:alertonsei] です。
 
 	No. | Source | Destination | Protocol | 内容
 	---:|------------------|--------------|-------|-------
@@ -2115,13 +2167,6 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
 	1   | 座席表 - 詳細 | Enter キーでメッセージを送信 | true |   
 
 	: 座席表 - メッセージ {#tbl:seatmessage}
-
-	No. | 設定分類 | 設定項目名       | デフォルト値 | 特記事項 |
-	---:|---------|---------|--------------|------|
-	1   | 座席表 - 詳細 | ピン留め時にメッセージパネルを開く | false |   
-	2   | 座席表 - 詳細 | ピン留め時に認識結果パネルを開く | true |   
-
-	: 座席モジュールをピン留めしたときの表示動作 {#tbl:seatclip}
 
 	No. | 設定分類 | 設定項目名       | デフォルト値 | 特記事項 |
 	---:|---------|---------|--------------|------|
