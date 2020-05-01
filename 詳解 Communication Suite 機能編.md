@@ -24,7 +24,6 @@ tblPrefix: '表.'
 	- [2-1. SpeechVisualizer のログイン](#2-1-speechvisualizer-のログイン)
 	- [2-2. SpeechVisualizer ホーム画面](#2-2-speechvisualizer-ホーム画面)
 	- [2-3. SpeechVisualizer 通話検索](#2-3-speechvisualizer-通話検索)
-	- [2-4. SpeechVisualizer 通話詳細](#2-4-speechvisualizer-通話詳細)
 	- [2-5. SpeechVisualizer 座席表](#2-5-speechvisualizer-座席表)
 <!-- TOC END -->
 
@@ -1337,24 +1336,29 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 
 	<br />
 
- 	1. プロフィール（Profile） 【[@fig:home_profile]】  
-ログインしているユーザのプロフィール設定です。  
-ユーザ個人設定の『ホーム画面のレイアウト』での書式設定は以下です。  
+ 	1. プロフィール（Profile）
 
-		![プロフィールガジェットと設定項目](images/home_profile.png){#fig:home_profile width=400px}  
+      	- ログインしているユーザのプロフィール設定です。  
+      	ユーザ個人設定の『ホーム画面のレイアウト』での書式設定は以下です。
+
+      		```
+      		Profile:"設定なし":"自動更新の有効化"
+      		```
 
 
-		```
-		Profile:"設定なし":"自動更新の有効化"
-		```
+      	[@fig:home_profile] はプロフィールガジェット、[@tbl:svhomeprofile] はレイアウト配置設定項目です。  
 
-		No. | 設定項目      | デフォルトの設定 |設定内容
-		---:|------|------------------|-  |   
-		1  |ガジェット名   | Profile  | プロフィールガジェットを配置する  |  
-		2   | 設定なし  |   | 【要確認】 内容不明 |    
-		3  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
+      	![プロフィールガジェットと設定項目](images/home_profile.png){#fig:home_profile width=400px}
 
-		: プロフィールガジェットの書式説明 {#tbl:svhomeprofile}  
+
+
+      	No. | 設定項目      | デフォルトの設定 |設定内容
+      	---:|------|------------------|-  |   
+      	1  |ガジェット名   | Profile  | プロフィールガジェットを配置する  |  
+      	2   | 設定なし  |   | 【要確認】 内容不明 |    
+      	3  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
+
+      	: プロフィールガジェットの設定項目 {#tbl:svhomeprofile}  
 
  	1. リンク  
 	      - ControlCenterで登録したリンクの設定です 。ログインしているユーザの所属プロジェクトによって表示する項目がコントロール可能です。
@@ -1645,6 +1649,16 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 
 		: 表示する検索モジュールのプロバイダ設定 {#tbl:provider0}
 
+		[@tbl:provider0] の検索モジュールのプロバイダをカスタマイズする場合にはプロバイダごとに区切って記述します。  
+		上から記述した順番通りに検索モジュールが左から右へ並んで表示されます。  
+
+		```
+		ProjectCondition  
+		DteRangeCondition  
+		TimeRangeCondition  
+		AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|iconName=person1|lessQueryLabel=UCIDの一部を入力してください...|iconLabel=UCID|autoCompleteLength=0
+		```
+
 		No. | 検索条件       | プロバイダ名
 		---:|------------------|--------------|
 		1   |  プロジェクト 　　　　　　　　　 |ProjectCondition　　　　 |
@@ -1669,9 +1683,16 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 
 		: はデフォルト時の検索モジュールのプロバイダ一覧です。 {#tbl:provider}
 
-		検索モジュールのプロバイダに通話属性を追加することができます。  
-		通話属性を追加する場合は [@tbl:provider3] の書式に合わせて登録が必要です。  
+		表15 の各種通話属性を、検索条件プロバイダとして検索モジュールに追加することができます。  
+	 	通話属性を検索プロバイダとして追加する書式は以下です。  
 		各項目識別名は \| で区切ります。複数追加する場合は、改行区切り接頭語以外は順不同です。  
+		例） UCID の追加例  
+
+		```
+		AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|iconName=person1|lessQueryLabel=UCIDの一部を入力してください...|iconLabel=UCID|autoCompleteLength=0
+		```
+
+		[@tbl:provider3] と [@tbl:icon1]は通話属性の書式と利用可能なアイコンになります。
 
 		No. | 項目識別名       | 名称| 値 | 説明      |省略可否|
 		---:|------------------|--------------|------|------|------|
@@ -1685,43 +1706,41 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 
 		: 追加する通話属性の書式 {#tbl:provider3}
 
-		No. | 表示されるアイコン      | アイコンの種類| アイコン名
+		No. | 利用可能なアイコン      | アイコンの種類| アイコン名
 		---:|------------------|--------------|------|
-		1   | ![](images/2-3-icon1.png){#fig:aaa width=20px}| 人物        | person1|
-		2   | ![](images/2-3-icon2.png){#fig:aaa width=20px} | 電話1       | tel1|
-		3   | ![](images/2-3-icon3.png){#fig:aaa width=20px} | 電話2        | tel2|
-		4   | ![](images/2-3-icon4.png){#fig:aaa width=20px} | 電話3        | tel3|
-		5   | ![](images/2-3-icon5.png){#fig:aaa width=20px} |  星1        | star1
-		6   |  ![](images/2-3-icon6.png){#fig:aaa width=20px} | 星2       | star2|
-		7   | ![](images/2-3-icon7.png){#fig:aaa width=20px}  | 吹き出し1        | balloon1|
-		8   | ![](images/2-3-icon8.png){#fig:aaa width=20px} | 吹き出し2       | balloon2|
+		1   |　　　 ![](images/2-3-icon1.png){#fig:aaa width=20px} | 人物        | person1|
+		2   |　　　 ![](images/2-3-icon2.png){#fig:aaa width=20px} | 電話1       | tel1|
+		3   |　　　 ![](images/2-3-icon3.png){#fig:aaa width=20px} | 電話2        | tel2|
+		4   |　　　 ![](images/2-3-icon4.png){#fig:aaa width=20px} | 電話3        | tel3|
+		5   |　　　 ![](images/2-3-icon5.png){#fig:aaa width=20px} |  星1        | star1
+		6   |　　　 ![](images/2-3-icon6.png){#fig:aaa width=20px} | 星2       | star2|
+		7   |　　　 ![](images/2-3-icon7.png){#fig:aaa width=20px}  | 吹き出し1        | balloon1|
+		8   |　　　 ![](images/2-3-icon8.png){#fig:aaa width=20px} | 吹き出し2       | balloon2|
 
-		: 表示するアイコン {#tbl:icon1}
+		: 利用可能なアイコン {#tbl:icon1}
 
- 2.  検索モジュールのプロバイダの変更  
-		検索モジュールのプロバイダ ( [@tbl:provider0]) をカスタマイズする場合にはプロバイダごとに区切って記述します。  
-		上から記述した順番通りに検索モジュールが左から右へ並んで表示されます。  
-
-		```
-		ProjectCondition  
-		DteRangeCondition  
-		TimeRangeCondition  
-		AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|iconName=person1|lessQueryLabel=UCIDの一部を入力してください...|iconLabel=UCID|autoCompleteLength=0
-		```
-
- 3.  検索プロバイダに通話属性を追加  
-		通話属性を検索プロバイダとして追加する書式は以下です。  
-		例） UCID の追加例  
+		![](images/Tips.jpg){width=50px}  
+		追加した通話属性を１つにまとめる場合  
+		例）通話属性で追加した UCID、CALLID をまとめた場合 ([@fig:denwa2]は設定後の状態)  
 
 		```
-		AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|iconName=person1|lessQueryLabel=UCIDの一部を入力してください...|iconLabel=UCID|autoCompleteLength=0
+		AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|lessQueryLabel=UCIDの一部を入力してください...|iconName=tel1|iconLabel=UCID
+AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id|lessQueryLabel=CALLIDの一部を入力してください...|iconName=tel1|iconLabel=CALLID
 		```
- 4.  電話番号のプロバイダに通話属性を追加  
+		![追加のプロバイダをまとめた結果](images/2-3-追加プロバイダまとめ.png){#fig:denwa2 width=300px}  
+
+ 2.  電話番号のプロバイダに通話属性を追加  
 		プロバイダ名 \"TelCondition" に書式に合わせて属性 ([@tbl:zokuseikey] ) を登録します。  
 		**書式**  : 電話番号のプロバイダ \" TelCondition \" の後に \" | \"を記述し、\" targets= \" の後に追加する属性を\" , \"区切りで列挙します。  
 		明記しない場合(デフォルト)は \" \*all\*\,\*op\,cu\*\,line\ " が設定されている状態になりますが、属性を追加する場合は、この値を追記してください。  
 		\* を前か後ろに付けると、ワイルドカード扱いになり、前方一致、後方一致、中間一致になります。  
 
+		例） 電話番号の通話属性を追加する場合 ([@fig:denwa1]は設定後の状態)
+
+		```
+		TelCondition|targets=*all*,*op,cu*,line*,queue*
+		```
+		![通話キュー番号を追加時の結果](images/2-3-電話番号1.png){#fig:denwa1 width=300px}  
 
 		No. | 属性       | 説明|
 		---:|------------------|--------------|
@@ -1737,22 +1756,6 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 
 		: 電話番号に追加可能な属性 {#tbl:zokuseikey}  
 
-		例） 番号系の通話属性を追加する場合 ([@fig:denwa1]は設定後の状態)
-
-		```
-		TelCondition|targets=*all*,*op,cu*,line*,queue*
-		```
-		![通話キュー番号を追加時の結果](images/2-3-電話番号1.png){#fig:denwa1 width=300px}  
-
-		![](images/Tips.jpg){width=50px}  
-		追加したプロバイダをまとめる場合  
-		例）通話属性で追加した UCID、CALLID をまとめた場合 ([@fig:denwa2]は設定後の状態)  
-
-		```
-		AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|lessQueryLabel=UCIDの一部を入力してください...|iconName=tel1|iconLabel=UCID
-AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id|lessQueryLabel=CALLIDの一部を入力してください...|iconName=tel1|iconLabel=CALLID
-		```
-		![追加のプロバイダをまとめた結果](images/2-3-追加プロバイダまとめ.png){#fig:denwa2 width=300px}  
 
  5.  検索結果の並び順の設定  
 		検索結果の並び順で表示する項目を設定することが可能です。 ([@fig:narabijun])  
@@ -1779,8 +1782,7 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
 
 #### 2-3-2. 通話検索の条件  
 検索条件の機能です。  
-複数の検索条件を組み合わせた場合は、常に and 条件となります。  
-１つの検索条件内ではオプションを利用することができます。
+複数の検索条件を組み合わせた場合は、常に and 条件となり、１つの検索条件内ではオプションを利用することができます。
 
  1.  検索条件のオプション  
 		検索条件を指定する際に利用可能なオプションです。  
@@ -1810,13 +1812,13 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
 		例3） OR 検索指定
 
 		```
-		アップル or オレンジ
+		単語1 or 単語2
 		```
 
 		例4） AND 検索指定
 
 		```
-		アップル オレンジ
+		単語1 単語2
 		```
 
  2. 検索条件ごとに利用可能なオプション  
@@ -1835,7 +1837,7 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
 	10   | 相手の性別|×      |×        |×         |×         |         |    
 	12   | 通話品質評価|×      |×        |×         |×        |         |    
 	13   | 並び順|×      |×        |×         |×         |         |    
-	14   | フリーワード|×      |×        | 〇        | 〇        |フリーワードは NOT 検索のみを対象とする条件では利用できません。「アップル -オレンジ」のように検索対象と検索対象外の単語の組み合わせで利用可能です。         |    
+	14   | フリーワード|×      |×        | 〇        | 〇        |フリーワードは NOT 検索のみを対象とする条件では利用できません。「単語1 -単語2」のように検索対象と検索対象外の単語の組み合わせで利用可能です。         |    
 
 	: 検索条件ごとに利用可能なオプション一覧 {#tbl:kensaku2}  
 
@@ -1878,7 +1880,7 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
  2.  認識結果  
 
 		[@fig:kekka2] は通話に紐づいた認識結果です。  
-		検索結果に表示される認識結果は不要語を除外して表示します。  
+		検索結果に表示される認識結果は不要語を除外して表示しています。  
 
 		![検索結果上の通話に紐づいた認識結果](images/2-3-検索結果2.png){#fig:kekka2 width=900px}  
 
