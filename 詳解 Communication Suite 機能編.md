@@ -24,6 +24,7 @@ tblPrefix: '表.'
 	- [2-1. SpeechVisualizer のログイン](#2-1-speechvisualizer-のログイン)
 	- [2-2. SpeechVisualizer ホーム画面](#2-2-speechvisualizer-ホーム画面)
 	- [2-3. SpeechVisualizer 通話検索](#2-3-speechvisualizer-通話検索)
+	- [2-4. SpeechVisualizer 通話詳細](#2-4-speechvisualizer-通話詳細)
 	- [2-5. SpeechVisualizer 座席表](#2-5-speechvisualizer-座席表)
 <!-- TOC END -->
 
@@ -2173,6 +2174,7 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
 		1000 <<-[#blue]- sr : 認識結果通知
 		1000 -> 1000 : 画面描画 <b>[認識結果]
 	end
+	cc <-] : 通話終了\n（内線番号 1000）
 	1000 <<-[#red]- cc : 状態変更通知 <b>[通話終了]
 	1000 -> 1000 : 画面描画 <b>[通話終了]
 	deactivate sr
