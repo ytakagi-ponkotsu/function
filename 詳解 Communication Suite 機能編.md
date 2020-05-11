@@ -2115,7 +2115,7 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
 
 	: 座席表の詳細設定 {#tbl:seatmapdc}
 
-
+2. ユーザ毎にカスタマイズが可能な設定
 
 #### 2-5-3. 通信仕様
 
@@ -2189,39 +2189,20 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
 	![ピン留めした座席モジュール](images/2-5_seat_clip.png){#fig:seatclip width=300px}
 
  - アラートは座席モジュール上にのみ表示され、目視確認を行います。そのため、表示範囲外の座席モジュールのアラートは確認することができません。ただし、モニタリングリストを設定することにより有効化される 『通知リスト』 に対しては、表示範囲外の座席モジュールのアラートも通知されます。  
-	![](images/Tips.jpg){width=50px}　画面を常に注視していなくても、アラートの発生をモニタするために、『通知リスト』 へ発報時に音声を再生することが可能です。発報音声に関する詳細設定は [@tbl:alertonsei] です。
+	![](images/Tips.jpg){width=50px}　画面を常に注視していなくても、アラートの発生をモニタするために、『通知リスト』 へ発報時に音声を再生することが可能です。発報音声に関する詳細設定は [@tbl:seatmapdc] の 『通知音（アラート）』、『通知音（ヘルプ）』、『通知音（未読メッセージ）』 です。
 
-	No. | Source | Destination | Protocol | 内容
+	No. | 通信種別 | Destination | Protocol | 内容
 	---:|------------------|--------------|-------|-------
-	1   | 座席表画面 | RealTimeRecorder  | RTSP | 音声モニタリングの通信です。デフォルトの通信ポートは 10554 ですが、`ノード管理 - ノード詳細 - RealTimeRecorder タブ` の 『ストリーミングポート番号』 を編集することで変更できます。関連する詳細設定は、 [@tbl:seatonsei] です。  
-	2   | 座席表画面 | ControlCenter | HTTP | ブラウザタイムアウト延長のための通信です。 [2-1. SpeechVisualizer のログイン](#2-1-speechvisualizer-) の [@tbl:svlogin]の 『ブラウザログインを継続するための通知間隔』 で変更します。この仕組により、座席表画面を表示してあれば、タイムアウトすることはありません。ただし、PC が何らかの理由で通信が利用できない場合は例外となります。   
-	3   | 座席表画面 | ControlCenter | HTTP | OperatorAgent がログイン状態の 『座席モジュール』 をピン留め状態にすることでメッセージを送信できます。関連設定は、[@tbl:seatmessage] です。  
-	4   | 座席表画面 | ControlCenter | HTTP | 画面全体の状態変更通知（モニタリングリスト・通知リスト・メッセージ受信・Avaya ステータス関連）  
-	5   | 座席モジュール | StreamingRecognizer | HTTP | テキストモニタリング  
-	6   | 座席モジュール | ControlCenter | HTTP | テキストモニタリング  
-	7   | 座席モジュール | ControlCenter | HTTP | 該当座席の状態変更通知（通話関連イベント、各種アラート、ヘルプ、フォロー情報）  
+	1   | 通常通信 | RealTimeRecorder  | RTSP | 音声モニタリングの通信です。デフォルトの通信ポートは 10554 ですが、`ノード管理 - ノード詳細 - RealTimeRecorder タブ` の 『ストリーミングポート番号』 を編集することで変更できます。関連する詳細設定は、 [@tbl:seatonsei] です。  
+	2   | 通常通信 | ControlCenter | HTTP | ブラウザタイムアウト延長のための通信です。 [2-1. SpeechVisualizer のログイン](#2-1-speechvisualizer-) の [@tbl:svlogin]の 『ブラウザログインを継続するための通知間隔』 で変更します。この仕組により、座席表画面を表示してあれば、タイムアウトすることはありません。ただし、PC が何らかの理由で通信が利用できない場合は例外となります。  
+	3   | 通常通信 | ControlCenter | HTTP | OperatorAgent がログイン状態の 『座席モジュール』 をピン留め状態にすることでメッセージを送信できます。関連設定は、[@tbl:seatmessage] です。  
+	4   | 状態変更通知 | ControlCenter | HTTP | 画面全体の状態変更通知（モニタリングリスト・通知リスト・メッセージ受信・Avaya ステータス関連、通話関連イベント、各種アラート、ヘルプ、フォロー情報）  
+	5   | 認識結果通知 | StreamingRecognizer | HTTP | テキストモニタリング、No. 6 とは状況の応じて使い分けられます。  
+	6   | 認識結果通知 | ControlCenter | HTTP | テキストモニタリング、No. 5 とは状況に応じて使い分けられます。  
 
-	No. | 設定分類 | 設定項目名       | デフォルト値 | 特記事項 |
-	---:|---------|---------|--------------|------|
-	1   | 座席表 - 詳細 | 音声のバッファ時間 | 0 |   
-	2   | 座席表 - 詳細 | 音声モニタリングの連続再生 | false |   
-	3   | 座席表 - 詳細 | 再生ボリューム | 50,50;1,1 |   
+	: 座席表通信一覧 {#tbl:sm_comm}
 
-	: 座席表 - 音声モニタリング {#tbl:seatonsei}
-
-	No. | 設定分類 | 設定項目名       | デフォルト値 | 特記事項 |
-	---:|---------|---------|--------------|------|
-	1   | 座席表 - 詳細 | Enter キーでメッセージを送信 | true |   
-
-	: 座席表 - メッセージ {#tbl:seatmessage}
-
-	No. | 設定分類 | 設定項目名       | デフォルト値 | 特記事項 |
-	---:|---------|---------|--------------|------|
-	1   | 座席表 - 詳細 | 通知音（アラート） | ~/Resources/Notification/notification-alert.mp3 |   
-	2   | 座席表 - 詳細 | 通知音（ヘルプ） | ~/Resources/Notification/notification-help.mp3  |   
-	3   | 座席表 - 詳細 | 通知音（未読メッセージ） | ~/Resources/Notification/notification-message.mp3  |   
-
-	: アラート発報時に再生する音声 {#tbl:alertonsei}
+ - [@tbl:seatmapdc] の 『デスクトップ通知レベル』 について
 
 #### 2-5-4. 座席モジュール
 座席モジュールには以下の2つの種類があります。  
