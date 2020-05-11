@@ -1448,12 +1448,14 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |   
 		:自分の通話(OUT)ガジェットの書式説明 {#tbl:svhomemyrecentoutbound}
 
- 	1. 所属プロジェクトの通話〈ProjectRecent〉【[@fig:home_info]】  
+ 	1. 所属プロジェクトの通話〈ProjectRecent〉【[@fig:home_projectrecent]】  
 『ProjectRecent』はレイアウト時に以下の書式で、6つのプロパティについて定義することができます。
 
 		```
 		ProjectRecent:5:0:::1:1
 		```
+
+		![所属プロジェクトの通話ガジェットと設定項目](images/2-2-home_projectrecent.png){#fig:home_projectrecent width=400px}
 
 		No. | 設定項目      | デフォルトの設定 |設定内容|
 		---:|------|------------------|-  |    
@@ -1466,12 +1468,14 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		:所属プロジェクトの通話ガジェットの書式説明 {#tbl:svhomeprojectrecent}
 
 
- 	1. .所属プロジェクトの通話(IN)〈ProjectRecentInbound〉【[@fig:home_info]】  
+ 	1. 所属プロジェクトの通話(IN)〈ProjectRecentInbound〉【[@fig:home_projectrecentinbound]】  
 『ProjectRecentInbound』はレイアウト時に以下の書式で、6つのプロパティについて定義することができます。
 
 		```
 		ProjectRecentInbound:5:0:::1:1
 		```
+
+		![所属プロジェクトの通話(IN)ガジェットと設定項目](images/2-2-home_projectrecentinbound.png){#fig:home_projectrecentinbound width=400px}
 
 		No. | 設定項目      | デフォルトの設定 |設定内容|
 		---:|------|------------------|-  |   
@@ -1483,12 +1487,14 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |   
 		:所属プロジェクトの通話(IN)ガジェットの書式説明 {#tbl:svhomeprojectrecentInbound}
 
- 	1. 所属プロジェクトの通話(OUT)〈ProjectRecentOutbound〉【[@fig:home_info]】  
+ 	1. 所属プロジェクトの通話(OUT)〈ProjectRecentOutbound〉【[@fig:home_projectrecentoutbound]】  
 『ProjectRecentOutbound』はレイアウト時に以下の書式で、6つのプロパティについて定義することができます。
 
 		```
 		ProjectRecentOutbound:5:0:::1:1
 		```
+
+		![所属プロジェクトの通話(OUT)ガジェットと設定項目](images/2-2-home_projectrecentoutbound.png){#fig:home_projectrecentoutbound width=400px}
 
 		No. | 設定項目      | デフォルトの設定 |設定内容|
 		---:|------|------------------|-  |   
@@ -1500,12 +1506,14 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |   
 		:所属プロジェクト(OUT)の通話ガジェットの書式説明 {#tbl:svhomeprojectrecentoutbound}
 
- 	1. 自分が最近再生した通話 〈MyRecentPlayHistory〉【[@fig:home_info]】  
+ 	1. 自分が最近再生した通話 〈MyRecentPlayHistory〉【[@fig:home_myrecentplayhistory]】  
 『MyRecentPlayHistory』はレイアウト時に以下の書式で、6つのプロパティについて定義することができます。
 
 		```
 		MyRecentPlayHistory:5:0:::1:1
 		```
+
+		![自分が最近再生した通話ガジェットと設定項目](images/2-2-home_myrecentplayhistory.png){#fig:home_myrecentplayhistory width=400px}
 
 		No. | 設定項目      | デフォルトの設定 |設定内容|
 		---:|------|------------------|-  |   
@@ -1517,12 +1525,14 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		6  |感情解析結果の表示   | 1  | 0:表示しない,1:表示する   |  
 		:自分が最近再生した通話ガジェットの書式説明 {#tbl:svhomemyrecentplayhistory}
 
- 	1. 自分が最近参照した通話 〈MyRecentViewHistory〉【[@fig:home_info]】  
+ 	1. 自分が最近参照した通話 〈MyRecentViewHistory〉【[@fig:home_myrecentviewhistory]】  
 『MyRecentViewHistory』はレイアウト時に以下の書式で、6つのプロパティについて定義することができます。  
 
 		```
 		MyRecentViewHistory:5:0:::1:1
 		```
+
+		![自分が最近参照した通話ガジェットと設定項目](images/2-2-home_myrecentviewhistory.png){#fig:home_myrecentviewhistory width=400px}
 
 		No. | 設定項目      | デフォルトの設定 |設定内容|
 		---:|------|------------------|-  |    
@@ -1534,12 +1544,14 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |  
 		:自分が最近参照した通話ガジェットの書式説明 {#tbl:svhomemyrecentviewhistory}
 
- 	1. 自分が最近編集した通話 〈MyRecentEditHistory〉【[@fig:home_info]】  
+ 	1. 自分が最近編集した通話 〈MyRecentEditHistory〉【[@fig:home_myrecentedithistory]】  
 『MyRecentEditHistory』はレイアウト時に以下の書式で、6つのプロパティについて定義することができます。  
 
 		```
 		MyRecentEditHistory:5:0:::1:1
 		```
+
+		![自分が最近編集した通話ガジェットと設定項目](images/2-2-home_myrecentedithistory.png){#fig:home_myrecentedithistory width=400px}
 
 		No. | 設定項目      | デフォルトの設定 |設定内容|
 		---:|------|------------------|-  |   
@@ -1551,12 +1563,14 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |  
 		:自分が最近編集した通話ガジェットの書式説明 {#tbl:svhomemyrecentedithistory}
 
- 	1. 自分の通話に対する最近のコメント 〈RecentComment〉【[@fig:home_info]】  
+ 	1. 自分の通話に対する最近のコメント 〈RecentComment〉【[@fig:home_recentcomment]】  
 『RecentComment』はレイアウト時に以下の書式で、3つのプロパティについて定義することができます。  
 
 		```
 		RecentComment:5:0:
 		```
+
+		![自分の通話に対する最近のコメントガジェットと設定項目](images/2-2-home_recentcomment.png){#fig:home_recentcomment width=400px}
 
 		No. | 設定項目      | デフォルトの設定 |設定内容|
 		---:|------|------------------|-  |   
@@ -1566,12 +1580,14 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		:自分の通話に対する最近のコメントガジェットの書式説明 {#tbl:svhomerecentcomment}
 
 
- 	1. 自分が最近投稿したコメント 〈RecentPostComment〉【[@fig:home_info]】  
+ 	1. 自分が最近投稿したコメント 〈RecentPostComment〉【[@fig:home_recentpostcomment]】  
 『RecentPostComment』はレイアウト時に以下の書式で、3つのプロパティについて定義することができます。  
 
 		```
 		RecentPostComment:5:1:0
 		```
+
+		![自分が最近投稿したコメントガジェットと設定項目](images/2-2-home_recentpostcomment.png){#fig:home_recentpostcomment width=400px}
 
 		No. | 設定項目      | デフォルトの設定 |設定内容|
 		---:|------|------------------|-  |   
@@ -1580,12 +1596,14 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		3  |カラムの表示   |1|1:オペレータ名で表示,2:内線番号で表示 |   
 		:自分が最近参照した通話ガジェットの書式説明 {#tbl:svhomerecentpostcomment}
 
- 	1. お気に入り 〈Favorite〉【[@fig:home_info]】  
+ 	1. お気に入り 〈Favorite〉【[@fig:home_favorite]】  
 『Favorite』はレイアウト時に以下の書式で、2つのプロパティについて定義することができます。  
 
 		```
 		Favorite:"自動更新の有効化":"カラム表示設定"
 		```
+
+		![お気に入りガジェットと設定項目](images/2-2-home_favorite.png){#fig:home_favorite width=400px}
 
 		No. | 設定項目      | デフォルトの設定 |設定内容|
 		---:|------|------------------|-  |   
@@ -1593,12 +1611,14 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		2  |感情解析結果の表示   | 1  |0:表示しない,1:表示する    |  
 		:お気に入りガジェットの書式説明 {#tbl:svhomefavorite}
 
- 	1. 評価の遷移  〈RatingCurve〉【[@fig:home_info]】  
+ 	1. 評価の遷移  〈RatingCurve〉【[@fig:home_ratingcurve]】  
 『RatingCurve』はレイアウト時に以下の書式で、3つのプロパティについて定義することができます。  
 
 		```
 		RatingCurve:6:M:1
 		```
+
+		![評価の遷移ガジェットと設定項目](images/2-2-home_ratingcurve.png){#fig:home_ratingcurve width=400px}
 
 		No. | 設定項目      | デフォルトの設定 |設定内容|
 		---:|------|------------------|-  |   
@@ -1609,12 +1629,14 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 
 		![](images/Check.png){width=50px}　『評価の遷移』で扱う「評価点数」は通話詳細から通話に対してコメントをつける際に設定できる点数(星の数)です。グラフにはX軸スケール単位内の(評価点数合計 ÷ 評価件数)で算出される1.0～5.0までの評価点数の平均値が表示されます。
 
- 	1. 感情の遷移 〈emotionCurve〉【[@fig:home_info]】  
+ 	1. 感情の遷移 〈emotionCurve〉【[@fig:home_emotioncurve]】  
 『emotionCurve』はレイアウト時に以下の書式で、4つのプロパティについて定義することができます。  
 
 		```
 		emotionCurve:6:H:1:user01%2user02%2C・・・
 		```
+
+		![感情の遷移ガジェットと設定項目](images/2-2-home_emotioncurve.png){#fig:home_emotioncurve width=400px}
 
 		No. | 設定項目      | デフォルトの設定 |設定内容|
 		---:|------|------------------|-  |   
@@ -1624,12 +1646,14 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		4  |ユーザID   |   |感情の推移を確認したいユーザのIDを記載します。複数ユーザを設定する場合には、ユーザIDの間に`%2C`と記載します。   |  
 		:感情の遷移ガジェットの書式説明 {#tbl:svhomeemotioncurve}
 
- 	1. マイクエリ 〈MyQuery〉【[@fig:home_info]】  
+ 	1. マイクエリ 〈MyQuery〉【[@fig:home_myquery]】  
 『MyQuery』はレイアウト時に以下の書式で、6つのプロパティについて定義することができます。  
 
 		```
 		MyQuery-1:5:0:::1:1
 		```
+
+		![マイクエリガジェットと設定項目](images/2-2-home_myquery.png){#fig:home_myquery width=400px}
 
 		No. | 設定項目      | デフォルトの設定 |設定内容|
 		---:|------|------------------|-  |    
@@ -1642,12 +1666,14 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		:マイクエリガジェットの書式説明 {#tbl:svhomemyquery}
 
 
- 	1. 通話スコアリング 〈Score〉【[@fig:home_info]】  
+ 	1. 通話スコアリング 〈Score〉【[@fig:home_score]】  
 『Score』はレイアウト時に以下の書式で、6つのプロパティについて定義することができます。  
 
 		```
 		Score-1:5:0:1::1:1
 		```
+
+		![通話スコアリングガジェットと設定項目](images/2-2-home_score.png){#fig:home_score width=400px}
 
 		No. | 設定項目      | デフォルトの設定 |設定内容|
 		---:|------|------------------|-  |    
@@ -1659,12 +1685,14 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |  
 		:通話スコアリングガジェットの書式説明 {#tbl:svhomescore}
 
- 	1. 通話品質評価テンプレート 〈QualityEvaluation〉【[@fig:home_info]】  
+ 	1. 通話品質評価テンプレート 〈QualityEvaluation〉【[@fig:home_qualityevaluation]】  
 『QualityEvaluation』はレイアウト時に以下の書式で、6つのプロパティについて定義することができます。  
 
 		```
 		QualityEvaluation-1:5:0:1:1:1:1
 		```
+
+		![通話品質評価テンプレートガジェットと設定項目](images/2-2-home_qualityevaluation.png){#fig:home_qualityevaluation width=400px}
 
 		No. | 設定項目      | デフォルトの設定 |設定内容|
 		---:|------|------------------|-  |    
@@ -1676,7 +1704,7 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |  
 		:通話品質評価テンプレートガジェットの書式説明 {#tbl:svhomequalityevaluation}
 
- 	1. スキル 〈MyRecentEditHistory〉【[@fig:home_info]】  
+ 	1. スキル 〈MyRecentEditHistory〉【[@fig:home_agentskill]】  
 『AgentSkill』はレイアウト時に以下の書式で、1つのプロパティについて定義することができます。  
 
 		```
@@ -1689,7 +1717,7 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 
 		: スキルガジェットの書式説明 {#tbl:svhomeagentskill}
 
-
+		![通話品質評価テンプレートガジェットと設定項目](images/2-2-home_agentskill.png){#fig:home_agentskill width=400px}
 
 #### 2-2-3. ホーム画面での感情解析表示
 - 感情が使用されているガジェットは、表示する感情を詳細設定から設定することができます。
