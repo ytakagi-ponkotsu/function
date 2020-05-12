@@ -2232,6 +2232,13 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
 	: 座席表通信一覧 {#tbl:sm_comm}
 
  - [@tbl:seatmapdc] の 『デスクトップ通知レベル』 について
+この設定は、利用するブラウザによって挙動が異なります。  
+
+	1. Internet Explorer の場合  
+アラートやメッセージを受信した場合、画面への表示の他に音声鳴動での通知が可能です。  
+
+	2. Chrome、Firefox、Edge の場合  
+【要確認】 これらのブラウザでは、音声再生の代わりにデスクトップ通知として動作します？音声がなっているよね？
 
 #### 2-5-4. 座席モジュール
 座席モジュールには以下の2つの種類があります。  
@@ -2254,3 +2261,17 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
 
 #### 2-5-5. 座席モジュールのタイムアウトについて
 【要確認】
+
+<div style="page-break-before:always"></div>
+
+<hr/>
+
+## 第3章 ControlCenter
+
+### 3-1. ControlCenter のログイン
+
+基本的には、SpeechVisualizer のログインと同じ仕様となります。
+
+### 3-2. ControlCenter ホーム
+
+### 3-3. ログイン状況
