@@ -2144,6 +2144,8 @@ AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id
 	5 | 座席の認識結果を表示  | 有効  | No.18 『座席の認識結果を表示』 |  
 	6 | ボリュームコントロール  | ope / cus ともに 50%  | No.20 『再生ボリューム』 | 音声モニタリング時のボリューム  
 
+	: 座席表 UI からの設定のカスタマイズ {#tbl:seatmapui}
+
 #### 2-5-3. 通信仕様
 
 - 座席表画面は、画面に表示している座席モジュールやログインユーザへのイベント通信を受信して動作します。  
