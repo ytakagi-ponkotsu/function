@@ -1810,7 +1810,7 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 	検索モジュールのプロバイダは、ControlCenter 詳細設定の [@tbl:provider0] の項目を編集して構成します。  
 
 		No. | 設定項目名       | 設定値 | 内容 |
-		-:|----------------|----------------|------------|
+		-:|---------|---------|---------------|
 		1   |  検索モジュールのプロバイダ  | プロバイダ名を指定 ([@tbl:provider] 参照)        | 検索モジュールを提供するプロバイダのリストです。表示する各プロバイダを改行で区切ります。デフォルト設定のプロバイダを削除すると、そのプロバイダは表示されなくなり検索不可となります。 |
 
 		: 表示する検索モジュールのプロバイダ設定 {#tbl:provider0}
@@ -1825,19 +1825,19 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|iconName=person1|lessQueryLabel=UCIDの一部を入力してください...|iconLabel=UCID|autoCompleteLength=0
 		```
 
-		No. | 検索条件       | プロバイダ名
-		---:|------------------|--------------|
-		1   |  プロジェクト 　　　　　　　　　 |ProjectCondition　　　　 |
-		2   |  検索対象の日付  | DateRangeCondition　　　　　　　　　|
-		3   |  検索対象の時間帯  | TimeRangeCondition |
-		4   |  時間  | DurationCondition |
-		5   |  保留時間  | HoldDurationCondition |
-		6   |  オペレータ  | OperatorCondition |
-		7   |  最終更新者  | EditorCondition|
-		8   |  電話番号  |TelCondition|
-		9   |  通話タグ  |TagCondition |
-		10   |  通話フィルタ  |FilterCondition|
-		11  |  通話の向き  | DirectionCondition |
+		No. | 検索条件       | プロバイダ名| 検索クエリ （「」内のうちどれでも可 。半角・全角不問）
+		-:|-----|-------|--------------|
+		1   |  プロジェクト  |ProjectCondition|「p:」 「pj:」 「proj:」 「project:」
+		2   |  検索対象の日付  | DateRangeCondition|「d:」 「date:」 「daterange:」
+		3   |  検索対象の時間帯  | TimeRangeCondition |「t:」 「time:」 「timerange:」
+		4   |  通話時間  | DurationCondition |「ct:」
+		5   |  保留時間  | HoldDurationCondition |「hold:」
+		6   |  オペレータ  | OperatorCondition |ユーザ名検索 「op:」 「oprator:」 「user:」<br>ユーザID検索 「opid:」 「operatorid:」 「userid:」
+		7   |  最終更新者  | EditorCondition|ユーザ名検索 「ed:」 「editor:」 「edituser:」 「editoperator:」<br> ユーザID検索 「edid:」 「editorid:」 「edituserid:」 「editoperatorid:」
+		8   |  電話番号  |TelCondition|通常検索 「tel:」 「telephone:」 「phone:」「phonenumber:」<br>自番号検索 「optel:」 「operatortelephone:」 「opphone:」 「operatorphonenumber:」 「telop:」 「telephoneoperator:」 「phoneop:」 「phonenumberoperator:」<br>相手番号検索 「cutel:」 「customertelephone:」 「cuphone:」 「customerphonenumber:」 「telcu:」 「telephonecustomer:」 「phonecu:」 「phonenumbercustomer:」<br>内線番号検索 「ext:」 「extension:」 「extensionnumber:」 「line:」<br>掛先番号検索 「ctel:」 「called:」<br>呼出番号検索 「atel:」 「alerting:」<br>キュー番号検索 「qtel:」 「queue:」
+		9   |  通話タグ  |TagCondition |「tag:」
+		10   |  通話フィルタ  |FilterCondition|「f:」 「filter:」
+		11  |  通話の向き  | DirectionCondition |「cd:」 「」
 		12   |  相手の性別  | GenderCondition |
 		13   |  通話スコアリング  | ScoreCondition|
 		14   |  通話品質評価  |QualityEvaluationCondition |
