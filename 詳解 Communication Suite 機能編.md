@@ -26,6 +26,10 @@ tblPrefix: '表.'
 	- [2-3. SpeechVisualizer 通話検索](#2-3-speechvisualizer-通話検索)
 	- [2-4. SpeechVisualizer 通話詳細](#2-4-speechvisualizer-通話詳細)
 	- [2-5. SpeechVisualizer 座席表](#2-5-speechvisualizer-座席表)
+- [第3章 ControlCenter](#第3章-controlcenter)
+	- [3-1. ControlCenter のログイン](#3-1-controlcenter-のログイン)
+	- [3-2. ControlCenter ホーム](#3-2-controlcenter-ホーム)
+	- [3-3. ログイン状況](#3-3-ログイン状況)
 <!-- TOC END -->
 
 ## 序章 トレーニングにあたって
@@ -1804,16 +1808,16 @@ Communication Suite の通話検索は、検索条件を指定するのではな
 
 	![ マイクエリパネル](images/2-3-マイクエリ.png){#fig:provider2 width=200px}  
 
-#### 2-3-1. 通話検索に利用する検索モジュールのプロバイダ  
+#### 2-3-1. 検索モジュールのプロバイダ  
 
 - 検索モジュールのプロバイダは、ControlCenter 詳細設定の [@tbl:provider0] の項目を編集して構成します。  
 
 	No. | 設定項目名       | 設定値 | 内容 |
 	-:|---------|---------|---------------|
-	1   |  検索モジュールのプロバイダ  | プロバイダ名を指定 ([@tbl:provider] 参照)        | 検索モジュールを提供するプロバイダのリストです。表示する各プロバイダを改行で区切ります。
+	1   |  検索モジュールのプロバイダ  | 下記書式参照  | 検索モジュールを提供するプロバイダのを一定書式で記述します。利用可能なプロバイダは [@tbl:provider] を参照してください。
 	: 表示する検索モジュールのプロバイダ設定 {#tbl:provider0}
 
-	検索モジュールのプロバイダは以下の書式で記述します。  
+	検索モジュールのプロバイダは以下の書式（利用するプロバイダを改行区切り）で記述します。  
 
 
 	```
@@ -1823,11 +1827,8 @@ Communication Suite の通話検索は、検索条件を指定するのではな
 	DurationCondition  
 	```
 
-	![](images/Tips.jpg){width=50px}  
-	上から記述した順番通りに検索プロバイダのアイコンが左から右へ並んで表示されます。  
-	設定値として記述しなかったプロバイダはアイコンが表示されなくなり、その項目の検索クエリは利用不可です。  
-<br>
-	[@tbl:provider] はデフォルト設定に登録されている検索モジュールのプロバイダの一覧です。
+	![](images/Check.png){width=50px}　設定で、上から記述した順番通りに検索モジュール上にプロバイダアイコンが左から右へ並んで表示されます。  
+設定値として記述しなかったプロバイダはアイコンが非表示となり、該当項目の検索クエリも利用できません。  
 
 	No. | 検索条件       | プロバイダ名| 検索クエリ （「」内のうちどれでも可 。半角・全角不問）
 	-:|-----|-------|----------------------------|
@@ -1854,7 +1855,7 @@ Communication Suite の通話検索は、検索条件を指定するのではな
 	: デフォルト設定の検索モジュールのプロバイダ一覧 {#tbl:provider}  
 
 - 通話属性を検索プロバイダに追加する  
-	書式は以下です。各項目識別名は \| で区切ります。複数追加する場合は、改行区切り接頭語以外は順不同です。  
+	書式は以下です。各項目識別名は \| で区切ります。接頭語以外は順不同です。  
 	例）Avaya の ユニバーサルコール ID を検索条件に追加  
 
 	```
@@ -1867,8 +1868,8 @@ Communication Suite の通話検索は、検索条件を指定するのではな
 	No. | 識別名       | 名称| 値 | 説明      |省略可否|
 	---:|------------------|--------------|------|------|------|
 	1   |  AttributeCondition | 接頭語        | なし| 項目を追加する際の定型文です。| ×|
-	2   |  prefixes| プレフィックス        | 文字列| 通話検索条件を識別するクエリ文字列です。| ×|
-	3   |  attributes | 通話属性識別名        | 文字列 | 通話検索条件に追加する通話属性識別子です。通話属性識別名は CommunicationSuite 内で通話属性毎に設定されているユニークな識別名です。使用可能な通話属性については（[1-2-2.　[@tbl:callb2] : OperatorAgent 表示する通話属性で利用可能な通話属性一覧](#1-2-2. 通話表示機能) 参照。）  を参照してください。  | ×|
+	2   |  attributes | 通話属性識別名        | 文字列 | 通話検索条件に追加する通話属性識別子です。通話属性識別名は CommunicationSuite 内で通話属性毎に設定されているユニークな識別名です。使用可能な通話属性については（[1-2-2.　[@tbl:callb2] : OperatorAgent 表示する通話属性で利用可能な通話属性一覧](#1-2-2. 通話表示機能) 参照。）  を参照してください。  | ×|
+	3   |  prefixes| プレフィックス        | 文字列| 通話検索条件を識別するクエリ文字列です。| ×|
 	4   |  iconName | アイコン名        | 文字列| 検索プロバイダとして表示するアイコンを [@tbl:icon1] から指定します。 | 〇|
 	5   |  lessQueryLabel | 説明文        |文字列| 通話検索条件入力欄にプレフィックスを入力した際に表示される説明文です。| 〇|
 	6   |  iconLabel | アイコンラベル        | 文字列|話検索入力欄のアイコンをマウスオーバーした時に表示される名称です。複数の通話検索条件で同じアイコン名を指定した場合、通話検索条件入力欄で該当のアイコンをマウスオーバーした際に表示されるのは設定順が上のものがアイコンラベルとなります。複数の通話検索条件で同じアイコン名を指定した場合、該当のアイコンをクリックすることで通話検索条件のアイコンラベルが複数表示されて選択クリックすることで任意の通話検索条件を選択することができます。| 〇|
@@ -1889,29 +1890,34 @@ Communication Suite の通話検索は、検索条件を指定するのではな
 
 	: 利用可能なアイコン {#tbl:icon1}
 
-	![](images/Tips.jpg){width=50px}  
-	通話属性を１つにまとめる場合には同じアイコン名で書式を記述します。  
-	例） Avaya の Universal Call IDとCallID をまとめた場合 ([@fig:denwa2] 設定後)  
+	![](images/Tips.jpg){width=50px}　通話属性を検索モジュールに追加する際、同じアイコン名（iconName）を指定すると、検索モジュール上では一つのアイコンでまとめて表示されます。  
+例） Avaya の ユニバーサルコール ID と コール ID を一つのアイコンにまとめた場合 (検索モジュールのイメージは [@fig:denwa2] を参照してください。)  
 
 	```
-	AttributeCondition|prefixes=ucid|attributes=amivoice.common.reference.global.id|lessQueryLabel=UCIDの一部を入力してください...|iconName=tel1|iconLabel=UCID
-AttributeCondition|prefixes=callid|attributes=amivoice.common.reference.local.id|lessQueryLabel=CALLIDの一部を入力してください...|iconName=tel1|iconLabel=CALLID
+	AttributeCondition| iconName=tel1 | prefixes=ucid   | attributes=amivoice.common.reference.global.id | lessQueryLabel=UCIDの一部を入力してください...  | iconLabel=UCID
+	AttributeCondition| iconName=tel1 | prefixes=callid | attributes=amivoice.common.reference.local.id  | lessQueryLabel=CALLIDの一部を入力してください...| iconLabel=CALLID
 	```
-	![通話属性をまとめた結果](images/2-3-追加プロバイダまとめ.png){#fig:denwa2 width=300px}  
+	![1つのアイコンに複数のプロバイダを追加する](images/2-3-追加プロバイダまとめ.png){#fig:denwa2 width=300px}  
 
-- 電話番号のプロバイダに通話属性を追加  
-
-	プロバイダ名 \"TelCondition" に書式に合わせて属性 ([@tbl:zokuseikey] ) を登録します。  
-	**書式**  : 電話番号のプロバイダ \" TelCondition \" の後に \" | \"を記述し、\" targets= \" の後に追加する属性を\" , \"区切りで列挙します。  
-	明記しない場合は \" \*all\*\,\*op\,cu\*\,line\ " が設定されている状態になりますが、属性を追加する場合は、この値を追記してください。  
-	\* を前か後ろに付けると、ワイルドカード扱いになり、前方一致、後方一致、中間一致になります。  
-
-	例） キュー番号を追加した場合 ([@fig:denwa1] 設定後)
+- デフォルトプロバイダ 『電話番号』 をカスタマイズする  
+『電話番号』 プロバイダに、通話属性を追加する場合にはより簡単な書式で指定が可能です。  
 
 	```
-	TelCondition|targets=*all*,*op,cu*,line*,queue*
+	TelCondition | targets=*all*,*op,cu*,line*,queue*
 	```
-	![通話キュー番号を追加時の結果](images/2-3-電話番号1.png){#fig:denwa1 width=300px}  
+
+	『TelCondition』 に `target` プロパティを指定し、利用する通話属性を `,` 区切りで列挙します。 `target` に指定可能な通話属性は、[@tbl:zokuseikey] を参照してください。  
+	TelCondition のみを記述した場合、
+
+	```
+	TelCondition | targets=*all*,*op,cu*,line*
+	```
+	として評価されます。  
+
+	![『』キュー番号を追加時の結果](images/2-3-電話番号1.png){#fig:denwa1 width=300px}  
+
+	![](images/Tips.jpg){width=50px}　target に 指定した通話属性に `*` を付加すると、付加する位置により前方一致（line\*）、後方一致（\*line）、部分一致（\*line\*） で検索できるようになります。  
+
 
 	No. | 属性       | 検索条件|利用可否| [@tbl:callb2] 通話属性識別名との対比
 	---:|------------------|--------------|----------|---------|
