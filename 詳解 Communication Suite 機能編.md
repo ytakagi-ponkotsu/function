@@ -1820,7 +1820,6 @@ Communication Suite の通話検索は、検索条件を指定するのではな
 
 	検索モジュールのプロバイダは以下の書式（利用するプロバイダを改行区切り）で記述します。  
 
-
 	```
 	ProjectCondition  
 	DteRangeCondition  
@@ -1874,7 +1873,7 @@ Communication Suite の通話検索は、検索条件を指定するのではな
 	4   |  iconName | アイコン名        | 文字列| 検索プロバイダとして表示するアイコンを [@tbl:icon1] から指定します。 | 〇|
 	5   |  lessQueryLabel | 説明文        |文字列| 通話検索条件入力欄にプレフィックスを入力した際に表示される説明文です。| 〇|
 	6   |  iconLabel | アイコンラベル        | 文字列|話検索入力欄のアイコンをマウスオーバーした時に表示される名称です。複数の通話検索条件で同じアイコン名を指定した場合、通話検索条件入力欄で該当のアイコンをマウスオーバーした際に表示されるのは設定順が上のものがアイコンラベルとなります。複数の通話検索条件で同じアイコン名を指定した場合、該当のアイコンをクリックすることで通話検索条件のアイコンラベルが複数表示されて選択クリックすることで任意の通話検索条件を選択することができます。| 〇|
-	7   |  autoCompleteLength | オートコンプリートを表示させるまでの文字数        | 整数| オートコンプリートが表示されるまでに入力する文字数です。| 〇|
+	7   |  autoCompleteLength | オートコンプリートを表示させるまでの文字数        | 整数| オートコンプリートが表示されるまでに入力する文字数です。値を 0 にすると指定した通話属性で紐づいている値が最大15件自動表示されます。| 〇|
 
 	: 追加する通話属性の書式 {#tbl:provider3}
 
@@ -2070,7 +2069,7 @@ Communication Suite の通話検索は、検索条件を指定するのではな
 	: フリーワード検索のオプション {#tbl:option2}
 
 	![](images/Tips.jpg){width=50px}　NOT検索のみを指定した場合、すべての検索単語が対象となるため、検索が無視されます。  
-	除外対象と検索対象とする単語の組み合わせで利用する必要があります。
+	　　　　除外対象と検索対象とする単語の組み合わせで利用する必要があります。
 
 - AND 検索の書式  
 
@@ -2113,7 +2112,7 @@ Communication Suite の通話検索は、検索条件を指定するのではな
  4. フリーワード検索の仕様  
 
 - フリーワードの利用条件  
- SQL Full-text Filter Daemon Launcher (MSSQLSERVER)サービスの起動  
+ CommSuite データベースの稼働サーバでSQL Full-text Filter Daemon Launcher (MSSQLSERVER)サービスの起動が必要です。  
 
 - フリーワードの対象  
 フリーワードの対象となる文字列は SQL Server 機能のワードブレーカーによって分割された単位が対象となります。  
@@ -2125,7 +2124,7 @@ Communication Suite の通話検索は、検索条件を指定するのではな
 	```
 	[@tbl:option3] はフリーワード検索で実施した場合の結果例です。
 
-	No. | フリーワード    |結果 |理由
+	No. | フリーワード    |検索結果 |理由
 	---:|-----------------|----------|--------|
 	1   |コールセンター|〇 |ワードブレーカーが「コールセンター」と区切ったため
 	2   |コールセンタ|〇|ステミングによって単語の末尾のあいまいさを補正したため  
@@ -2139,46 +2138,119 @@ Communication Suite の通話検索は、検索条件を指定するのではな
 	検索時のエラーメッセージ（②の場合は検索ができるらしい。。再現できず【要確認】）  
 	① キーワードにノイズワードが含まれていたため検索が行われませんでした。  
  	② キーワードにノイズワードが含まれていたため無視しました。  
-
-
-
 <br>
 
 
-
-
-
-
-
-
-
-
-
-
 #### 2-3-3. 通話検索の結果
-通話検索後の機能です。  
+通話検索後の機能について説明していきます。
 
- 1.  通話属性  
-		 [@fig:kensakukekka] は通話に紐づいた通話属性です。表示する通話属性の設定は @tbl:tuuwazokusei0 を編集して構成します。
+ 1. 検索結果画面に表示する通話件数  
+	検索結果の対象となった通話を検索画面の1ページに表示する件数です。  
+	1ページ中に表示する通話件数は[@tbl:kekka1] を編集して構成します。  
 
-		![通話に紐づいた通話属性](images/2-3-検索結果.png){#fig:kensakukekka width=850px}  
+	![検索結果で表示された通話画面](images/2-3-検索結果3.png){#fig:kekka1 width=600px}
+
+	No. | 設定分類      | 設定項目名 | 内容|
+	---:|-----------|------------|----------------|
+	1   |  SpeechVisualizer - 通話検索  | 1ページ中に表示する件数 |検索画面の1ページ中に表示する通話の件数です。	[@fig:kekka1]の赤枠で囲った単位が対象です。  
+
+	: 検索結果に関連する詳細設定項目 {#tbl:kekka1}
+
+ 2. ページ移動のボタン  
+	1ページに表示する件数を超えた場合には画面下部中央にページ移動ボタンが表示されます。  
+	ページ移動ボタンに関連する設定は	[@tbl:kekka2] を編集して構成します。
+
+	![ページ移動ボタン](images/2-3-検索結果4.png){#fig:OpertorAgentのメニュー画面について解説いたします width=500px}
 
 
 
+	No. | 設定分類      | 設定項目名 | 内容|
+	---:|-----------|------------|----------------|
+	1   |  SpeechVisualizer - 通話検索 | 前後に表示するページ数 |1ページに表示する件数を超える検索結果の場合にページ移動のためにボタンの数を指定します。有効値は「1～20」です。  
 
-		No. | 設定分類       | 設定項目名 | 設定値 |
-		---:|-----------|------------|----------------|
-		1   |  SpeechVisualizer - 通話検索  | 検索結果に[@tbl:callb]: OperatorAgent 表示する通話属性で利用可能な通話属性一覧](#1-2-2. 通話表示機能) 参照。） |  
+	: ページ移動ボタンに関連する詳細設定項目 {#tbl:kekka2}
+
+ 3. 検索結果に表示する通話属性
+
+	通話に紐づいている通話属性を検索結果の通話に表示します。  
+	[@fig:kekka5] は通話に紐づいた通話属性です。表示する通話属性は @tbl:tuuwazokusei0 を編集して構成します。  
+
+	![通話に紐づいた通話属性](images/2-3-検索結果5.png){#fig:kekka5 width=800px}
+
+	![](images/Tips.jpg){width=50px}　利用可能な通話属性に制限はありませんが、電話基盤や通話プロバイダによって通話属性が表示可否や、表示される属性の値が異なります。
 
 
-		: 検索結果に表示する通話属性の設定 {#tbl:tuuwazokusei0}
+	No. | 設定分類       | 設定項目名 | 設定値 |
+	---:|-----------|------------|----------------|
+	1   |  SpeechVisualizer - 通話検索  | 検索結果に表示する追加の通話属性|利用可能な通話属性は @tbl:tuwazokusei を参照。<br>書式は下記参照。（複数追加する場合は改行で区切る）
 
+	: 検索結果に表示する通話属性の設定 {#tbl:tuuwazokusei0}
 
-		![](images/Tips.jpg){width=50px}  
-		通話に紐づく通話属性は表示の有無に関係なく、通話に紐づいた通話属性をデータベースに保存しています。  
-		通話属性を追加前に保存された通話に対しても取得していた属性情報が表示されるようになります。  
+	「通話属性識別名=ラベル」という形で定義します。
 
-		<br>  
+	例） 検索結果に表示する通話に「ダイヤルイン番号」を表示する
+
+	```
+	amivoice.common.telephony.called.phonenumber=ダイヤルイン番号
+	```
+
+	@tbl:tuwazokusei は検索結果で表示可能な通話属性一覧です。  
+	検索結果に 〇 が付いているものはデフォルト設定で通話検索結果に表示可能な通話属性です。  
+
+	No. | 通話属性識別名 | 名称                | 検索結果| Amazon Connect	      | Avaya AES    | Avaya     | SIP CIC     | SIP CTstage    |SIP OAI     | SIP T-Server      |
+	----:|---------------------|------------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|
+	1   |amivoice.common.description | 備考 ||   |  |  |  |  |  |  |
+	2   |amivoice.common.direction | 向き|〇| 〇|〇|〇|〇|〇|〇|〇|
+	3   |amivoice.common.linetype | 通話回線種別 |〇 |  |〇|  |〇|〇|〇|〇|
+	4   |amivoice.common.summary| 要約 ||    |  |  |  |  |  |  |
+	5   |amivoice.common.headline| 見出し |〇 |   |  |  |  |  |  |  |
+	6   |amivoice.common.mark | マーク| 〇 |   |  |  |  |  |  |  |
+	7   |amivoice.common.operator.key | 自分の識別名 |〇|〇|〇|  |〇|〇|  |  |
+	8   |amivoice.common.operator.name| 自分の名称|〇| 〇|  |  |  |〇|  |  |
+	9   |amivoice.common.operator.phonenumber| 自番号|〇|〇|〇|〇|〇|〇|〇|〇|
+	10   |amivoice.common.operator.group| 自分の所属グループ | |〇|  |  |  |〇|  |  |
+	11   |amivoice.common.operator.hostname | 自分のホスト名|  |   |  |  |  |〇|  |  |
+	12   |amivoice.common.customer.key | 相手の識別名|  |   |  |  |〇|〇|  |  |
+	13   |amivoice.common.customer.name | 相手の名称|  |   |  |  |  |〇|  |  |
+	14   |amivoice.common.customer.phonenumber| 相手番号|〇 |〇|〇|〇|〇|〇|〇|〇|
+	15   |amivoice.common.customer.gender | 相手の性別|〇  |   |  |  |  |  |  |  |
+	16  |amivoice.common.telephony.dialin.phonenumber | ダイヤルイン番号|  |   |  |  |〇|〇|〇|  |
+	17   |amivoice.common.telephony.called.phonenumber | 掛先番号 |〇 |  |〇|〇|  |  |  |  |
+	18   |amivoice.common.telephony.alerting.phonenumber | 呼出先番号|〇 |   |〇|  |  |  |  |  |
+	19   |amivoice.common.telephony.trunk.group | トランクグループ|  |  |〇|  |〇|〇|〇|〇|
+	20   |amivoice.common.telephony.trunk.member| トランクメンバ| |  |〇|  |  |  |〇|  |
+	21   |amivoice.common.telephony.queue.phonenumber| キュー番号|〇 |   |〇|  |〇|  |  |  |
+	22   |amivoice.common.telephony.transfer.source.key | 転送元識別名 | |   |  |  |  |〇|  |  |
+	23   |amivoice.common.telephony.transfer.source.name | 転送元名称|  |   |  |  |  |〇|〇|  |
+	24   |amivoice.common.telephony.transfer.source.phonenumber | 転送元番号|〇  |   |〇|  |  |〇|  |〇|
+	25   |amivoice.common.telephony.transfer.destination.key| 転送先識別名|  |   |  |  |  |〇|  |  |
+	26   |amivoice.common.telephony.transfer.destination.name | 転送先名称 | |   |  |  |  |〇|  |  |
+	27   |amivoice.common.telephony.transfer.destination.phonenumber | 転送先番号 |〇 |   |〇|  |  |〇|〇|〇|
+	28   |amivoice.common.telephony.monitoring.target.key | モニタリング対象識別名|  |   |  |  |〇|  |  |  |
+	29   |amivoice.common.telephony.monitoring.target.name| モニタリング対象名称|  |   |  |  |〇|  |  |  |
+	30   |amivoice.common.telephony.monitoring.target.phonenumber| モニタリング対象番号|  |   |  |  |〇|  |  |  |
+	31   |amivoice.common.telephony.monitoring.target.type | 	モニタリング種別|   |   |  |  |〇|  |  |  |
+	32   |amivoice.common.reference.global.id | グローバル参照用のID|  |〇|〇|  | 〇|〇|  |〇|
+	33   |amivoice.common.reference.global.url | グローバル参照用のURL|  |   |  |  |  |  |  |  |
+	34   |amivoice.common.reference.local.id| ローカル参照用のID|  |   |〇|  |〇|  |  |  |
+	35   |amivoice.common.reference.local.url| ローカル参照用のURL|  |   |  |  |  |  |  |  |
+	36   |amivoice.common.reference.site.id | サイト参照用のID| |   |  |  |  |  |  |  |
+	37   |amivoice.common.reference.site.url| サイト参照用のURL|  |   |  |  |  |  |  |  |
+	38   |amivoice.common.reference.private.id| プライベート参照用のID|  |   |  |  |  |  |  |  |
+	39   |amivoice.common.reference.private.url | プライベート参照用のURL|  |   |  |  |  |  |  |  |
+	40   |amivoice.common.recording.limit| 録音制限時間到達|  |   |  |  |  |  |  |  |
+	41   |amivoice.common.recording.split| 録音分割|  |   |  |  |  |  |  |  |
+	42   |amivoice.common.recording.split.previous| 録音分割された直前の通話|  |   |  |  |  |  |  |  |
+	43   |amivoice.common.reference.recording.id | 録音区間参照用のID|  |   |  |  |  |  |  |  |
+	44   |amivoice.common.reference.recording.url | 録音区間参照用のURL|  |   |  |  |  |  |  |  |
+	45   |amivoice.common.telephony.distributing.phonenumber| 受電グループ番号| |  |〇|  |  |  |  |  |
+	46   |amivoice.common.telephony.ivr.duration| IVR 応対時間|  |   |〇|  |  |  |  |  |
+	47   |amivoice.common.telephony.queue.duration | 待ち時間|  |   |〇|  |  |  |  |  |
+
+	: 検索結果で表示可能な通話属性一覧 {#tbl:tuwazokusei}  
+
+	![](images/Check.png){width=50px}　相手番号や掛先番号などの通話属性は IN （着信）と OUT （発信） で表示される内容が変わるケースがあります。例えば着信時に ACD（着信個自動分配装置）を利用している環境などの場合に、別の番号を経由して対象の内線番号に着信するため、掛先番号としては
+
 
  2.  認識結果  
 
