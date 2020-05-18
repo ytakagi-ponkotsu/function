@@ -1605,7 +1605,7 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 『Favorite』はレイアウト時に以下の書式で、2つのプロパティについて定義することができます。  
 
 		```
-		Favorite:"自動更新の有効化":"カラム表示設定"
+		Favorite:1:1
 		```
 
 		![お気に入りガジェットと設定項目](images/2-2-home_favorite.png){#fig:home_favorite width=400px}
