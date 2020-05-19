@@ -835,7 +835,7 @@ OperatorAgent を起動すると、ログインダイアログが表示される
 		<br/>  
 
 		![](images/Tips.jpg){width=50px}
-			　OperatorAgent をコマンドラインから引数付きで起動することで自動更新を抑制できます。（[1-2-6. コマンドラインからの OperatorAgent 操作](#1-2-6-operatoragent-操作) 参照。）  
+			　OperatorAgent をコマンドラインから引数付きで起動することで自動更新を抑制できます。（[1-6. コマンドラインからの OperatorAgent 操作](#1-6. コマンドラインからの OperatorAgent 操作) 参照。）  
 
 		<br/>
 
