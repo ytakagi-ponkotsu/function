@@ -2265,10 +2265,13 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 ### 2-4. SpeechVisualizer 通話詳細  
 
 #### 2-4-1. 通話詳細のメインビュー
+- 通話詳細はDBへの通話情報のアップロード完了後、アクセス可能となります。（[@fig:calldetail])
+
+![通話詳細](images/2-4_detail.png){#fig:calldetail width=600px}
+
 
 ####  2-4-2. 通話詳細の設定
 1. 詳細設定項目（[@tbl:detaildc])
-
 
 	No. | 設定分類 | 設定項目名       | デフォルト値 |特記事項
 	---:|------------------|--------------|------|--
@@ -2279,7 +2282,7 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 	5 | SpeechVisualizer - 通話詳細 |コピー時のオペレータラベルの文字列 |オペレータ |
 	6 | SpeechVisualizer - 通話詳細 |コピー時のオペレータラベルを名前にする |FALSE |
 	7 | SpeechVisualizer - 通話詳細 |コピー時のカスタマラベルの文字列 |カスタマ |
-	8 | SpeechVisualizer - 通話詳細 |コピー時の時間フォーマット |0 |
+	8 | SpeechVisualizer - 通話詳細 |コピー時の時間フォーマット |0 |0:相対時間,1:絶対時間
 	9 | SpeechVisualizer - 通話詳細 |シークバーに追随して感情解析を表示する |FALSE |
 	10 | SpeechVisualizer - 通話詳細 |スクロールロック |FALSE |
 	11 | SpeechVisualizer - 通話詳細 |セグメントを再生する場合に前後にもたせる余裕の秒数 |0.3 |(隠し項目)
@@ -2292,8 +2295,8 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 	18 | SpeechVisualizer - 通話詳細 |通話詳細のアコーディオンに表示する感情スコア |2-4-4参照 |
 	19 | SpeechVisualizer - 通話詳細 |通話詳細の折れ線グラフに表示する感情（オペレータ） |2-4-4参照 |
 	20 | SpeechVisualizer - 通話詳細 |通話詳細の折れ線グラフに表示する感情（カスタマ） |2-4-4参照 |
-	21 | SpeechVisualizer - 通話詳細 |通話情報に表示する追加の通話属性 |2-4-4参照 |
-	22 | SpeechVisualizer - 通話詳細 |波形が表示可能な最大サンプル数 |27000 |
+	21 | SpeechVisualizer - 通話詳細 |通話情報に表示する追加の通話属性 |2-4-3参照 |
+	22 | SpeechVisualizer - 通話詳細 |波形が表示可能な最大サンプル数 |27000 |約XX分以降は波形が非表示になります。【要確認】サンプリングレート不明、30分？
 	23 | SpeechVisualizer - 通話詳細 |波形を表示 |TRUE |
 	24 | SpeechVisualizer - 通話詳細 |話者アイコンを表示 |TRUE |
 	25 | 共通 - システム  | Silverlight プラグインの利用  | TRUE  |  
@@ -2319,6 +2322,9 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 	10 | 設定を保存   | ー  | 無し  | ユーザで変更後にクリックで設定反映  |
 
 	: 通話詳細 UI からの設定のカスタマイズ {#tbl:detailui}
+
+	![](images/Tips.jpg){width=50px}　カスタマイズはユーザ個人で表示するか否かの選択する機能であり、ユーザの利用を制限するための機能ではありません。
+	例えば、あるユーザには感情解析の内容を開示させないといった個別の制限はかけることができません。
 
 ####  2-4-3. 通話情報
 
