@@ -790,18 +790,17 @@ Speech Visualizer ボタンは条件を満たすとボタンが活性化され�
 #### 1-4. OperatorAgent の起動・終了時の動作  
 
 1. OperatorAgent 起動時の処理  
-   	- OperatorAgent の自動更新処理  
+	- OperatorAgent の自動更新処理  
 OperatorAgent を起動すると、ログインダイアログが表示される前に自身のバージョンとサーバ側のバージョンの比較を行います。  
-		<br/>
-  	- OperatorAgent のバージョンがサーバのバージョンより古い場合には、自動的に更新処理が行われ OperatorAgent がサーバ側のバージョンに合わせてバージョンアップします。この更新処理はメジャーバージョンアップ時を除き、正常なバージョンアップが機能として保証されています。  
-		<br/>
-  	- OperatorAgent のバージョンがサーバのバージョンより新しい場合も同様に自動的に更新処理が行われ、 OperatorAgent がサーバ側のバージョンに合わせてバージョンダウンします。  
+	- OperatorAgent のバージョンがサーバのバージョンより古い場合には、自動的に更新処理が行われ OperatorAgent がサーバ側のバージョンに合わせてバージョンアップします。この更新処理はメジャーバージョンアップ時を除き、正常なバージョンアップが機能として保証されています。  
+	- OperatorAgent のバージョンがサーバのバージョンより新しい場合も同様に自動的に更新処理が行われ、 OperatorAgent がサーバ側のバージョンに合わせてバージョンダウンします。  
 ただし、この更新処理は OperatorAgent の更新内容等によっては、正常なバージョンダウンが保証されない場合があります。（その場合には、一度 OperatorAgent をアンインストールして、古いバージョンの OperatorAgent を新規インストールしてください。）  
 自動バージョンダウン処理がサポートされるかどうかは、バージョンアップの内容次第です。切り戻し時の作業内容を検討する際には、リリースノートを確認するか、サポートへお問合せください。  
-	<br />
-	![](images/NOTICE.png){width=50px}
-  　自動更新では処理中に **Windows Script Host （WSH）** の vbs がいくつか実行されます。（[@tbl:vbslist]）  
-	セキュリティソフトによって、WSH の実行が阻害されてしまう環境では、自動更新処理が正常に行われません。（インストーラによるインストールでもバージョンアップインストールでも、WSH は実行されます。）  
+
+		<br />
+
+		![](images/NOTICE.png){width=50px} 　自動更新では処理中に **Windows Script Host （WSH）** の vbs がいくつか実行されます。（[@tbl:vbslist]）  
+		セキュリティソフトによって、WSH の実行が阻害されてしまう環境では、自動更新処理が正常に行われません。（インストーラによるインストールでもバージョンアップインストールでも、WSH は実行されます。）  
 
 		No. | ファイル名 | 説明  |
 		----|---------------------|------------------|
@@ -818,28 +817,18 @@ OperatorAgent を起動すると、ログインダイアログが表示される
 
 		<br/>  
 
-		![](images/Tips.jpg){width=50px}
-			　OperatorAgent をコマンドラインから引数付きで起動することで自動更新を抑制できます。（[1-6. コマンドラインからの OperatorAgent 操作](#1-6. コマンドラインからの OperatorAgent 操作) 参照。）  
+		![](images/Tips.jpg){width=50px}　OperatorAgent をコマンドラインから引数付きで起動することで自動更新を抑制できます。（[1-6. コマンドラインからの OperatorAgent 操作](#1-6. コマンドラインからの OperatorAgent 操作) 参照。）  
 
 		<br/>
 
 	- ライセンス引当  
 	処理詳細は【要確認】  
-
-	<br />
-
 	- メインウィンドウの表示について  
-	メインウィンドウの表示は、 [@tbl:oa_window] の項目の設定値を判断して行われます。  
-
-		<br />
-
-  		- 初回起動  
+メインウィンドウの表示は、 [@tbl:oa_window] の項目の設定値を判断して行われます。  
+		- 初回起動  
 			1. `C:\Users\%UserName%\AppData\Local\Advanced_Media,_Inc` に設定ファイルが無ければ、初回起動時として動作します。  
 			2. 『初回起動時にウィンドウを表示状態にする』 の設定値を判断し、ウィンドウ表示を制御します。  
-
-			<br />
-
-  		- 通常起動  
+		- 通常起動  
 			1. `C:\Users\%UserName%\AppData\Local\Advanced_Media,_Inc` に設定ファイルが有れば、通常起動として動作します。  
 			2. 『起動時にウィンドウを表示状態に戻す』 の設定値を判断し、ウィンドウ表示を制御します。  
 			3. 表示しない設定の場合、『閉じたときにタスクバーに表示しない』 の設定値を判断し、タスクバー or 通知領域に情報を表示します。  
@@ -899,18 +888,18 @@ OperatorAgent を起動すると、ログインダイアログが表示される
 		```
 
 1. OperatorAgent 終了時の処理  
-   - ログオフ処理  
+	- ログオフ処理  
 ControlCenter にレジストされた、OperatorAgent のログイン情報（ユーザ・座席表の位置・内線番号との関連付け）などをリリースします。  
 OperatorAgent を VDI オプション付きでインストールしている場合には、ライセンスのリリースも実施します。
 
 		<br />
-	![](images/NOTICE.png){width=50px}
-　OperatorAgent を手動で終了せずに PC のシャットダウンを行った場合、PC がシャットダウンシーケンス開始を検出した OperatorAgent は自身も終了処理を実施します。さらに、終了処理が完了するまでの OS が完全にシャットダウンすることを待機させます。  
-	ただし、OS 側でも各種終了処理が並行で実施されるため、OperatorAgent が ControlCenter と通信しログオフ処理を完了する前に OS の通信デバイスが停止している可能性があります。その場合、OperatorAgent のログイン情報が ControlCenter 上に残り続けます。  
-ControlCenter は各 OperatorAgent の生存確認のための通信を実施しており、【要確認】  （[@tbl:oaping]） ControlCenter にレジストされた OperatorAgent のログイン情報はリリースされます。  
-ControlCenter 上での OperatorAgent のログイン情報は、ControlCenter のモニタリングメニューの `『ログイン状況』` 機能で確認できます。  
-SpeechVisualizer の座席表機能では、タイムアウトした OperatorAgent の座席にはタイムアウトアイコンが表示されます。([@fig:ismto])  
-この状態は、該当座席に対して新たな OperatorAgent がログインすることで解消されます。それまではタイムアウト済みの OperatorAgent からのレジスト情報が表示され続けます。  
+
+		![](images/NOTICE.png){width=50px}OperatorAgent を手動で終了せずに PC のシャットダウンを行った場合、PC のシャットダウンシーケンス開始を検出した OperatorAgent は自身も終了処理を実施します。さらに、終了処理が完了するまで OS が完全にシャットダウンすることを待機させます。  
+		ただし、OS 側でも各種終了処理が並行で実施されるため、OperatorAgent が ControlCenter と通信しログオフ処理を完了する前に OS の通信デバイスが停止している可能性があります。その場合、OperatorAgent のログイン情報が ControlCenter 上に残り続けます。  
+		ControlCenter は各 OperatorAgent の生存確認のための通信を実施しており、【要確認】  （[@tbl:oaping]） ControlCenter にレジストされた OperatorAgent のログイン情報はリリースされます。  
+		ControlCenter 上での OperatorAgent のログイン情報は、ControlCenter のモニタリングメニューの `『ログイン状況』` 機能で確認できます。  
+		SpeechVisualizer の座席表機能では、タイムアウトした OperatorAgent の座席にはタイムアウトアイコンが表示されます。([@fig:ismto])  
+		この状態は、該当座席に対して新たな OperatorAgent がログインすることで解消されます。それまではタイムアウト済みの OperatorAgent からのレジスト情報が表示され続けます。  
 
 		![座席表でのタイムアウト表示](images/1-2-ism_to.png){#fig:ismto width=250px}  
 
