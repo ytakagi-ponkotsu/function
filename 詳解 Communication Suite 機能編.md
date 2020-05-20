@@ -2249,7 +2249,7 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 
 		![検索結果上の通話に紐づいた認識結果](images/2-3-検索結果2.png){#fig:ninsikikekka1 width=900px}  
 
-		![実際の認識結果](images/2-3-検索結果〇〇.png){#fig:ninsikikekka2 width=900px}  
+		### ![実際の認識結果](images/2-3-検索結果〇.png){#fig:ninsikikekka2 width=900px}  
 
 
 
@@ -2530,10 +2530,9 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 ### 3-3. ログイン状況
 プロジェクト別に、所属ユーザの OperatorAgent でのログイン状況の確認する機能です。
 
-#### 3-3-1. ログイン状態の無効化
-この状態は、OperatorAgent でログイン状態にあるユーザのログイン状態を無効化（ログイン有効期限切れ）にする機能です。（[@fig:forcelogout] の 操作列のゴミ箱アイコン）  
-
-![ログイン状態の無効化](images/3-3-1_loginstatus.png){#fig:forcelogout width=800px}  
+- #### 3-3-1. ログイン状態の無効化
+- この状態は、OperatorAgent でログイン状態にあるユーザのログイン状態を無効化（ログイン有効期限切れ）にする機能です。（[@fig:forcelogout] の 操作列のゴミ箱アイコン）  
+- ![ログイン状態の無効化](images/3-3-1_loginstatus.png){#fig:forcelogout width=800px}  
 
 - ログイン状態の無効化とは、サーバに保存されているログイン情報を有効期限切れとして扱う操作になります。  
 この操作を実施することで、OperatorAgent が強制的に終了するわけではありません。  
