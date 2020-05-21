@@ -2545,43 +2545,48 @@ OperatorAgent からメッセージを送信することで、座席表ステー
 1. 各カラムの説明？必要か？
 2. 認識キューの状態遷移
 
-```plantuml
-@startuml
+	```plantuml
+	@startuml
 
-skinparam {
-	shadowing false
-	defaultFontName "Segoe UI, BIZ UDPゴシック, sans-serif"
-	BackgroundColor #afeeee
-	StateBackgroundColor white
-	ParticipantBorderColor black
-	ArrowColor black
-	StateBorderColor black
-}
+	skinparam {
+		shadowing false
+		defaultFontName "Segoe UI, BIZ UDPゴシック, sans-serif"
+		BackgroundColor #afeeee
+		StateBackgroundColor white
+		ParticipantBorderColor black
+		ArrowColor black
+		StateBorderColor black
+	}
 
-title ステートチャート図.1 [リアルタイム処理の認識キューの状態遷移]\n
+	title ステートチャート図.1 [リアルタイム処理の認識キューの状態遷移]\n
 
-[*] -> 認識前 : RR の通話開始\nアップロード
-認識前 --> 認識待機中 : CC からの認識依頼通知
-認識待機中 --> 認識中 : SR の認識開始\nアップロード
-認識中 --> 認識完了 : 認識処理の正常終了
-認識完了 --> [*] : SR の認識完了\nアップロード
-認識完了 --> FailedQueue : アップロード失敗（異常）
-FailedQueue : ステータスは認識完了
-認識完了 --> 認識完了 : アップロード失敗（正常）\nリトライを繰り返す
-認識中 --> 認識エラー : 処理エラー
+	[*] -> 認識前 : RR の通話開始\nアップロード
+	認識前 --> 認識待機中 : CC からの認識依頼通知
+	認識待機中 --> 認識中 : SR の認識開始\nアップロード\n通話継続中
+	state "認識中（B）" as バッチ
+	認識待機中 --> バッチ : SR の認識開始\nアップロード\n通話終了
+	バッチ : 認識要求種別はバッチ
+	バッチ --> バッチ : テキスト化
+	認識中 --> 認識完了 : 認識処理の正常終了
+	バッチ --> 認識完了 : 認識処理の正常終了
+	認識完了 --> [*] : SR の認識完了\nアップロード
+	認識完了 --> FailedQueue : アップロード失敗（異常）
+	FailedQueue : ステータスは認識完了
+	認識完了 --> 認識完了 : アップロード失敗（正常）\nリトライを繰り返す
+	認識中 --> 認識エラー : 処理エラー
+	バッチ --> 認識エラー : 処理エラー
 
-state 認識中 {
-  state "認識中（R）" as real
-  state "認識中（B）" as batch
-  real : Just a test
-  real --> real : テキスト化
-  real --> batch : RR の通話終了\nアップロード
-	batch --> batch : テキスト化
-}
-認識待機中 --> batch : 通話録音が終わっている
+	state 認識中 {
+	  state "認識中（R）" as real
+	  state "認識中（B）_疑" as batch
+	  batch : 認識要求種別はリアルタイム
+	  real --> real : テキスト化
+	  real --> batch : RR の通話終了\nアップロード
+		batch --> batch : テキスト化
+	}
 
-@enduml
-```
+	@enduml
+	```
 
 
 ### 3-5. 認識オプションの設定  
