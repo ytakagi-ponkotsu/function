@@ -30,6 +30,7 @@ tblPrefix: '表.'
 	- [3-1. ControlCenter のログイン](#3-1-controlcenter-のログイン)
 	- [3-2. ControlCenter ホーム](#3-2-controlcenter-ホーム)
 	- [3-3. ログイン状況](#3-3-ログイン状況)
+	- [3-4. ノード管理](#3-4-ノード管理)
 	- [3-5. 認識オプションの設定](#3-5-認識オプションの設定)
 <!-- TOC END -->
 
@@ -474,9 +475,9 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 
 	[@tbl:callb2] は、表示する通話属性で利用可能な通話属性の一覧です。通話プロバイダにより表示できる通話属性が異なります。  
-	OA に 〇 が付いているものはデフォルト設定で表示される通話属性です。  
+	標準に 〇 が付いているものはデフォルトで表示される通話属性です。  
 
-	No. | 通話属性識別名 | 名称                | OA | Amazon Connect	      | Avaya AES    | Avaya     | SIP CIC     | SIP CTstage    |SIP OAI     | SIP T-Server      |
+	No. | 通話属性識別名 | 名称                | 標準 | Amazon Connect	      | Avaya AES    | Avaya     | SIP CIC     | SIP CTstage    |SIP OAI     | SIP T-Server      |
 	----:|---------------------|------------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|
 	1   |amivoice.common.description | 備考 ||   |  |  |  |  |  |  |
 	2   |amivoice.common.direction | 向き|〇| 〇|〇|〇|〇|〇|〇|〇|
@@ -528,9 +529,10 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 	: OperatorAgent 表示する通話属性で利用可能な通話属性一覧 {#tbl:callb2}  
 
+	![](images/Check.png){width=50px}　相手の性別 は通話プロバイダから情報を取得するのではなく、性別識別用エンジンにて判断しています。  
 
-	![](images/Tips.jpg){width=50px}  
-	相手の性別 は通話プロバイダから情報を取得するのではなく、性別識別用エンジンにて判断しています。   
+	<br />
+
 	[@tbl:seibetuenjin] は性別識別エンジンに関連する設定項目となり、ControlCenter/認識管理/認識オプション にあります。   
 
 	No. | 設定タブ項目 | 設定項目名                | 内容      |
@@ -560,15 +562,13 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 	- 通話時間・・・録音開始 / 録音終了時刻から取得
 	- 保留・・・SIPまたはCTIイベントから取得
 
-1. 通話フィルタビュー   
-登録したキーワードがテキスト化された場合に様々なアクションを実行できる機能です。  （ [@fig:callfilter1]）  （ [@fig:callfilter2]）  
+1. 通話フィルタビュー（[@fig:callfilter1]） と 通話フィルタの通知（[@fig:callfilter2]）  
 
 	![OperatorAgent 上の通話フィルタ画面](images/2-1-通話フィルタ1.png){#fig:callfilter1 width=250px}  
 
-	![OperatorAgent 通話フィルタポップアップ画面](images/2-1-通話フィルタ2.png){#fig:callfilter2 width=250px}  
+	![OperatorAgent 通話フィルタ通知](images/2-1-通話フィルタ2.png){#fig:callfilter2 width=250px}  
 
-	![](images/Tips.jpg){width=50px}  
-	通話フィルタはリアルタイムでレスポンスを返すことを重視した設計となっており、発動条件は以下になります。  
+	![](images/Tips.jpg){width=50px}　通話フィルタはリアルタイムでレスポンスを返すことを重視した設計となっており、発動条件は以下になります。  
 
 	- 登録したキーワードを検知したタイミング
 	- 【要確認】 認識結果が確定前  
@@ -2222,14 +2222,7 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 
 		![検索結果上の通話に紐づいた認識結果](images/2-3-検索結果2.png){#fig:ninsikikekka1 width=900px}  
 
-		### ![実際の認識結果](images/2-3-検索結果〇.png){#fig:ninsikikekka2 width=900px}  
-
-
-
-
-
-
-
+		![実際の認識結果](images/2-3-検索結果〇.png){#fig:ninsikikekka2 width=900px}  
 
 ### 2-4. SpeechVisualizer 通話詳細  
 
@@ -2539,6 +2532,15 @@ OperatorAgent からメッセージを送信することで、座席表ステー
 	1. 通話開始  
 該当 OperatorAgent でログイン時に指定した内線番号で通話が開始すると、座席表及びログイン状況のログイン状態は有効化します。
 
+### 3-4. ノード管理
+
+#### 3-4-1. 各種プロセスの操作
+
+1. プロセスの停止
+1. プロセスの開始
+1. 設定再読込
+
+#### 3-4-2. 認識キューの
 
 ### 3-5. 認識オプションの設定  
 
