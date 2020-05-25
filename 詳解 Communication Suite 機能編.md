@@ -78,55 +78,56 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 
 : 詳細設定 設定分類 : OperatorAgent - ログイン {#tbl:table}  
 
- - 『内線番号の指定』 を **"true"** にすることで、ログインダイアログに内線番号入力欄が追加されます。（[@fig:naisenari]。VDI 等のシンクライアント環境で、クライアント PC と電話機を固定で紐付けできない場合に有効です。）  
+- 『内線番号の指定』 を **"true"** にすることで、ログインダイアログに内線番号入力欄が追加されます。（[@fig:naisenari]。VDI 等のシンクライアント環境で、クライアント PC と電話機を固定で紐付けできない場合に有効です。）  
 
-![内線番号入力可能なログイン画面](images/2020/02/1-1-operatoragent-naisenlogin.png){#fig:naisenari width=400px}
+	![内線番号入力可能なログイン画面](images/2020/02/1-1-operatoragent-naisenlogin.png){#fig:naisenari width=400px}  
 
-  - OperatorAgent のインストール時に内線番号を指定している場合には、指定番号が内線番号入力欄に表示されます。『内線番号の保存』 が **"false"** の場合も表示されます。）  
-  変更すると、ログイン出来なくなったり、他の席の電話番号と紐付けされてしまうので注意してください。
-  - 『内線番号の指定』 が **"false"** の場合でも、インストール時に内線番号が指定されていない場合で、かつ 『内線番号の情報が必要かどうか』 が "S" でかつサーバ版利用時 or "R" の場合には、内線番号入力欄が強制的に表示されます。
-  - 『ユーザIDの保存』 が true の場合、ユーザIDは、  
+- OperatorAgent のインストール時に内線番号を指定している場合には、指定番号が内線番号入力欄に表示されます。『内線番号の保存』 が **"false"** の場合も表示されます。）  
+変更すると、ログイン出来なくなったり、他の席の電話番号と紐付けされてしまうので注意してください。
+- 『内線番号の指定』 が **"false"** の場合でも、インストール時に内線番号が指定されていない場合で、かつ 『内線番号の情報が必要かどうか』 が "S" でかつサーバ版利用時 or "R" の場合には、内線番号入力欄が強制的に表示されます。
+- 『ユーザIDの保存』 が true の場合、ユーザIDは、  
 
-    ```
-    %USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config  
-    ```
-  の **LoginSettings/@LatestLoginUserId** に保存されます。 [^2] （この設定値は最後にログインに成功したユーザIDとなります。）
+	```
+	%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config  
+	```  
 
-   - 『パスワードの保存』 が true の場合、ログインパスワードは、Windows の  
-	 [コントロールパネル] → [ユーザー アカウント] → [資格情報マネージャー]  
-  に自動入力されたユーザID に対応するパスワードが保存されます。（ [@fig:shikaku]。この設定値は最後にログインに成功したパスワードとなります。）  
+	の **LoginSettings/@LatestLoginUserId** に保存されます。 [^2] （この設定値は最後にログインに成功したユーザIDとなります。）
 
-![資格情報マネージャーのログイン情報](images/1-1-win_shikaku.png){#fig:shikaku width=500px}  
+- 『パスワードの保存』 が true の場合、ログインパスワードは、Windows の  
+`[コントロールパネル] → [ユーザー アカウント] → [資格情報マネージャー]`  
+に自動入力されたユーザID に対応するパスワードが保存されます。（[@fig:shikaku]。この設定値は最後にログインに成功したパスワードとなります。）  
 
-   - 『内線番号の保存』 が true の場合、内線番号は、  
+	![資格情報マネージャーのログイン情報](images/1-1-win_shikaku.png){#fig:shikaku width=500px}  
 
-       ```
-       %USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config  
-       ```
-  の **LoginSettings/@LatestLoginLineKey** に保存されます。（この設定値は最後にログインに成功した内線番号となります。）
+- 『内線番号の保存』 が true の場合、内線番号は、  
+
+	```
+	%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config  
+	```  
+	の **LoginSettings/@LatestLoginLineKey** に保存されます。（この設定値は最後にログインに成功した内線番号となります。）
 
 [^2]:最後に
 
 #### 1-1-3. プロジェクトの選択
-- ログインするユーザが複数のプロジェクトに所属している場合には、ログインダイアログに続けてプロジェクト選択ダイアログが表示されます。([@fig:project])
+- ログインするユーザが複数のプロジェクトに所属している場合には、ログインダイアログに続けてプロジェクト選択ダイアログが表示されます。([@fig:project])  
 
-![プロジェクト選択画面](images/2020/02/1-1-operatoragent-projectchoice.png){#fig:project width=400px}
+	![プロジェクト選択画面](images/2020/02/1-1-operatoragent-projectchoice.png){#fig:project width=400px}
 
 #### 1-1-4. 統合 Windows 認証
 
- - 統合 Windows 認証機能を有効化している場合には、ログイン画面は表示されません。ただし、通常ログイン同様、ユーザが複数プロジェクトに所属していれば、[1-1-3. プロジェクトの選択](#1-1-3-選択) ： [@fig:project] のダイアログが表示されます。
- - インストール時に内線番号が指定されていない場合には、内線番号入力ダイアログ（[@fig:naisen]）が追加表示されます。  
+- 統合 Windows 認証機能を有効化している場合には、ログイン画面は表示されません。ただし、通常ログイン同様、ユーザが複数プロジェクトに所属していれば、[1-1-3. プロジェクトの選択](#1-1-3-選択) ： [@fig:project] のダイアログが表示されます。  
+- インストール時に内線番号が指定されていない場合には、内線番号入力ダイアログ（[@fig:naisen]）が追加表示されます。  
 
-![内線番号入力ダイアログ](images/1-1-operatoragentLogin_naisenonly.png){#fig:naisen width=400px}
+	![内線番号入力ダイアログ](images/1-1-operatoragentLogin_naisenonly.png){#fig:naisen width=400px}  
 
 - 統合 Windows 認証を利用するための Communication Suite 上の設定はありません。  
-  ただし、IIS に追加の設定が必要です。  
+ただし、IIS に追加の設定が必要です。  
 	1. OS の "機能と役割の追加" から IIS - Web サーバ - セキュリティ 設定で **Windows 認証** を有効化してください。([@fig:role])
 	2. IIS マネージャーの Web サイトの設定で、ControlCenter と SpeechVisualizer のそれぞれのサイトの認証の設定を以下の図と同様に変更します。（[@fig:siteconfig]）  
 
-![機能と役割の追加](images/1-1-IIS_role_windowslogin.png){#fig:role width=400px}
+		![機能と役割の追加](images/1-1-IIS_role_windowslogin.png){#fig:role width=400px}
 
-![Web サイトの設定](images/1-1-IIS_sitegonfig_login.png){#fig:siteconfig width=400px}
+		![Web サイトの設定](images/1-1-IIS_sitegonfig_login.png){#fig:siteconfig width=400px}
 
 #### 1-1-5. OperatorAgent 自動ログイン（統合 Windows 認証を利用しない）
 - [1-1-2. OperatorAgent のログイン機能に関連する ControlCenter の詳細設定項目](#1-1-2-operatoragent-機能関連-controlcenter-詳細設定項目)  ：  [@tbl:table] の 『自動ログイン』 が有効になっている場合には、統合 Windows 認証 を利用していなくてもログイン処理を省略可能です。  
@@ -211,11 +212,11 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 	※ 『Communication Suite ユーザ未登録』 は **統合 Windows 認証利用時のみ** のエラーとなります。
 
 
-#### 1-1-6. 本項のまとめ
+#### 1-1-6. 本項のまとめ  
 - [ ] OperatorAgent でのログインに関わる設定項目について理解ができた。  
-- [ ] OperatorAgent でのログインが単に認証しているだけでは無いことが理解できた。
+- [ ] OperatorAgent でのログインが単に認証しているだけでは無いことが理解できた。  
 - [ ] OperatorAgent の自動ログインについて理解ができた。  
-- [ ] OperatorAgent にログインできないときに原因の切り分けができそうだ。
+- [ ] OperatorAgent にログインできないときに原因の切り分けができそうだ。  
 
 <div style="page-break-before:always"></div>
 
@@ -230,7 +231,7 @@ OpertorAgentのメニュー画面について解説いたします、[@fig:mainb
 ![OperatorAgent メニュー](images/1-2-oa_header.png){#fig:oa_header width=600px  }
 
 1. OperatorAgent バージョン確認  
-  画面の左上の OperatorAgent ロゴを右クリックすると表示されるメニュー（[@fig:logoclick]）から OperatorAgent のバージョンを確認することができます。（[@fig:oaversion]）  
+画面の左上の OperatorAgent ロゴを右クリックすると表示されるメニュー（[@fig:logoclick]）から OperatorAgent のバージョンを確認することができます。（[@fig:oaversion]）  
 
 	![バージョンの確認方法](images/2-1-operatoragent_versionmenu.png){#fig:logoclick width=400px}  
 
@@ -291,8 +292,9 @@ SpeechVisualizer の通話検索機能で設定したマイクエリへのリン
 	- 通話中のメッセージ - 通話の属性情報として扱われます。通話データが削除されるタイミングで消去されます。
 	- 非通話中のメッセージ - 単純チャット情報として扱われます。24時間後に消去されます。  
 
-	<br />
 	![](images/NOTICE.png){width=50px}　**通話中のメッセージも非通話中のメッセージも閲覧する機能はありません。**  
+
+	<br />
 
 1. お知らせ  
 ControlCenter のお知らせ管理で登録されたお知らせのリストです。  
@@ -2644,7 +2646,7 @@ OperatorAgent からメッセージを送信することで、座席表ステー
 	- 認識前  
 		- 滞留原因  
 RR からの通話開始アップロード処理が DB のデッドロック頻発により、大幅に遅延し滞留が発生することがあります。  
-この場合、認識中（） の数値がカウントアップされなくなり、認識中 
+この場合、認識中（） の数値がカウントアップされなくなり、認識中
 Ver 3.2 未満でかつ、規模が大きい事例（同時 200通話以上くらい？）で顕著に発生します。
 		- 解消方法  
 SR のプロセスを部分的に停止します。どこかのタイミングで滞留数値が下がり始めます。  
