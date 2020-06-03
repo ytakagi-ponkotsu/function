@@ -33,7 +33,6 @@ equationTitle: '式.'
 	- [3-2. ControlCenter ホーム](#3-2-controlcenter-ホーム)
 	- [3-3. ログイン状況](#3-3-ログイン状況)
 	- [3-4. ノード管理](#3-4-ノード管理)
-	- [3-5. 認識オプションの設定](#3-5-認識オプションの設定)
 <!-- TOC END -->
 
 ## 序章 トレーニングにあたって
@@ -80,56 +79,55 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 
 : 詳細設定 設定分類 : OperatorAgent - ログイン {#tbl:table}  
 
-- 『内線番号の指定』 を **"true"** にすることで、ログインダイアログに内線番号入力欄が追加されます。（[@fig:naisenari]。VDI 等のシンクライアント環境で、クライアント PC と電話機を固定で紐付けできない場合に有効です。）  
+ - 『内線番号の指定』 を **"true"** にすることで、ログインダイアログに内線番号入力欄が追加されます。（[@fig:naisenari]。VDI 等のシンクライアント環境で、クライアント PC と電話機を固定で紐付けできない場合に有効です。）  
 
-	![内線番号入力可能なログイン画面](images/2020/02/1-1-operatoragent-naisenlogin.png){#fig:naisenari width=400px}  
+![内線番号入力可能なログイン画面](images/2020/02/1-1-operatoragent-naisenlogin.png){#fig:naisenari width=400px}
 
-- OperatorAgent のインストール時に内線番号を指定している場合には、指定番号が内線番号入力欄に表示されます。『内線番号の保存』 が **"false"** の場合も表示されます。）  
-変更すると、ログイン出来なくなったり、他の席の電話番号と紐付けされてしまうので注意してください。
-- 『内線番号の指定』 が **"false"** の場合でも、インストール時に内線番号が指定されていない場合で、かつ 『内線番号の情報が必要かどうか』 が "S" でかつサーバ版利用時 or "R" の場合には、内線番号入力欄が強制的に表示されます。
-- 『ユーザIDの保存』 が true の場合、ユーザIDは、  
+  - OperatorAgent のインストール時に内線番号を指定している場合には、指定番号が内線番号入力欄に表示されます。『内線番号の保存』 が **"false"** の場合も表示されます。）  
+  変更すると、ログイン出来なくなったり、他の席の電話番号と紐付けされてしまうので注意してください。
+  - 『内線番号の指定』 が **"false"** の場合でも、インストール時に内線番号が指定されていない場合で、かつ 『内線番号の情報が必要かどうか』 が "S" でかつサーバ版利用時 or "R" の場合には、内線番号入力欄が強制的に表示されます。
+  - 『ユーザIDの保存』 が true の場合、ユーザIDは、  
 
-	```
-	%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config  
-	```  
+    ```
+    %USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config  
+    ```
+  の **LoginSettings/@LatestLoginUserId** に保存されます。 [^2] （この設定値は最後にログインに成功したユーザIDとなります。）
 
-	の **LoginSettings/@LatestLoginUserId** に保存されます。 [^2] （この設定値は最後にログインに成功したユーザIDとなります。）
+   - 『パスワードの保存』 が true の場合、ログインパスワードは、Windows の  
+	 [コントロールパネル] → [ユーザー アカウント] → [資格情報マネージャー]  
+  に自動入力されたユーザID に対応するパスワードが保存されます。（ [@fig:shikaku]。この設定値は最後にログインに成功したパスワードとなります。）  
 
-- 『パスワードの保存』 が true の場合、ログインパスワードは、Windows の  
-`[コントロールパネル] → [ユーザー アカウント] → [資格情報マネージャー]`  
-に自動入力されたユーザID に対応するパスワードが保存されます。（[@fig:shikaku]。この設定値は最後にログインに成功したパスワードとなります。）  
+![資格情報マネージャーのログイン情報](images/1-1-win_shikaku.png){#fig:shikaku width=500px}  
 
-	![資格情報マネージャーのログイン情報](images/1-1-win_shikaku.png){#fig:shikaku width=500px}  
+   - 『内線番号の保存』 が true の場合、内線番号は、  
 
-- 『内線番号の保存』 が true の場合、内線番号は、  
-
-	```
-	%USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config  
-	```  
-	の **LoginSettings/@LatestLoginLineKey** に保存されます。（この設定値は最後にログインに成功した内線番号となります。）
+       ```
+       %USERPROFILE%/AppData/Local/Advanced_Media,_Inc/OperatorAgent.exe_StrongName_(長い文字列)/(バージョン番号)/user.config  
+       ```
+  の **LoginSettings/@LatestLoginLineKey** に保存されます。（この設定値は最後にログインに成功した内線番号となります。）
 
 [^2]:最後に
 
 #### 1-1-3. プロジェクトの選択
-- ログインするユーザが複数のプロジェクトに所属している場合には、ログインダイアログに続けてプロジェクト選択ダイアログが表示されます。([@fig:project])  
+- ログインするユーザが複数のプロジェクトに所属している場合には、ログインダイアログに続けてプロジェクト選択ダイアログが表示されます。([@fig:project])
 
-	![プロジェクト選択画面](images/2020/02/1-1-operatoragent-projectchoice.png){#fig:project width=400px}
+![プロジェクト選択画面](images/2020/02/1-1-operatoragent-projectchoice.png){#fig:project width=400px}
 
 #### 1-1-4. 統合 Windows 認証
 
-- 統合 Windows 認証機能を有効化している場合には、ログイン画面は表示されません。ただし、通常ログイン同様、ユーザが複数プロジェクトに所属していれば、[1-1-3. プロジェクトの選択](#1-1-3-選択) ： [@fig:project] のダイアログが表示されます。  
-- インストール時に内線番号が指定されていない場合には、内線番号入力ダイアログ（[@fig:naisen]）が追加表示されます。  
+ - 統合 Windows 認証機能を有効化している場合には、ログイン画面は表示されません。ただし、通常ログイン同様、ユーザが複数プロジェクトに所属していれば、[1-1-3. プロジェクトの選択](#1-1-3-選択) ： [@fig:project] のダイアログが表示されます。
+ - インストール時に内線番号が指定されていない場合には、内線番号入力ダイアログ（[@fig:naisen]）が追加表示されます。  
 
-	![内線番号入力ダイアログ](images/1-1-operatoragentLogin_naisenonly.png){#fig:naisen width=400px}  
+![内線番号入力ダイアログ](images/1-1-operatoragentLogin_naisenonly.png){#fig:naisen width=400px}
 
 - 統合 Windows 認証を利用するための Communication Suite 上の設定はありません。  
-ただし、IIS に追加の設定が必要です。  
+  ただし、IIS に追加の設定が必要です。  
 	1. OS の "機能と役割の追加" から IIS - Web サーバ - セキュリティ 設定で **Windows 認証** を有効化してください。([@fig:role])
 	2. IIS マネージャーの Web サイトの設定で、ControlCenter と SpeechVisualizer のそれぞれのサイトの認証の設定を以下の図と同様に変更します。（[@fig:siteconfig]）  
 
-		![機能と役割の追加](images/1-1-IIS_role_windowslogin.png){#fig:role width=400px}
+![機能と役割の追加](images/1-1-IIS_role_windowslogin.png){#fig:role width=400px}
 
-		![Web サイトの設定](images/1-1-IIS_sitegonfig_login.png){#fig:siteconfig width=400px}
+![Web サイトの設定](images/1-1-IIS_sitegonfig_login.png){#fig:siteconfig width=400px}
 
 #### 1-1-5. OperatorAgent 自動ログイン（統合 Windows 認証を利用しない）
 - [1-1-2. OperatorAgent のログイン機能に関連する ControlCenter の詳細設定項目](#1-1-2-operatoragent-機能関連-controlcenter-詳細設定項目)  ：  [@tbl:table] の 『自動ログイン』 が有効になっている場合には、統合 Windows 認証 を利用していなくてもログイン処理を省略可能です。  
@@ -214,11 +212,11 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 	※ 『Communication Suite ユーザ未登録』 は **統合 Windows 認証利用時のみ** のエラーとなります。
 
 
-#### 1-1-6. 本項のまとめ  
+#### 1-1-6. 本項のまとめ
 - [ ] OperatorAgent でのログインに関わる設定項目について理解ができた。  
-- [ ] OperatorAgent でのログインが単に認証しているだけでは無いことが理解できた。  
+- [ ] OperatorAgent でのログインが単に認証しているだけでは無いことが理解できた。
 - [ ] OperatorAgent の自動ログインについて理解ができた。  
-- [ ] OperatorAgent にログインできないときに原因の切り分けができそうだ。  
+- [ ] OperatorAgent にログインできないときに原因の切り分けができそうだ。
 
 <div style="page-break-before:always"></div>
 
@@ -233,7 +231,7 @@ OpertorAgentのメニュー画面について解説いたします、[@fig:mainb
 ![OperatorAgent メニュー](images/1-2-oa_header.png){#fig:oa_header width=600px  }
 
 1. OperatorAgent バージョン確認  
-画面の左上の OperatorAgent ロゴを右クリックすると表示されるメニュー（[@fig:logoclick]）から OperatorAgent のバージョンを確認することができます。（[@fig:oaversion]）  
+  画面の左上の OperatorAgent ロゴを右クリックすると表示されるメニュー（[@fig:logoclick]）から OperatorAgent のバージョンを確認することができます。（[@fig:oaversion]）  
 
 	![バージョンの確認方法](images/2-1-operatoragent_versionmenu.png){#fig:logoclick width=400px}  
 
@@ -294,9 +292,8 @@ SpeechVisualizer の通話検索機能で設定したマイクエリへのリン
 	- 通話中のメッセージ - 通話の属性情報として扱われます。通話データが削除されるタイミングで消去されます。
 	- 非通話中のメッセージ - 単純チャット情報として扱われます。24時間後に消去されます。  
 
-	![](images/NOTICE.png){width=50px}　**通話中のメッセージも非通話中のメッセージも閲覧する機能はありません。**  
-
 	<br />
+	![](images/NOTICE.png){width=50px}　**通話中のメッセージも非通話中のメッセージも閲覧する機能はありません。**  
 
 1. お知らせ  
 ControlCenter のお知らせ管理で登録されたお知らせのリストです。  
@@ -363,6 +360,9 @@ ControlCenter の詳細設定で設定された OperatorAgent の振る舞いを
 <hr/>
 
 #### 1-2-2. 通話表示機能
+
+書き込みがコミットできるかテスト
+
 
 1. 通話内容ビュー  
 OperatorAgent にログインした内線番号(モニタ内線番号)の通話の認識結果と関連する通話イベントを表示します。  
@@ -2104,27 +2104,31 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 1. クエリ文字列の最大長  
 検索クエリで指定できるクエリ文字列の長さは IIS の 「要求フィルター」の設定（[@fig:youkyuft] ）に依存しています。  
 デフォルト設定では クエリ文字列の最大長は 2048 バイト です。  
-クエリ文字列の最大長を超えた場合には、検索時に 【要確認】 「HTTP エラー 404.15 - Not Found」と表示されます。
+クエリ文字列の最大長を超えた場合には、検索時に 【要確認】 「HTTP エラー 404.15 - Not Found」が表示されます。
 
 	![IIS 要求フィルターの設定画面](images/2-3-要求フィルター.png){#fig:youkyuft width=500px}  
 
 1. 検索クエリ指定後の候補検索の仕組み  
+	【要確認】
+#### 2-3-3. 通話検索結果
 
-#### 2-3-3. 通話検索の結果
-通話検索後の機能について説明していきます。
-
- 1. 検索結果画面に表示する通話件数  
-	検索結果の対象となった通話を検索画面の1ページに表示する件数です。 [@tbl:kekka1] を編集して構成します。  
-
-	![検索結果で表示された通話画面](images/2-3-検索結果3.png){#fig:kekka1 width=600px}
+- 検索結果に関する詳細設定項目は [@tbl:kekka1] です。  
 
 	No. | 設定分類      | 設定項目名 | 内容|
 	---:|-----------|------------|----------------|
 	1   |  SpeechVisualizer - 通話検索  | 1ページ中に表示する件数 |検索画面の1ページ中に表示する通話の件数です。	[@fig:kekka1]の赤枠で囲った単位が対象です。  
+	2   |  SpeechVisualizer - 通話検索 | 前後に表示するページ数 |1ページに表示する件数を超える検索結果の場合にページ移動のためにボタンの数を指定します。有効値は「1～20」です。  
+	3   |  SpeechVisualizer - 通話検索  | 検索結果に表示する追加の通話属性|利用可能な通話属性は @tbl:tuwazokusei を参照。<br>書式は下記参照。（複数追加する場合は改行で区切る）
+
+ 1. 検索結果画面に表示する通話件数  
+	検索結果画面で1ページ内に表示する通話の件数です。 [@tbl:kekka1] を編集して構成します。  
+
+	![検索結果で表示された通話画面](images/2-3-検索結果3.png){#fig:kekka1 width=600px}
+
 
 	: 検索結果に関連する詳細設定項目 {#tbl:kekka1}
 
- 2. ページ移動のボタン  
+ 2. ページ移動ボタン  
 	1ページに表示する件数を超えた場合には画面下部中央にページ移動ボタンが表示されます。  
 	ページ移動ボタンに関連する設定は	[@tbl:kekka2] を編集して構成します。
 
@@ -2144,9 +2148,6 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 	[@fig:kekka5] は通話に紐づいた通話属性です。表示する通話属性は @tbl:tuuwazokusei0 を編集して構成します。  
 
 	![通話に紐づいた通話属性](images/2-3-検索結果5.png){#fig:kekka5 width=800px}
-
-	![](images/Tips.jpg){width=50px}　利用可能な通話属性に制限はありませんが、電話基盤や通話プロバイダによって通話属性の表示可否や、表示される属性の値が異なります。また、 @tbl:tuuwazokusei0 に設定されていない通話属性でも、情報を取得している通話属性はデータベース上に保存されており、あとから通話属性の設定を追加することで、過去通話に対しても属性情報が付与されます。
-
 
 	No. | 設定分類       | 設定項目名 | 設定値 |
 	---:|-----------|------------|----------------|
@@ -2217,18 +2218,19 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 
 	: 検索結果で表示可能な通話属性一覧 {#tbl:tuwazokusei}  
 
+	![](images/Tips.jpg){width=50px}　電話基盤や通話プロバイダによって通話属性の表示可否や、表示される属性の値が異なります。利用可能な通話属性に制限はありません。 @tbl:tuuwazokusei0 に設定していない通話属性であっても、情報を取得している通話属性はデータベース上に保存されており、通話属性を設定することで過去通話に対しても追加した属性情報が表示されます。
+
 	![](images/Check.png){width=50px}　相手番号や掛先番号の通話属性は IN （着信）と OUT （発信） で表示される内容が変わるケースがあります。相手番号の例として ACD（着信個自動分配装置）を利用している環境では、着信時に別の番号を経由してから内線番号に着信するため、相手番号の通話属性としてはACDのVDNが表示されます。（CTI連携で回避可能なケースもあります） OUT（発信）の場合は実際に掛けた番号が相手番号に入ります。  
 
 	![](images/Tips.jpg){width=50px}　利用可能な通話属性に制限はありませが、電話基盤や通話プロバイダによって表示可能な通話属性や表示される値が異なります。 @tbl:tuuwazokusei0 に設定していない通話属性であっても、情報を取得している通話属性はデータベース上に保存されており、通話属性を設定することで過去通話に対しても追加した属性情報が表示されるようになります。
 <br>
- 4.  検索結果に表示される通話内容  
-	検索結果に表示される認識結果は不要分を除外して表示しています。  
-	【要確認】表示する最大文字数の制限、除外対象となる文字列（基準があるのか、AMI独自なのか）  
-			[@fig:ninsikikekka1] は検索結果に表示された認識結果の除外例で、	[@fig:ninsikikekka2]は実際の認識結果です。  
+ 4.  検索結果の認識内容  
+	検索結果に表示される認識内容は不要分を除外して表示しています。  
+			[@fig:ninsikikekka1] は検索結果に表示された認識結果の除外例です。	[@fig:ninsikikekka2]は実際の認識結果です。  
 
-		![検索結果上の通話に紐づいた認識結果](images/2-3-検索結果2.png){#fig:ninsikikekka1 width=900px}  
+		![検索結果の認識内容](images/2-3-検索結果2.png){#fig:ninsikikekka1 width=800px}  
 
-		![実際の認識結果](images/2-3-検索結果〇.png){#fig:ninsikikekka2 width=900px}  
+		![実際の認識結果](images/2-3-検索結果6.png){#fig:ninsikikekka2 width=12000px}  
 
 ### 2-4. SpeechVisualizer 通話詳細  
 
@@ -2895,7 +2897,7 @@ StreamingRecognizer で認識処理中に処理を継続できない事象が発
 
 		: RealTimeRecorder - 復旧用音声（Raw ファイル） の保存期間 {#tbl:rr_raw}
 
-### 3-5. 認識オプションの設定  
+`###` 3-5. 認識オプションの設定  
 
 #### 3-5-1. システム共通設定とプロジェクト別設定
 認識オプションの設定は、システム共通の設定と各プロジェクト別に指定することができます。  
