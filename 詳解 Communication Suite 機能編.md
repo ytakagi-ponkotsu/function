@@ -33,6 +33,7 @@ equationTitle: '式.'
 	- [3-2. ControlCenter ホーム](#3-2-controlcenter-ホーム)
 	- [3-3. ログイン状況](#3-3-ログイン状況)
 	- [3-4. ノード管理](#3-4-ノード管理)
+	- [3-5. 認識オプションの設定](#3-5-認識オプションの設定)
 <!-- TOC END -->
 
 ## 序章 トレーニングにあたって
@@ -2163,13 +2164,14 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 #### 2-4-1. 通話詳細のメインビュー
 - 通話詳細は『通話内容ビュー』と『通話情報ビュー』で構成されています。各通話の通話詳細はDBへの通話情報のアップロード完了後、アクセス可能となります。（[@fig:calldetail])
 
-![通話詳細](images/2-4_detail.png){#fig:calldetail width=600px}
+	![通話詳細](images/2-4_detail.png){#fig:calldetail width=600px}  
 
-通話詳細画面のURLには会話識別子が使用されて全通話固有のURLとなります。
-通話詳細のURLは以下です。`#revision=`は省略可能です
-```
-http://"Webサーバのホスト名もしくはIPアドレス"/SpeechVisualizer/Detail.aspx?key="通話識別子"#revision=”版数”
-```
+	通話詳細画面のURLには会話識別子が使用されて全通話固有のURLとなります。  
+	通話詳細のURLは以下です。`#revision=`は省略可能です。  
+
+	```
+	http://"Webサーバのホスト名もしくはIPアドレス"/SpeechVisualizer/Detail.aspx?key="通話識別子"#revision=”版数”
+	```
 
 ####  2-4-2. 通話詳細の設定
 1. 詳細設定項目（[@tbl:detaildc])
@@ -2823,7 +2825,7 @@ StreamingRecognizer で認識処理中に処理を継続できない事象が発
 
 		: RealTimeRecorder - 復旧用音声（Raw ファイル） の保存期間 {#tbl:rr_raw}
 
-`###` 3-5. 認識オプションの設定  
+### 3-5. 認識オプションの設定  
 
 #### 3-5-1. システム共通設定とプロジェクト別設定
 認識オプションの設定は、システム共通の設定と各プロジェクト別に指定することができます。  
