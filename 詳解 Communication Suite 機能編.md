@@ -136,57 +136,79 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 
 	```plantuml
 	@startuml
+
 	skinparam {
-	defaultFontName BIZ UDPゴシック
+		shadowing false
+		defaultFontName "Segoe UI, BIZ UDPゴシック, sans-serif"
+		BackgroundColor #afeeee
+		ArrowColor black
 	}
-	skinparam backgroundColor #fffacd
+
 	skinparam activity  {
-	BackgroundColor #afeeee
-	BorderColor #000080
+		BorderColor #000000
+		DiamondBorderColor #008000
+		BackgroundColor #ffffff
 	}
 	title アクティビティ図.1 [OA 自動ログイン判定]\n
 
-
 	start
 	:OperatorAgent 起動;
-	if (内線番号の情報が必要かどうか) then (不要 ： 設定値『N』)
-	else (\n必要)
-		if (設定値 『S』 or 『R』) then (設定値『S』)
-			if (サーバ版？) then (\nYES)
-				if (内線番号) then (\n未入力)
-					-ログインダイアログ表示
+	if (内線番号情報が不要) then
+		-[#blue]-> 　Yes ： 不要;
+	else
+		-[#red]-> No ： 不要ではない;
+		if (内線番号必須) then
+			-[#blue]-> Yes;
+			if (内線番号入力済) then
+				-[#blue]-> Yes;
+			else
+				-[#red]-> \nNo ： 未入力;
+				:ログインダイアログ表示;
+				end
+			endif
+		else
+			-[#red]-> RR がローカルで動いていない場合に必要;
+			if (サーバ認識構成) then
+			-[#blue]-> \nYes;
+				if (内線番号入力済) then
+					-[#blue]-> Yes ： 入力済;
+				else
+					-[#red]-> \nNo ： 未入力;
+					:ログインダイアログ表示;
 					end
-				else (自動入力済)
 				endif
-			else (クライアント版)
-			endif
-		else (設定値『R』)
-			if (内線番号) then (\n未入力)
-				-ログインダイアログ表示
-				end
-			else (自動入力済)
+			else
+				-[#red]-> \nNo ： クライアント\n認識構成;
 			endif
 		endif
 	endif
-	if (\nユーザIDとパスワードの両方が\n自動入力されている\n) then (YES)
-		if (自動ログインの設定は有効か？) then (有効)
-		else (\n無効)
-		  -ログインダイアログ表示
+	if (\nユーザIDとパスワードの両方が\n自動入力されている\n) then
+		-[#blue]-> \nYes;
+		if (自動ログインの設定は有効か？) then
+			-[#blue]-> \nYes;
+		else
+			-[#red]-> \nNo;
+			:ログインダイアログ表示;
 			end
 		endif
-	else (いずれかもしくは両方が未入力)
-		if (\nコマンドライン実行(※) で、引数により\nユーザIDとパスワードが設定されている\n) then (YES)
-			if (自動ログインの設定は有効か？) then (有効)
-			else (\n無効)
-			  -ログインダイアログ表示
+	else
+		-[#red]-> No : いずれかもしくは両方が未入力;
+		if (\nコマンドライン実行(※) で、引数により\nユーザIDとパスワードが設定されている\n) then
+			-[#blue]-> Yes;
+			if (自動ログインの設定は有効か？) then
+				-[#blue]-> Yes;
+			else
+				-[#red]-> \n No ： 無効;
+				:ログインダイアログ表示;
 				end
 			endif
-		else (NO)
-			-ログインダイアログ表示
+		else
+			-[#red]-> \n No ： 無効;
+			:ログインダイアログ表示;
 			end
 		endif
 	endif
-	#plum:自動ログイン実行;
+	#dbff00:自動ログイン実行;
 	floating note right: ※ コマンドライン引数については \n 1-2-6. コマンドラインからの OperatorAgent 操作 \nを参照して下さい。
 	@enduml
 	```
@@ -852,14 +874,20 @@ OperatorAgent を起動すると、ログインダイアログが表示される
 
 		```plantuml
 		@startuml
+
 		skinparam {
-		defaultFontName BIZ UDPゴシック
+			shadowing false
+			defaultFontName "Segoe UI, BIZ UDPゴシック, sans-serif"
+			BackgroundColor #afeeee
+			ArrowColor black
 		}
-		skinparam backgroundColor #fffacd
+
 		skinparam activity  {
-		BackgroundColor #afeeee
-		BorderColor #000080
+			BorderColor #000000
+			DiamondBorderColor #008000
+			BackgroundColor #ffffff
 		}
+
 		title アクティビティ図.2 [OA ウィンドウ表示判定]\n
 
 		start;
@@ -869,28 +897,28 @@ OperatorAgent を起動すると、ログインダイアログが表示される
 			if (\n起動時に\nウィンドウを表示状態に戻す\n) then
 				-[#blue]-> \nTrue;
 				:OperatorAgent ウィンドウ表示;
-				-[#black]->
 				end;
+			else
+				-[#red]-> \nFalse;
 			endif
 		else
-		  -> False : 初回起動処理;
+			-[#red]-> \nFalse : 初回起動処理;
 				if (\n初回起動時に\nウィンドウを表示状態にする\n) then
 					-[#blue]-> \nTrue;
 					:OperatorAgent ウィンドウ表示;
-					-[#black]->
 					end;
+				else
+					-[#red]-> \nFalse;
 				endif
 		endif
 		if (\n閉じたときに\nタスクバーに表示しない\n) then
 			-[#blue]-> \nTrue;
 			:OperatorAgent を最小化し、\n通知領域に格納;
-			-[#black]->
 		else
-			-> \nFalse;
+			-[#red]-> \nFalse;
 			:OperatorAgent を\n最小化してタスクバー表示;
 			-[#black]->
 		endif
-		-[#black]->
 		end;
 		@enduml
 		```
