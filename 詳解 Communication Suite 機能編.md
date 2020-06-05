@@ -2016,31 +2016,29 @@ Communication Suite の通話検索は、検索条件 UI に各種条件を設�
 	p:インバウンド
 	```
 
-	![](images/Tips.jpg){width=50px}　各アイコンごとに利用可能な検索クエリは複数あります。  
-	例）プロジェクトの場合は `p`,`pj`,`proj`,`project` の中から指定することができます。  
+	![](images/Tips.jpg){width=50px}　基本の検索クエリ以外でも、指定可能な検索クエリが用意されているものがあります。 @tbl:kensakuquery1 参照  
+	例）プロジェクトの場合は `p`が基本の検索クエリですが、他にも,`pj`,`proj`,`project` で指定することが可能です。  
 <br>
 
-
-
-	No. | デフォルト検索クエリ       |利用可
+	No. | 基本の検索クエリ       |指定可能
 	-:|-----|-------|
 	1   |  p  |`pj` `proj` `project`
-	2   |    |
-	3   |    |
-	4   |    |
-	5   |    |
+	2   |  d  |`date` `daterange`
+	3   |  t  |`time` `timerange`
+	4   | op   |`operator` `user`
+	5   | ed |`editor` `edituser` `editoperator`
+	6   |  tel |`telephone` `phone` `phonenumber`
+	7   | f   |`filter`
+	8   | cd   |`direction` `calldirection`
+	9   | ge   |`sex` `gender`
+	10   |score   |`bayes`
+	11   | qe   |`qualityevaluation`
+
+	: 指定可能な検索クエリ一覧 {#tbl:kensakuquery1}  
 
 
 
-
-
-
-
-
-
-
-
-	製品マニュアルでは公開していない利用可能な検索クエリは以下です。  
+	@tbl:kensakuquery2 は製品マニュアルで公開していない利用可能な検索クエリです。  
 
 	No. | 検索条件|検索クエリ|説明
 	---:|-----------------|--------------|------------|
@@ -2049,9 +2047,9 @@ Communication Suite の通話検索は、検索条件 UI に各種条件を設�
 	3   | 自分の通話         |mine       |自分の通話を検索
 	4   | 最終更新者ID         |edid        |最終更新者のオペレータIDを検索
 	5   | お気に入り              |favorite         |お気に入りの通話を検索
-	6   | 履歴              |history  |自分の履歴を検索<br>再生履歴の書式・・・ history:再生<br>編集履歴の書式・・・history:編集<br>表示履歴の書式・・・history:表示  
+	6   | 通話の操作履歴              |history  |自分の操作履歴を検索<br>再生履歴の書式・・・ history:再生<br>編集履歴の書式・・・history:編集<br>表示履歴の書式・・・history:表示  
 
-
+	: 公開していない利用可能な検索クエリ {#tbl:kensakuquery2}  
 
 1. 条件の組み合わせ  
 	基本のクエリを複数組み合わせて、複数検索条件を指定して **AND 検索** することができます。  
