@@ -1200,46 +1200,46 @@ OperatorAgent を VDI オプション付きでインストールしている場�
 
 		```plantuml
 		@startuml
+
 		skinparam {
-		defaultFontName BIZ UDPゴシック
+			shadowing false
+			defaultFontName "Segoe UI, BIZ UDPゴシック, sans-serif"
+			BackgroundColor #afeeee
+			ArrowColor black
 		}
-		skinparam backgroundColor #fffacd
+
 		skinparam activity  {
-		BackgroundColor #afeeee
-		BorderColor #000080
+			BorderColor #000000
+			DiamondBorderColor #008000
+			BackgroundColor #ffffff
 		}
+
 		title アクティビティ図.3 [SpeechVisualizer ログイン]\n
 
 		start;
 		-[#black]-> SpeechVisualizer にアクセス;
 		if (\n認証 Cookie が有効期限内\n) then
-		  -[#blue]-> Yes;
+			-[#blue]-> Yes;
 			:SpeechVisualizer 起動;
-			-[#black]->
 			end;
 		else
-		  -> No;
+		-[#red]-> No;
 				if (\n統合 Windows 認証\n) then
 					-[#blue]-> \nYes;
 					:SpeechVisualizer 起動;
-					-[#black]->
 					end;
 				else
-				  -> \nNo;
-				  :フォーム認証;
-					-[#black]->
+					-[#red]-> No;
+					:フォーム認証;
 				endif
 		endif
 		if (\nOperatorAgent 連携起動\n) then
-			-[#blue]-> \nYes;
+			-[#blue]-> 　Yes;
 		else
-			-> \nNo;
+			-[#red]-> \nNo;
 			:ログイン画面表示 ＆ \n手動ログイン処理;
-			-[#black]->
 		endif
-		-[#black]->
 		:SpeechVisualizer 起動;
-		-[#black]->
 		end;
 		@enduml
 		```
@@ -2225,6 +2225,15 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 
 
 
+#### 2-3-4. 通話検索の対象となる通話データのステータス（構成を絡めて）
+- リアルタイムでは、正常終了、認識完了 or 認識エラー？
+- MediaScriber では、RR からの処理が終われば表示される？  
+↓ とも関連  
+
+	```
+	#### 2-4-1. 通話詳細のメインビュー
+	- 通話詳細は『通話内容ビュー』と『通話情報ビュー』で構成されています。各通話の通話詳細はDBへの通話情報のアップロード完了後、アクセス可能となります。（[@fig:calldetail])
+	```
 
 ### 2-4. SpeechVisualizer 通話詳細  
 
