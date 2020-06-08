@@ -384,9 +384,6 @@ ControlCenter の詳細設定で設定された OperatorAgent の振る舞いを
 
 #### 1-2-2. 通話表示機能
 
-書き込みがコミットできるかテスト
-
-
 1. 通話内容ビュー  
 OperatorAgent にログインした内線番号(モニタ内線番号)の通話の認識結果と関連する通話イベントを表示します。  
 
@@ -398,16 +395,21 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 		1 | 通話開始 | RealTimeRecorder でモニタ内線番号の通話開始を検出時に通知されます。 | [@fig:startobi]  
 		2 | 通話終了 | RealTimeRecorder でモニタ内線番号の通話終了を検出時に通知されます。 | [@fig:startobi]  
 		3 | 保留開始 | RealTimeRecorder でモニタ内線番号の録音中に保留開始を検出時に通知されます。 | [@fig:holdobi]  
-		4 | 保留解除 | RealTimeRecorder でモニタ内線番号の通話保留中、保留解除を検出時に通知されます。 | [@fig:startobi]  
-		5 | 通話切替 | RealTimeRecorder でモニタ内線番号の録音中、録音対象の RTP の MediaResource が切り替わったときに通知されます。 | [@fig:kirikaeobi]  
+		4 | 保留解除 | RealTimeRecorder でモニタ内線番号の通話保留中、保留解除を検出時に通知されます。 | [@fig:holdobi]  
+		5 | 保留終了 | RealTimeRecorder でモニタ内線番号の通話保留中に通話が切断した時に通知されます。 | [@fig:holdobi]  
+		6 | 保留エラー | 【要確認】保留中にパケットロストをすると再現する？ | [@fig:holdobi]  
+		7 | 通話切替 | RealTimeRecorder でモニタ内線番号の録音中、録音対象の RTP の MediaResource が切り替わったときに通知されます。 | [@fig:kirikaeobi]  
+		8 | 通話エラー | 【要確認】RealTimeRecorder でモニタ内線番号の録音中、呼制御のパケットロストを検出時に通知されます。 | [@fig:startobi]  
 
 		: 通話イベントの種類 {#tbl:callevent}
 
 		![通話イベント ： 通話開始 ＆ 通話終了](images/2-1-通話開始.png){#fig:startobi width=500px}
 
-		![通話イベント ： 保留開始 ＆ 保留解除](images/2-1-保留.png){#fig:holdobi width=500px}
+		![通話イベント ： 保留開始 ＆ 保留解除 ＆ 保留終了＆ 保留エラー【要確認】事象発生させて画像追加する](images/2-1-保留.png){#fig:holdobi width=500px}
 
 		![通話イベント ： 通話切替](images/2-1-通話切替.png){#fig:kirikaeobi width=500px}  
+
+		![通話イベント ： 通話エラー](images/2-1-通話エラー.png){#fig:tuuwaerror width=500px}  
 
 	- 認識結果  
 認識結果は StreamingRecognizer から OperatorAgent へ送信されます。  
