@@ -789,17 +789,12 @@ OperatorAgent から SpeechVisualizer の座席表に登録したヘルプ要求
 
 #### 1-3. 通話終了後の機能
 
- 1. SpeechVisualizer ボタン  
-OperatorAgent 上で表示されている通話の SpeechVisualizer の通話詳細画面を呼び出します。 ([@fig:opsv])  
-Speech Visualizer ボタンは条件を満たすとボタンが活性化されます。（SpeechVisualizer 機能を呼び出すための各種設定は [@tbl:oasv] です。  
+1. SpeechVisualizer ボタン（[@fig:opsv]）  
+OperatorAgent 上で表示されている通話の SpeechVisualizer の通話詳細画面を呼び出します。  
+ボタンは、通話開始前や通話中は非活性状態にあり、操作できません。  
+該当通話の認識結果のアップロードが、StreamingRecognizer から ControlCenter に対して完了すると、その旨が ControlCenter から OperatorAgent に通知されることにより活性化します。
 
  	![SpeechVisualizer ボタン](images/2-1-opsv.png){#fig:opsv width=100px}  
-
-	No. | 条件内容
-	-:|---------
-	1  | 【確認中】 [**#8235**](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8235) ボタンが活性化する条件を詳し書く。通話のアップロードが完了していないとOA上で通話終了とならない？SRから音声ファイル無しでアップロード完了した場合や、認識結果のアップロードエラーになった場合でもリンクボタンは押せるのか？等。処理の流れも確認。
-
-	: OperatorAgent の SpeechVisualizer ボタン有効化 {#tbl:oasv}
 
 2. 通話終了後に通話属性を設定する  
 通話終了後に通話に紐づく通話属性を追加することができる機能です。  
@@ -854,7 +849,9 @@ OperatorAgent を起動すると、ログインダイアログが表示される
 		<br/>
 
 	- ライセンス引当  
-	処理詳細は【要確認】  
+OperatorAgent がインストールされた PC 毎にライセンスの引当が行われます。引当のタイミングは、該当の PC で、  
+ログイン処理を実施したタイミングです。  
+通常は、PC 毎に1回実施されますが、VDI オプション または RDS オプション指定時には、ログイン処理毎に行われます。
 	- メインウィンドウの表示について  
 メインウィンドウの表示は、 [@tbl:oa_window] の項目の設定値を判断して行われます。  
 		- 初回起動  
@@ -928,13 +925,13 @@ OperatorAgent を起動すると、ログインダイアログが表示される
 1. OperatorAgent 終了時の処理  
 	- ログオフ処理  
 ControlCenter にレジストされた、OperatorAgent のログイン情報（ユーザ・座席表の位置・内線番号との関連付け）などをリリースします。  
-OperatorAgent を VDI オプション付きでインストールしている場合には、ライセンスのリリースも実施します。
+OperatorAgent を VDI オプション付きでインストールしている場合には、ライセンスのリリース（[【確認中#8237】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8237)）も実施します。
 
 		<br />
 
 		![](images/NOTICE.png){width=50px}OperatorAgent を手動で終了せずに PC のシャットダウンを行った場合、PC のシャットダウンシーケンス開始を検出した OperatorAgent は自身も終了処理を実施します。さらに、終了処理が完了するまで OS が完全にシャットダウンすることを待機させます。  
 		ただし、OS 側でも各種終了処理が並行で実施されるため、OperatorAgent が ControlCenter と通信しログオフ処理を完了する前に OS の通信デバイスが停止している可能性があります。その場合、OperatorAgent のログイン情報が ControlCenter 上に残り続けます。  
-		ControlCenter は各 OperatorAgent の生存確認のための通信を実施しており、【要確認】  （[@tbl:oaping]） ControlCenter にレジストされた OperatorAgent のログイン情報はリリースされます。  
+		ControlCenter は各 OperatorAgent の生存確認のための通信を実施しており、[【確認中#8239】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8239) 、 [【確認中#8240】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8240)（[@tbl:oaping]） ControlCenter にレジストされた OperatorAgent のログイン情報はリリースされます。  
 		ControlCenter 上での OperatorAgent のログイン情報は、ControlCenter のモニタリングメニューの `『ログイン状況』` 機能で確認できます。  
 		SpeechVisualizer の座席表機能では、タイムアウトした OperatorAgent の座席にはタイムアウトアイコンが表示されます。([@fig:ismto])  
 		この状態は、該当座席に対して新たな OperatorAgent がログインすることで解消されます。それまではタイムアウト済みの OperatorAgent からのレジスト情報が表示され続けます。  
