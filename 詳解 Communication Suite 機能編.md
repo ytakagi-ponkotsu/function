@@ -817,8 +817,8 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 		-  通話を転送した場合（転送元、転送先で計2ライセンスを消費）  
 		-  再認識を実施した通話（ConrtolCenter の認識オプションの設定で感情解析が有効な場合）  
 		-  電話機のモニタ機能を利用時、モニタ実施電話機の音声が通話と録音される場合  
-		-  「短い通話の録音キャンセル」機能によりキャンセルされた通話（CCの設定場所【要確認】）  
-		-  「長い通話の分割」機能により分割された通話（CCの設定場所【要確認】）   
+		-  「短い通話の録音キャンセル」機能によりキャンセルされた通話（CCの設定場所【確認済：要修正】 → RealTimeRecorder - 録音音声 - 短い通話と判断する通話時間 & 短い通話の扱い）  
+		-  「長い通話の分割」機能により分割された通話（CCの設定場所【確認済：要修正】 → RealTimeRecorder - 録音音声 - 1通話の最大録音時間 & 最大録音時間を超えたときの扱い）  
 
 	- 通話内で感情解析の対象とする範囲  
 1通話内で感情解析の対象とする範囲をControlCenter の認識オプションの設定で制御することができます。（3-5 認識オプション参照）  
@@ -828,7 +828,7 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 1. SpeechVisualizer ボタン（[@fig:opsv]）  
 OperatorAgent 上で表示されている通話の SpeechVisualizer の通話詳細画面を呼び出します。  
 ボタンは、通話開始前や通話中は非活性状態にあり、操作できません。  
-該当通話の認識結果のアップロードが、StreamingRecognizer から ControlCenter に対して完了すると、その旨が ControlCenter から OperatorAgent に通知されることにより活性化します。
+該当通話の認識結果のアップロードが、StreamingRecognizer から ControlCenter に対して完了すると、その旨が ControlCenter から OperatorAgent に通知されることにより活性化します。（認識エラーとなった通話や、アップロードに失敗した通話の場合には活性化しません。）
 
  	![SpeechVisualizer ボタン](images/2-1-opsv.png){#fig:opsv width=100px}  
 
@@ -961,9 +961,7 @@ OperatorAgent がインストールされた PC 毎にライセンスの引当�
 1. OperatorAgent 終了時の処理  
 	- ログオフ処理  
 ControlCenter にレジストされた、OperatorAgent のログイン情報（ユーザ・座席表の位置・内線番号との関連付け）などをリリースします。  
-OperatorAgent を VDI オプション付きでインストールしている場合には、ライセンスのリリース（[【確認中#8237】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8237)）も実施します。
-
-		<br />
+	<br />
 
 		![](images/NOTICE.png){width=50px}OperatorAgent を手動で終了せずに PC のシャットダウンを行った場合、PC のシャットダウンシーケンス開始を検出した OperatorAgent は自身も終了処理を実施します。さらに、終了処理が完了するまで OS が完全にシャットダウンすることを待機させます。  
 		ただし、OS 側でも各種終了処理が並行で実施されるため、OperatorAgent が ControlCenter と通信しログオフ処理を完了する前に OS の通信デバイスが停止している可能性があります。その場合、OperatorAgent のログイン情報が ControlCenter 上に残り続けます。  
@@ -981,6 +979,9 @@ OperatorAgent を VDI オプション付きでインストールしている場�
 		3   | 受信タイムアウト | 120000（ミリ秒） | 【要確認】  
 
 		: 詳細設定 項目分類 『OperatorAgent - 状態通知』 {#tbl:oaping}
+
+		![](images/Tips.jpg){width=50px}　OperatorAgent を RDS or VDI オプション付きでインストールしている場合、ライセンスのリリースはログオフとは同期して処理されません。  
+		ControlCenter の 『ライセンス状況』・『ログイン状況』 の表示時に、ログアウトやタイムアウトの状態になったライセンスを解放しています。  
 
 #### 1-5. OperatorAgent からのコマンド実行
 - OperatorAgent からは、詳細設定項目（[@tbl:oacommand]）を設定することで指定したタイミングでコマンドを実行することができます。
@@ -1070,7 +1071,7 @@ OperatorAgent を VDI オプション付きでインストールしている場�
 	15   |  OperatorPhoneNumber | 自番号 | No.9 |
 	16   |  OperatorPhoneLabel | 自分のID | No.8 | 電話基盤へのログイン情報
 	17   |  OperatorGroup | 受電グループ | No.10 | 受電スキル
-	18   |  OperatorHostName | 自分のホスト名 | No.11 | 【要確認】
+	18   |  OperatorHostName | 自分のホスト名 | No.11 | [【確認中#8241】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8241)
 	19   |  Direction | 通話の向き | No.2 |
 	20   |  LineType | 通話種別 | No.3 |
 	21   |  CustomerPhoneNumber | 相手番号 | No.14 |
@@ -1127,7 +1128,7 @@ OperatorAgent を VDI オプション付きでインストールしている場�
 	- 『ユーザIDの指定』 と 『パスワードの指定』 を同時に組合せることにより、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
 	- 『内線番号の指定』 は、一時的に設定済みの内線番号ではない電話機と組み合わせてテストするときなどに指定します。  
 	- 『自動アップデートの禁止』 不具合があることがわかっている OperatorAgent に自動バージョンアップをさせたくない場合などに指定します。  
-	- 『言語の指定』 【要確認】  
+	- 『言語の指定』 [【確認中#8242】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8242)  
 	- 『起動中のOAを終了』 は、端末の操作が著しく限定されている。かつ、端末シャットダウン時に実行中のアプリケーションの全終了が条件の環境で利用しています。
 
 #### 1-7. OperatorAgent のインストール
@@ -1286,8 +1287,8 @@ OperatorAgent を VDI オプション付きでインストールしている場�
 	---:|------------------|--------------|------|
 	1   |  ブラウザログインタイムアウト | 1800        | 認証 Cookie の生存期間です
 	2   |  ブラウザログインを継続するための通知間隔 | 20        | 座席表画面で 『ブラウザログインタイムアウト』 が発生しないようにするための設定値です |
-	3   |  ログイン維持の通知間隔 | 180       | 【要確認】 no2 との違いが不明、OperatorAgent の項目？
-	4   |  ログイン状況タイムアウト | 600        | 【要確認】  これも OperatorAgent 用の項目か？
+	3   |  ログイン維持の通知間隔 | 180       | [【確認中#8243】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8243) no2 との違いが不明、OperatorAgent の項目？
+	4   |  ログイン状況タイムアウト | 600        | [【確認中#8243】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8243)  これも OperatorAgent 用の項目か？
 
 	: SpeechVisualizer ブラウザログインタイムアウト {#tbl:svloginto}
 
@@ -1417,7 +1418,7 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 
 		No. | 設定項目      | デフォルトの設定 |設定内容
 		---:|------|------------------|-  |    
-		1  | 【要確認】  | 未設定  | 【要確認】  |    
+		1  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)  | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
 
 		: プロフィールガジェットの書式説明 {#tbl:svhomeprofile}  
@@ -1453,9 +1454,9 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |   
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  | 0:無効化,1:有効化   |   
-		3  |【要確認】   | 未設定  | 【要確認】  
-		4  |【要確認】   | 未設定  | 【要確認】    
-		5  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)  
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)    
+		5  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		6  |感情解析結果の表示   | 1  | 0:表示しない,1:表示する   |   
 		:自分の通話ガジェットの書式説明 {#tbl:svhomemyrecent}
 
@@ -1474,9 +1475,9 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |     
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
-		3  |【要確認】   | 未設定  | 【要確認】  
-		4  |【要確認】   | 未設定  | 【要確認】    
-		5  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)  
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)    
+		5  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |   
 		:自分の通話(IN)ガジェットの書式説明 {#tbl:svhomemyrecentinbound}
 
@@ -1493,9 +1494,9 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |   
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
-		3  |【要確認】   | 未設定  | 【要確認】  
-		4  |【要確認】   | 未設定  | 【要確認】    
-		5  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)  
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)    
+		5  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |   
 		:自分の通話(OUT)ガジェットの書式説明 {#tbl:svhomemyrecentoutbound}
 
@@ -1512,8 +1513,8 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |    
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
-		3  |【要確認】   | 未設定  | 【要確認】     
-		4  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)     
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5  |カラムの表示   |1|1:オペレータ名で表示,2:内線番号で表示   |  
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |   
 		:所属プロジェクトの通話ガジェットの書式説明 {#tbl:svhomeprojectrecent}
@@ -1532,8 +1533,8 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |   
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
-		3  |【要確認】   | 未設定  | 【要確認】    
-		4  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)    
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5  |カラムの表示   |1|1:オペレータ名で表示,2:内線番号で表示   |  
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |   
 		:所属プロジェクトの通話(IN)ガジェットの書式説明 {#tbl:svhomeprojectrecentInbound}
@@ -1551,8 +1552,8 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |   
 		1   |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
-		3   |【要確認】   | 未設定  | 【要確認】     
-		4   |【要確認】   | 未設定  | 【要確認】
+		3   |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)     
+		4   |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5   |カラムの表示   | 1 |1:オペレータ名で表示,2:内線番号で表示   |  
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |   
 		:所属プロジェクト(OUT)の通話ガジェットの書式説明 {#tbl:svhomeprojectrecentoutbound}
@@ -1570,8 +1571,8 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |   
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  | 0:無効化,1:有効化   |     
-		3  |【要確認】   | 未設定  | 【要確認】    
-		4  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)    
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5  |カラムの表示   | 1 | 1:オペレータ名で表示,2:内線番号で表示 |  
 		6  |感情解析結果の表示   | 1  | 0:表示しない,1:表示する   |  
 		:自分が最近再生した通話ガジェットの書式説明 {#tbl:svhomemyrecentplayhistory}
@@ -1589,8 +1590,8 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |    
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |    
-		3  |【要確認】   | 未設定  | 【要確認】     
-		4  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)     
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5  |カラムの表示   |1|1:オペレータ名で表示,2:内線番号で表示  |  
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |  
 		:自分が最近参照した通話ガジェットの書式説明 {#tbl:svhomemyrecentviewhistory}
@@ -1608,8 +1609,8 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |   
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |     
-		3  |【要確認】   | 未設定  | 【要確認】    
-		4  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)    
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5  |カラムの表示   |1|1:オペレータ名で表示,2:内線番号で表示 |  
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |  
 		:自分が最近編集した通話ガジェットの書式説明 {#tbl:svhomemyrecentedithistory}
@@ -1627,7 +1628,7 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |   
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |     
-		3   |【要確認】   | 未設定  | 【要確認】|   
+		3   |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)|   
 		:自分の通話に対する最近のコメントガジェットの書式説明 {#tbl:svhomerecentcomment}
 
 
@@ -1710,8 +1711,8 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |    
 		1   |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |     
-		3   |【要確認】   | 未設定  | 【要確認】    
-		4   |【要確認】   | 未設定  | 【要確認】
+		3   |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)    
+		4   |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5   |カラムの表示   |1|1:オペレータ名で表示,2:内線番号で表示 |  
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |  
 		:マイクエリガジェットの書式説明 {#tbl:svhomemyquery}
@@ -1731,7 +1732,7 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |     
 		3  |対象期間   | 1  |UI上は今日のみ(1) 、昨日から(2)、過去7日（7）のみ。詳細設定では任意の数字で指定が可能です。   
-		4  |【要確認】   | 未設定  | 【要確認】
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5  |カラムの表示   |1|1:オペレータ名で表示,2:内線番号で表示 |  
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |  
 		:通話スコアリングガジェットの書式説明 {#tbl:svhomescore}
@@ -2194,24 +2195,25 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 
 		<br />
 
-		【要確認】 ここの仕様は私も謎なのでしっかり調べてください。  
+		[【確認中#8245】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8245) ここの仕様は私も謎なのでしっかり調べてください。  
 		![](images/Tips.jpg){width=50px}　フリーワードにノイズワードが含まれている場合には検索が正常に行われません。  ノイズワードとは、自然言語を処理するにあたって一般的であるなどの理由で処理対象外とする単語です。 日本語の 「は」 「の」 「です」 「その」 、英語の 「a」 「the」 「for」 「of」などです。  
-		ノイズワードが含まれていても検索ができるケースがある？【要確認】  
-		検索時のエラーメッセージ（②の場合は検索ができるらしい。。再現できず【要確認】）  
+		ノイズワードが含まれていても検索ができるケースがある？[【確認中#8245】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8245)  
+		検索時のエラーメッセージ（②の場合は検索ができるらしい。。再現できず[【確認中#8245】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8245)）  
 		① キーワードにノイズワードが含まれていたため検索が行われませんでした。  
 		② キーワードにノイズワードが含まれていたため無視しました。  
 
 		<br>
 
 1. クエリ文字列の最大長  
-検索クエリで指定できるクエリ文字列の長さは IIS の 「要求フィルター」の設定（[@fig:youkyuft] ）に依存しています。  
-デフォルト設定では クエリ文字列の最大長は 2048 バイト です。  
-クエリ文字列の最大長を超えた場合には、検索時に 【要確認】 「HTTP エラー 404.15 - Not Found」が表示されます。
+検索クエリで指定可能なクエリの長さは、ベースの URL を含めた場合、 IIS の 「要求フィルター」の設定（[@fig:youkyuft] ）に依存しています。（デフォルト 2046 バイトまで。）  
+ベースの URL 部分を含めない場合、クエリに指定可能な最大長は 464 バイト です。  
+クエリ文字列の最大長を超えた場合には、検索実行時に ASP.NET のエラーページにリダイレクトされます。  
+クライアント PC からのアクセス時にはローカル環境に ASP.NET のエラーページのリソースが存在しないため、404 エラーとなって表示されます。
 
 	![IIS 要求フィルターの設定画面](images/2-3-要求フィルター.png){#fig:youkyuft width=500px}  
 
 1. 検索クエリ指定後の候補検索の仕組み  
-	【要確認】
+	[【確認中#8246】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8246)
 
 #### 2-3-3. 通話検索結果
 - 検索結果に関する詳細設定項目は [@tbl:kekka1] です。  
