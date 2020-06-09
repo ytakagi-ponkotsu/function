@@ -397,7 +397,7 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 		3 | 保留開始 | RealTimeRecorder でモニタ内線番号の録音中に保留開始を検出時に通知されます。 | [@fig:holdobi]  
 		4 | 保留解除 | RealTimeRecorder でモニタ内線番号の通話保留中、保留解除を検出時に通知されます。 | [@fig:holdobi]  
 		5 | 保留終了 | RealTimeRecorder でモニタ内線番号の通話保留中に通話切断時に通知されます。 | [@fig:holdobi]  
-		6 | 保留エラー | 【要確認】保留中に呼制御パケットのパケットロストで再現する？ | [@fig:holdobi]  
+		6 | 保留エラー | 【要動作検証】保留中に呼制御パケットのパケットロストで再現する？ | [@fig:holdobi]  
 		7 | 通話切替 | RealTimeRecorder でモニタ内線番号の録音中、録音対象の RTP の MediaResource が切り替わったときに通知されます。 | [@fig:kirikaeobi]  
 		8 | 通話エラー | 【要確認】RealTimeRecorder でモニタ内線番号の録音中、呼制御パケットのパケットロストを検出時に通知されます。 | [@fig:tuuwaerror]  
 
@@ -405,7 +405,7 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 		![通話イベント ： 通話開始 ＆ 通話終了](images/2-1-通話開始.png){#fig:startobi width=500px}
 
-		![通話イベント ： 保留開始 ＆ 保留解除 ＆ 保留終了＆ 保留エラー（★保留終了と保留エラーの画像追加する）](images/2-1-保留.png){#fig:holdobi width=500px}
+		![通話イベント ： 保留開始 ＆ 保留解除 ＆ 保留終了＆ 保留エラー（【要動作検証】保留終了と保留エラーの画像追加）](images/2-1-保留.png){#fig:holdobi width=500px}
 
 		![通話イベント ： 通話切替](images/2-1-通話切替.png){#fig:kirikaeobi width=500px}  
 
