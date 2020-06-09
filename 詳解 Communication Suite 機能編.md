@@ -624,39 +624,61 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 	<br />
 
-	![](images/Tips.jpg){width=50px}　通話フィルタ適用時に検出時のキーワードを取得したい場合などには、通話フィルタのコマンド欄に以下の書式で記述します  
+	![](images/Tips.jpg){width=50px}　通話フィルタ適用時に検出時のキーワードを取得したい場合などには  
+	通話フィルタのコマンド欄に以下の書式で記述します。オプションに **urlencode** を指定すると、値が URLエンコード されます。  
 
 	```
 	${'メインキー文字列', 'サブキー文字列', 'オプション'}
 	```  
-	例）	通話フィルタ名を Google の検索パラメータとして使用する
+	例）	通話フィルタ適用時に、発動条件となったキーワードを Google で検索する
 
 	```
 	https://www.google.co.jp/?gws_rd=ssl#q=${filterdetection,ConversationFilterName,urlencode}
 	```  
-	通話フィルタの場合は、メインキーは『filterdetection』 に固定されます。  
-
-	指定可能な サブキー は [@tbl:callfiltersubkey] の通りです。  
-	オプションに **urlencode** を指定すると、値が URLエンコード されます。
+	- 検出通話フィルタ情報  
+	メインキーは『filterdetection』 に固定されます。指定可能な サブキー は [@tbl:callfiltersubkey2] の通りです。  
 
 	No. | サブキー | 置き換えられる値                |備考    |
 	----:|---------------------|------------------|--------------|
-	1   |SegmentNo |セグメント番号|              |
-	2   |ConversationFilterId |会話フィルタID|              |
-	3   |ConversationFilterName |会話フィルタ名称|              |
-	4   |ChannelType |チャンネル種別|              |
-	5   |StartTime |会話の開始位置からの検出開始位置を表す（ミリ秒）|              |
-	6   |EndTime	 |会話の開始位置からの検出終了位置を表す（ミリ秒）|              |
-	7   |DetectionString |検出文字列|              |
+	1   |SegmentNo |セグメント番号|発話番号|
+	2   |ConversationFilterId |会話フィルタID|通話フィルタID              |
+	3   |ConversationFilterName |会話フィルタ名称|通話フィルタ名              |
+	4   |ChannelType |チャンネル種別|検出対象回線種別              |
+	5   |StartTime |会話の開始位置からの検出開始位置を表す（ミリ秒）| 【要動作検証】         |
+	6   |EndTime	 |会話の開始位置からの検出終了位置を表す（ミリ秒）| 【要動作検証】          |
+	7   |DetectionString |検出文字列|通話フィルタの適用条件のキーワード              |
 
-	: 通話フィルタで利用可なサブキーの一覧 {#tbl:callfiltersubkey}  
+	: 検出フィルタ情報で利用可なサブキーの一覧 {#tbl:callfiltersubkey2}  
 
+	- 通話フィルタ情報  
+	メインキーは『filterinfo』 に固定されます。指定可能な サブキー は [@tbl:callfiltersubkey1] の通りです。  
 
+	No. | サブキー | 置き換えられる値                |備考    |
+	----:|---------------------|------------------|--------------|
+	1   |ConversationFilterId|会話フィルタID|通話フィルタID              |
+	2   |ConversationFilterName |会話フィルタ名称| 通話フィルタ名  |  
+	3   |ConversationDescription |会話フィルタの説明        |  通話フィルタの説明   |
+	4   |ActionCommands|アクションコマンドの一覧|複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。例) ${filterinfo, ActionCommands[1].CommandName}    【要動作検証】            |
+	5   |CommandName |コマンド名称          |No.4の ActionCommands の下位 。通話フィルタのコマンド名             |
+	6   |ActionCommand |実行するコマンド         |No.4の ActionCommands の下位。通話フィルタで実行するコマンド              |
+	7   |ActionAttributes |アクション属性の一覧         |複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。例) ${filterinfo, ActionAttributes[1].ConversationAttributeKey }   【要動作検証】          |
+	8   |ConversationAttributeKey        |アクション属性識別名          |No.7 の ActionAttributes の下位。【要動作検証】               |
+	9   |ConversationAttributeValue        |アクション属性値          |No.7 の ActionAttributes の下位。【要動作検証】      |
+	10   |Priority        |優先度 | No.7 の ActionAttributes の下位。【要動作検証】   |
+	11   |ActionTags        |アクションタグの一覧(配列)          |複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。例) ${filterinfo, ActionTags[1].ConversationTagName }   |
+	12   |ConversationTagName        |会話タグ名称          |No.11 の ActionTags の下位。通話フィルタで付与された通話タグ              |
 
+	: 通話フィルタ情報で利用可なサブキーの一覧 {#tbl:callfiltersubkey1}  
 
+	- 実行コマンド情報  
+	メインキーは『executedcommand』 に固定されます。指定可能な サブキー は [@tbl:callfiltersubkey3] の通りです。  
 
+	No. | サブキー | 置き換えられる値                |備考    |
+	----:|---------------------|------------------|--------------|
+	1   |CommandName|コマンド名称|通話フィルタのコマンド名              |
+	2   |ActionCommand |実行したコマンド        |通話フィルタで実行したコマンド              |
 
-
+	: 実行コマンド情報で利用可なサブキーの一覧 {#tbl:callfiltersubkey3}  
 
 
 	![](images/Tips.jpg){width=50px}　通話フィルタの適用条件となるキーワードがテキスト化されたのに、通話フィルタが適用されない場合、[@tbl:filtertrouble] を参考にシューティングしてください。
