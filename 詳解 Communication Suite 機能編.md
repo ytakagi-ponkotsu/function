@@ -739,8 +739,8 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 		![感情解析のサマリ画面](images/2-1-感情解析2.png){#fig:emo3 width=350px}  
 
 
-		([@fig:emo1])([@fig:emo２])([@fig:emo3])  で利用する「表示する感情」は ControlCenter 詳細設定の[@tbl:emopop] を編集して構成します。  
-		([@fig:emo0]) の設定については[1-2. OperatorAgent のメイン画面]の 6. コンディション（感情メータ）を参照してください。
+		([@fig:emo1])([@fig:emo２])([@fig:emo3])  は ControlCenter 詳細設定の[@tbl:emopop] を編集して構成します。  
+		([@fig:emo0]) の設定については[1-2. OperatorAgent のメイン画面]の 6. コンディション（感情メータ）を参照。
 
 
 		No. | 設定分類| 設定項目名                | 設定内容      |
@@ -856,7 +856,7 @@ OperatorAgent 上で表示されている通話の SpeechVisualizer の通話詳
 
 	![手動通話属性の入力画面](images/2-1-通話属性ポップアップ画面2.png){#fig:callp2 width=450px}  
 
-	手動で通話属性を追加するための詳細設定項目は、@tbl:tuuwazokusei を参照してください。
+	手動で通話属性を追加するための ControlCenter の詳細設定項目は、@tbl:tuuwazokusei を編集して構成します。
 
 	No. | 設定分類| 設定項目名                | 設定内容      |
 	----:|---------------------|------------------|--------------|
@@ -865,8 +865,13 @@ OperatorAgent 上で表示されている通話の SpeechVisualizer の通話詳
 
 	: 手動で追加する通話属性の設定 {#tbl:tuuwazokusei}
 
-	追加可能な通話属性は（[1-2-2. 通話[@tbl:callb2]: 利用可能な通話属性一覧](#1-2-2. 通話表示機能) 参照。）  
+	例） OperatorAgent から手動で登録可能な通話属性として通話属性の「サイト参照用のID」 を指定する。
 
+	```
+	amivoice.common.reference.site.id
+	```
+
+	追加可能な通話属性は（[1-2-2. [@tbl:callb2]: 利用可能な通話属性一覧](#1-2-2. 通話表示機能) 参照。）  
 
 #### 1-4. OperatorAgent の起動・終了時の動作  
 
