@@ -397,11 +397,7 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 		3 | 保留開始 | RealTimeRecorder でモニタ内線番号の録音中に保留開始を検出時に通知されます。 | [@fig:holdobi]  
 		4 | 保留解除 | RealTimeRecorder でモニタ内線番号の通話保留中、保留解除を検出時に通知されます。 | [@fig:holdobi]  
 		5 | 保留終了 | RealTimeRecorder でモニタ内線番号の通話保留中に通話切断時に通知されます。 | [@fig:holdobi]  
-<<<<<<< HEAD
-		6 | 保留エラー | 【要動作検証】保留中に呼制御パケットのパケットロストで再現する？ | [@fig:holdobi]  
-=======
 		6 | 保留エラー | [【確認中#8253】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8253)保留中に呼制御パケットのパケットロストで再現する？ | [@fig:holdobi]  
->>>>>>> cfc78e10d95196f07dfc00630911de1a18897fb2
 		7 | 通話切替 | RealTimeRecorder でモニタ内線番号の録音中、録音対象の RTP の MediaResource が切り替わったときに通知されます。 | [@fig:kirikaeobi]  
 		8 | 通話エラー | [【確認中#8253】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8253)RealTimeRecorder でモニタ内線番号の録音中、呼制御パケットのパケットロストを検出時に通知されます。 | [@fig:tuuwaerror]  
 
