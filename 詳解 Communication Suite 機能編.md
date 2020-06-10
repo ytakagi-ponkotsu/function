@@ -22,6 +22,10 @@ equationTitle: '式.'
 - [第1章 OperatorAgent](#第1章-operatoragent)
 	- [1-1. OperatorAgent のログイン](#1-1-operatoragent-のログイン)
 	- [1-2. OperatorAgent のメイン画面](#1-2-operatoragent-のメイン画面)
+	- [1-3. OperatorAgent の起動・終了時の動作](#1-3-operatoragent-の起動終了時の動作)
+	- [1-4. OperatorAgent からのコマンド実行](#1-4-operatoragent-からのコマンド実行)
+	- [1-5. コマンドラインからの OperatorAgent 操作](#1-5-コマンドラインからの-operatoragent-操作)
+	- [1-6. OperatorAgent のインストール](#1-6-operatoragent-のインストール)
 - [第2章 SpeechVisualizer](#第2章-speechvisualizer)
 	- [2-1. SpeechVisualizer のログイン](#2-1-speechvisualizer-のログイン)
 	- [2-2. SpeechVisualizer ホーム画面](#2-2-speechvisualizer-ホーム画面)
@@ -34,6 +38,7 @@ equationTitle: '式.'
 	- [3-3. ログイン状況](#3-3-ログイン状況)
 	- [3-4. ノード管理](#3-4-ノード管理)
 	- [3-5. 認識オプションの設定](#3-5-認識オプションの設定)
+	- [3-6. ライセンス状況](#3-6-ライセンス状況)
 <!-- TOC END -->
 
 ## 序章 トレーニングにあたって
@@ -841,7 +846,7 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 		: OperatorAgent - 通知メッセージ設定 {#tbl:emotuuchi}  
 
-#### 1-3. 通話終了後の機能
+#### 1-2-3. 通話終了後の機能
 
 1. SpeechVisualizer ボタン（[@fig:opsv]）  
 OperatorAgent 上で表示されている通話の SpeechVisualizer の通話詳細画面を呼び出します。  
@@ -873,7 +878,7 @@ OperatorAgent 上で表示されている通話の SpeechVisualizer の通話詳
 
 	追加可能な通話属性は（[1-2-2. [@tbl:callb2]: 利用可能な通話属性一覧](#1-2-2. 通話表示機能) 参照。）  
 
-#### 1-4. OperatorAgent の起動・終了時の動作  
+### 1-3. OperatorAgent の起動・終了時の動作  
 
 1. OperatorAgent 起動時の処理  
 	- OperatorAgent の自動更新処理  
@@ -1006,7 +1011,7 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 		![](images/Tips.jpg){width=50px}　OperatorAgent を RDS or VDI オプション付きでインストールしている場合、ライセンスのリリースはログオフとは同期して処理されません。  
 		ControlCenter の 『ライセンス状況』・『ログイン状況』 の表示時に、ログアウトやタイムアウトの状態になったライセンスを解放しています。  
 
-#### 1-5. OperatorAgent からのコマンド実行
+### 1-4. OperatorAgent からのコマンド実行
 - OperatorAgent からは、詳細設定項目（[@tbl:oacommand]）を設定することで指定したタイミングでコマンドを実行することができます。
 
 	No. | 設定項目名
@@ -1125,7 +1130,7 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 
 	サブキーの指定に制限はありませんが、有用な値に置換できるかは利用している通話プロバイダと電話機基盤の設定によります。
 
-#### 1-6. コマンドラインからの OperatorAgent 操作
+### 1-5. コマンドラインからの OperatorAgent 操作
 - OperatorAgent は、コマンドラインから  
 
 	```
@@ -1154,7 +1159,7 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 	- 『言語の指定』 [【確認中#8242】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8242)  
 	- 『起動中のOAを終了』 は、端末の操作が著しく限定されている。かつ、端末シャットダウン時に実行中のアプリケーションの全終了が条件の環境で利用しています。
 
-#### 1-7. OperatorAgent のインストール
+### 1-6. OperatorAgent のインストール
 - OperatorAgent は、インストーラを通常起動してウィザード形式で手動インストールする方法と、インストーラ実行時に引数付きで起動し自動インストールする方法と2種類のインストールがサポートされています。  
 - 自動インストール時に引数指定するオプション（[@tbl:oainstalloption]）次第ではサイレントインストールが可能です。  
 
