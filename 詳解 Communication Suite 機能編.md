@@ -9,9 +9,7 @@ eqnPrefix: '式'
 equationTitle: '式.'
 ---
 
-# 詳解 Communication Suite 機能
-
-
+# 詳解 Communication Suite 機能編
 
 
 
@@ -24,10 +22,11 @@ equationTitle: '式.'
 - [第1章 OperatorAgent](#第1章-operatoragent)
 	- [1-1. OperatorAgent のログイン](#1-1-operatoragent-のログイン)
 	- [1-2. OperatorAgent のメイン画面](#1-2-operatoragent-のメイン画面)
-	- [1-3. OperatorAgent の起動・終了時の動作](#1-3-operatoragent-の起動終了時の動作)
-	- [1-4. OperatorAgent からのコマンド実行](#1-4-operatoragent-からのコマンド実行)
-	- [1-5. コマンドラインからの OperatorAgent 操作](#1-5-コマンドラインからの-operatoragent-操作)
-	- [1-6. OperatorAgent のインストール](#1-6-operatoragent-のインストール)
+	- [1-3. OperatorAgent と ControlCenter の通信](#1-3-operatoragent-と-controlcenter-の通信)
+	- [1-4. OperatorAgent の起動・終了時の動作](#1-4-operatoragent-の起動終了時の動作)
+	- [1-5. OperatorAgent からのコマンド実行](#1-5-operatoragent-からのコマンド実行)
+	- [1-6. コマンドラインからの OperatorAgent 操作](#1-6-コマンドラインからの-operatoragent-操作)
+	- [1-7 OperatorAgent のインストール](#1-7-operatoragent-のインストール)
 - [第2章 SpeechVisualizer](#第2章-speechvisualizer)
 	- [2-1. SpeechVisualizer のログイン](#2-1-speechvisualizer-のログイン)
 	- [2-2. SpeechVisualizer ホーム画面](#2-2-speechvisualizer-ホーム画面)
@@ -412,7 +411,7 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 		![通話イベント ： 通話開始 ＆ 通話終了](images/2-1-通話開始.png){#fig:startobi width=500px}
 
-		![通話イベント ： 保留開始 ＆ 保留解除 ＆ 保留終了＆ 保留エラー](images/2-1-保留.png){#fig:holdobi width=500px}
+		![通話イベント ： 保留開始 ＆ 保留解除 ＆ 保留終了＆ 保留エラー（【要動作検証】保留終了と保留エラーの画像追加）](images/2-1-保留.png){#fig:holdobi width=500px}
 
 		![通話イベント ： 通話切替](images/2-1-通話切替.png){#fig:kirikaeobi width=500px}  
 
@@ -453,7 +452,7 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 			-:|---------|------------|
 			1 | OperatorAgent と StreamingRecognizer 間の接続が確立していない可能性があります。 | ノード管理で設定している、StreamingRecognizer の HTTP のポートに対して、OperatorAgent がアクセスできる状況にあるかを確認してください。  
 			2 | 認識オプションが未設定の可能性があります| 認識オプションの設定を実施してください。  
-			3 | 大規模な認識処理遅延が発生している可能性があります | SpeechVisualizer から該当通話が検索できるか確認してください。またノード管理の対象ノードグループ名でR/Bの値でBに滞留しているものや認識エラーとなっているものがないか確認してください。  
+			3 | 大規模な認識処理遅延が発生している可能性があります | 認識オプションの設定を実施してください。  
 
 			: 区分 B の主な原因と対処の目安 {#tbl:kubunB}
 
@@ -563,7 +562,7 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 	: 利用可能な通話属性一覧 {#tbl:callb2}  
 
-	![](images/Check.png){width=50px}　相手番号や掛先番号の通話属性は IN （着信）と OUT （発信） で表示される内容が変わるケースがあります。Avaya AESの例として、 IN （着信）の場合は相手番号は電話を掛けてきた電話番号が表示され、掛先番号はダイヤルした番号（または裏番）が表示されます。OUT （発信）の場合は、相手番号、掛先番号ともに、実際に電話を掛けた電話番号が表示されます。  
+	![](images/Check.png){width=50px}　相手番号や掛先番号の通話属性は IN （着信）と OUT （発信） で表示される内容が変わるケースがあります。相手番号の例として ACD（着信個自動分配装置）を利用している環境では、着信時に別の番号を経由してから内線番号に着信するため、相手番号の通話属性としてはACDのVDNが表示されます。（CTI連携で回避可能なケースもあります） OUT（発信）の場合は実際に掛けた番号が相手番号に入ります。  
 <br>
 1. 性別識別  
 	性別識別の判定方法は録音対象の電話機を主体として、送話と受話で異なります。  
@@ -589,7 +588,7 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 1. 通話状態ビュー  
 通話状態にあわせて表示が変化します。（ [@fig:callstate]）  
-	- 電話アイコン・・・通話開始前・通話開始 / 通話終了・保留中でアイコン表示が変わります。
+	- 電話アイコン・・・通話開始前・通話開始 / 通話終了・保留中でアイコン表示変わります。
 	- 通話時間・・・RealTimeRecoder の録音開始 / 終了を基準として Operator Agent 上 の PC 時刻をもとに時間を表示します。
 
 	![通話状態](images/2-1-通話状態.png){#fig:callstate width=250px}  
@@ -878,7 +877,49 @@ OperatorAgent 上で表示されている通話の SpeechVisualizer の通話詳
 
 	追加可能な通話属性は（[1-2-2. [@tbl:callb2]: 利用可能な通話属性一覧](#1-2-2. 通話表示機能) 参照。）  
 
-### 1-3. OperatorAgent の起動・終了時の動作  
+### 1-3. OperatorAgent と ControlCenter の通信  
+ControlCenter と OperatorAgent は、2種類の通信経路で接続されています。  
+
+1. ログイン（状態）を管理する通信経路  
+ControlCenter は、 ログイン中の OperatorAgent が通信可能な状態にあるかを、OperatorAgent からのリクエストの有無で判断しています。  
+ヘルプ通知やメッセージ送信など機能によるリクエストが発生しない場合、OperatorAgent は、[@tbl:oaping] の 『ログイン維持の通知間隔』 毎に Ping のようなリクエストを ControlCenter に送信します。  
+その Ping リクエスト を受信することで、ControlCenter はログイン中の OperatorAgent の死活監視を行っています。  
+	- OperatorAgent のログインタイムアウト  
+ControlCenter はログイン中の OperatorAgent から、[@tbl:oaping] の 『ログイン状況タイムアウト』 の設定値を超えて新しいリクエストがない場合には、該当の OperatorAgent を `ログインタイムアウト` の状態として管理します。  
+各 OperatorAgent が ControlCenter からどのように見えているのかは、ControlCenter のモニタリングメニューの 『ログイン状況』 機能で確認できます。  
+SpeechVisualizer の座席表機能では、タイムアウトした OperatorAgent の座席にはタイムアウトアイコンが表示されます。([@fig:ismto])  
+
+		![](images/Check.png){width=50px}　この状態は、該当座席に対して新たな OperatorAgent がログインすることで解消されます。それまではタイムアウト済みの OperatorAgent からのレジスト情報が表示され続けます。  
+
+		![座席表でのタイムアウト表示](images/1-2-ism_to.png){#fig:ismto width=250px}  
+
+1. 状態通知のための通信経路  
+都度リクエストが発生するログイン管理の通信経路とは別に、ControlCenter から OperatorAgent へ各種イベント（[@tbl:callevent] など）を通知するための通信経路が存在します。  
+OperatorAgent から ControlCenter へのリクエストとはなりますが、ControlCenter から OperatorAgent に通知するべきイベントが発生する毎に、ControlCenter から非同期にレスポンスされる通信（HTTP Comet）となります。  
+ControlCenter からは特に通知すべきイベントが無い場合でも、[@tbl:callevent] の 『データ送信最長間隔』 毎に接続の維持のためのレスポンスが行われます。  
+	- 状態通知通信の受信タイムアウト  
+OperatorAgent では、[@tbl:callevent] の 『受信タイムアウト』 以上、状態通知のレスポンスが無い場合、状態通知通信の接続に問題が発生（接続が切断）したと判断し、既存の接続を破棄して再接続処理を行います。  
+再接続に失敗した場合には、[@tbl:callevent] の 『再接続間隔』 毎に再接続処理が繰り返されます。  
+		![](images/Check.png){width=50px}　ControlCenter との接続断を通知した場合、OperatorAgent は 通知ポップアップ にてその旨をユーザに通知しますが、通知ポップアップは、接続断だと判断された瞬間には通知されず、その直後の再接続処理に失敗したタイミングで通知されます。
+
+	No. | 設定分類 | 設定項目名                | デフォルト値  | 特記 |
+	----:|----------|--------|------|----|
+	1   | OperatorAgent - 状態通知 | データ送信最長間隔 | 90000（ミリ秒） |   
+	2   | OperatorAgent - 状態通知 | 再接続間隔 | 60000（ミリ秒） |   
+	3   | OperatorAgent - 状態通知 | 受信タイムアウト | 120000（ミリ秒） |   
+	4   | 共通 - セキュリティ | ログイン維持の通知間隔 | 180       |   
+	5   | 共通 - セキュリティ | ログイン状況タイムアウト | 600        |   
+
+	: ControlCenter と OperatorAgent の通信 {#tbl:oaping}
+
+	![](images/NOTICE.png){width=50px}　上記の仕様により、[@tbl:callevent] の設定値を変更する場合には、  
+	- 『ログイン状況タイムアウト』 > 『ログイン維持の通知間隔』  
+	- 『受信タイムアウト』 > 『データ送信最長間隔』  
+
+	が成り立つように配慮する必要があります。（極力変更しないようにしてください。）  
+
+
+### 1-4. OperatorAgent の起動・終了時の動作  
 
 1. OperatorAgent 起動時の処理  
 	- OperatorAgent の自動更新処理  
@@ -989,29 +1030,14 @@ OperatorAgent がインストールされた PC 毎にライセンスの引当�
 1. OperatorAgent 終了時の処理  
 	- ログオフ処理  
 ControlCenter にレジストされた、OperatorAgent のログイン情報（ユーザ・座席表の位置・内線番号との関連付け）などをリリースします。  
-	<br />
 
-		![](images/NOTICE.png){width=50px}OperatorAgent を手動で終了せずに PC のシャットダウンを行った場合、PC のシャットダウンシーケンス開始を検出した OperatorAgent は自身も終了処理を実施します。さらに、終了処理が完了するまで OS が完全にシャットダウンすることを待機させます。  
-		ただし、OS 側でも各種終了処理が並行で実施されるため、OperatorAgent が ControlCenter と通信しログオフ処理を完了する前に OS の通信デバイスが停止している可能性があります。その場合、OperatorAgent のログイン情報が ControlCenter 上に残り続けます。  
-		ControlCenter は各 OperatorAgent の生存確認のための通信を実施しており、[【確認中#8239】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8239) 、 [【確認中#8240】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8240)（[@tbl:oaping]） ControlCenter にレジストされた OperatorAgent のログイン情報はリリースされます。  
-		ControlCenter 上での OperatorAgent のログイン情報は、ControlCenter のモニタリングメニューの `『ログイン状況』` 機能で確認できます。  
-		SpeechVisualizer の座席表機能では、タイムアウトした OperatorAgent の座席にはタイムアウトアイコンが表示されます。([@fig:ismto])  
-		この状態は、該当座席に対して新たな OperatorAgent がログインすることで解消されます。それまではタイムアウト済みの OperatorAgent からのレジスト情報が表示され続けます。  
+		![](images/NOTICE.png){width=50px}　OperatorAgent を手動で終了せずに PC のシャットダウンを行った場合、PC のシャットダウンシーケンス開始を検出した OperatorAgent は自身も終了処理を実施します。さらに、終了処理が完了するまで OS が完全にシャットダウンすることを待機させます。  
+		ただし、OS 側でも各種終了処理が並行で実施されるため、OperatorAgent が ControlCenter と通信しログオフ処理を完了する前に OS の通信デバイスが停止している可能性があります。その場合、OperatorAgent のログイン情報が ControlCenter 上に残り続けます。（その後、[1-3. OperatorAgent と ControlCenter の通信](#1-3-operatoragent-と-controlcenter-の通信) の 1 の仕様に従い、OperatorAgent の状態がタイムアウトになります。）  
 
-		![座席表でのタイムアウト表示](images/1-2-ism_to.png){#fig:ismto width=250px}  
-
-		No. | 設定項目名                | デフォルト値  | 内容 |
-		----:|------------------|------|----|
-		1   | データ送信最長間隔 | 90000（ミリ秒） | [【確認中#8240】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8240)  
-		2   | 再接続間隔 | 60000（ミリ秒） | [【確認中#8240】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8240)  
-		3   | 受信タイムアウト | 120000（ミリ秒） | [【確認中#8240】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8240)  
-
-		: 詳細設定 項目分類 『OperatorAgent - 状態通知』 {#tbl:oaping}
-
-		![](images/Tips.jpg){width=50px}　OperatorAgent を RDS or VDI オプション付きでインストールしている場合、ライセンスのリリースはログオフとは同期して処理されません。  
+		![](images/Check.png){width=50px}　OperatorAgent を RDS or VDI オプション付きでインストールしている場合、ライセンスのリリースはログオフとは同期して処理されません。  
 		ControlCenter の 『ライセンス状況』・『ログイン状況』 の表示時に、ログアウトやタイムアウトの状態になったライセンスを解放しています。  
 
-### 1-4. OperatorAgent からのコマンド実行
+### 1-5. OperatorAgent からのコマンド実行
 - OperatorAgent からは、詳細設定項目（[@tbl:oacommand]）を設定することで指定したタイミングでコマンドを実行することができます。
 
 	No. | 設定項目名
@@ -1099,7 +1125,7 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 	15   |  OperatorPhoneNumber | 自番号 | No.9 |
 	16   |  OperatorPhoneLabel | 自分のID | No.8 | 電話基盤へのログイン情報
 	17   |  OperatorGroup | 受電グループ | No.10 | 受電スキル
-	18   |  OperatorHostName | 自分のホスト名 | No.11 | [【確認中#8241】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8241)
+	18   |  OperatorHostName | 自分のホスト名 | No.11 | コントロールフォンが動作している PC の ホスト名（[@tbl:callb2] 参照）
 	19   |  Direction | 通話の向き | No.2 |
 	20   |  LineType | 通話種別 | No.3 |
 	21   |  CustomerPhoneNumber | 相手番号 | No.14 |
@@ -1130,7 +1156,7 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 
 	サブキーの指定に制限はありませんが、有用な値に置換できるかは利用している通話プロバイダと電話機基盤の設定によります。
 
-### 1-5. コマンドラインからの OperatorAgent 操作
+### 1-6. コマンドラインからの OperatorAgent 操作
 - OperatorAgent は、コマンドラインから  
 
 	```
@@ -1159,7 +1185,7 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 	- 『言語の指定』 [【確認中#8242】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8242)  
 	- 『起動中のOAを終了』 は、端末の操作が著しく限定されている。かつ、端末シャットダウン時に実行中のアプリケーションの全終了が条件の環境で利用しています。
 
-### 1-6. OperatorAgent のインストール
+### 1-7 OperatorAgent のインストール
 - OperatorAgent は、インストーラを通常起動してウィザード形式で手動インストールする方法と、インストーラ実行時に引数付きで起動し自動インストールする方法と2種類のインストールがサポートされています。  
 - 自動インストール時に引数指定するオプション（[@tbl:oainstalloption]）次第ではサイレントインストールが可能です。  
 
@@ -1315,8 +1341,6 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 	---:|------------------|--------------|------|
 	1   |  ブラウザログインタイムアウト | 1800        | 認証 Cookie の生存期間です
 	2   |  ブラウザログインを継続するための通知間隔 | 20        | 座席表画面で 『ブラウザログインタイムアウト』 が発生しないようにするための設定値です |
-	3   |  ログイン維持の通知間隔 | 180       | [【確認中#8243】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8243) no2 との違いが不明、OperatorAgent の項目？
-	4   |  ログイン状況タイムアウト | 600        | [【確認中#8243】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8243)  これも OperatorAgent 用の項目か？
 
 	: SpeechVisualizer ブラウザログインタイムアウト {#tbl:svloginto}
 
@@ -2215,22 +2239,28 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 
 		です。
 		末尾の "ー" の有無は、ステミング機能により同一単語として解釈されます。  
-		助詞 "の" はノイズワードの仕様によって検索クエリとして評価されません。  
+		助詞 "の" はノイズワード（最新の SQLServer では `ストップワード`）の仕様によって検索クエリとして評価されません。  
+		ノイズワードとは、 SQL Server が、頻繁に出現しすぎて検索に役立たないと判断し、インデックスを作成しない文字列になります。  
+		SQLServer のバージョンにより、内部で定義されたノイズワードの定義に違いがあるようです。  
+		基本的には、後発バージョンの方が、パフォーマンスが向上しているためかノイズワードの定義が緩和（登録数が少ない）されている傾向があります。
 
 		<br />
 
-		単純な文字列検索ではないため、"ルセン" などのフルテキスト検索のワードブレーカーが、単語 として認識していない文字列では検索ができません。
+		単純な文字列検索ではないため、"ルセン" などのフルテキスト検索のワードブレーカーが、単語 として認識していない文字列には、インデックスが作成されないため、検索ができません。
 
 		<br />
 
-		[【確認中#8245】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8245) ここの仕様は私も謎なのでしっかり調べてください。  
-		![](images/Tips.jpg){width=50px}　フリーワードにノイズワードが含まれている場合には検索が正常に行われません。  ノイズワードとは、自然言語を処理するにあたって一般的であるなどの理由で処理対象外とする単語です。 日本語の 「は」 「の」 「です」 「その」 、英語の 「a」 「the」 「for」 「of」などです。  
-		ノイズワードが含まれていても検索ができるケースがある？[【確認中#8245】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8245)  
-		検索時のエラーメッセージ（②の場合は検索ができるらしい。。再現できず[【確認中#8245】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8245)）  
-		① キーワードにノイズワードが含まれていたため検索が行われませんでした。  
-		② キーワードにノイズワードが含まれていたため無視しました。  
+		![](images/Tips.jpg){width=50px}　フリーワード検索実行時、検索文字列にノイズワードが含まれている場合には以下のようなメッセージが画面に表示されます。  
+		1. キーワードにノイズワードが含まれていたため検索が行われませんでした。  
+このメッセージが表示された場合、内部では2つの処理結果のパターンが存在します。  
+			- 検索文字列がノイズワードのみで構成されていて、検索処理が行われなかった  
+			- 検索文字列にノイズワードが含まれていて、ノイズワードを無視して検索処理を実行したが、検索結果件数が 0 だった  
+		1. キーワードにノイズワードが含まれていたため無視しました。  
+検索文字列にノイズワードが含まれていて、ノイズワードを無視して検索処理を実行し、検索結果件数が 1 件以上だった  
 
-		<br>
+		1 の後者のパターンは、メッセージに対して若干ずれた挙動となっています。
+
+	<br>
 
 1. クエリ文字列の最大長  
 検索クエリで指定可能なクエリの長さは、ベースの URL を含めた場合、 IIS の 「要求フィルター」の設定（[@fig:youkyuft] ）に依存しています。（デフォルト 2046 バイトまで。）  
@@ -2339,13 +2369,17 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 	20 | SpeechVisualizer - 通話詳細 |通話詳細の折れ線グラフに表示する感情（オペレータ） |2-4-3参照 |
 	21 | SpeechVisualizer - 通話詳細 |通話詳細の折れ線グラフに表示する感情（カスタマ） |2-4-3参照 |
 	22 | SpeechVisualizer - 通話詳細 |通話情報に表示する追加の通話属性 |2-4-4参照 |
-	23 | SpeechVisualizer - 通話詳細 |波形が表示可能な最大サンプル数 | 27000 | 通話時間が30分以上の場合、波形が非表示になります。[【確認中#8248】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8248)
+	23 | SpeechVisualizer - 通話詳細 |波形が表示可能な最大サンプル数 | 27000 | ※ 1
 	24 | SpeechVisualizer - 通話詳細 |波形を表示 |TRUE |
 	25 | SpeechVisualizer - 通話詳細 |話者アイコンを表示 |TRUE |
 	26 | 共通 - システム  | Silverlight プラグインの利用  | TRUE  |  
+
 	: 座席表の詳細設定 {#tbl:detaildc}
 
-
+	![](images/Check.png){width=50px} ※ 1 デフォルトの表示倍率で 30分程度、27000 は、≒ 27000 dot となり、  
+	波形を表示するのに必要な上下方向の長さ（高さ）を設定値となります。  
+	通話内容ビューを拡大すると、波形表示可能な通話時間は短くなり、逆に縮小すると、波形表示可能な通話時間は長くなります。  
+	<br />
 1. ユーザ毎にカスタマイズが可能な設定  
 	通話詳細の UI （[@fig:detailcustom]）からは、いくつかの詳細設定項目の個人別カスタム設定が可能です。
 
@@ -2369,7 +2403,7 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 	![](images/Tips.jpg){width=50px}　カスタマイズはユーザ個人での表示有無を選択する機能であり、ユーザの利用を制限するための機能ではありません。
 	例えば、あるユーザには感情解析の内容を開示させないといった個別の制限はかけることができません。
 
-	![](images/Tips.jpg){width=50px}　通話詳細の表示が遅い場合、表示に関連した設定をOFFにすることで改善する場合があります。
+	![](images/Tips.jpg){width=50px}　通話詳細の表示が遅い場合、デフォルト設定で、『波形を表示する』、『感情解析を表示する』、『話者アイコンを表示する』 を非表示設定にすることを推奨します。（必要に応じて、確認したい情報を表示に切り替えてください。）  
 
 ####  2-4-3. 通話内容ビューの表示と操作
 通話内容ビューには認識テキストおよび感情が表示されます。 （[@fig:detailcallcontent]）
