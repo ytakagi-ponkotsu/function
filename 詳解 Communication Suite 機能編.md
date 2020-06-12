@@ -22,6 +22,11 @@ equationTitle: '式.'
 - [第1章 OperatorAgent](#第1章-operatoragent)
 	- [1-1. OperatorAgent のログイン](#1-1-operatoragent-のログイン)
 	- [1-2. OperatorAgent のメイン画面](#1-2-operatoragent-のメイン画面)
+	- [1-3. OperatorAgent と ControlCenter の通信](#1-3-operatoragent-と-controlcenter-の通信)
+	- [1-4. OperatorAgent の起動・終了時の動作](#1-4-operatoragent-の起動終了時の動作)
+	- [1-5. OperatorAgent からのコマンド実行](#1-5-operatoragent-からのコマンド実行)
+	- [1-6. コマンドラインからの OperatorAgent 操作](#1-6-コマンドラインからの-operatoragent-操作)
+	- [1-7 OperatorAgent のインストール](#1-7-operatoragent-のインストール)
 - [第2章 SpeechVisualizer](#第2章-speechvisualizer)
 	- [2-1. SpeechVisualizer のログイン](#2-1-speechvisualizer-のログイン)
 	- [2-2. SpeechVisualizer ホーム画面](#2-2-speechvisualizer-ホーム画面)
@@ -34,6 +39,7 @@ equationTitle: '式.'
 	- [3-3. ログイン状況](#3-3-ログイン状況)
 	- [3-4. ノード管理](#3-4-ノード管理)
 	- [3-5. 認識オプションの設定](#3-5-認識オプションの設定)
+	- [3-6. ライセンス状況](#3-6-ライセンス状況)
 <!-- TOC END -->
 
 ## 序章 トレーニングにあたって
@@ -227,7 +233,7 @@ No. | 設定項目名       | デフォルト値 | 内容 |
 7   | ユーザの重複ログイン | このユーザは他の PC で利用中です | 43204 ユーザは別のホストからすでにログインしています。 |
 8   | 内線番号の重複ログイン | OperatorAgent サービスにログインできませんでした | ステータス: 43205 指定された回線は現在使用されています。 |
 9   | Communication Suite ユーザ未登録 | OperatorAgent サービスにログインできませんでした | このエラーは、IIS に入力されたユーザ名またはパスワードが無効であるか、または IIS がユーザを認証するのためにそのユーザ名およびパスワードを使用できないときに発生します。 |
-10   | ライセンス違反 | OperatorAgent サービスにログインできませんでした | 【要確認】 ステータス: XXXXX ○○○。 |  
+10   | ライセンス違反 | OperatorAgent サービスにログインできませんでした | 【要動作検証】 ステータス: XXXXX ○○○。 |  
 
 	: OperatorAgent のログイン失敗事由 {#tbl:oalogin}  
 
@@ -397,15 +403,15 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 		3 | 保留開始 | RealTimeRecorder でモニタ内線番号の録音中に保留開始を検出時に通知されます。 | [@fig:holdobi]  
 		4 | 保留解除 | RealTimeRecorder でモニタ内線番号の通話保留中、保留解除を検出時に通知されます。 | [@fig:holdobi]  
 		5 | 保留終了 | RealTimeRecorder でモニタ内線番号の通話保留中に通話切断時に通知されます。 | [@fig:holdobi]  
-		6 | 保留エラー | 【要確認】保留中に呼制御のパケットロストで再現する？ | [@fig:holdobi]  
+		6 | 保留エラー | [【確認中#8253】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8253)保留中に呼制御パケットのパケットロストで再現する？ | [@fig:holdobi]  
 		7 | 通話切替 | RealTimeRecorder でモニタ内線番号の録音中、録音対象の RTP の MediaResource が切り替わったときに通知されます。 | [@fig:kirikaeobi]  
-		8 | 通話エラー | 【要確認】RealTimeRecorder でモニタ内線番号の録音中、呼制御のパケットロストを検出時に通知されます。 | [@fig:tuuwaerror]  
+		8 | 通話エラー | [【確認中#8253】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8253)RealTimeRecorder でモニタ内線番号の録音中、呼制御パケットのパケットロストを検出時に通知されます。 | [@fig:tuuwaerror]  
 
 		: 通話イベントの種類 {#tbl:callevent}
 
 		![通話イベント ： 通話開始 ＆ 通話終了](images/2-1-通話開始.png){#fig:startobi width=500px}
 
-		![通話イベント ： 保留開始 ＆ 保留解除 ＆ 保留終了＆ 保留エラー（★保留終了と保留エラーの画像追加する）](images/2-1-保留.png){#fig:holdobi width=500px}
+		![通話イベント ： 保留開始 ＆ 保留解除 ＆ 保留終了＆ 保留エラー（【要動作検証】保留終了と保留エラーの画像追加）](images/2-1-保留.png){#fig:holdobi width=500px}
 
 		![通話イベント ： 通話切替](images/2-1-通話切替.png){#fig:kirikaeobi width=500px}  
 
@@ -413,7 +419,7 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 	- 認識結果  
 認識結果は StreamingRecognizer から OperatorAgent へ送信されます。  
-通話内容は単語ごとにテキスト化され、順番に送信されますが、後から認識した単語によって既に表示されている単語が置き換わることもあります。発話単位で吹出で表現されます。発話の区切りは無音が一定時間以上（【要確認】 一定時間）継続することで行われます。（[@fig:hatuwa]）  
+通話内容は単語ごとにテキスト化され、順番に送信されますが、後から認識した単語によって既に表示されている単語が置き換わることもあります。発話単位で吹出で表現されます。発話の区切りは無音が一定時間以上（[【確認中#8254】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8254) 一定時間）継続することで行われます。（[@fig:hatuwa]）  
 
 		![認識結果の表示](images/2-1-通話内容.png){#fig:hatuwa width=500px}  
 
@@ -464,6 +470,7 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 1. 通話情報ビュー  
 通話相手によって変わらないオペレータ情報のみを表示します。（[@fig:callinfo]）  
+[【確認中#8247】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8247)ここに表示される通話属性は「自番号」、「自分の識別名」だけか？
 
 	![通話情報の画面](images/2-1-通話情報.png){#fig:callinfo width=250px}  
 
@@ -480,8 +487,7 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 	![通話相手の画面 （左図：単体相手　右図：通話相手が変わった場合）](images/2-1-通話相手.png){#fig:callpartner width=500px}  
 
-	[@tbl:callb] は、通話情報ビュー、通話相手ビューで表示する通話属性の設定項目です。  
-	ControlCenter の詳細設定を編集して構成します。  
+	通話情報ビュー、通話相手ビューで表示する通話属性は ControlCenter 詳細設定の [@tbl:callb] を編集して構成します。  
 
 	No. | 設定タブ項目 | 設定項目名                | 設定内容      |
 	----:|---------------------|------------------|--------------|
@@ -491,7 +497,6 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 
 	表示する通話属性を追加する書式は以下です。複数追加する場合は、改行区切りで記述します。  
-	追加例)  
 
 	```
 	amivoice.common.operator.key=自分の識別名
@@ -501,8 +506,9 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 	```
 
 
-	[@tbl:callb2] は、表示する通話属性で利用可能な通話属性の一覧です。通話プロバイダにより表示できる通話属性が異なります。  
+	[@tbl:callb2] は、表示する通話属性で使用可能な通話属性の一覧です。  
 	OAに 〇 が付いているものはデフォルトで OperatorAgent で表示される通話属性です。  
+	補足：設定可否の説明　〇：優に設定可、●：自動設定されない環境で設定可、△：設定非推奨、×：設定不可
 
 	No. | 通話属性識別名 | 名称                |検索条件<br>(SV) | 検索結果<br>(SV)  | 通話詳細<br>(SV)  | 通話印刷<br>(SV) | OA |座席表 |  Amazon Connect	      | Avaya AES    | Avaya PD   |Avaya    | CIC     | CTstage  |SV9500<br>OAI | SV9500<br>T-Server   |設定<br>可否|備考|
 	---:|---------------------|------------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|------|----|----|---|---|
@@ -520,7 +526,7 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 	12   |amivoice.common.customer.key | 相手の識別名 |  |〇|〇|〇|  |  |  |  |  |  | 〇 |〇 |  |  |●  |内線相手を取得  |
 	13   |amivoice.common.customer.name | 相手の名称 |  |〇|〇|〇|  |〇|  |  |  |  |  |〇|  |  |●|内線相手を取得  |
 	14   |amivoice.common.customer.phonenumber| 相手番号|〇|〇|〇|〇|〇|〇|〇|〇|〇|〇|〇|〇|〇|〇|●|  |
-	15   |amivoice.common.customer.gender | 相手の性別 |〇|〇|〇|〇|  |  |  |  |  |  |  | |  |  | ●|  |
+	15   |amivoice.common.customer.gender | 相手の性別 |〇|〇|〇|〇|  |  |  |  |  |  |  | |  |  | ●|認識処理の性別識別を取得  |
 	16  |amivoice.common.telephony.dialin.phonenumber | ダイヤルイン番号 |  |〇|〇|〇|  |  |  |  |  |  | 〇 |〇 | 〇|  |● |  |
 	17   |amivoice.common.telephony.called.phonenumber | 掛先番号 | 〇 |〇| 〇| 〇|  |  |  | 〇 | 〇|  |  | |  |  | ● |  |
 	18   |amivoice.common.telephony.alerting.phonenumber | 呼出先番号 |〇 |〇 | 〇|〇|  |  |  |〇 |  |  |  | |  |  | ●|  |
@@ -545,9 +551,9 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 	37   |amivoice.common.reference.site.url| サイト参照用のURL |  |  |〇|  |  |  |  |  |  |  |  | |  |  |〇|  |
 	38   |amivoice.common.reference.private.id| プライベート参照用のID |  |  |〇|  |  |  |  |  |  |  |  | |  |  |〇|  |
 	39   |amivoice.common.reference.private.url | プライベート参照用のURL |  |  |〇|  |  |  |  |  |  |  |  | |  |  |〇|  |
-	40   |amivoice.common.recording.limit| 録音制限時間到達 |  |  |〇|  |  |  |  |  |  |  |  | |  |  |×|  |
-	41   |amivoice.common.recording.split| 録音分割 |  |  |〇|  |  |  |  |  |  |  |  | |  |  |×|  |
-	42   |amivoice.common.recording.split.previous| 録音分割された直前の通話 |  |  |〇|  |  |  |  |  |  |  |  | |  |  |×|  |
+	40   |amivoice.common.recording.limit| 録音制限時間到達 |  |  |〇|  |  |  |  |  |  |  |  | |  |  |×|録音時間制限に到達した場合  |
+	41   |amivoice.common.recording.split| 録音分割 |  |  |〇|  |  |  |  |  |  |  |  | |  |  |×|録音時間制限に到達し、通話分割された場合  |
+	42   |amivoice.common.recording.split.previous| 録音分割された直前の通話 |  |  |〇|  |  |  |  |  |  |  |  | |  |  |×|録音時間制限に到達し、通話分割された場合 |
 	43   |amivoice.common.reference.recording.id | 録音区間参照用のID |  |  |  |  |  |  |  |  |  |  |  | |  |  |  |  |
 	44   |amivoice.common.reference.recording.url | 録音区間参照用のURL |  |  |  |  |  |  |  |  |  |  |  | |  |  |  |  |
 	45   |amivoice.common.telephony.distributing.phonenumber| 受電グループ番号 |  |〇|〇|〇|  |  |  |〇|  |  |  | |  |  |●|Avaya AESのみ取得可  |
@@ -557,35 +563,33 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 	: 利用可能な通話属性一覧 {#tbl:callb2}  
 
 	![](images/Check.png){width=50px}　相手番号や掛先番号の通話属性は IN （着信）と OUT （発信） で表示される内容が変わるケースがあります。相手番号の例として ACD（着信個自動分配装置）を利用している環境では、着信時に別の番号を経由してから内線番号に着信するため、相手番号の通話属性としてはACDのVDNが表示されます。（CTI連携で回避可能なケースもあります） OUT（発信）の場合は実際に掛けた番号が相手番号に入ります。  
+<br>
+1. 性別識別  
+	性別識別の判定方法は録音対象の電話機を主体として、送話と受話で異なります。  
 
+	- 送話側  
+	ControlCenter / システム管理 / ユーザ管理 - 詳細 の性別（ [@fig:usrprofile]） から判定しています。  
 
-	![](images/Check.png){width=50px}　相手の性別 は通話プロバイダから情報を取得するのではなく、性別識別用エンジンにて判断しています。  
+	![ユーザ管理 - 詳細](images/2-1-ユーザ管理.png){#fig:usrprofile width=350px}  
 
-	<br />
+	- 受話側  
+	性別識別用エンジンを利用して判定しています。  
+	受話側の性別識別エンジンの設定項目は ControlCenter / 認識管理 / 認識オプションの設定（[@tbl:seibetuenjin]）を編集して構成します。  
 
+		No. | 設定タブ項目 | 設定項目名                | 内容      |
+		----:|---------------------|------------------|--------------|
+		1   |カスタマタブ | 性別識別 | 性別識別を利用するかどうか   
+		2   |カスタマタブ | 性別識別用エンジンモード | 性別識別用エンジンを登録
+		3   |カスタマタブ | 性別識別の閾値| 性別識別の判定に使用する閾値   
+		4   |カスタマタブ | 性別識別に使用する発話時間（最大） | 性別識別の判定に使用する発話時間の最大値
+		5   |カスタマタブ | 性別識別に使用する発話時間（最小） | 性別識別の判定に使用する発話時間の最小値
 
-	[@tbl:seibetuenjin] は性別識別エンジンに関連する設定項目となり、ControlCenter/認識管理/認識オプション にあります。   
+		: 性別識別用エンジン設定 {#tbl:seibetuenjin}  
 
-	No. | 設定タブ項目 | 設定項目名                | 内容      |
-	----:|---------------------|------------------|--------------|
-	1   |カスタマタブ | 性別識別 | 性別識別を利用するかどうか   
-	2   |カスタマタブ | 性別識別用エンジンモード | 性別識別用エンジンを登録
-	3   |カスタマタブ | 性別識別の閾値| 性別識別の判定に使用する閾値   
-	4   |カスタマタブ | 性別識別に使用する発話時間（最大） | 性別識別の判定に使用する発話時間の最大値   
-	5   |カスタマタブ | 性別識別に使用する発話時間（最小） | 性別識別の判定に使用する発話時間の最小値
-
-	: カスタマ 性別識別用エンジン設定 {#tbl:seibetuenjin}  
-
-	オペレータ側は性別識別用エンジンで性別を判断していません。   
-	オペレータ側は ControlCenter/ユーザ管理/ ユーザごとのユーザ管理 - 詳細 設定の性別から判断しています。（ [@fig:usrprofile]）  
-
-	![ユーザ管理](images/2-1-ユーザ管理.png){#fig:usrprofile width=350px}  
-
-
-1. 通話状態ビュー   
-通話状態にあわせて変化します。（ [@fig:callstate]）  
-	- 電話アイコン・・・通話前・通話開始 / 終了・保留中でアイコンが変わります。
-	- 通話時間・・・RealTimeRecoder の録音開始 / 終了を基準としてOperator Agent上 のPC時刻をもとに時間を表示します。
+1. 通話状態ビュー  
+通話状態にあわせて表示が変化します。（ [@fig:callstate]）  
+	- 電話アイコン・・・通話開始前・通話開始 / 通話終了・保留中でアイコン表示変わります。
+	- 通話時間・・・RealTimeRecoder の録音開始 / 終了を基準として Operator Agent 上 の PC 時刻をもとに時間を表示します。
 
 	![通話状態](images/2-1-通話状態.png){#fig:callstate width=250px}  
 
@@ -595,36 +599,93 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 	![OperatorAgent 上の通話フィルタの通知メッセージ](images/2-1-通話フィルタ2.png){#fig:callfilter2 width=250px}  
 
-	通話フィルタの適用タイミングは通話フィルタ管理 - 詳細 （[@fig:callfilter3]）から通話フィルタごとに設定します。
-
-
-	![通話フィルタ適用タイミングの設定](images/2-1-通話フィルタ3.png){#fig:callfilter3 width=500px}  
-
-	- 発話中・・・認識結果の確定前のタイミングで適用されます。
-	- 発話終了時・・・認識結果の確定後のタイミングで適用されます。
-
-		![](images/Tips.jpg){width=50px}　リアルタイム制を重視するのであればで「発話中」に設定することでキーワードが発話されたタイミングごとに検出することが可能です。注意点としては前後の文字の繋がりにより最終的に認識結果が変わるケースがあり、通話フィルタの発動条件でないキーワードで検知する場合があります。「発話終了時」の場合は、1発話中に複数の通話フィルタがヒットした場合でも、発話終了後の認識結果が確定後に同時に通話フィルタが実行されます。  
-
-	<br />
-
 	通話フィルタに関する ControlCenter の詳細設定項目は[@tbl:callfilter] を編集して構成します。  
 
 	No. | 設定タブ項目 | 設定項目名                | 内容      |
 	----:|---------------------|------------------|--------------|
 	1   |OperatorAgent - コマンド実行 |通話フィルタの検出時に実行するコマンド|（[@tbl:oacommand]）を参照
 	2   |OperatorAgent - コマンド実行 |通話フィルタの手動コマンド実行後に実行するコマンド|（[@tbl:oacommand]）を参照
-	3   |OperatorAgent - 通知メッセージ |通話フィルタの通知時間の倍率 (短め) | 通話フィルタの通知時間に対して通話時間レベルの「短め」とする時間を倍率で指定
-	4   |OperatorAgent - 通知メッセージ | 通話フィルタの通知時間の倍率 (長め)| 通話フィルタの通知時間に対して通話時間レベルの「長め」とする時間を倍率で指定
-	5   |OperatorAgent - 通知メッセージ | 通話フィルタの通知時間レベル| 通話フィルタの表示時間を「0（普通）」とした場合に「-1（短め）」に表示するか「1（長め）」に表示するかを指定  
+	3   |OperatorAgent - 通知メッセージ |通話フィルタの通知時間の倍率 (短め) | No.5の通話フィルタの通知時間に対して通話時間レベルの「短め」とする時間を倍率で指定します。<br> 例） 設定値が0.5の場合はNo.5の通話フィルタの表示時間の0.5倍の時間で表示します。
+	4   |OperatorAgent - 通知メッセージ | 通話フィルタの通知時間の倍率 (長め)|No.5の通話フィルタの通知時間に対して通話時間レベルの「長め」とする時間を倍率で指定します。<br> 例）設定値が1.5の場合はNo.5の通話フィルタの表示時間の1.5倍の時間で表示します。
+	5   |OperatorAgent - 通知メッセージ | 通話フィルタの通知時間レベル| No.5の通話フィルタの表示時間を「0（普通）」とした場合に「-1（短め）」に表示するか「1（長め）」に表示するかを指定  
 	6   |OperatorAgent - 通知メッセージ | 通話フィルタの表示時間|通話フィルタ検出時に通知メッセージを表示する時間（秒）  
-	7   |OperatorAgent - 通知メッセージ | 一度に通知する通話フィルタの対象発話数| 通話中にOperatorAgentを起動した時に、検出済みの通話フィルタが大量に表示されるのを防止する機能。「-1」を指定した場合、通話内でそれまで検知した全ての通話フィルタの通知メッセージを表示  
-	8   |共通 - 通話フィルタインポート | 通話フィルタインポートリクエストタイムアウト| インポート失敗を防ぐことを目的とした機能。有効値は「120以上の整数」
+	7   |OperatorAgent - 通知メッセージ | 一度に通知する通話フィルタの対象発話数| 通話中にOperatorAgentを起動すると、それまでに発話された通話内容がすべて表示されるため、その際に検出済みの通話フィルタ数を制限する機能。「-1」を指定した場合、通話内でそれまで検知した全ての通話フィルタの通知メッセージを表示  
+	8   |共通 - 通話フィルタインポート | 通話フィルタインポートリクエストタイムアウト| 大量の通話フィルタをインポートした際に処理の途中でタイムアウトが発生してインポートが失敗するケースがあり、タイムアウト期間を延ばすことで処理が最後まで継続することを目的とした機能。タイムアウト期間を延ばすことで、大量の通話フィルタをインポートすることが可能ですが、インポート処理中はDBの負荷が高くなり、リアルタイム機能のレスポンスに影響が発生する可能性があります。
 
 	: OperatorAgent 通話フィルタの設定 {#tbl:callfilter}  
 
+	通話フィルタの適用タイミングは [@fig:callfilter3] の通話フィルタ管理 - 詳細 から通話フィルタごとに設定します。  
+
+	- 発話中・・・認識結果の確定前のタイミングで適用されます。  
+	- 発話終了時・・・認識結果の確定後のタイミングで適用されます。  
+
+	![通話フィルタ適用タイミングの設定](images/2-1-通話フィルタ3.png){#fig:callfilter3 width=500px}  
+
+
+	![](images/Tips.jpg){width=50px}　リアルタイム性を重視するのであればで「発話中」に設定することでキーワードが発話されたタイミングごとに検出することが可能です。注意点としては前後の文字の繋がりにより最終的に認識結果が変わるケースがあり、通話フィルタの適用条件でないキーワードで検知する場合があります。「発話終了時」の場合は、1発話中に複数の通話フィルタがヒットした場合でも、発話終了後の認識結果が確定後に同時に通話フィルタが実行されます。  
+
 	<br />
 
-	![](images/Tips.jpg){width=50px}　通話フィルタの発動条件となるキーワードがテキスト化されたのに、通話フィルタが起動しない場合、[@tbl:filtertrouble] を参考にシューティングしてください。
+
+
+	![](images/Tips.jpg){width=50px}　通話フィルタ適用時に検出時のキーワードを取得したい場合などには  
+	通話フィルタのコマンド欄に以下の書式で記述します。オプションに **urlencode** を指定すると、値が URLエンコード されます。  
+
+	```
+	${'メインキー文字列', 'サブキー文字列', 'オプション'}
+	```  
+	例）	通話フィルタ適用時に、発動条件となったキーワードを Google で検索する
+
+	```
+	https://www.google.co.jp/?gws_rd=ssl#q=${filterdetection,ConversationFilterName,urlencode}
+	```  
+	- 検出通話フィルタ情報  
+	メインキーは『filterdetection』 に固定されます。指定可能な サブキー は [@tbl:callfiltersubkey2] の通りです。  
+
+	No. | サブキー | 置き換えられる値                |備考    |
+	----:|---------------------|------------------|--------------|
+	1   |SegmentNo |セグメント番号|発話番号|
+	2   |ConversationFilterId |会話フィルタID|通話フィルタID              |
+	3   |ConversationFilterName |会話フィルタ名称|通話フィルタ名              |
+	4   |ChannelType |チャンネル種別|検出対象回線種別              |
+	5   |StartTime |会話の開始位置からの検出開始位置を表す（ミリ秒）| 【要動作検証】         |
+	6   |EndTime	 |会話の開始位置からの検出終了位置を表す（ミリ秒）| 【要動作検証】          |
+	7   |DetectionString |検出文字列|通話フィルタの適用条件のキーワード              |
+
+	: 検出フィルタ情報で利用可なサブキーの一覧 {#tbl:callfiltersubkey2}  
+
+	- 通話フィルタ情報  
+	メインキーは『filterinfo』 に固定されます。指定可能な サブキー は [@tbl:callfiltersubkey1] の通りです。  
+
+	No. | サブキー | 置き換えられる値                |備考    |
+	----:|---------------------|------------------|--------------|
+	1   |ConversationFilterId|会話フィルタID|通話フィルタID              |
+	2   |ConversationFilterName |会話フィルタ名称| 通話フィルタ名  |  
+	3   |ConversationDescription |会話フィルタの説明        |  通話フィルタの説明   |
+	4   |ActionCommands|アクションコマンドの一覧|複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。例) ${filterinfo, ActionCommands[1].CommandName}    【要動作検証】            |
+	5   |CommandName |コマンド名称          |No.4の ActionCommands の下位 。通話フィルタのコマンド名             |
+	6   |ActionCommand |実行するコマンド         |No.4の ActionCommands の下位。通話フィルタで実行するコマンド              |
+	7   |ActionAttributes |アクション属性の一覧         |複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。例) ${filterinfo, ActionAttributes[1].ConversationAttributeKey }   【要動作検証】          |
+	8   |ConversationAttributeKey        |アクション属性識別名          |No.7 の ActionAttributes の下位。【要動作検証】               |
+	9   |ConversationAttributeValue        |アクション属性値          |No.7 の ActionAttributes の下位。【要動作検証】      |
+	10   |Priority        |優先度 | No.7 の ActionAttributes の下位。【要動作検証】   |
+	11   |ActionTags        |アクションタグの一覧(配列)          |複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。例) ${filterinfo, ActionTags[1].ConversationTagName }   |
+	12   |ConversationTagName        |会話タグ名称          |No.11 の ActionTags の下位。通話フィルタで付与された通話タグ              |
+
+	: 通話フィルタ情報で利用可なサブキーの一覧 {#tbl:callfiltersubkey1}  
+
+	- 実行コマンド情報  
+	メインキーは『executedcommand』 に固定されます。指定可能な サブキー は [@tbl:callfiltersubkey3] の通りです。  
+
+	No. | サブキー | 置き換えられる値                |備考    |
+	----:|---------------------|------------------|--------------|
+	1   |CommandName|コマンド名称|通話フィルタのコマンド名              |
+	2   |ActionCommand |実行したコマンド        |通話フィルタで実行したコマンド              |
+
+	: 実行コマンド情報で利用可なサブキーの一覧 {#tbl:callfiltersubkey3}  
+
+
+	![](images/Tips.jpg){width=50px}　通話フィルタの適用条件となるキーワードがテキスト化されたのに、通話フィルタが適用されない場合、[@tbl:filtertrouble] を参考にシューティングしてください。
 
 	No. | 原因| 対処 |
 	-:|-------|----------|
@@ -636,18 +697,6 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 1. ヘルプ  
 
 	![ヘルプボタン](images/2-1-ヘルプ.png){#fig:helpb width=200px}  
-
-	`利用上の注意`  
-	ヘルプボタン（[@fig:helpb]）を利用するには、ヘルプ要求 / ヘルプ解除理由の登録が必要です。  
-	ヘルプ要求理由管理が登録されていない場合には OperatorAgent の画面にヘルプボタンは表示されません。  
-
-	<br />
-
-	![](images/Tips.jpg){width=50px}　ヘルプ要求後のヘルプ解除は ControlCenter の設定で特定条件で自動終了することができます。  
-	- 通話前にヘルプ要求を実施、通話を開始した場合にヘルプ要求を自動解除
-	- 通話中にヘルプ要求を実施、通話終了後にヘルプ要求を自動解除
-
-	<br />
 
 	ヘルプ要求 / ヘルプ解除理由管理に関する ControlCenter の詳細設定項目は[@tbl:help]を編集して構成します。
 
@@ -663,11 +712,27 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 	: OperatorAgent ヘルプ設定 {#tbl:help}  
 
-1. 感情解析  
-送話と受話側の発話内容をリアルタイムで感情に数値化して表示する機能です。  
-感情解析は音声データをもとに解析を行っており、テキストデータを解析対象としていません。
 
-	- OperatorAgentの感情解析機能([@fig:emo0]) ([@fig:emo1])([@fig:emo２])([@fig:emo3])  
+	`利用上の注意`  
+	ヘルプボタン（[@fig:helpb]）を利用するには、ヘルプ要求 / ヘルプ解除理由の登録が必要です。  
+	ヘルプ要求理由管理が登録されていない場合には OperatorAgent の画面にヘルプボタンは表示されません。  
+
+	<br />
+
+	![](images/Tips.jpg){width=50px}　ヘルプ要求後のヘルプ解除は ControlCenter の設定で特定条件で自動終了することができます。  
+	- 通話前にヘルプ要求を実施、通話を開始した場合にヘルプ要求を自動解除
+	- 通話中にヘルプ要求を実施、通話終了後にヘルプ要求を自動解除
+
+	<br />
+
+
+
+1. 感情解析  
+送話と受話側の発話内容をリアルタイムで感情に数値化して表示します。  
+音声データをもとに感情解析を行っており、テキストデータを解析対象としていません。  
+<br>
+
+	- OperatorAgent の感情解析機能の一覧です。([@fig:emo0]) ([@fig:emo1])([@fig:emo２])([@fig:emo3])  
 
 		![オペレータのコンディション](images/2-1-感情バロメーター.png){#fig:emo0 width=150px}
 
@@ -678,38 +743,48 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 		![感情解析のサマリ画面](images/2-1-感情解析2.png){#fig:emo3 width=350px}  
 
 
-		[@tbl:emopop] は、ControlCenter の詳細設定項目で OperatorAgent で利用する「表示する感情」の設定項目となります。
+		([@fig:emo1])([@fig:emo２])([@fig:emo3])  は ControlCenter 詳細設定の[@tbl:emopop] を編集して構成します。  
+		([@fig:emo0]) の設定については[1-2. OperatorAgent のメイン画面]の 6. コンディション（感情メータ）を参照。
+
 
 		No. | 設定分類| 設定項目名                | 設定内容      |
 		----:|---------------------|------------------|--------------|
 		1   |OperatorAgent - 感情解析| 表示する感情（オペレータ）| 感情解析識別名 \| label＝感情名 で指定  
 		2   |OperatorAgent - 感情解析| 表示する感情（カスタマ） | 感情解析識別名 \| label＝感情名 で指定 |  
 
-		: OperatorAgent の感情解析ポップアップ {#tbl:emopop}  
+		: OperatorAgent の表示する感情設定 {#tbl:emopop}  
 
-	- 表示する感情の注意事項  
-「表示する感情」を変更する場合には詳細設定の 「保存する感情スコア」 の設定変更も必要です。  
-**「保存する感情スコア」に設定されていない感情は感情の値が取得できず、対象感情が表示されません。**  
+		例）怒りの感情を設定する。複数ある場合は改行区切りで登録。
 
-		[@tbl:emoscore] は、保存する感情スコアに関する ControlCenter の詳細設定項目です。  
+		```
+		nemesysco.qa5.angry|label=怒り
+		```
+
+
+
+		![](images/Check.png){width=50px}　 「表示する感情」を変更する場合には詳細設定の 「保存する感情スコア」 の設定変更も必要です。  
+		**「保存する感情スコア」に設定されていないものは感情値が取得できず、対象感情が表示されません。**  
+
+		保存する感情スコアは ControlCenter の詳細設定項目は[@tbl:emoscore] を編集して構成します。  
 
 		No. | 設定分類| 設定項目名                | 設定内容      |
 		----:|---------------------|------------------|--------------|
-		1   |共通 - 感情解析| 保存する感情スコア| （感情解析識別名）.（話者)で指定    
+		1   |共通 - 感情解析| 保存する感情スコア| （感情解析識別名）.（話者)で指定<br>話者：op = オペレータ cu = カスタマ
 
 		: 保存する感情スコア {#tbl:emoscore}  
 
-	- 保存する感情スコアの注意事項  
-**データベースのパフォーマンスの観点から、オペレータ、カスタマを含めて８つまでの感情に抑えて設計してください。**  
-「保存する感情スコア」に設定した感情のみデータベース内に感情のサマリ値（最小/平均/最大/開始/終了）を保存します。  
+		例）オペレータ側は快適、カスタマ側は怒りの感情を設定する。複数ある場合は改行区切りで登録。
+
+		```
+		nemesysco.qa5.hesitation.comfort.op
+		nemesysco.qa5.angry.cu
+		```
+
+		![](images/Check.png){width=50px}　**「保存する感情スコア」はデータベースのパフォーマンスの観点から、オペレータ、カスタマを含めて８つまでの感情に抑えて設計してください。**  「保存する感情スコア」に設定した感情のみデータベース内に感情のサマリ値（最小/平均/最大/開始/終了）を保存します。  発話単位の感情値は「保存する感情スコア」の設定に関係なく、すべての感情を取得しており Emotion ファイルに保存されています。  
 
 		<br />
 
-		![](images/Check.png){width=50px}　発話単位の感情値は「保存する感情スコア」の設定に関係なく、すべての感情を取得しており Emotion ファイルに保存されています。  
-
-		<br />
-
-		[@tbl:emolist] は、「表示する感情」と「保存する感情スコア」で利用可能な感情一覧です。  
+		「表示する感情」と「保存する感情スコア」で利用可能な感情一覧は[@tbl:emolist] の通りです。  
 
 		No. | 感情解析識別名| 感情名                | 複合型| 説明 |
 		----:|---------------------|------------------|----------|---------|
@@ -759,38 +834,23 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 		: 利用可能な感情一覧 {#tbl:emolist}
 
-	- 感情解析ライセンスの消費について  
-感情解析が利用可能な通話数には月ごとに上限があり、感情解析ライセンス数に依存します。  
-ライセンスの消費は Communication Suite が1通話とカウントした数だけ感情解析ライセンスが１つ消費されます。  
-消費したライセンスは月ごとにリセットされて 「0」 に戻ります。（月はじめ1日のAM9:00にリセット）  
-ライセンス数は ContronCenter / システム管理 / ライセンス状況 /感情解析ライセンス管理 で確認できます。（[@fig:kanjo]）  
+	- 感情解析の通知  
+	感情解析の通知に関する設定は ControlCenter の詳細設定項目の[@tbl:emotuuchi] を編集して構成します。  
 
-		![感情解析ライセンス管理 画面](images/2-1-感情ライセンス.png){#fig:kanjo width=600px}  
+		No. | 設定分類| 設定項目名                | 設定内容      |
+		----:|---------------------|------------------|--------------|
+		1   |OperatorAgent - 通知メッセージ|ヘルプを案内する感情解析の通話重要度の閾値|設定した通話重要度の値を検知した際に感情解析ポップアップ画面にヘルプボタンを表示
+		2   |OperatorAgent - 通知メッセージ|感情解析の自動表示|感情解析ポップアップ画面の表示可否を指定
+		3   |OperatorAgent - 通知メッセージ|通話終了後の感情解析の表示時間|通話終了後、感情解析ポップアップ画面を表示する時間を指定|
 
-		![](images/Check.png){width=50px} 「感情解析ライセンス数」 の算出式  
-		【要確認】 RealTimeRecorder ライセンス数 1 につき、 3,000 回の感情解析処理 / 月 で算出されます。  
-		例） 5 内線分のライセンス環境の場合  
-		5内線 × 3,000回 = 15,000回の感情解析処理が可能となります。  
+		: OperatorAgent - 通知メッセージ設定 {#tbl:emotuuchi}  
 
-		<br />
-
-		![](images/Check.png){width=50px}　感情解析ライセンスの消費タイミング  
-		-  保留により通話が分割された場合（保留前、保留後で計2ライセンスを消費）  
-		-  通話を転送した場合（転送元、転送先で計2ライセンスを消費）  
-		-  再認識を実施した通話（ConrtolCenter の認識オプションの設定で感情解析が有効な場合）  
-		-  電話機のモニタ機能を利用時、モニタ実施電話機の音声が通話と録音される場合  
-		-  「短い通話の録音キャンセル」機能によりキャンセルされた通話（CCの設定場所【要確認】）  
-		-  「長い通話の分割」機能により分割された通話（CCの設定場所【要確認】）   
-
-	- 通話内で感情解析の対象とする範囲  
-1通話内で感情解析の対象とする範囲をControlCenter の認識オプションの設定で制御することができます。（3-5 認識オプション参照）  
-
-#### 1-3. 通話終了後の機能
+#### 1-2-3. 通話終了後の機能
 
 1. SpeechVisualizer ボタン（[@fig:opsv]）  
 OperatorAgent 上で表示されている通話の SpeechVisualizer の通話詳細画面を呼び出します。  
 ボタンは、通話開始前や通話中は非活性状態にあり、操作できません。  
-該当通話の認識結果のアップロードが、StreamingRecognizer から ControlCenter に対して完了すると、その旨が ControlCenter から OperatorAgent に通知されることにより活性化します。
+該当通話の認識結果のアップロードが、StreamingRecognizer から ControlCenter に対して完了すると、その旨が ControlCenter から OperatorAgent に通知されることにより活性化します。（認識エラーとなった通話や、アップロードに失敗した通話の場合には活性化しません。）
 
  	![SpeechVisualizer ボタン](images/2-1-opsv.png){#fig:opsv width=100px}  
 
@@ -800,7 +860,7 @@ OperatorAgent 上で表示されている通話の SpeechVisualizer の通話詳
 
 	![手動通話属性の入力画面](images/2-1-通話属性ポップアップ画面2.png){#fig:callp2 width=450px}  
 
-	手動で通話属性を追加するための詳細設定項目は、@tbl:tuuwazokusei を参照してください。
+	手動で通話属性を追加するための ControlCenter の詳細設定項目は、@tbl:tuuwazokusei を編集して構成します。
 
 	No. | 設定分類| 設定項目名                | 設定内容      |
 	----:|---------------------|------------------|--------------|
@@ -809,10 +869,57 @@ OperatorAgent 上で表示されている通話の SpeechVisualizer の通話詳
 
 	: 手動で追加する通話属性の設定 {#tbl:tuuwazokusei}
 
-	追加可能な通話属性は（[1-2-2. 通話[@tbl:callb2]: 利用可能な通話属性一覧](#1-2-2. 通話表示機能) 参照。）  
+	例） OperatorAgent から手動で登録可能な通話属性として通話属性の「サイト参照用のID」 を指定する。
+
+	```
+	amivoice.common.reference.site.id
+	```
+
+	追加可能な通話属性は（[1-2-2. [@tbl:callb2]: 利用可能な通話属性一覧](#1-2-2. 通話表示機能) 参照。）  
+
+### 1-3. OperatorAgent と ControlCenter の通信  
+ControlCenter と OperatorAgent は、2種類の通信経路で接続されています。  
+
+1. ログイン（状態）を管理する通信経路  
+ControlCenter は、 ログイン中の OperatorAgent が通信可能な状態にあるかを、OperatorAgent からのリクエストの有無で判断しています。  
+ヘルプ通知やメッセージ送信など機能によるリクエストが発生しない場合、OperatorAgent は、[@tbl:oaping] の 『ログイン維持の通知間隔』 毎に Ping のようなリクエストを ControlCenter に送信します。  
+その Ping リクエスト を受信することで、ControlCenter はログイン中の OperatorAgent の死活監視を行っています。  
+	- OperatorAgent のログインタイムアウト  
+ControlCenter はログイン中の OperatorAgent から、[@tbl:oaping] の 『ログイン状況タイムアウト』 の設定値を超えて新しいリクエストがない場合には、該当の OperatorAgent を `ログインタイムアウト` の状態として管理します。  
+各 OperatorAgent が ControlCenter からどのように見えているのかは、ControlCenter のモニタリングメニューの 『ログイン状況』 機能で確認できます。  
+SpeechVisualizer の座席表機能では、タイムアウトした OperatorAgent の座席にはタイムアウトアイコンが表示されます。([@fig:ismto])  
+
+		![](images/Check.png){width=50px}　この状態は、該当座席に対して新たな OperatorAgent がログインすることで解消されます。それまではタイムアウト済みの OperatorAgent からのレジスト情報が表示され続けます。  
+
+		![座席表でのタイムアウト表示](images/1-2-ism_to.png){#fig:ismto width=250px}  
+
+1. 状態通知のための通信経路  
+都度リクエストが発生するログイン管理の通信経路とは別に、ControlCenter から OperatorAgent へ各種イベント（[@tbl:callevent] など）を通知するための通信経路が存在します。  
+OperatorAgent から ControlCenter へのリクエストとはなりますが、ControlCenter から OperatorAgent に通知するべきイベントが発生する毎に、ControlCenter から非同期にレスポンスされる通信（HTTP Comet）となります。  
+ControlCenter からは特に通知すべきイベントが無い場合でも、[@tbl:callevent] の 『データ送信最長間隔』 毎に接続の維持のためのレスポンスが行われます。  
+	- 状態通知通信の受信タイムアウト  
+OperatorAgent では、[@tbl:callevent] の 『受信タイムアウト』 以上、状態通知のレスポンスが無い場合、状態通知通信の接続に問題が発生（接続が切断）したと判断し、既存の接続を破棄して再接続処理を行います。  
+再接続に失敗した場合には、[@tbl:callevent] の 『再接続間隔』 毎に再接続処理が繰り返されます。  
+		![](images/Check.png){width=50px}　ControlCenter との接続断を通知した場合、OperatorAgent は 通知ポップアップ にてその旨をユーザに通知しますが、通知ポップアップは、接続断だと判断された瞬間には通知されず、その直後の再接続処理に失敗したタイミングで通知されます。
+
+	No. | 設定分類 | 設定項目名                | デフォルト値  | 特記 |
+	----:|----------|--------|------|----|
+	1   | OperatorAgent - 状態通知 | データ送信最長間隔 | 90000（ミリ秒） |   
+	2   | OperatorAgent - 状態通知 | 再接続間隔 | 60000（ミリ秒） |   
+	3   | OperatorAgent - 状態通知 | 受信タイムアウト | 120000（ミリ秒） |   
+	4   | 共通 - セキュリティ | ログイン維持の通知間隔 | 180       |   
+	5   | 共通 - セキュリティ | ログイン状況タイムアウト | 600        |   
+
+	: ControlCenter と OperatorAgent の通信 {#tbl:oaping}
+
+	![](images/NOTICE.png){width=50px}　上記の仕様により、[@tbl:callevent] の設定値を変更する場合には、  
+	- 『ログイン状況タイムアウト』 > 『ログイン維持の通知間隔』  
+	- 『受信タイムアウト』 > 『データ送信最長間隔』  
+
+	が成り立つように配慮する必要があります。（極力変更しないようにしてください。）  
 
 
-#### 1-4. OperatorAgent の起動・終了時の動作  
+### 1-4. OperatorAgent の起動・終了時の動作  
 
 1. OperatorAgent 起動時の処理  
 	- OperatorAgent の自動更新処理  
@@ -923,28 +1030,14 @@ OperatorAgent がインストールされた PC 毎にライセンスの引当�
 1. OperatorAgent 終了時の処理  
 	- ログオフ処理  
 ControlCenter にレジストされた、OperatorAgent のログイン情報（ユーザ・座席表の位置・内線番号との関連付け）などをリリースします。  
-OperatorAgent を VDI オプション付きでインストールしている場合には、ライセンスのリリース（[【確認中#8237】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8237)）も実施します。
 
-		<br />
+		![](images/NOTICE.png){width=50px}　OperatorAgent を手動で終了せずに PC のシャットダウンを行った場合、PC のシャットダウンシーケンス開始を検出した OperatorAgent は自身も終了処理を実施します。さらに、終了処理が完了するまで OS が完全にシャットダウンすることを待機させます。  
+		ただし、OS 側でも各種終了処理が並行で実施されるため、OperatorAgent が ControlCenter と通信しログオフ処理を完了する前に OS の通信デバイスが停止している可能性があります。その場合、OperatorAgent のログイン情報が ControlCenter 上に残り続けます。（その後、[1-3. OperatorAgent と ControlCenter の通信](#1-3-operatoragent-と-controlcenter-の通信) の 1 の仕様に従い、OperatorAgent の状態がタイムアウトになります。）  
 
-		![](images/NOTICE.png){width=50px}OperatorAgent を手動で終了せずに PC のシャットダウンを行った場合、PC のシャットダウンシーケンス開始を検出した OperatorAgent は自身も終了処理を実施します。さらに、終了処理が完了するまで OS が完全にシャットダウンすることを待機させます。  
-		ただし、OS 側でも各種終了処理が並行で実施されるため、OperatorAgent が ControlCenter と通信しログオフ処理を完了する前に OS の通信デバイスが停止している可能性があります。その場合、OperatorAgent のログイン情報が ControlCenter 上に残り続けます。  
-		ControlCenter は各 OperatorAgent の生存確認のための通信を実施しており、[【確認中#8239】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8239) 、 [【確認中#8240】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8240)（[@tbl:oaping]） ControlCenter にレジストされた OperatorAgent のログイン情報はリリースされます。  
-		ControlCenter 上での OperatorAgent のログイン情報は、ControlCenter のモニタリングメニューの `『ログイン状況』` 機能で確認できます。  
-		SpeechVisualizer の座席表機能では、タイムアウトした OperatorAgent の座席にはタイムアウトアイコンが表示されます。([@fig:ismto])  
-		この状態は、該当座席に対して新たな OperatorAgent がログインすることで解消されます。それまではタイムアウト済みの OperatorAgent からのレジスト情報が表示され続けます。  
+		![](images/Check.png){width=50px}　OperatorAgent を RDS or VDI オプション付きでインストールしている場合、ライセンスのリリースはログオフとは同期して処理されません。  
+		ControlCenter の 『ライセンス状況』・『ログイン状況』 の表示時に、ログアウトやタイムアウトの状態になったライセンスを解放しています。  
 
-		![座席表でのタイムアウト表示](images/1-2-ism_to.png){#fig:ismto width=250px}  
-
-		No. | 設定項目名                | デフォルト値  | 内容 |
-		----:|------------------|------|----|
-		1   | データ送信最長間隔 | 90000（ミリ秒） | 【要確認】  
-		2   | 再接続間隔 | 60000（ミリ秒） | 【要確認】  
-		3   | 受信タイムアウト | 120000（ミリ秒） | 【要確認】  
-
-		: 詳細設定 項目分類 『OperatorAgent - 状態通知』 {#tbl:oaping}
-
-#### 1-5. OperatorAgent からのコマンド実行
+### 1-5. OperatorAgent からのコマンド実行
 - OperatorAgent からは、詳細設定項目（[@tbl:oacommand]）を設定することで指定したタイミングでコマンドを実行することができます。
 
 	No. | 設定項目名
@@ -1032,7 +1125,7 @@ OperatorAgent を VDI オプション付きでインストールしている場�
 	15   |  OperatorPhoneNumber | 自番号 | No.9 |
 	16   |  OperatorPhoneLabel | 自分のID | No.8 | 電話基盤へのログイン情報
 	17   |  OperatorGroup | 受電グループ | No.10 | 受電スキル
-	18   |  OperatorHostName | 自分のホスト名 | No.11 | 【要確認】
+	18   |  OperatorHostName | 自分のホスト名 | No.11 | コントロールフォンが動作している PC の ホスト名（[@tbl:callb2] 参照）
 	19   |  Direction | 通話の向き | No.2 |
 	20   |  LineType | 通話種別 | No.3 |
 	21   |  CustomerPhoneNumber | 相手番号 | No.14 |
@@ -1063,7 +1156,7 @@ OperatorAgent を VDI オプション付きでインストールしている場�
 
 	サブキーの指定に制限はありませんが、有用な値に置換できるかは利用している通話プロバイダと電話機基盤の設定によります。
 
-#### 1-6. コマンドラインからの OperatorAgent 操作
+### 1-6. コマンドラインからの OperatorAgent 操作
 - OperatorAgent は、コマンドラインから  
 
 	```
@@ -1089,10 +1182,10 @@ OperatorAgent を VDI オプション付きでインストールしている場�
 	- 『ユーザIDの指定』 と 『パスワードの指定』 を同時に組合せることにより、統合 Windows 認証 を利用することなく自動ログインを可能にします。  
 	- 『内線番号の指定』 は、一時的に設定済みの内線番号ではない電話機と組み合わせてテストするときなどに指定します。  
 	- 『自動アップデートの禁止』 不具合があることがわかっている OperatorAgent に自動バージョンアップをさせたくない場合などに指定します。  
-	- 『言語の指定』 【要確認】  
+	- 『言語の指定』 [【確認中#8242】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8242)  
 	- 『起動中のOAを終了』 は、端末の操作が著しく限定されている。かつ、端末シャットダウン時に実行中のアプリケーションの全終了が条件の環境で利用しています。
 
-#### 1-7. OperatorAgent のインストール
+### 1-7 OperatorAgent のインストール
 - OperatorAgent は、インストーラを通常起動してウィザード形式で手動インストールする方法と、インストーラ実行時に引数付きで起動し自動インストールする方法と2種類のインストールがサポートされています。  
 - 自動インストール時に引数指定するオプション（[@tbl:oainstalloption]）次第ではサイレントインストールが可能です。  
 
@@ -1143,12 +1236,12 @@ OperatorAgent を VDI オプション付きでインストールしている場�
 	--:|---|--
 	1 | OperatorAgent | 全ての通話プロバイダで必要です。  
 	2 | RealTimeRecorder | PCのサービスとして RealTimeRecorder をインストールします。クライアント版を利用する場合には必要です。  
-	3 | RealTimeRecorder\Converger | 通話プロバイダで、音声デバイス方式でコンバージャーを利用する場合に必要です。具体的になにが行われるかは 【要確認】  
-	4 | RealTimeRecorder\PacketCapture | 【要確認】  
-	5 | RealTimeRecorder\PacketCapture\Avaya | 【要確認】  
+	3 | RealTimeRecorder\Converger | 通話プロバイダで、音声デバイス方式でコンバージャーを利用する場合に必要です。コンバージャーを制御するための DLL などがインストールされます。  
+	4 | RealTimeRecorder\PacketCapture |SLC 及び クライアントパケットキャプチャ形式で録音する場合に必要です。パケットキャプチャのライブラリがインストールされます。  
+	5 | RealTimeRecorder\PacketCapture\Avaya | SLC 及び クライアントパケットキャプチャ形式で、通話プロバイダで Avaya 電卓する場合に必要です。No 4 と合わせて、Avaya パケットキャプチャ のライブラリが追加インストールされます。  
 	6 | RealTimeRecorder\CTILink | CTI 連携用の DLL をインストールします。  
 	7 | StreamingRecognizer | PC のサービスとして StreamingRecognizer をインストールします。クライアント版を利用する場合には必要です。  
-	8 | ConvergerTool | コンバージャー調整ツールをインストールします。  
+	8 | ConvergerTool | コンバージャー調整ツールをインストールします。コンバージャー方式での録音処理に必須ではありませんが、コンバージャーの調整には必要です。  
 
 	: OperatorAgent インストール時に選択可能なコンポーネント {#tbl:oainstallcomponent}
 
@@ -1248,8 +1341,6 @@ OperatorAgent を VDI オプション付きでインストールしている場�
 	---:|------------------|--------------|------|
 	1   |  ブラウザログインタイムアウト | 1800        | 認証 Cookie の生存期間です
 	2   |  ブラウザログインを継続するための通知間隔 | 20        | 座席表画面で 『ブラウザログインタイムアウト』 が発生しないようにするための設定値です |
-	3   |  ログイン維持の通知間隔 | 180       | 【要確認】 no2 との違いが不明、OperatorAgent の項目？
-	4   |  ログイン状況タイムアウト | 600        | 【要確認】  これも OperatorAgent 用の項目か？
 
 	: SpeechVisualizer ブラウザログインタイムアウト {#tbl:svloginto}
 
@@ -1379,7 +1470,7 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 
 		No. | 設定項目      | デフォルトの設定 |設定内容
 		---:|------|------------------|-  |    
-		1  | 【要確認】  | 未設定  | 【要確認】  |    
+		1  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)  | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
 
 		: プロフィールガジェットの書式説明 {#tbl:svhomeprofile}  
@@ -1415,9 +1506,9 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |   
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  | 0:無効化,1:有効化   |   
-		3  |【要確認】   | 未設定  | 【要確認】  
-		4  |【要確認】   | 未設定  | 【要確認】    
-		5  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)  
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)    
+		5  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		6  |感情解析結果の表示   | 1  | 0:表示しない,1:表示する   |   
 		:自分の通話ガジェットの書式説明 {#tbl:svhomemyrecent}
 
@@ -1436,9 +1527,9 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |     
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
-		3  |【要確認】   | 未設定  | 【要確認】  
-		4  |【要確認】   | 未設定  | 【要確認】    
-		5  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)  
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)    
+		5  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |   
 		:自分の通話(IN)ガジェットの書式説明 {#tbl:svhomemyrecentinbound}
 
@@ -1455,9 +1546,9 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |   
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
-		3  |【要確認】   | 未設定  | 【要確認】  
-		4  |【要確認】   | 未設定  | 【要確認】    
-		5  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)  
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)    
+		5  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |   
 		:自分の通話(OUT)ガジェットの書式説明 {#tbl:svhomemyrecentoutbound}
 
@@ -1474,8 +1565,8 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |    
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
-		3  |【要確認】   | 未設定  | 【要確認】     
-		4  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)     
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5  |カラムの表示   |1|1:オペレータ名で表示,2:内線番号で表示   |  
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |   
 		:所属プロジェクトの通話ガジェットの書式説明 {#tbl:svhomeprojectrecent}
@@ -1494,8 +1585,8 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |   
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
-		3  |【要確認】   | 未設定  | 【要確認】    
-		4  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)    
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5  |カラムの表示   |1|1:オペレータ名で表示,2:内線番号で表示   |  
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |   
 		:所属プロジェクトの通話(IN)ガジェットの書式説明 {#tbl:svhomeprojectrecentInbound}
@@ -1513,8 +1604,8 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |   
 		1   |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |   
-		3   |【要確認】   | 未設定  | 【要確認】     
-		4   |【要確認】   | 未設定  | 【要確認】
+		3   |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)     
+		4   |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5   |カラムの表示   | 1 |1:オペレータ名で表示,2:内線番号で表示   |  
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |   
 		:所属プロジェクト(OUT)の通話ガジェットの書式説明 {#tbl:svhomeprojectrecentoutbound}
@@ -1532,8 +1623,8 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |   
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  | 0:無効化,1:有効化   |     
-		3  |【要確認】   | 未設定  | 【要確認】    
-		4  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)    
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5  |カラムの表示   | 1 | 1:オペレータ名で表示,2:内線番号で表示 |  
 		6  |感情解析結果の表示   | 1  | 0:表示しない,1:表示する   |  
 		:自分が最近再生した通話ガジェットの書式説明 {#tbl:svhomemyrecentplayhistory}
@@ -1551,8 +1642,8 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |    
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |    
-		3  |【要確認】   | 未設定  | 【要確認】     
-		4  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)     
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5  |カラムの表示   |1|1:オペレータ名で表示,2:内線番号で表示  |  
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |  
 		:自分が最近参照した通話ガジェットの書式説明 {#tbl:svhomemyrecentviewhistory}
@@ -1570,8 +1661,8 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |   
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |     
-		3  |【要確認】   | 未設定  | 【要確認】    
-		4  |【要確認】   | 未設定  | 【要確認】
+		3  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)    
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5  |カラムの表示   |1|1:オペレータ名で表示,2:内線番号で表示 |  
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |  
 		:自分が最近編集した通話ガジェットの書式説明 {#tbl:svhomemyrecentedithistory}
@@ -1589,7 +1680,7 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |   
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |     
-		3   |【要確認】   | 未設定  | 【要確認】|   
+		3   |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)|   
 		:自分の通話に対する最近のコメントガジェットの書式説明 {#tbl:svhomerecentcomment}
 
 
@@ -1672,8 +1763,8 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		---:|------|------------------|-  |    
 		1   |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |     
-		3   |【要確認】   | 未設定  | 【要確認】    
-		4   |【要確認】   | 未設定  | 【要確認】
+		3   |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)    
+		4   |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5   |カラムの表示   |1|1:オペレータ名で表示,2:内線番号で表示 |  
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |  
 		:マイクエリガジェットの書式説明 {#tbl:svhomemyquery}
@@ -1693,7 +1784,7 @@ No. | 設定分類 | 設定項目名       | 設定値 |内容
 		1  |表示件数の選択   |  5 | UI上は5,10,20件から選択、詳細設定では1~20件で設定可能です。  |    
 		2  |自動更新の有効化   | 0  |0:無効化,1:有効化   |     
 		3  |対象期間   | 1  |UI上は今日のみ(1) 、昨日から(2)、過去7日（7）のみ。詳細設定では任意の数字で指定が可能です。   
-		4  |【要確認】   | 未設定  | 【要確認】
+		4  |[【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)   | 未設定  | [【確認中#8244】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8244)
 		5  |カラムの表示   |1|1:オペレータ名で表示,2:内線番号で表示 |  
 		6  |感情解析結果の表示   | 1  |0:表示しない,1:表示する   |  
 		:通話スコアリングガジェットの書式説明 {#tbl:svhomescore}
@@ -2150,32 +2241,39 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 
 		です。
 		末尾の "ー" の有無は、ステミング機能により同一単語として解釈されます。  
-		助詞 "の" はノイズワードの仕様によって検索クエリとして評価されません。  
+		助詞 "の" はノイズワード（最新の SQLServer では `ストップワード`）の仕様によって検索クエリとして評価されません。  
+		ノイズワードとは、 SQL Server が、頻繁に出現しすぎて検索に役立たないと判断し、インデックスを作成しない文字列になります。  
+		SQLServer のバージョンにより、内部で定義されたノイズワードの定義に違いがあるようです。  
+		基本的には、後発バージョンの方が、パフォーマンスが向上しているためかノイズワードの定義が緩和（登録数が少ない）されている傾向があります。
 
 		<br />
 
-		単純な文字列検索ではないため、"ルセン" などのフルテキスト検索のワードブレーカーが、単語 として認識していない文字列では検索ができません。
+		単純な文字列検索ではないため、"ルセン" などのフルテキスト検索のワードブレーカーが、単語 として認識していない文字列には、インデックスが作成されないため、検索ができません。
 
 		<br />
 
-		【要確認】 ここの仕様は私も謎なのでしっかり調べてください。  
-		![](images/Tips.jpg){width=50px}　フリーワードにノイズワードが含まれている場合には検索が正常に行われません。  ノイズワードとは、自然言語を処理するにあたって一般的であるなどの理由で処理対象外とする単語です。 日本語の 「は」 「の」 「です」 「その」 、英語の 「a」 「the」 「for」 「of」などです。  
-		ノイズワードが含まれていても検索ができるケースがある？【要確認】  
-		検索時のエラーメッセージ（②の場合は検索ができるらしい。。再現できず【要確認】）  
-		① キーワードにノイズワードが含まれていたため検索が行われませんでした。  
-		② キーワードにノイズワードが含まれていたため無視しました。  
+		![](images/Tips.jpg){width=50px}　フリーワード検索実行時、検索文字列にノイズワードが含まれている場合には以下のようなメッセージが画面に表示されます。  
+		1. キーワードにノイズワードが含まれていたため検索が行われませんでした。  
+このメッセージが表示された場合、内部では2つの処理結果のパターンが存在します。  
+			- 検索文字列がノイズワードのみで構成されていて、検索処理が行われなかった  
+			- 検索文字列にノイズワードが含まれていて、ノイズワードを無視して検索処理を実行したが、検索結果件数が 0 だった  
+		1. キーワードにノイズワードが含まれていたため無視しました。  
+検索文字列にノイズワードが含まれていて、ノイズワードを無視して検索処理を実行し、検索結果件数が 1 件以上だった  
 
-		<br>
+		1 の後者のパターンは、メッセージに対して若干ずれた挙動となっています。
+
+	<br>
 
 1. クエリ文字列の最大長  
-検索クエリで指定できるクエリ文字列の長さは IIS の 「要求フィルター」の設定（[@fig:youkyuft] ）に依存しています。  
-デフォルト設定では クエリ文字列の最大長は 2048 バイト です。  
-クエリ文字列の最大長を超えた場合には、検索時に 【要確認】 「HTTP エラー 404.15 - Not Found」が表示されます。
+検索クエリで指定可能なクエリの長さは、ベースの URL を含めた場合、 IIS の 「要求フィルター」の設定（[@fig:youkyuft] ）に依存しています。（デフォルト 2046 バイトまで。）  
+ベースの URL 部分を含めない場合、クエリに指定可能な最大長は 464 バイト です。  
+クエリ文字列の最大長を超えた場合には、検索実行時に ASP.NET のエラーページにリダイレクトされます。  
+クライアント PC からのアクセス時にはローカル環境に ASP.NET のエラーページのリソースが存在しないため、404 エラーとなって表示されます。
 
 	![IIS 要求フィルターの設定画面](images/2-3-要求フィルター.png){#fig:youkyuft width=500px}  
 
 1. 検索クエリ指定後の候補検索の仕組み  
-	【要確認】
+	[【確認中#8246】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8246)
 
 #### 2-3-3. 通話検索結果
 - 検索結果に関する詳細設定項目は [@tbl:kekka1] です。  
@@ -2276,13 +2374,17 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 	20 | SpeechVisualizer - 通話詳細 |通話詳細の折れ線グラフに表示する感情（オペレータ） |2-4-3参照 |
 	21 | SpeechVisualizer - 通話詳細 |通話詳細の折れ線グラフに表示する感情（カスタマ） |2-4-3参照 |
 	22 | SpeechVisualizer - 通話詳細 |通話情報に表示する追加の通話属性 |2-4-4参照 |
-	23 | SpeechVisualizer - 通話詳細 |波形が表示可能な最大サンプル数 |27000 |約XX分以降は波形が非表示になります。【要確認】サンプリングレート不明、30分？
+	23 | SpeechVisualizer - 通話詳細 |波形が表示可能な最大サンプル数 | 27000 | ※ 1
 	24 | SpeechVisualizer - 通話詳細 |波形を表示 |TRUE |
 	25 | SpeechVisualizer - 通話詳細 |話者アイコンを表示 |TRUE |
 	26 | 共通 - システム  | Silverlight プラグインの利用  | TRUE  |  
+
 	: 座席表の詳細設定 {#tbl:detaildc}
 
-
+	![](images/Check.png){width=50px} ※ 1 デフォルトの表示倍率で 30分程度、27000 は、≒ 27000 dot となり、  
+	波形を表示するのに必要な上下方向の長さ（高さ）を設定値となります。  
+	通話内容ビューを拡大すると、波形表示可能な通話時間は短くなり、逆に縮小すると、波形表示可能な通話時間は長くなります。  
+	<br />
 1. ユーザ毎にカスタマイズが可能な設定  
 	通話詳細の UI （[@fig:detailcustom]）からは、いくつかの詳細設定項目の個人別カスタム設定が可能です。
 
@@ -2306,7 +2408,7 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 	![](images/Tips.jpg){width=50px}　カスタマイズはユーザ個人での表示有無を選択する機能であり、ユーザの利用を制限するための機能ではありません。
 	例えば、あるユーザには感情解析の内容を開示させないといった個別の制限はかけることができません。
 
-	![](images/Tips.jpg){width=50px}　通話詳細の表示が遅い場合、表示に関連した設定をOFFにすることで改善する場合があります。
+	![](images/Tips.jpg){width=50px}　通話詳細の表示が遅い場合、デフォルト設定で、『波形を表示する』、『感情解析を表示する』、『話者アイコンを表示する』 を非表示設定にすることを推奨します。（必要に応じて、確認したい情報を表示に切り替えてください。）  
 
 ####  2-4-3. 通話内容ビューの表示と操作
 通話内容ビューには認識テキストおよび感情が表示されます。 （[@fig:detailcallcontent]）
@@ -2473,13 +2575,13 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 	No. | 設定項目名                                     | デフォルト値 | 特記事項
 	---:|------------------------------------------------|--------------|---------
 	  1 | Enter キーでメッセージを送信                                |     true         | 座席表画面の設定機能からユーザ毎にカスタマイズが可能です。
-	  3 | データ送信最長間隔(状態通知)                              |     90000         | 【要確認】
-	  4 | データ送信最長間隔(認識結果通知)                       |     90000         | 【要確認】
+	  3 | データ送信最長間隔(状態通知)                              |     90000         | [【確認中#8257】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8257)
+	  4 | データ送信最長間隔(認識結果通知)                       |     90000         | [【確認中#8257】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8257)
 	  5 | デスクトップ通知レベル                                          |    999          | IE では 『音での通知』 になります。
 	  6 | ピン留め時にメッセージパネルを開く                     |    false          |
 	  7 | ピン留め時に認識結果パネルを開く                       |     true          |
-	  8 | モニタリング対象タイムアウト                                  |    720          | ｛隠し項目｝【要確認】
-	  9 | モニタリング対象更新間隔                                      |    300          | 【要確認】
+	  8 | モニタリング対象タイムアウト                                  |    720          | ｛隠し項目｝[【確認中#8257】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8257)
+	  9 | モニタリング対象更新間隔                                      |    300          | [【確認中#8257】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8257)
 	 10 | レイアウタのズーム可能な最小値                            |    -6          | ｛隠し項目｝
 	 11 | レイアウタのズーム可能な最大値                             |    4          | ｛隠し項目｝
 	 12 | レイアウタのズーム倍率                                           |    1.55          | ｛隠し項目｝
@@ -2490,14 +2592,14 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 	 17 | 古い形式のログを削除する                                      |   false           |
 	 18 | 座席の認識結果を表示                                            |   true           | 座席表画面の設定機能からユーザ毎にカスタマイズが可能です。
 	 20 | 再生ボリューム                                                         |  50,50,1,1            | 座席表画面の設定機能からユーザ毎にカスタマイズが可能です。
-	 21 | 再接続間隔(状態通知)                                             |   60000           | 【要確認】
-	 22 | 再接続間隔(認識結果通知)                                      |   60000           | 【要確認】
-	 23 | 受信タイムアウト(状態通知)                                      |   120000           | 【要確認】
-	 24 | 受信タイムアウト(認識結果通知)                              |    120000          | 【要確認】
-	 25 | 受信バッファのクリア間隔(状態通知)                       |    3600          | 【要確認】
+	 21 | 再接続間隔(状態通知)                                             |   60000           | [【確認中#8257】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8257)
+	 22 | 再接続間隔(認識結果通知)                                      |   60000           | [【確認中#8257】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8257)
+	 23 | 受信タイムアウト(状態通知)                                      |   120000           | [【確認中#8257】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8257)
+	 24 | 受信タイムアウト(認識結果通知)                              |    120000          | [【確認中#8257】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8257)
+	 25 | 受信バッファのクリア間隔(状態通知)                       |    3600          | [【確認中#8257】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8257)
 	 26 | 書き込まれていないログを保持するバッファサイズ |    50000          | ｛隠し項目｝
-	 27 | 接続待ち時間(認識結果通知)                                   |     5000          | 【要確認】
-	 28 | 接続待ち追加時間のランダム値(認識結果通知)       |    2000          | 【要確認】
+	 27 | 接続待ち時間(認識結果通知)                                   |     5000          | [【確認中#8257】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8257)
+	 28 | 接続待ち追加時間のランダム値(認識結果通知)       |    2000          | [【確認中#8257】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8257)
 	 29 | 通知音（アラート）                                                     |    ~/Resources/Notification/notification-alert.mp3          |
 	 30 | 通知音（ヘルプ）                                                        |  ~/Resources/Notification/notification-help.mp3            |
 	 31 | 通知音（未読メッセージ）                                          |   ~/Resources/Notification/notification-message.mp3           |
@@ -2616,7 +2718,7 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 アラートやメッセージを受信した場合、画面への表示の他に音声鳴動での通知が可能です。  
 
 	2. Chrome、Firefox、Edge の場合  
-【要確認】 これらのブラウザでは、音声再生の代わりにデスクトップ通知として動作します？音声がなっているよね？
+[【確認中#8250】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8250) これらのブラウザでは、音声再生の代わりにデスクトップ通知として動作します？音声がなっているよね？
 
 #### 2-5-4. 座席モジュール
 座席モジュールには以下の2つの種類があります。  
@@ -2627,7 +2729,7 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 
 	![](images/Tips.jpg){width=50px}　ユーザID タイプの座席モジュールの使い所  
 固定座席のコールセンターでは利用しても良いかもしれません。
-メリットは、OperatorAgent にログインしていない状態でも、座席にユーザ名が表示されているので、レイアウトを把握しやすいことです。【要確認】 他にもいいとこあるのかな？
+メリットは、OperatorAgent にログインしていない状態でも、座席にユーザ名が表示されているので、レイアウトを把握しやすいことです。[【確認中#8255】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8255) 他にもいいとこあるのかな？
 
 - 座席モジュールへの感情解析情報の表示  
 表示のための設定は、[@tbl:seatmapdc] の 『認識結果に表示する感情（オペレータ）』、『認識結果に表示する感情（カスタマ）』 を参照してください。  
@@ -2637,8 +2739,11 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 表示のための設定は、[@tbl:seatmapdc] の 『表示する通話属性の一覧』 を参照してください。  
 設定内容に関しては、2-3-3. 通話検索の結果 の 1. 通話属性 を参照してください。  
 
-#### 2-5-5. 座席モジュールのタイムアウトについて
-【要確認】
+#### 2-5-5. 座席表画面と通知の仕組
+[【確認中#8257】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8257)
+
+#### 2-5-6. 座席表画面のログ
+[【確認中#8258】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8258)
 
 <div style="page-break-before:always"></div>
 
@@ -2712,7 +2817,7 @@ OperatorAgent からメッセージを送信することで、座席表ステー
 		1. クライアント版でも利用可能、全席に対して作用する
 	- 設定再読込のデメリット  
 		1. 全ての設定をリロードできるわけでは無い
-		1. 設定反映に時間がかかる場合がある（【要確認】分散配信の仕組み）
+		1. 設定反映に時間がかかる場合がある（[【確認中#8251】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8251)分散配信の仕組み）
 
 
 #### 3-4-2. 録音・認識状況
@@ -2808,7 +2913,7 @@ OperatorAgent からメッセージを送信することで、座席表ステー
 	[*] -> 認識前 : RR の通話開始\nアップロード
 	認識前 --> 認識待機中 : CC からの認識依頼通知
 	state "認識中（B）" as バッチ
-	認識待機中 --> バッチ : SR の認識開始\nアップロード\n通話終了（異常系）
+	認識待機中 --> バッチ : SR の認識開始\nアップロード
 	バッチ : 認識要求種別はバッチ
 	バッチ --> バッチ : テキスト化
 	バッチ --> 認識完了 : 認識処理の正常終了
@@ -2910,7 +3015,7 @@ OperatorAgent や 座席表のリアルタイムテキストの配信ががシ�
 		運用中に発生する場合では、NAS や SAN のハードウェア障害・記憶領域の容量不足などが原因として考えられますが、後者の場合、データパージの仕組みにも問題が発生していることが考えられますので、併せて確認することを推奨します。  
 
 		- Failed Queue について  
-認識完了のアップロード処理は失敗しても、リトライされ続けます。【要確認】 間隔・回数は無制限？  
+認識完了のアップロード処理は失敗しても、リトライされ続けます。[【確認中#8252】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8252) 間隔・回数は無制限？  
 ただし、処理失敗時のサーバ側のレスポンス内容から、リトライしても状況が改善しないと判断した場合、アップロードデータを通常のアップロード Queue フォルダから、Failed Queue フォルダへと移動させます。このとき、認識キューのステータスは変更されません。  
 Failed Queue に移動されたデータは自動復旧されないため、アップロードエラーとなった原因を解決し、再度アップロードデータを通常のアップロード Queue フォルダへ戻し、該当の StreamingRecognizer プロセスを再起動する必要があります。  
 
@@ -2939,7 +3044,7 @@ StreamingRecognizer で認識処理中に処理を継続できない事象が発
 どちらで設定しても効果は変わりません。
 
 ![](images/NOTICE.png){width=50px}　認識オプションが未設定の場合、通話の録音は正常に行われますが、認識処理が実施されません。  
-【要確認】 認識オプションが未設定の場合、通話の認識時にエラーが出力されないため、運用中に発生すると原因の特定が難しいことがあります。  
+【要動作検証】 認識オプションが未設定の場合、通話の認識時にエラーが出力されないため、運用中に発生すると原因の特定が難しいことがあります。  
 
 ![](images/Tips.jpg){width=50px}　システム共通設定を設定しておくことのメリットとして、運用開始時に存在しなかった新規プロジェクトを運用中に作成しても個別に認識オプションの設定をすることなく運用することができます。  
 システム共通設定は可能な限り設定するようにしてください。
@@ -3012,3 +3117,34 @@ AmiVoice© のテキスト化処理の仕様で、半角文字の出力ができ
 	![感情解析の平均値算出に利用される発話区間](images/3-5_R_Option_Emotion.png){#fig:option_emotion width=600px}
 
 **※ 感情解析の開始・終了区間はオペレータとカスタマで別の値を設定した場合は正しく動作しません。両方で同じ値で設定してご利用ください。**  
+
+
+### 3-6. ライセンス状況
+
+#### 3-6-1. 感情解析ライセンスの消費
+
+- 感情解析ライセンスの消費について  
+感情解析が利用可能な通話数には月ごとに上限があり、感情解析ライセンス数に依存します。  
+ライセンスの消費は Communication Suite が1通話とカウントした数だけ感情解析ライセンスが１つ消費されます。  
+消費したライセンスは月ごとにリセットされて 「0」 に戻ります。（月はじめ1日のAM9:00にリセット）  
+ライセンス数は ContronCenter / システム管理 / ライセンス状況 /感情解析ライセンス管理 で確認できます。（[@fig:kanjo]）  
+
+	![感情解析ライセンス管理 画面](images/2-1-感情ライセンス.png){#fig:kanjo width=600px}  
+
+	![](images/Check.png){width=50px} 「感情解析ライセンス数」 の算出式  
+	【要確認】 RealTimeRecorder ライセンス数 1 につき、 3,000 回の感情解析処理 / 月 で算出されます。  
+	例） 5 内線分のライセンス環境の場合  
+	5内線 × 3,000回 = 15,000回の感情解析処理が可能となります。  
+
+	<br />
+
+	![](images/Check.png){width=50px}　感情解析ライセンスの消費タイミング  
+	-  保留により通話が分割された場合（保留前、保留後で計2ライセンスを消費）  
+	-  通話を転送した場合（転送元、転送先で計2ライセンスを消費）  
+	-  再認識を実施した通話（ConrtolCenter の認識オプションの設定で感情解析が有効な場合）  
+	-  電話機のモニタ機能を利用時、モニタ実施電話機の音声が通話と録音される場合  
+	-  「短い通話の録音キャンセル」機能によりキャンセルされた通話（CCの設定場所【確認済：要修正】 → RealTimeRecorder - 録音音声 - 短い通話と判断する通話時間 & 短い通話の扱い）  
+	-  「長い通話の分割」機能により分割された通話（CCの設定場所【確認済：要修正】 → RealTimeRecorder - 録音音声 - 1通話の最大録音時間 & 最大録音時間を超えたときの扱い）  
+
+- 通話内で感情解析の対象とする範囲  
+1通話内で感情解析の対象とする範囲をControlCenter の認識オプションの設定で制御することができます。（3-5 認識オプション参照）  
