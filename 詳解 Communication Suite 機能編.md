@@ -418,7 +418,7 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 		![通話イベント ： 通話開始 ＆ 通話終了](images/2-1-通話開始.png){#fig:startobi width=500px}
 
-		![通話イベント ： 保留開始 ＆ 保留解除 ＆ 保留終了＆ 保留エラー（【要動作検証】保留終了と保留エラーの画像追加）](images/2-1-保留.png){#fig:holdobi width=500px}
+		![通話イベント ： 保留開始 ＆ 保留解除 ＆ 保留終了＆ 保留エラー](images/2-1-保留.png){#fig:holdobi width=500px}
 
 		![通話イベント ： 通話切替](images/2-1-通話切替.png){#fig:kirikaeobi width=500px}  
 
