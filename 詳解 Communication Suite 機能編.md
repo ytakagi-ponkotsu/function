@@ -3238,7 +3238,7 @@ AmiVoice© のテキスト化処理の仕様で、半角文字の出力ができ
 
 	上記 2 ～ 4 を図示したものが以下の [@fig:option_emotion] です。
 
-	![感情解析の平均値算出に利用される発話区間](images/3-5_R_Option_Emotion.png){#fig:option_emotion width=600px}
+	![感情解析の平均値算出に利用される発話区間](images/3-5_R_Option_Emotion.png){#fig:option_emotion width=700px}
 
 **※ 感情解析の開始・終了区間はオペレータとカスタマで別の値を設定した場合は正しく動作しません。両方で同じ値で設定してご利用ください。**  
 
@@ -3248,18 +3248,46 @@ AmiVoice© のテキスト化処理の仕様で、半角文字の出力ができ
 
 ### 3-7. ライセンス状況
 
-#### 3-7-1. 感情解析ライセンスの消費
+#### 3-7-1. 構成ごとの使用ライセンス  
+- ControlCenter / システム管理 / ライセンス状況のホーム画面に使用ライセンスが表示されます。  
+	構成ごとに使用するライセンスは [@tbl:riyouLicense] の通りです。  
 
-- 感情解析ライセンスの消費について  
-感情解析が利用可能な通話数には月ごとに上限があり、感情解析ライセンス数に依存します。  
-ライセンスの消費は Communication Suite が1通話とカウントした数だけ感情解析ライセンスが１つ消費されます。  
-消費したライセンスは月ごとにリセットされて 「0」 に戻ります。（月はじめ1日のAM9:00にリセット）  
-ライセンス数は ContronCenter / システム管理 / ライセンス状況 /感情解析ライセンス管理 で確認できます。（[@fig:kanjo]）  
+	No. | ライセンス名 | システム構成 | 説明
+	--:|-----------------|------|---------------------|
+	1 | AmiVoice Communication Suite Core | 共通 | どの構成でも共通で、データベース毎に1ライセンスです。
+	2 | AmiVoice OperatorAgent サーバ版 | サーバ版 | サーバ版で OperatorAgent をインストールするPCの台数分のライセンスです。VDI環境の場合は OperatorAgent の同時起動数です。
+	3 | AmiVoice RealTimeRecorder | サーバ版| サーバ版で録音対象とする内線番号の台数分のライセンスです。
+	4 | AmiVoice StreamingRecognizer | サーバ版 | サーバ版で同時認識数（最大同時通話数）分のライセンスです。
+	5 | AmiVoice OperatorAgent コンバージャ版 | クライアント版 | クライアント版のSLC / コンバージャ共通で OperatorAgent をインストールするPCの台数分のライセンスです。 RealTimeRecorder 及び StreamingRecognizer の利用はこのライセンスに含まれています。
+	6 | AmiVoice MediaScriber | MediaScriber | MediaScriber で利用するライセンスです。同時認識可能なライセンス数です。RealTimeRecorder 及び StreamingRecognizer の利用はこのライセンスに含まれています。
+
+	: 構成ごとの使用ライセンス {#tbl:riyouLicense}
+
+	![](images/Tips.jpg){width=50px}　下記ライセンス利用時は見積もり上のみの記載であり、ライセンス状況の画面には表示されません。  
+	- AmiVoice RealTimeRecorder（冗長）  
+	- AmiVoice Web Client API ライセンス  
+	- AmiVoice Web Client API ランタイムライセンス  
+
+
+#### 3-7-2. 感情解析ライセンス（作成中）
+
+- 感情解析ライセンス  
+	ContronCenter / システム管理 / ライセンス状況 /感情解析ライセンス管理 に感情解析ライセンスが表示されます。（[@fig:kanjo]）  
+	感情解析ライセンスは月単位で利用可能なライセンス数が管理されており  
+	ライセンス数を超過した場合は、それ以降は通話に感情解析が実行されません。  
+<br>
+- 感情解析ライセンス数の算出式
+
+	ライセンスの消費は Communication Suite が1通話とカウントした数だけ感情解析ライセンスを１つ消費します。  
+
+	MediaScriber は1ライセンス30000 で追加ごとに3000（情報メモ）
+
+	消費したライセンスは月ごとにリセットされて 「0」 に戻ります。（月はじめ1日のAM9:00にリセット）  
 
 	![感情解析ライセンス管理 画面](images/2-1-感情ライセンス.png){#fig:kanjo width=600px}  
 
 	![](images/Check.png){width=50px} 「感情解析ライセンス数」 の算出式  
-	【要確認】 RealTimeRecorder ライセンス数 1 につき、 3,000 回の感情解析処理 / 月 で算出されます。  
+	RealTimeRecorder ライセンス数 1 につき、 3,000 回の感情解析処理 / 月 で算出されます。  
 	例） 5 内線分のライセンス環境の場合  
 	5内線 × 3,000回 = 15,000回の感情解析処理が可能となります。  
 
