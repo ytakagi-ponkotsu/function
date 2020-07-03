@@ -1186,7 +1186,7 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 	3| パスワードの指定 | --password=[パスワード] | -p [パスワード]  
 	4| 内線番号の指定 | --line=[内線番号] | -l [内線番号]  
 	5| 自動アップデート禁止 | --disable-update |  
-	6| 言語の指定 | --culture=[カルチャ名(\<languagecode2>-\<country/regioncode2>)] |  
+	6| 言語の指定 | --culture=languagecode2-country/regioncode2 |  
 	7| 起動中のOAを終了 | --exit |  
 
 	: OperatorAgent のコマンドラインオプション {#tbl:oa-option}  
@@ -1198,25 +1198,40 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 	- 『自動アップデートの禁止』 不具合があることがわかっている OperatorAgent に自動バージョンアップをさせたくない場合などに指定します。  
 	- 『言語の指定』  
 OperatorAgent の表示言語を切替えます。  
+以下は書式例です。主な言語コードと国コードの組み合わせは、[@tbl:gengo] を参照してください。  
 
 		```
-		CULTURE ISO ISO WIN DISPLAYNAME                              ENGLISHNAME
-		ar      ar  ara ARA Arabic                                   Arabic
-		bg      bg  bul BGR Bulgarian                                Bulgarian
-		ca      ca  cat CAT Catalan                                  Catalan
-		zh-Hans zh  zho CHS Chinese (Simplified)                     Chinese (Simplified)
-		cs      cs  ces CSY Czech                                    Czech
-		da      da  dan DAN Danish                                   Danish
-		de      de  deu DEU German                                   German
-		el      el  ell ELL Greek                                    Greek
-		en      en  eng ENU English                                  English
-		es      es  spa ESP Spanish                                  Spanish
-		fi      fi  fin FIN Finnish                                  Finnish
-		zh      zh  zho CHS Chinese                                  Chinese
-		zh-Hant zh  zho CHT Chinese (Traditional)                    Chinese (Traditional)
-		zh-CHS  zh  zho CHS Chinese (Simplified) Legacy              Chinese (Simplified) Legacy
-		zh-CHT  zh  zho CHT Chinese (Traditional) Legacy             Chinese (Traditional) Legacy
+		--culture=ja-JP
+		--culture=en-US
 		```
+
+		No.| コード | 言語 | 国  
+		--:|---|--|--
+		1 | ar-AE | アラビア語 | アラブ首長国連邦
+		2 | ar-SA | アラビア語 | サウジアラビア
+		3 | it-IT | イタリア語 | イタリア
+		4 | id-ID | インドネシア語 | インドネシア
+		5 | ii-CN | イ語 | 中国
+		6 | uz-Cyrl | ウズベク語 | キリル
+		7 | es-ES | スペイン語 | スペイン
+		8 | es-MX | スペイン語 | メキシコ
+		9 | th-TH | タイ語 | タイ
+		10 | de-DE | ドイツ語 | ドイツ
+		11 | fr-FR | フランス語 | フランス
+		12 | bn-IN | ベンガル語 | インド
+		13 | pt-BR | ポルトガル語 | ブラジル
+		14 | pt-PT | ポルトガル語 | ポルトガル
+		15 | ru-RU | ロシア語 | ロシア
+		16 | en-AU | 英語 | オーストラリア
+		17 | en-CA | 英語 | カナダ
+		18 | en-GB | 英語 | 英国
+		19 | en-US | 英語 | 米国
+		20 | dsb-DE | 下ソルブ語 | ドイツ
+		21 | ko-KR | 韓国語 | 韓国
+		22 | zh-CN | 中国語 | 簡体字、中国
+		23 | ja-JP | 日本語 | 日本
+
+		: 言語コードと国コード {#tbl:gengo}
 
 	- 『起動中のOAを終了』 は、端末の操作が著しく限定されている。かつ、端末シャットダウン時に実行中のアプリケーションの全終了が条件の環境で利用しています。  
 
