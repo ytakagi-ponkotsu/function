@@ -43,6 +43,9 @@ equationTitle: '式.'
 	- [3-7. ライセンス状況](#3-7-ライセンス状況)
 	- [3-8. レポート](#3-8-レポート)
 	- [3-9. メンテナンスモード](#3-9-メンテナンスモード)
+- [第4章 RealtimeRecoder](#第4章-realtimerecoder)
+	- [4-1. 通話録音機能](#4-1-通話録音機能)
+	- [4-2. 配信機能](#4-2-配信機能)
 <!-- TOC END -->
 
 ## 序章 トレーニングにあたって
@@ -3343,52 +3346,61 @@ AmiVoice© のテキスト化処理の仕様で、半角文字の出力ができ
 
 ### 3-7. ライセンス状況
 
-#### 3-7-1. 構成ごとの Communication Suite 使用ライセンス  
-- ControlCenter / システム管理 / ライセンス状況のホーム画面に使用ライセンスが表示されます。  
-	構成ごとに使用するライセンスは [@tbl:riyouLicense] の通りです。  
+#### 3-7-1. 構成ごとの Communication Suite 必要ライセンス  
+- ControlCenter / システム管理 / ライセンス状況のホーム画面に Cimmunication Suite ライセンスが表示されます。  
+	構成ごとに必要なライセンスは [@tbl:riyouLicense] の通りです。  
 
 	No. | ライセンス名 | システム構成 | 説明
 	--:|-----------------|------|---------------------|
-	1 | AmiVoice Communication Suite Core | 共通 | どの構成でも共通で、データベース毎に1ライセンスです。
-	2 | AmiVoice OperatorAgent サーバ版 | サーバ版 | サーバ版で OperatorAgent をインストールするPCの台数分のライセンスです。VDI環境で利用する場合は OperatorAgent の同時起動数がライセンス数となります。
+	1 | AmiVoice Communication Suite Core | 共通 | 構成に関係なく、データベース毎に1ライセンスです。
+	2 | AmiVoice OperatorAgent サーバ版 | サーバ版 | サーバ版で OperatorAgent をインストールする PC 台数分のライセンスです。仮想環境で利用する場合は OperatorAgent の同時起動数がライセンス数となります。
 	3 | AmiVoice RealTimeRecorder | サーバ版| サーバ版で録音対象とする内線番号の台数分のライセンスです。
 	4 | AmiVoice StreamingRecognizer | サーバ版 | サーバ版で同時認識数（最大同時通話数）分のライセンスです。
-	5 | AmiVoice OperatorAgent コンバージャ版 | クライアント版 | クライアント版のSLC / コンバージャ共通で OperatorAgent をインストールするPCの台数分のライセンスです。 RealTimeRecorder 及び StreamingRecognizer の利用はこのライセンスに含まれています。
+	5 | AmiVoice OperatorAgent コンバージャ版 | クライアント版 | クライアント版のSLC / コンバージャ共通で OperatorAgent をインストールするPC台数分のライセンスです。 RealTimeRecorder 及び StreamingRecognizer の利用はこのライセンスに含まれています。
 	6 | AmiVoice MediaScriber | MediaScriber | MediaScriber で利用するライセンスです。同時認識可能なライセンス数です。RealTimeRecorder 及び StreamingRecognizer の利用はこのライセンスに含まれています。
 
-	: 構成ごとの使用ライセンス {#tbl:riyouLicense}
+	: 構成ごとの必要ライセンス {#tbl:riyouLicense}
 
 	![](images/Tips.jpg){width=50px}　下記ライセンスは見積もり上のみの記載であり、ライセンス状況の画面には表示されません。  
 	- AmiVoice RealTimeRecorder（冗長）  
-	- AmiVoice Web Client API ライセンス  
-	- AmiVoice Web Client API ランタイムライセンス  
+	- AmiVoice Web Client API ライセンス（ランタイム）  
+	- AmiVoice Json API（ランタイム）  
+	- AmiVoice Client SDK（ランタイム）
+
 
 
 #### 3-7-2. 感情解析ライセンス
 
-- 使用ライセンス  
+- 感情解析ライセンス管理  
 
-	感情解析ライセンスは月単位で利用可能なライセンス数を管理しており、毎月1日の午前9時にリセットされます。  
-	ライセンス数を超過した場合はライセンスがリセットされるまで、それ以降の通話の感情解析が実行されません。  
-	使用ライセンスは ContronCenter / システム管理 / ライセンス状況 /感情解析ライセンス管理 から確認できます。（[@fig:kanjo]）  
+	購入ライセンスに合わせて使用可能なライセンス数が月単位で決まります。使用可能なライセンス数は  
+	ContronCenter / システム管理 / ライセンス状況 /感情解析ライセンス管理 から確認できます。（[@fig:kanjo]）  
+	使用したライセンス数は毎月1日の午前9時にリセットされて 0 に戻ります。  
+	ライセンス数を超過した場合は翌月のライセンスリセットまで、それ以降の通話は感情解析されません。  
 
 	![感情解析ライセンス管理 画面](images/2-1-感情ライセンス.png){#fig:kanjo width=800px}  
 
-- 感情解析ライセンス数の算出式
-
-	割り当てられるライセンス数はサーバ / クライアント版と MediaScriber で異なります。  
-
-	- サーバ / クライアント版の場合  
-	サーバ版は RealTimeRecorder ライセンス数 1 につき、 3,000 回の感情解析処理 / 月 で算出されます。  
-	クライアント版は OperatorAgent ライセンス数 1 につき、3,000 回の感情解析処理 / 月 で算出されます。  
-
-	- MediaScriber の場合  
-	MediaScriber ライセンスの最初の1ライセンス は 30,000 回の感情解析処理 / 月で算出されます。  
+- 感情解析ライセンス数の算出式  
+	- 購入が必要なライセンス数の算出根拠となる数値  
+	1. サーバ版 / クライアント版の場合  
+	サーバ版は RealTimeRecorder ライセンス数 1 につき、 3,000 回の感情解析処理 / 月 で提供されます。  
+	クライアント版は OperatorAgent ライセンス数 1 につき、3,000 回の感情解析処理 / 月 で提供されます。  
+	1. MediaScriber の場合  
+	MediaScriber ライセンスの最初の1ライセンス は 30,000 回の感情解析処理 / 月で提供されます。  
 	※ 以降1ライセンス追加ごとに 3,000 ずつ追加されます。  
+	![](images/Tips.jpg){width=50px}　RaalTimeRecorder 1ライセンスごとに処理可能なライセンス数を管理しているわけではなく、発行されたライセンス数の合計をもとに処理可能なライセンス数が管理されます。  
 <br>
-- 感情解析ライセンスの消費タイミング  
-	![](images/Tips.jpg){width=50px}　録音開始した通話を StreamingRecognizer が認識開始したタイミングで 1 通話分のライセンスとして１つ消費されます。  
-	ライセンス消費における 1通話は Communication Suite の1通話（通話検索で表示された通話件数）と同じです。  
+	- 使用ライセンス  
+	録音開始した通話を StreamingRecognizer が認識開始したタイミングでライセンスが使用されます。  
+	通話の例としては
+
+	![感情解析](images/3-7-kanjozu.png){#fig:aaaaa width=900px}
+
+	aaa
+
+
+
+
 <br>
 	実際の通話より感情解析ライセンスが多く消費されるケースとしては次の通りです。
 	- 保留により通話が分割される場合（通話プロバイダによっては保留で通話は分割されません）
