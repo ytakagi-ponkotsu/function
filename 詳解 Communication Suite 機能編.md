@@ -644,72 +644,26 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 	![通話フィルタ適用タイミングの設定](images/2-1-通話フィルタ3.png){#fig:callfilter3 width=500px}  
 
-	![](images/Tips.jpg){width=50px}　通話フィルタのコマンドでは、システム変数を利用した構文が便利です。  
-検出した通話フィルタに関する情報をコマンド内で利用することができます。システム変数の書式は以下です。  
+	![](images/Tips.jpg){width=50px}　通話フィルタのコマンドからは、オプション変数を利用した構文が便利です。  
+	オプション変数の詳細は [1-5. OperatorAgent からのコマンド実行](#1-5-operatoragent-からのコマンド実行) を参照してください。  
+	通話フィルタの実行コマンドから有効なメインキーについては、[@tbl:filtermainkey] を参照してください。  
 
-	```
-	${'メインキー文字列', 'サブキー文字列', 'オプション'}
-	```  
-	メインキーは 『filterdetection』 は固定です。[@tbl:callfiltersubkey2] は指定可能なサブキーの一覧になります。  
+	通話情報<br />（call） | 通話フィルタ情報<br />（filterinfo） | 検出通話フィルタ情報<br />（filterdetection） | 実行コマンド情報<br />（executedcommand） | OperatorAgent 情報<br />（oa） |
+	|:-:|:---:|:----:|:---:|:-------:|
+	○ | ○ | ○ | × | △ |
+	: 通話フィルタから指定可能なオプション変数のメインキー {#tbl:filtermainkey}
 
-	通話フィルタの検出キーワードを、検索サイトで検索したい場合には、
+	- 通話フィルタに関するトラブルシューティング  
+通話フィルタが想定したように動作しない場合、[@tbl:filtertrouble] を参考にシューティングしてください。  
 
-	```
-	http://SearchEngine.co.jp/?query=${filterdetection,ConversationFilterName,urlencode}
-	```  
-	などのように利用できます。（**urlencode** はオプションです。）
+		No. | 症状 | 原因 | 対処 |
+		-:|-------|-----|-----|
+		1 | キーワードがテキスト化されているのに通話フィルタが検出されない | 設定ミスの可能性 | 通話フィルタの検出トリガーのうち、キーワード以外の設定項目を確認してください。<br />特に、『検出対象回線種別』 を正確に取得できない環境では、"不明" の指定が必須となります。  
+		2 | キーワードがテキスト化されていないのに通話フィルタが検出されている | 設定による仕様 | 音声認識処理の仕様となりますが、一度テキスト化された文字列が後からテキスト化された文字列によって置換される場合があるためです。<br />回避するには、通話フィルタ設定項目の 『適用タイミング』 を "発話終了時" に設定してください。（検出タイミングが遅延するリスクがあります。）  
+		3 | 通話フィルタは検出されているが、通知されない | 設定による仕様 | 通話フィルタの設定項目の 『通知』 の設定内容を確認してください。  
+		4 | 通話フィルタの通知はされるが、指定したコマンドが実行されない | コマンドの設定ミスの可能性 | 該当 PC の 「ファイル名を指定して実行」 から登録したコマンドが実行できるか確認してください。できない場合には、なんらかの対処が必要です。  
 
-	No. | サブキー | 置き換えられる値                |備考    |
-	----:|---------------------|------------------|--------------|
-	1   |SegmentNo |セグメント番号|発話番号|
-	2   |ConversationFilterId |会話フィルタID|通話フィルタID              |
-	3   |ConversationFilterName |会話フィルタ名称|通話フィルタ名              |
-	4   |ChannelType |チャンネル種別|検出対象回線種別              |
-	5   |StartTime |会話の開始位置からの検出開始位置を表す（ミリ秒）| 【要動作検証】         |
-	6   |EndTime	 |会話の開始位置からの検出終了位置を表す（ミリ秒）| 【要動作検証】          |
-	7   |DetectionString |検出文字列|通話フィルタの適用条件のキーワード              |
-
-	: 検出フィルタ情報で利用可なサブキーの一覧 {#tbl:callfiltersubkey2}  
-
-	- 通話フィルタ情報  
-	検出通話フィルタ情報を取得する際の、メインキーは 『filterinfo』 です。指定可能な サブキー は [@tbl:callfiltersubkey1] の通りです。  
-
-	No. | サブキー | 置き換えられる値                |備考    |
-	----:|---------------------|------------------|--------------|
-	1   |ConversationFilterId|会話フィルタID|通話フィルタID              |
-	2   |ConversationFilterName |会話フィルタ名称| 通話フィルタ名  |  
-	3   |ConversationDescription |会話フィルタの説明        |  通話フィルタの説明   |
-	4   |ActionCommands|アクションコマンドの一覧|複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。例) ${filterinfo, ActionCommands[1].CommandName}    【要動作検証】            |
-	5   |CommandName |コマンド名称          |No.4の ActionCommands の下位 。通話フィルタのコマンド名             |
-	6   |ActionCommand |実行するコマンド         |No.4の ActionCommands の下位。通話フィルタで実行するコマンド              |
-	7   |ActionAttributes |アクション属性の一覧         |複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。例) ${filterinfo, ActionAttributes[1].ConversationAttributeKey }   【要動作検証】          |
-	8   |ConversationAttributeKey        |アクション属性識別名          |No.7 の ActionAttributes の下位。【要動作検証】               |
-	9   |ConversationAttributeValue        |アクション属性値          |No.7 の ActionAttributes の下位。【要動作検証】      |
-	10   |Priority        |優先度 | No.7 の ActionAttributes の下位。【要動作検証】   |
-	11   |ActionTags        |アクションタグの一覧(配列)          |複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。例) ${filterinfo, ActionTags[1].ConversationTagName }   |
-	12   |ConversationTagName        |会話タグ名称          |No.11 の ActionTags の下位。通話フィルタで付与された通話タグ              |
-
-	: 通話フィルタ情報で利用可なサブキーの一覧 {#tbl:callfiltersubkey1}  
-
-	- 実行コマンド情報  
-	メインキーは『executedcommand』 に固定されます。指定可能な サブキー は [@tbl:callfiltersubkey3] の通りです。  
-
-	No. | サブキー | 置き換えられる値                |備考    |
-	----:|---------------------|------------------|--------------|
-	1   |CommandName|コマンド名称|通話フィルタのコマンド名              |
-	2   |ActionCommand |実行したコマンド        |通話フィルタで実行したコマンド              |
-
-	: 実行コマンド情報で利用可なサブキーの一覧 {#tbl:callfiltersubkey3}  
-
-
-	![](images/Tips.jpg){width=50px}　通話フィルタの適用条件となるキーワードがテキスト化されたのに、通話フィルタが適用されない場合、[@tbl:filtertrouble] を参考にシューティングしてください。
-
-	No. | 原因| 対処 |
-	-:|-------|----------|
-	1 | 通話フィルタに登録したコマンドに問題がある |登録したコマンドが Windows上で実行できるコマンドである必要があります。該当PCより「ファイル名を指定して実行」から登録したコマンドが実行できるか確認してください。  
-	2 | 通話フィルタの起動条件を満たしていない |フィルタの条件で、起動条件を指定しますが、キーワードがテキスト化された時に指定した条件を満たしているか確認してください。(対象話者、検出対象回線種別など）  
-
-	: 通話フィルタのトラブルシューティング {#tbl:filtertrouble}
+		: 通話フィルタのトラブルシューティング {#tbl:filtertrouble}
 
 1. ヘルプ  
 
@@ -1055,20 +1009,25 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 		ControlCenter の 『ライセンス状況』・『ログイン状況』 の表示時に、ログアウトやタイムアウトの状態になったライセンスを解放しています。  
 
 ### 1-5. OperatorAgent からのコマンド実行
-- OperatorAgent からは、詳細設定項目（[@tbl:oacommand]）を設定することで指定したタイミングでコマンドを実行することができます。
+- OperatorAgent からは、詳細設定項目（[@tbl:oacommand]）を設定することで特定のタイミングでコマンドを実行することができます。
 
-	No. | 設定項目名
-	---:|------------------
-	1   |  OperatorAgent起動時に実行するコマンド
-	2   | OperatorAgent終了時に実行するコマンド
-	3   | ログアウト直後に実行するコマンド
-	4   | ログイン直後に実行するコマンド
-	5   | 通話フィルタの検出時に実行するコマンド
-	6   | 通話フィルタの手動コマンド実行後に実行するコマンド
-	7   | 通話開始直後に実行するコマンド
-	8   | 通話終了直後に実行するコマンド
+	No. | 設定分類 | 設定項目名 | 通話情報<br />（call） | 通話フィルタ情報<br />（filterinfo） | 検出通話フィルタ情報<br />（filterdetection） | 実行コマンド情報<br />（executedcommand） | OperatorAgent 情報<br />（oa） |
+	---:|---|---|:---:|:---:|:---:|:---:|:---:|
+	1  | OperatorAgent - コマンド実行 | [【確認中#8287】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8287) OperatorAgent起動時に実行するコマンド | × | × | × | × | △ |
+	2  | OperatorAgent - コマンド実行 | [【確認中#8287】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8287) OperatorAgent終了時に実行するコマンド | × | × | × | × | △ |
+	3  | OperatorAgent - コマンド実行 | ログイン直後に実行するコマンド | × | × | × | × | △ |
+	4  | OperatorAgent - コマンド実行 | ログアウト直後に実行するコマンド | × | × | × | × | △ |
+	5  | OperatorAgent - コマンド実行 | 通話開始直後に実行するコマンド | ○ | × | × | × | △ |
+	6  | OperatorAgent - コマンド実行 | 通話終了直後に実行するコマンド | ○ | × | × | × | △ |
+	7  | OperatorAgent - コマンド実行 | 通話フィルタの検出時に実行するコマンド | ○ | ○ | ○ | × | △ |
+	8  | OperatorAgent - コマンド実行 | 通話フィルタの手動コマンド実行後に実行するコマンド | ○ | ○ | ○ | ○ | △ |
+	9  | OperatorAgent - メニュー        | 通話内容の検索エンジン | × | × | × | × | ○ |
 
-	: OperatorAgent コマンド実行 {#tbl:oacommand}
+	: OperatorAgent コマンド実行と指定可能なオプション変数 {#tbl:oacommand}
+
+	△ は サブキー SearchString を除いて利用が可能です。  
+
+	<br / >
 
 - コマンド は任意で指定可能で、  
 	1. Exe ファイルなどのアプリケーション  
@@ -1082,35 +1041,22 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 
 	<br />
 
-- [@tbl:oacommand] から実行するコマンドには、以下の書式で通話から取得できる情報を付加することが可能です。
+- [@tbl:oacommand] から実行するコマンドには、オプション変数が利用できます。  
+オプション変数を利用することで、コマンドに様々な情報を付加することが可能です。  
 記述するフォーマットは以下の通りです。  
 
 	```
 	${'メインキー文字列', 'サブキー文字列', 'オプション'}
 	```  
 
-	通話関連情報の場合は、メインキーは 『call』 に固定されます。  
+	例えば、通話情報の ユーザID を取得したい場合には、  
 
 	```
-	${call, 'サブキー'}
+	${call, UserKey}
 	```  
 
-	通話情報の会話識別子をそのままコマンドの引数として使用したい場合は  
-
-	```
-	${call, Key}
-	```  
-
-	と記述します。  
-	実際に コマンドとして利用するには、  
-
-	```
-	http://webserver/SpeechVisualizer/Detail.aspx?key=${call, Key}
-	```  
-
-	のように記述します。
-
-	オプションに **_urlencode_** を指定すると、値が URLエンコードされます。(※一部例外あり)  
+	オプションに urlencode を指定すると、値が URL エンコードされ置き換えられます。(※ 一部例外あり)  
+	通話情報の会話識別子をそのままコマンドの引数として使用したい場合は以下のように記述します。  
 
 	```
 	http://webserver/SpeechVisualizer/Detail.aspx?key=${call, Key, urlencode}
@@ -1121,57 +1067,110 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 	コマンドの設定で `$` を文字として使用したい場合は、`\` でエスケープしてください。  
 	同様に `"` や `\` も特殊文字ですので、文字として使用する場合は `\` でエスケープしてください。  
 	<br />
-	指定可能な **サブキー** は（[@tbl:commandsubkey]）の通りです。
 
-	No. | サブキー名 | 置換される値 | [@tbl:callb2] との対応 | 備考
-	---:|---------------|---|---|--
-	1   |  Key | 会話識別子 | - |
-	2   |  ConversationKey | 会話識別子 | - |
-	3   |  ProjectName | プロジェクト名 | - |
-	4   |  UserKey | ユーザID | - | Communication Suite へのログイン情報
-	5   |  LineKey | 内線番号 | - |
-	6   |  Date | 通話開始日時 | - | 日時系は、urlencode の指定ができません。代わりに [カスタム日時形式文字列](https://docs.microsoft.com/ja-jp/dotnet/standard/base-types/custom-date-and-time-format-strings?redirectedfrom=MSDN) の指定が可能です。<br />${call, StartDateTime, yyyy-MM-dd}
-	7   |  StartDate | 通話開始日時 | - | 日時系
-	8   |  StartDateTime | 通話開始日時 | - | 日時系
-	9   |  EndDate | 通話終了日時 | - | 日時系
-	10   |  EndDateTime | 通話終了日時 | - | 日時系
-	11   |  Duration | 通話時間(秒) | - |
-	12   |  HoldDuration | 累積保留時間(秒) | - |
-	13   |  HoldCount | 保留回数 | - |
-	14   |  DetailViewUrl | 詳細表示のURL | - |
-	15   |  OperatorPhoneNumber | 自番号 | No.9 |
-	16   |  OperatorPhoneLabel | 自分のID | No.8 | 電話基盤へのログイン情報
-	17   |  OperatorGroup | 受電グループ | No.10 | 受電スキル
-	18   |  OperatorHostName | 自分のホスト名 | No.11 | コントロールフォンが動作している PC の ホスト名（[@tbl:callb2] 参照）
-	19   |  Direction | 通話の向き | No.2 |
-	20   |  LineType | 通話種別 | No.3 |
-	21   |  CustomerPhoneNumber | 相手番号 | No.14 |
-	22   |  CustomerPhoneLabel | 相手の名称 | No.13 |
-	23   |  TrunkGroup | トランクグループ | No.19 |
-	24   |  TrunkMember | トランクメンバ | No.20 |
-	25   |  CalledPhoneNumber | ダイヤル番号 | No.17 |
-	26   |  AlertingPhoneNumber | 呼出先番号 | No.18 |
-	27   |  QueuePhoneNumber | キュー番号 | No.21 |
-	28   |  DialInPhoneNumber | ダイヤルイン番号 | No.16 |
-	29   |  TransferSourcePhoneNumber | 転送元番号 | No.24 |
-	30   |  TransferSourceLabel | 転送元名称 | No.23 |
-	31   |  TransferDestinationPhoneNumber | 転送先番号 | No.27 |
-	32   |  TransferDestinationLabel | 転送先名称 | No.26 |
-	33   |  MonitoringType | モニタリング種別 | No.31 |
-	34   |  MonitoringPhoneNumber | モニタリング対象の内線番号 | No.30 |
-	35   |  MonitoringLabel | モニタリング対象の名称 | No.29 |
-	36   |  GlobalReferenceId | グローバル参照用の ID | No.32 |
-	37   |  GlobalReferenceUrl | グローバル参照用の URL | No.33 |
-	38   |  LocalReferenceId | ローカル参照用の ID | No.34 |
-	39   |  LocalReferenceUrl | ローカル参照用の URL | No.35 |
-	40   |  SiteReferenceId | サイト参照用の ID | No.36 |
-	41   |  SiteReferenceUrl | サイト参照用の URL | No.37 |
-	42   |  PrivateReferenceId | プライベート参照用の ID | No.38 |
-	43   |  PrivateReferenceUrl | プライベート参照用の URL | No.39 |   
+- オプション変数のメインキーとサブキー
+オプション変数で指定できるメインキーは用途毎に以下の種類が用意されています。  
+オプション変数が有効な値を返却可能なタイミングは一定ではありませんので、[@tbl:oacommand] を確認してください。  
+各メインキーで利用できるサブキーの一覧は、[@tbl:commandsubkey] を参照してください。  
+
+	1. 通話情報 (call)
+通話に関する情報が取得出来ます。  
+		- サブキー 『EndDate』 / 『EndDateTime』 と 『Duration』 について  
+『通話開始直後に実行するコマンド』 に指定すると、空文字列になります。  
+		- サブキー 『HoldDuration』 と 『HoldCount』 について  
+『通話開始直後に実行するコマンド』 に指定すると、 "0" になります。  
+		<br />  
+
+		![](images/NOTICE.png){width=50px}  
+
+		- 通話開始時には、その時点で判明している範囲で値が設定されます。CTI 連携などで通話開始よりわずかでも遅く設定されている場合、値は設定されていません。  
+		- 通話終了時には、一番優先度が高い相手の情報が設定されます。  
+			1. 通話回線種別が、外線＞内線＞会議＞不明の順で優先されます。  
+			1. 同じ通話回線種別の場合は、先に通話を開始した相手が優先されます。  
+		- フィルタ検出時には、検出した瞬間の相手の情報が設定されます。これは、後で手動でコマンドを実行しても変化することはありません。  
+	1. 通話フィルタ情報 (filterinfo)  
+通話フィルタに関する情報が取得出来ます。  
+	1. 検出通話フィルタ情報 (filterdetection)  
+検出通話フィルタに関する情報が取得出来ます。  
+	1. 実行コマンド情報 (executedcommand)  
+実行コマンドに関する情報が取得出来ます。  
+	1. OperatorAgent 情報 (oa)  
+OperatorAgent に関する情報が取得出来ます。  
+
+	No. | メインキー | サブキー名 | 置換される値 | [@tbl:callb2] との対応 | 備考
+	---:|-------|--------|---|---|--
+	1   | call | Key | 会話識別子 | - |
+	2   | call | ConversationKey | 会話識別子 | - |
+	3   | call | ProjectName | プロジェクト名 | - |
+	4   | call | UserKey | ユーザID | - | Communication Suite へのログイン情報
+	5   | call | LineKey | 内線番号 | - |
+	6   | call | Date | 通話開始日時 | - | 日時系は、urlencode の指定ができません。代わりに [カスタム日時形式文字列](https://docs.microsoft.com/ja-jp/dotnet/standard/base-types/custom-date-and-time-format-strings?redirectedfrom=MSDN) の指定が可能です。<br />${call, StartDateTime, yyyy-MM-dd}
+	7   | call | StartDate | 通話開始日時 | - | 日時系
+	8   | call | StartDateTime | 通話開始日時 | - | 日時系
+	9   | call | EndDate | 通話終了日時 | - | 日時系
+	10   | call | EndDateTime | 通話終了日時 | - | 日時系
+	11   | call |Duration | 通話時間(秒) | - |
+	12   | call |HoldDuration | 累積保留時間(秒) | - |
+	13   | call |HoldCount | 保留回数 | - |
+	14   | call |DetailViewUrl | 詳細表示のURL | - |
+	15   | call |OperatorPhoneNumber | 自番号 | No.9 |
+	16   | call |OperatorPhoneLabel | 自分のID | No.8 | 電話基盤へのログイン情報
+	17   | call |OperatorGroup | 受電グループ | No.10 | 受電スキル
+	18   | call |OperatorHostName | 自分のホスト名 | No.11 | コントロールフォンが動作している PC の ホスト名（[@tbl:callb2] 参照）
+	19   | call | Direction | 通話の向き | No.2 |
+	20   | call | LineType | 通話種別 | No.3 |
+	21   | call | CustomerPhoneNumber | 相手番号 | No.14 |
+	22   | call | CustomerPhoneLabel | 相手の名称 | No.13 |
+	23   | call | TrunkGroup | トランクグループ | No.19 |
+	24   | call | TrunkMember | トランクメンバ | No.20 |
+	25   | call | CalledPhoneNumber | ダイヤル番号 | No.17 |
+	26   | call | AlertingPhoneNumber | 呼出先番号 | No.18 |
+	27   | call | QueuePhoneNumber | キュー番号 | No.21 |
+	28   | call | DialInPhoneNumber | ダイヤルイン番号 | No.16 |
+	29   | call | TransferSourcePhoneNumber | 転送元番号 | No.24 |
+	30   | call | TransferSourceLabel | 転送元名称 | No.23 |
+	31   | call | TransferDestinationPhoneNumber | 転送先番号 | No.27 |
+	32   | call | TransferDestinationLabel | 転送先名称 | No.26 |
+	33   | call | MonitoringType | モニタリング種別 | No.31 |
+	34   | call | MonitoringPhoneNumber | モニタリング対象の内線番号 | No.30 |
+	35   | call | MonitoringLabel | モニタリング対象の名称 | No.29 |
+	36   | call | GlobalReferenceId | グローバル参照用の ID | No.32 |
+	37   | call | GlobalReferenceUrl | グローバル参照用の URL | No.33 |
+	38   | call | LocalReferenceId | ローカル参照用の ID | No.34 |
+	39   | call | LocalReferenceUrl | ローカル参照用の URL | No.35 |
+	40   | call | SiteReferenceId | サイト参照用の ID | No.36 |
+	41   | call | SiteReferenceUrl | サイト参照用の URL | No.37 |
+	42   | call | PrivateReferenceId | プライベート参照用の ID | No.38 |
+	43   | call | PrivateReferenceUrl | プライベート参照用の URL | No.39 |
+	44   | filterinfo | ConversationFilterId | 通話フィルタID |  |
+	45   | filterinfo | ConversationFilterName | 通話フィルタ名称 |  |
+	46   | filterinfo | ConversationDescription | 通話フィルタの説明 |  |
+	47   | filterinfo | ActionCommands | アクションコマンドの一覧 |  | 複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。<br /> 例） ${filterinfo, ActionCommands[0].CommandName} |
+	48   | filterinfo | **（下位）** CommandName | コマンド名称 |  | ActionCommands の下位コマンド
+	49   | filterinfo | **（下位）** ActionCommand | 実行するコマンド |  | ActionCommands の下位コマンド
+	50   | filterinfo | ActionAttributes | アクション属性の一覧 |  | 複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。<br />  例） ${filterinfo, ActionAttributes[0].ConversationAttributeKey}
+	51   | filterinfo | **（下位）** ConversationAttributeKey | アクション属性識別名 |  | ActionAttributes の下位コマンド
+	52   | filterinfo | **（下位）** ConversationAttributeValue | アクション属性値 |  | ActionAttributes の下位コマンド
+	53   | filterinfo | **（下位）** Priority | 優先度 |  | ActionAttributes の下位コマンド
+	54   | filterinfo | ActionTags | アクションタグの一覧(配列) |  | 複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。<br /> 例) ${filterinfo, ActionTags[0].ConversationTagName}
+	55   | filterinfo | **（下位）** ConversationTagName | 通話タグ名称 |  | ActionTags の下位コマンド
+	56   | filterdetection | SegmentNo | セグメント番号 |  |
+	57   | filterdetection | ConversationFilterId | 通話フィルタID |  |
+	58   | filterdetection | ConversationFilterName | 通話フィルタ名称 |  |
+	59   | filterdetection | ChannelType | チャンネル種別 |  |
+	60   | filterdetection | StartTime | 通話の開始位置からの、検出の開始位置を表すミリ秒 |  |
+	61  | filterdetection | EndTime | 通話の開始位置からの、検出の終了位置を表すミリ秒 |  |
+	62  | filterdetection | DetectionString | 検出文字列 |  |
+	63  | executedcommand | CommandName | コマンド名称 |  |
+	64  | executedcommand | ActionCommand | 実行したコマンド |  |
+	65  | oa | project | プロジェクト名 |  |
+	66  | oa | line | 内線番号 |  |
+	67  | oa | user | ユーザ識別名 |  |
+	68  | oa | name | ユーザ名 |  |
+	69  | oa | email | E メールアドレス |  |
+	70  | oa | SearchString | 検索文字列 |  | 設定出来るのは [@tbl:oacommand] の 『通話内容の検索エンジン』 のみです。
 
 	: サブキーの一覧 {#tbl:commandsubkey}  
-
-	サブキーの指定に制限はありませんが、有用な値に置換できるかは利用している通話プロバイダと電話機基盤の設定によります。
 
 ### 1-6. コマンドラインからの OperatorAgent 操作
 - OperatorAgent は、コマンドラインから  
