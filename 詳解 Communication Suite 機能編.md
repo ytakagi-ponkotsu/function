@@ -644,72 +644,26 @@ OperatorAgent にログインした内線番号(モニタ内線番号)の通話�
 
 	![通話フィルタ適用タイミングの設定](images/2-1-通話フィルタ3.png){#fig:callfilter3 width=500px}  
 
-	![](images/Tips.jpg){width=50px}　通話フィルタのコマンドでは、システム変数を利用した構文が便利です。  
-検出した通話フィルタに関する情報をコマンド内で利用することができます。システム変数の書式は以下です。  
+	![](images/Tips.jpg){width=50px}　通話フィルタのコマンドからは、オプション変数を利用した構文が便利です。  
+	オプション変数の詳細は [1-5. OperatorAgent からのコマンド実行](#1-5-operatoragent-からのコマンド実行) を参照してください。  
+	通話フィルタの実行コマンドから有効なメインキーについては、[@tbl:filtermainkey] を参照してください。  
 
-	```
-	${'メインキー文字列', 'サブキー文字列', 'オプション'}
-	```  
-	メインキーは 『filterdetection』 は固定です。[@tbl:callfiltersubkey2] は指定可能なサブキーの一覧になります。  
+	通話情報<br />（call） | 通話フィルタ情報<br />（filterinfo） | 検出通話フィルタ情報<br />（filterdetection） | 実行コマンド情報<br />（executedcommand） | OperatorAgent 情報<br />（oa） |
+	|:-:|:---:|:----:|:---:|:-------:|
+	○ | ○ | ○ | × | △ |
+	: 通話フィルタから指定可能なオプション変数のメインキー {#tbl:filtermainkey}
 
-	通話フィルタの検出キーワードを、検索サイトで検索したい場合には、
+	- 通話フィルタに関するトラブルシューティング  
+通話フィルタが想定したように動作しない場合、[@tbl:filtertrouble] を参考にシューティングしてください。  
 
-	```
-	http://SearchEngine.co.jp/?query=${filterdetection,ConversationFilterName,urlencode}
-	```  
-	などのように利用できます。（**urlencode** はオプションです。）
+		No. | 症状 | 原因 | 対処 |
+		-:|-------|-----|-----|
+		1 | キーワードがテキスト化されているのに通話フィルタが検出されない | 設定ミスの可能性 | 通話フィルタの検出トリガーのうち、キーワード以外の設定項目を確認してください。<br />特に、『検出対象回線種別』 を正確に取得できない環境では、"不明" の指定が必須となります。  
+		2 | キーワードがテキスト化されていないのに通話フィルタが検出されている | 設定による仕様 | 音声認識処理の仕様となりますが、一度テキスト化された文字列が後からテキスト化された文字列によって置換される場合があるためです。<br />回避するには、通話フィルタ設定項目の 『適用タイミング』 を "発話終了時" に設定してください。（検出タイミングが遅延するリスクがあります。）  
+		3 | 通話フィルタは検出されているが、通知されない | 設定による仕様 | 通話フィルタの設定項目の 『通知』 の設定内容を確認してください。  
+		4 | 通話フィルタの通知はされるが、指定したコマンドが実行されない | コマンドの設定ミスの可能性 | 該当 PC の 「ファイル名を指定して実行」 から登録したコマンドが実行できるか確認してください。できない場合には、なんらかの対処が必要です。  
 
-	No. | サブキー | 置き換えられる値                |備考    |
-	----:|---------------------|------------------|--------------|
-	1   |SegmentNo |セグメント番号|発話番号|
-	2   |ConversationFilterId |会話フィルタID|通話フィルタID              |
-	3   |ConversationFilterName |会話フィルタ名称|通話フィルタ名              |
-	4   |ChannelType |チャンネル種別|検出対象回線種別              |
-	5   |StartTime |会話の開始位置からの検出開始位置を表す（ミリ秒）| 【要動作検証】         |
-	6   |EndTime	 |会話の開始位置からの検出終了位置を表す（ミリ秒）| 【要動作検証】          |
-	7   |DetectionString |検出文字列|通話フィルタの適用条件のキーワード              |
-
-	: 検出フィルタ情報で利用可なサブキーの一覧 {#tbl:callfiltersubkey2}  
-
-	- 通話フィルタ情報  
-	検出通話フィルタ情報を取得する際の、メインキーは 『filterinfo』 です。指定可能な サブキー は [@tbl:callfiltersubkey1] の通りです。  
-
-	No. | サブキー | 置き換えられる値                |備考    |
-	----:|---------------------|------------------|--------------|
-	1   |ConversationFilterId|会話フィルタID|通話フィルタID              |
-	2   |ConversationFilterName |会話フィルタ名称| 通話フィルタ名  |  
-	3   |ConversationDescription |会話フィルタの説明        |  通話フィルタの説明   |
-	4   |ActionCommands|アクションコマンドの一覧|複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。例) ${filterinfo, ActionCommands[1].CommandName}    【要動作検証】            |
-	5   |CommandName |コマンド名称          |No.4の ActionCommands の下位 。通話フィルタのコマンド名             |
-	6   |ActionCommand |実行するコマンド         |No.4の ActionCommands の下位。通話フィルタで実行するコマンド              |
-	7   |ActionAttributes |アクション属性の一覧         |複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。例) ${filterinfo, ActionAttributes[1].ConversationAttributeKey }   【要動作検証】          |
-	8   |ConversationAttributeKey        |アクション属性識別名          |No.7 の ActionAttributes の下位。【要動作検証】               |
-	9   |ConversationAttributeValue        |アクション属性値          |No.7 の ActionAttributes の下位。【要動作検証】      |
-	10   |Priority        |優先度 | No.7 の ActionAttributes の下位。【要動作検証】   |
-	11   |ActionTags        |アクションタグの一覧(配列)          |複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。例) ${filterinfo, ActionTags[1].ConversationTagName }   |
-	12   |ConversationTagName        |会話タグ名称          |No.11 の ActionTags の下位。通話フィルタで付与された通話タグ              |
-
-	: 通話フィルタ情報で利用可なサブキーの一覧 {#tbl:callfiltersubkey1}  
-
-	- 実行コマンド情報  
-	メインキーは『executedcommand』 に固定されます。指定可能な サブキー は [@tbl:callfiltersubkey3] の通りです。  
-
-	No. | サブキー | 置き換えられる値                |備考    |
-	----:|---------------------|------------------|--------------|
-	1   |CommandName|コマンド名称|通話フィルタのコマンド名              |
-	2   |ActionCommand |実行したコマンド        |通話フィルタで実行したコマンド              |
-
-	: 実行コマンド情報で利用可なサブキーの一覧 {#tbl:callfiltersubkey3}  
-
-
-	![](images/Tips.jpg){width=50px}　通話フィルタの適用条件となるキーワードがテキスト化されたのに、通話フィルタが適用されない場合、[@tbl:filtertrouble] を参考にシューティングしてください。
-
-	No. | 原因| 対処 |
-	-:|-------|----------|
-	1 | 通話フィルタに登録したコマンドに問題がある |登録したコマンドが Windows上で実行できるコマンドである必要があります。該当PCより「ファイル名を指定して実行」から登録したコマンドが実行できるか確認してください。  
-	2 | 通話フィルタの起動条件を満たしていない |フィルタの条件で、起動条件を指定しますが、キーワードがテキスト化された時に指定した条件を満たしているか確認してください。(対象話者、検出対象回線種別など）  
-
-	: 通話フィルタのトラブルシューティング {#tbl:filtertrouble}
+		: 通話フィルタのトラブルシューティング {#tbl:filtertrouble}
 
 1. ヘルプ  
 
@@ -1055,20 +1009,25 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 		ControlCenter の 『ライセンス状況』・『ログイン状況』 の表示時に、ログアウトやタイムアウトの状態になったライセンスを解放しています。  
 
 ### 1-5. OperatorAgent からのコマンド実行
-- OperatorAgent からは、詳細設定項目（[@tbl:oacommand]）を設定することで指定したタイミングでコマンドを実行することができます。
+- OperatorAgent からは、詳細設定項目（[@tbl:oacommand]）を設定することで特定のタイミングでコマンドを実行することができます。
 
-	No. | 設定項目名
-	---:|------------------
-	1   |  OperatorAgent起動時に実行するコマンド
-	2   | OperatorAgent終了時に実行するコマンド
-	3   | ログアウト直後に実行するコマンド
-	4   | ログイン直後に実行するコマンド
-	5   | 通話フィルタの検出時に実行するコマンド
-	6   | 通話フィルタの手動コマンド実行後に実行するコマンド
-	7   | 通話開始直後に実行するコマンド
-	8   | 通話終了直後に実行するコマンド
+	No. | 設定分類 | 設定項目名 | 通話情報<br />（call） | 通話フィルタ情報<br />（filterinfo） | 検出通話フィルタ情報<br />（filterdetection） | 実行コマンド情報<br />（executedcommand） | OperatorAgent 情報<br />（oa） |
+	---:|---|---|:---:|:---:|:---:|:---:|:---:|
+	1  | OperatorAgent - コマンド実行 | [【確認中#8287】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8287) OperatorAgent起動時に実行するコマンド | × | × | × | × | △ |
+	2  | OperatorAgent - コマンド実行 | [【確認中#8287】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8287) OperatorAgent終了時に実行するコマンド | × | × | × | × | △ |
+	3  | OperatorAgent - コマンド実行 | ログイン直後に実行するコマンド | × | × | × | × | △ |
+	4  | OperatorAgent - コマンド実行 | ログアウト直後に実行するコマンド | × | × | × | × | △ |
+	5  | OperatorAgent - コマンド実行 | 通話開始直後に実行するコマンド | ○ | × | × | × | △ |
+	6  | OperatorAgent - コマンド実行 | 通話終了直後に実行するコマンド | ○ | × | × | × | △ |
+	7  | OperatorAgent - コマンド実行 | 通話フィルタの検出時に実行するコマンド | ○ | ○ | ○ | × | △ |
+	8  | OperatorAgent - コマンド実行 | 通話フィルタの手動コマンド実行後に実行するコマンド | ○ | ○ | ○ | ○ | △ |
+	9  | OperatorAgent - メニュー        | 通話内容の検索エンジン | × | × | × | × | ○ |
 
-	: OperatorAgent コマンド実行 {#tbl:oacommand}
+	: OperatorAgent コマンド実行と指定可能なオプション変数 {#tbl:oacommand}
+
+	△ は サブキー SearchString を除いて利用が可能です。  
+
+	<br / >
 
 - コマンド は任意で指定可能で、  
 	1. Exe ファイルなどのアプリケーション  
@@ -1082,35 +1041,22 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 
 	<br />
 
-- [@tbl:oacommand] から実行するコマンドには、以下の書式で通話から取得できる情報を付加することが可能です。
+- [@tbl:oacommand] から実行するコマンドには、オプション変数が利用できます。  
+オプション変数を利用することで、コマンドに様々な情報を付加することが可能です。  
 記述するフォーマットは以下の通りです。  
 
 	```
 	${'メインキー文字列', 'サブキー文字列', 'オプション'}
 	```  
 
-	通話関連情報の場合は、メインキーは 『call』 に固定されます。  
+	例えば、通話情報の ユーザID を取得したい場合には、  
 
 	```
-	${call, 'サブキー'}
+	${call, UserKey}
 	```  
 
-	通話情報の会話識別子をそのままコマンドの引数として使用したい場合は  
-
-	```
-	${call, Key}
-	```  
-
-	と記述します。  
-	実際に コマンドとして利用するには、  
-
-	```
-	http://webserver/SpeechVisualizer/Detail.aspx?key=${call, Key}
-	```  
-
-	のように記述します。
-
-	オプションに **_urlencode_** を指定すると、値が URLエンコードされます。(※一部例外あり)  
+	オプションに urlencode を指定すると、値が URL エンコードされ置き換えられます。(※ 一部例外あり)  
+	通話情報の会話識別子をそのままコマンドの引数として使用したい場合は以下のように記述します。  
 
 	```
 	http://webserver/SpeechVisualizer/Detail.aspx?key=${call, Key, urlencode}
@@ -1121,57 +1067,110 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 	コマンドの設定で `$` を文字として使用したい場合は、`\` でエスケープしてください。  
 	同様に `"` や `\` も特殊文字ですので、文字として使用する場合は `\` でエスケープしてください。  
 	<br />
-	指定可能な **サブキー** は（[@tbl:commandsubkey]）の通りです。
 
-	No. | サブキー名 | 置換される値 | [@tbl:callb2] との対応 | 備考
-	---:|---------------|---|---|--
-	1   |  Key | 会話識別子 | - |
-	2   |  ConversationKey | 会話識別子 | - |
-	3   |  ProjectName | プロジェクト名 | - |
-	4   |  UserKey | ユーザID | - | Communication Suite へのログイン情報
-	5   |  LineKey | 内線番号 | - |
-	6   |  Date | 通話開始日時 | - | 日時系は、urlencode の指定ができません。代わりに [カスタム日時形式文字列](https://docs.microsoft.com/ja-jp/dotnet/standard/base-types/custom-date-and-time-format-strings?redirectedfrom=MSDN) の指定が可能です。<br />${call, StartDateTime, yyyy-MM-dd}
-	7   |  StartDate | 通話開始日時 | - | 日時系
-	8   |  StartDateTime | 通話開始日時 | - | 日時系
-	9   |  EndDate | 通話終了日時 | - | 日時系
-	10   |  EndDateTime | 通話終了日時 | - | 日時系
-	11   |  Duration | 通話時間(秒) | - |
-	12   |  HoldDuration | 累積保留時間(秒) | - |
-	13   |  HoldCount | 保留回数 | - |
-	14   |  DetailViewUrl | 詳細表示のURL | - |
-	15   |  OperatorPhoneNumber | 自番号 | No.9 |
-	16   |  OperatorPhoneLabel | 自分のID | No.8 | 電話基盤へのログイン情報
-	17   |  OperatorGroup | 受電グループ | No.10 | 受電スキル
-	18   |  OperatorHostName | 自分のホスト名 | No.11 | コントロールフォンが動作している PC の ホスト名（[@tbl:callb2] 参照）
-	19   |  Direction | 通話の向き | No.2 |
-	20   |  LineType | 通話種別 | No.3 |
-	21   |  CustomerPhoneNumber | 相手番号 | No.14 |
-	22   |  CustomerPhoneLabel | 相手の名称 | No.13 |
-	23   |  TrunkGroup | トランクグループ | No.19 |
-	24   |  TrunkMember | トランクメンバ | No.20 |
-	25   |  CalledPhoneNumber | ダイヤル番号 | No.17 |
-	26   |  AlertingPhoneNumber | 呼出先番号 | No.18 |
-	27   |  QueuePhoneNumber | キュー番号 | No.21 |
-	28   |  DialInPhoneNumber | ダイヤルイン番号 | No.16 |
-	29   |  TransferSourcePhoneNumber | 転送元番号 | No.24 |
-	30   |  TransferSourceLabel | 転送元名称 | No.23 |
-	31   |  TransferDestinationPhoneNumber | 転送先番号 | No.27 |
-	32   |  TransferDestinationLabel | 転送先名称 | No.26 |
-	33   |  MonitoringType | モニタリング種別 | No.31 |
-	34   |  MonitoringPhoneNumber | モニタリング対象の内線番号 | No.30 |
-	35   |  MonitoringLabel | モニタリング対象の名称 | No.29 |
-	36   |  GlobalReferenceId | グローバル参照用の ID | No.32 |
-	37   |  GlobalReferenceUrl | グローバル参照用の URL | No.33 |
-	38   |  LocalReferenceId | ローカル参照用の ID | No.34 |
-	39   |  LocalReferenceUrl | ローカル参照用の URL | No.35 |
-	40   |  SiteReferenceId | サイト参照用の ID | No.36 |
-	41   |  SiteReferenceUrl | サイト参照用の URL | No.37 |
-	42   |  PrivateReferenceId | プライベート参照用の ID | No.38 |
-	43   |  PrivateReferenceUrl | プライベート参照用の URL | No.39 |   
+- オプション変数のメインキーとサブキー
+オプション変数で指定できるメインキーは用途毎に以下の種類が用意されています。  
+オプション変数が有効な値を返却可能なタイミングは一定ではありませんので、[@tbl:oacommand] を確認してください。  
+各メインキーで利用できるサブキーの一覧は、[@tbl:commandsubkey] を参照してください。  
+
+	1. 通話情報 (call)
+通話に関する情報が取得出来ます。  
+		- サブキー 『EndDate』 / 『EndDateTime』 と 『Duration』 について  
+『通話開始直後に実行するコマンド』 に指定すると、空文字列になります。  
+		- サブキー 『HoldDuration』 と 『HoldCount』 について  
+『通話開始直後に実行するコマンド』 に指定すると、 "0" になります。  
+		<br />  
+
+		![](images/NOTICE.png){width=50px}  
+
+		- 通話開始時には、その時点で判明している範囲で値が設定されます。CTI 連携などで通話開始よりわずかでも遅く設定されている場合、値は設定されていません。  
+		- 通話終了時には、一番優先度が高い相手の情報が設定されます。  
+			1. 通話回線種別が、外線＞内線＞会議＞不明の順で優先されます。  
+			1. 同じ通話回線種別の場合は、先に通話を開始した相手が優先されます。  
+		- フィルタ検出時には、検出した瞬間の相手の情報が設定されます。これは、後で手動でコマンドを実行しても変化することはありません。  
+	1. 通話フィルタ情報 (filterinfo)  
+通話フィルタに関する情報が取得出来ます。  
+	1. 検出通話フィルタ情報 (filterdetection)  
+検出通話フィルタに関する情報が取得出来ます。  
+	1. 実行コマンド情報 (executedcommand)  
+実行コマンドに関する情報が取得出来ます。  
+	1. OperatorAgent 情報 (oa)  
+OperatorAgent に関する情報が取得出来ます。  
+
+	No. | メインキー | サブキー名 | 置換される値 | [@tbl:callb2] との対応 | 備考
+	---:|-------|--------|---|---|--
+	1   | call | Key | 会話識別子 | - |
+	2   | call | ConversationKey | 会話識別子 | - |
+	3   | call | ProjectName | プロジェクト名 | - |
+	4   | call | UserKey | ユーザID | - | Communication Suite へのログイン情報
+	5   | call | LineKey | 内線番号 | - |
+	6   | call | Date | 通話開始日時 | - | 日時系は、urlencode の指定ができません。代わりに [カスタム日時形式文字列](https://docs.microsoft.com/ja-jp/dotnet/standard/base-types/custom-date-and-time-format-strings?redirectedfrom=MSDN) の指定が可能です。<br />${call, StartDateTime, yyyy-MM-dd}
+	7   | call | StartDate | 通話開始日時 | - | 日時系
+	8   | call | StartDateTime | 通話開始日時 | - | 日時系
+	9   | call | EndDate | 通話終了日時 | - | 日時系
+	10   | call | EndDateTime | 通話終了日時 | - | 日時系
+	11   | call |Duration | 通話時間(秒) | - |
+	12   | call |HoldDuration | 累積保留時間(秒) | - |
+	13   | call |HoldCount | 保留回数 | - |
+	14   | call |DetailViewUrl | 詳細表示のURL | - |
+	15   | call |OperatorPhoneNumber | 自番号 | No.9 |
+	16   | call |OperatorPhoneLabel | 自分のID | No.8 | 電話基盤へのログイン情報
+	17   | call |OperatorGroup | 受電グループ | No.10 | 受電スキル
+	18   | call |OperatorHostName | 自分のホスト名 | No.11 | コントロールフォンが動作している PC の ホスト名（[@tbl:callb2] 参照）
+	19   | call | Direction | 通話の向き | No.2 |
+	20   | call | LineType | 通話種別 | No.3 |
+	21   | call | CustomerPhoneNumber | 相手番号 | No.14 |
+	22   | call | CustomerPhoneLabel | 相手の名称 | No.13 |
+	23   | call | TrunkGroup | トランクグループ | No.19 |
+	24   | call | TrunkMember | トランクメンバ | No.20 |
+	25   | call | CalledPhoneNumber | ダイヤル番号 | No.17 |
+	26   | call | AlertingPhoneNumber | 呼出先番号 | No.18 |
+	27   | call | QueuePhoneNumber | キュー番号 | No.21 |
+	28   | call | DialInPhoneNumber | ダイヤルイン番号 | No.16 |
+	29   | call | TransferSourcePhoneNumber | 転送元番号 | No.24 |
+	30   | call | TransferSourceLabel | 転送元名称 | No.23 |
+	31   | call | TransferDestinationPhoneNumber | 転送先番号 | No.27 |
+	32   | call | TransferDestinationLabel | 転送先名称 | No.26 |
+	33   | call | MonitoringType | モニタリング種別 | No.31 |
+	34   | call | MonitoringPhoneNumber | モニタリング対象の内線番号 | No.30 |
+	35   | call | MonitoringLabel | モニタリング対象の名称 | No.29 |
+	36   | call | GlobalReferenceId | グローバル参照用の ID | No.32 |
+	37   | call | GlobalReferenceUrl | グローバル参照用の URL | No.33 |
+	38   | call | LocalReferenceId | ローカル参照用の ID | No.34 |
+	39   | call | LocalReferenceUrl | ローカル参照用の URL | No.35 |
+	40   | call | SiteReferenceId | サイト参照用の ID | No.36 |
+	41   | call | SiteReferenceUrl | サイト参照用の URL | No.37 |
+	42   | call | PrivateReferenceId | プライベート参照用の ID | No.38 |
+	43   | call | PrivateReferenceUrl | プライベート参照用の URL | No.39 |
+	44   | filterinfo | ConversationFilterId | 通話フィルタID |  |
+	45   | filterinfo | ConversationFilterName | 通話フィルタ名称 |  |
+	46   | filterinfo | ConversationDescription | 通話フィルタの説明 |  |
+	47   | filterinfo | ActionCommands | アクションコマンドの一覧 |  | 複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。<br /> 例） ${filterinfo, ActionCommands[0].CommandName} |
+	48   | filterinfo | **（下位）** CommandName | コマンド名称 |  | ActionCommands の下位コマンド
+	49   | filterinfo | **（下位）** ActionCommand | 実行するコマンド |  | ActionCommands の下位コマンド
+	50   | filterinfo | ActionAttributes | アクション属性の一覧 |  | 複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。<br />  例） ${filterinfo, ActionAttributes[0].ConversationAttributeKey}
+	51   | filterinfo | **（下位）** ConversationAttributeKey | アクション属性識別名 |  | ActionAttributes の下位コマンド
+	52   | filterinfo | **（下位）** ConversationAttributeValue | アクション属性値 |  | ActionAttributes の下位コマンド
+	53   | filterinfo | **（下位）** Priority | 優先度 |  | ActionAttributes の下位コマンド
+	54   | filterinfo | ActionTags | アクションタグの一覧(配列) |  | 複数のオブジェクトが配列として格納されています。添字を使って複数の中から１つを指定して、さらに下位の値を指定してください。<br /> 例) ${filterinfo, ActionTags[0].ConversationTagName}
+	55   | filterinfo | **（下位）** ConversationTagName | 通話タグ名称 |  | ActionTags の下位コマンド
+	56   | filterdetection | SegmentNo | セグメント番号 |  |
+	57   | filterdetection | ConversationFilterId | 通話フィルタID |  |
+	58   | filterdetection | ConversationFilterName | 通話フィルタ名称 |  |
+	59   | filterdetection | ChannelType | チャンネル種別 |  |
+	60   | filterdetection | StartTime | 通話の開始位置からの、検出の開始位置を表すミリ秒 |  |
+	61  | filterdetection | EndTime | 通話の開始位置からの、検出の終了位置を表すミリ秒 |  |
+	62  | filterdetection | DetectionString | 検出文字列 |  |
+	63  | executedcommand | CommandName | コマンド名称 |  |
+	64  | executedcommand | ActionCommand | 実行したコマンド |  |
+	65  | oa | project | プロジェクト名 |  |
+	66  | oa | line | 内線番号 |  |
+	67  | oa | user | ユーザ識別名 |  |
+	68  | oa | name | ユーザ名 |  |
+	69  | oa | email | E メールアドレス |  |
+	70  | oa | SearchString | 検索文字列 |  | 設定出来るのは [@tbl:oacommand] の 『通話内容の検索エンジン』 のみです。
 
 	: サブキーの一覧 {#tbl:commandsubkey}  
-
-	サブキーの指定に制限はありませんが、有用な値に置換できるかは利用している通話プロバイダと電話機基盤の設定によります。
 
 ### 1-6. コマンドラインからの OperatorAgent 操作
 - OperatorAgent は、コマンドラインから  
@@ -2025,7 +2024,7 @@ Communication Suite の通話検索は、検索条件 UI に各種条件を設�
 		No. | 識別名       | 名称| 値 | 説明      |省略可否|
 		---:|------------------|--------------|------|------|------|
 		1   |  AttributeCondition | 接頭語        | なし| 項目を追加する際の定型文です。| ×|
-		2   |  attributes | 通話属性識別名        | 文字列 | 通話検索条件に追加する通話属性識別子です。通話属性識別名は CommunicationSuite 内で通話属性毎に設定されているユニークな識別名です。使用可能な通話属性については（[1-2-2.　[@tbl:callb2] : 利用可能な通話属性一覧](#1-2-2. 通話表示機能) 参照。）  を参照してください。[【確認中#8288】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8288)追加できる通話属性とそうでないもの  | ×|
+		2   |  attributes | 通話属性識別名        | 文字列 | 通話検索条件に追加する通話属性識別子です。通話属性識別名は CommunicationSuite 内で通話属性毎に設定されているユニークな識別名です。使用可能な通話属性については（[1-2-2.　[@tbl:callb2] : 利用可能な通話属性一覧](#1-2-2. 通話表示機能) 参照。）  を参照してください。ただし、番号系の情報は、デフォルトプロバイダ 『電話番号』 をカスタマイズして追加します。（後述） | ×|
 		3   |  prefixes| プレフィックス        | 文字列| 通話検索条件を識別するクエリ文字列です。| ×|
 		4   |  iconName | アイコン名        | 文字列| 検索プロバイダとして表示するアイコンを [@tbl:icon1] から指定します。 | 〇|
 		5   |  lessQueryLabel | 説明文        |文字列| 通話検索条件入力欄にプレフィックスを入力した際に表示される説明文です。| 〇|
@@ -2035,15 +2034,15 @@ Communication Suite の通話検索は、検索条件 UI に各種条件を設�
 		: 追加する通話属性の書式 {#tbl:provider3}
 
 		No. | 利用可能なアイコン      | アイコンの種類| アイコン名
-		---:|------------------|--------------|------|
-		1   |　　　 ![](images/2-3-icon1.png){#fig:aaa width=20px} | 人物        | person1|
-		2   |　　　 ![](images/2-3-icon2.png){#fig:aaa width=20px} | 電話1       | tel1|
-		3   |　　　 ![](images/2-3-icon3.png){#fig:aaa width=20px} | 電話2        | tel2|
-		4   |　　　 ![](images/2-3-icon4.png){#fig:aaa width=20px} | 電話3        | tel3|
-		5   |　　　 ![](images/2-3-icon5.png){#fig:aaa width=20px} |  星1        | star1
-		6   |　　　 ![](images/2-3-icon6.png){#fig:aaa width=20px} | 星2       | star2|
-		7   |　　　 ![](images/2-3-icon7.png){#fig:aaa width=20px}  | 吹き出し1        | balloon1|
-		8   |　　　 ![](images/2-3-icon8.png){#fig:aaa width=20px} | 吹き出し2       | balloon2|
+		---:|:------------------:|--------------|------|
+		1   | ![](images/2-3-icon1.png){#fig:aaa width=20px} | 人物        | person1|
+		2   | ![](images/2-3-icon2.png){#fig:aaa width=20px} | 電話1       | tel1|
+		3   | ![](images/2-3-icon3.png){#fig:aaa width=20px} | 電話2        | tel2|
+		4   | ![](images/2-3-icon4.png){#fig:aaa width=20px} | 電話3        | tel3|
+		5   | ![](images/2-3-icon5.png){#fig:aaa width=20px} |  星1        | star1
+		6   | ![](images/2-3-icon6.png){#fig:aaa width=20px} | 星2       | star2|
+		7   | ![](images/2-3-icon7.png){#fig:aaa width=20px}  | 吹き出し1        | balloon1|
+		8   | ![](images/2-3-icon8.png){#fig:aaa width=20px} | 吹き出し2       | balloon2|
 
 		: 利用可能なアイコン {#tbl:icon1}
 
@@ -2511,7 +2510,7 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 	3 | 保留開始|保留開始|
 	4 | 保留解除|保留解除|
 	5 | 保留終了|保留終了|
-	6 | 転送完了|保留終了|転送関連情報が連携される一部API連携時のみ利用される。[【確認中#8290】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8290)：条件<br/>転送完了と同時に通話が終了した場合は通話終了が省略される
+	6 | 転送完了|保留終了| 会話相手の通話属性として、転送先の情報 (amivoice.common.telephony.transfer.destination.phonenumber または amivoice.common.telephony.transfer.destination.name) が設定されていると「転送完了」との表記になります。
 	7 | 保留エラー|保留エラー|
 	:Speechvisualizerでの 通話イベント {#tbl:detailevent}
 
@@ -2687,6 +2686,10 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 
 	![座席表](images/2-5_seatmap.png){#fig:seatmap width=700px}  
 
+	![](images/Tips.jpg){width=50px}　座席表のレイアウト変更は、画面の UI からだけではなく、座席表管理画面のエクスポート機能で出力できる、`map` ファイルを直接編集することでも実施できます。  
+	このファイルは、テキストベースのファイルで UTF-8 の文字コードのファイルとなります。  
+	正式なファイルフォーマットは非公開ですので、CSS 等のスキルがある方であれば **自己責任** で直接編集して頂いても問題ありません。  
+
 #### 2-5-2. 座席表の設定
 1. 詳細設定項目（[@tbl:seatmapdc]）  
 設定分類は全て `座席表 - 詳細` です。
@@ -2766,9 +2769,10 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 
 	認識結果通知通信では、接続時に指定した通話に対する認識結果しか取得出来ません。同じ StreamingRecognizer で別の通話の認識が始まった場合、既存の通信を切断し、新たに二つの通話を指定して通信を行う必要があります。この再接続は StreamingRecognizer 側の負荷が高めの処理になります。  
 	StreamingRecognizer の負荷軽減のため、リクエストを減らすために、近い時間帯で始まった通話に対しては、なるべく一つにまとめてリクエストすることを期待し、認識が開始されてすぐに StreamingRecognizer に接続にいくのでは無く、少し待機して (別の通話が始まるかを待って) から接続に行きます。  
-	そのための設定が、[@tbl:seatmapdc] の 『接続待ち時間(認識結果通知)』 と 『接続待ち追加時間のランダム値(認識結果通知)』 になります。
+	そのための設定が、[@tbl:seatmapdc] の 『接続待ち時間(認識結果通知)』 と 『接続待ち追加時間のランダム値(認識結果通知)』 になります。  
 
-これらの通知通信は、`Comet` という非同期通信で実装されています。
+これらの通知通信は、`Comet` という非同期通信で実装されています。  
+
 
 ```plantuml
 @startuml
@@ -2901,21 +2905,26 @@ Internet Explorer と同様、デスクトップ通知は利用できず音声�
 
 	出力されるログがデバッグ用に細かい粒度で出力されます。
 
-- ログの出力先  
-座席表ログは、ローカルPC上の特殊な領域に保存されます。  
-特殊な領域とは、Web Storage の localStorage と定義されたスペースです。  
-実際の PC 上の出力箇所がどこになるかについては、ブラウザ毎に異なります。  
-
-	![](images/NOTICE.png){width=50px}　ローカルストレージについては、各ブラウザ毎の設定で利用が制限されることもあります。ログの出力ができない場合には、以下設定も確認してください。  
+- ログの出力場所など  
+座席表ログは、ローカルPC上の特殊な領域に保存されます。（Communication Suite では制御できません。）  
+特殊な領域とは、ブラウザに実装されている `ローカルストレージ` と定義されたスペースです。  
+`ローカルストレージ` の仕様に関しては、ブラウザ毎に異なります。（以下は参考情報として Internet Explorer 11 のローカルストレージの仕様となります。）  
 
 	```
-	Internet Explorer、Microsoft Edge でのローカルストレージの設定を有効化する方法  
+	出力パス : C:\Users\ユーザ名\AppData\LocalLow\Microsoft\Internet Explorer\DOMStore\0FOJP942
+	出力形式 : XML形式
+	保存の限界 : 5242880 Bytes （キー名含む）
+	手動削除の方法 : オプション ⇒ 「全般」タブ ⇒ 閲覧の履歴の削除にて、「クッキーとWebサイトデータ」を選択して削除後、IEを再起動する。
+	```
 
-	　1. [インターネットオプション]を開く
-	　2. [詳細設定]タブを開く
-	　3. セキュリティの[DOMストレージを有効にする]にチェックを入れる
-	　4. [OK]をクリックする
-	　5. Windows (PC) を再起動する
+	![](images/NOTICE.png){width=50px}　`ローカルストレージ` は、設定により利用を制限することが可能です。ログの出力ができない場合には、ローカルストレージが有効化されているか確認する必要があります。（以下は参考情報として、Internet Explorer11 及び Microsoft Edge で `ローカルストレージ` の設定を有効化する方法です。）  
+
+	```
+	1. [インターネットオプション] を開く
+	2. [詳細設定] タブを開く
+	3. セキュリティの [DOMストレージを有効にする] にチェックを入れる
+	4. [OK] をクリックする
+	5. Windows (PC) を再起動する
 	```
 	Chrome （Chromium 版 Edge） 及び Firefox では、バージョン毎にメニュー構成等が大きく異るケースがあるため、都度調査してください。
 
@@ -3429,64 +3438,69 @@ AmiVoice© のテキスト化処理の仕様で、半角文字の出力ができ
 
 ### 3-7. ライセンス状況
 
-#### 3-7-1. 構成ごとの Communication Suite 使用ライセンス  
-- ControlCenter / システム管理 / ライセンス状況のホーム画面に使用ライセンスが表示されます。  
-	構成ごとに使用するライセンスは [@tbl:riyouLicense] の通りです。  
+#### 3-7-1. Communication Suite ライセンス  
+- Communication Suite ライセンス管理  
+	ControlCenter / システム管理 / ライセンス状況のホーム画面に Cimmunication Suite ライセンスが表示されます。  
+	構成ごとに必要なライセンスは [@tbl:riyouLicense] の通りです。  
 
 	No. | ライセンス名 | システム構成 | 説明
 	--:|-----------------|------|---------------------|
-	1 | AmiVoice Communication Suite Core | 共通 | どの構成でも共通で、データベース毎に1ライセンスです。
-	2 | AmiVoice OperatorAgent サーバ版 | サーバ版 | サーバ版で OperatorAgent をインストールするPCの台数分のライセンスです。VDI環境で利用する場合は OperatorAgent の同時起動数がライセンス数となります。
+	1 | AmiVoice Communication Suite Core | 共通 | 構成に関係なく、データベース毎に1ライセンスです。
+	2 | AmiVoice OperatorAgent サーバ版 | サーバ版 | サーバ版で OperatorAgent をインストールする PC 台数分のライセンスです。仮想環境で利用する場合は OperatorAgent の同時起動数がライセンス数となります。
 	3 | AmiVoice RealTimeRecorder | サーバ版| サーバ版で録音対象とする内線番号の台数分のライセンスです。
 	4 | AmiVoice StreamingRecognizer | サーバ版 | サーバ版で同時認識数（最大同時通話数）分のライセンスです。
-	5 | AmiVoice OperatorAgent コンバージャ版 | クライアント版 | クライアント版のSLC / コンバージャ共通で OperatorAgent をインストールするPCの台数分のライセンスです。 RealTimeRecorder 及び StreamingRecognizer の利用はこのライセンスに含まれています。
+	5 | AmiVoice OperatorAgent コンバージャ版 | クライアント版 | クライアント版のSLC / コンバージャ共通で OperatorAgent をインストールするPC台数分のライセンスです。 RealTimeRecorder 及び StreamingRecognizer の利用はこのライセンスに含まれています。
 	6 | AmiVoice MediaScriber | MediaScriber | MediaScriber で利用するライセンスです。同時認識可能なライセンス数です。RealTimeRecorder 及び StreamingRecognizer の利用はこのライセンスに含まれています。
 
-	: 構成ごとの使用ライセンス {#tbl:riyouLicense}
+	: 構成ごとの必要ライセンス {#tbl:riyouLicense}
 
-	![](images/Tips.jpg){width=50px}　下記ライセンスは見積もり上のみの記載であり、ライセンス状況の画面には表示されません。  
+	![](images/Tips.jpg){width=50px}　下記ライセンスは見積もり上のみの記載であり、「ライセンス状況」の画面には表示されません。  
 	- AmiVoice RealTimeRecorder（冗長）  
-	- AmiVoice Web Client API ライセンス  
-	- AmiVoice Web Client API ランタイムライセンス  
-
+	- AmiVoice Web Client API （ランタイム）  
+	- AmiVoice Json API（ランタイム）  
+	- AmiVoice Client SDK（ランタイム）  
+<br>
+- CommunicationSuite ライセンスの登録  
+	TaskRunner の`LicenseRegister` コマンドを実行してチャレンジコードを発行します。  
+	チャレンジコードに対応するワンタイムパスワードを専用IVRより取得してライセンスを有効化します。  
+	- ワンタイムパスワード専用IVR  
+	連絡先：050-3160-0203  
+	パートナーコード：xxxx （パートナー様ごとに用意されている番号をご利用ください）  
 
 #### 3-7-2. 感情解析ライセンス
 
-- 使用ライセンス  
+- 感情解析ライセンス管理  
 
-	感情解析ライセンスは月単位で利用可能なライセンス数を管理しており、毎月1日の午前9時にリセットされます。  
-	ライセンス数を超過した場合はライセンスがリセットされるまで、それ以降の通話の感情解析が実行されません。  
-	使用ライセンスは ContronCenter / システム管理 / ライセンス状況 /感情解析ライセンス管理 から確認できます。（[@fig:kanjo]）  
+	購入ライセンスに合わせて使用可能なライセンス数が月単位で決まっています。使用可能なライセンス数は  
+	ContronCenter / システム管理 / ライセンス状況 /感情解析ライセンス管理 から確認できます。（[@fig:kanjo]）  
+	今月の感情解析通話数は毎月1日の午前 9 時にリセットされて「 0 」に戻ります。  
+	ライセンス数を超過した場合は翌月のライセンスリセットまで、それ以降の通話は感情解析されません。  
 
 	![感情解析ライセンス管理 画面](images/2-1-感情ライセンス.png){#fig:kanjo width=800px}  
 
-- 感情解析ライセンス数の算出式
-
-	割り当てられるライセンス数はサーバ / クライアント版と MediaScriber で異なります。  
-
-	- サーバ / クライアント版の場合  
-	サーバ版は RealTimeRecorder ライセンス数 1 につき、 3,000 回の感情解析処理 / 月 で算出されます。  
-	クライアント版は OperatorAgent ライセンス数 1 につき、3,000 回の感情解析処理 / 月 で算出されます。  
-
-	- MediaScriber の場合  
-	MediaScriber ライセンスの最初の1ライセンス は 30,000 回の感情解析処理 / 月で算出されます。  
+- 感情解析ライセンス数の算出式  
+	- 購入が必要なライセンス数の算出根拠となる数値  
+	1. サーバ版 / クライアント版の場合  
+	サーバ版は RealTimeRecorder ライセンス数 1 につき、 3,000 回の感情解析処理 / 月 で提供されます。  
+	クライアント版は OperatorAgent ライセンス数 1 につき、3,000 回の感情解析処理 / 月 で提供されます。  
+	1. MediaScriber の場合  
+	MediaScriber ライセンスの最初の1ライセンス のみ 30,000 回の感情解析処理 / 月で提供されます。  
 	※ 以降1ライセンス追加ごとに 3,000 ずつ追加されます。  
+	![](images/Tips.jpg){width=50px}　RaalTimeRecorder 1ライセンスごとに処理可能なライセンス数を管理しているわけではなく、発行されたライセンス数の合計をもとに、月ごとに処理可能なライセンス数が管理されます。  
 <br>
-- 感情解析ライセンスの消費タイミング  
-	![](images/Tips.jpg){width=50px}　録音開始した通話を StreamingRecognizer が認識開始したタイミングで 1 通話分のライセンスとして１つ消費されます。  
-	ライセンス消費における 1通話は Communication Suite の1通話（通話検索で表示された通話件数）と同じです。  
-<br>
-	実際の通話より感情解析ライセンスが多く消費されるケースとしては次の通りです。
-	- 保留により通話が分割される場合（通話プロバイダによっては保留で通話は分割されません）
+- 使用ライセンス  
+	録音開始した通話を **StreamingRecognizer が認識開始したタイミング** でライセンスが使用されます。  
+	通話時に電話機操作を実施しなければ基本的には1ライセンスの使用です  
+	電話機操作を実施した場合のライセンス使用は[@fig:kanjoz2] の通りです。  
+
+	![電話機操作時の感情解析ライセンスの使用](images/3-7-kanjoz.png){#fig:kanjoz2 width=1000px}
+
+	![](images/Check.png){width=50px}　電話機操作を実施しなかった場合でもライセンスが複数使用するケースがあります。（関連設定は [@tbl:kanjouLicense1] 参照）
 	- 「1通話の最大録音時間」機能により通話が複数に分割された場合
-	- 再認識した通話（認識オプションで「感情解析が未処理の場合のみ有効」ではなく、「有効」の場合）
-	- 「短い通話と判断する通話時間」機能によって結果的に通話作成されずキャンセルされたが、認識処理が行われた場合
-	- 内線間通話がキャプチャ対象で双方の内線が録音対象の場合（それぞれの内線で1ライセンス使用します。）  
-	- 電話機モニタリングの操作によってモニタリングした側の音声が録音認識される場合  
-	- アウトバンド業務を自動発信している場合（留守電に繋がった場合でも録音認識されれば1ライセンス使用します。）  
-<br>
-	**※ライセンス消費の例外として認識オプションの「感情解析で無視する冒頭区間」の範囲内で通話が終了した場合には  
-	感情解析ライセンスは消費されません。**（[3-5-4. 感情解析参照](#3-5-4. 感情解析参照)）  
+	- 　再認識した通話（認識オプションで「感情解析が未処理の場合のみ有効」ではなく、「有効」の場合）
+	- 「短い通話と判断する通話時間」機能によって結果的に通話は作成されずキャンセルされたが、認識処理が行われた場合
+
+	![](images/Tips.jpg){width=50px}　ライセンス使用の例外として認識オプションの「感情解析で無視する冒頭区間」の範囲内で通話が終了した場合には感情解析ライセンスは使用されません。（[3-5-4. 感情解析の「感情解析で無視する冒頭区間」を参照](#3-5-4. 感情解析参照)）  
 
 
 	No. | 設定分類 | 設定項目名 | 説明
@@ -3495,29 +3509,36 @@ AmiVoice© のテキスト化処理の仕様で、半角文字の出力ができ
 	2 |RealTimeRecorder - 録音音声 | 最大録音時間を超えたときの扱い |No.1の設定で1（別の通話として継続）を選択した場合に設定値（秒）を超えると通話が分割されます。  |  
 	3 |RealTimeRecorder - 録音音声 | 短い通話と判断する通話時間  |設定値（ミリ秒）以下の通話時間の通話は作成されません。
 
-	: ContolCenter 詳細設定の感情解析ライセンス消費に関連する設定 {#tbl:kanjouLicense1}  
+	: ContolCenter 詳細設定の感情解析ライセンス使用に関連する設定 {#tbl:kanjouLicense1}  
 
-- ライセンスの登録  
-	感情解析システムIDを発行しアクティベーションコード入手後、[@fig:kanjo] 感情解析ライセンス画面の「アクティベート」ボタンよりアクティベーションコードを入力して感情解析ライセンスを登録します。感情解析ライセンスは ControlCenter をインストールするWEBサーバごとに登録が必要です。ロードバランサなどでWEBサーバを冗長化する場合には、それぞれのWEBサーバに感情解析ライセンスを半分ずつに分けて登録します。  
-
-	![](images/Tips.jpg){width=50px}　感情解析システムIDを発行後、WEBサーバのホスト名を変更した場合にはアクティベーションコード登録後も通話に感情解析が行われません。ホスト名を変更した場合には対象WEBサーバの TaskRunner で`NemesyscoPreparation --rename`のコマンドを実行してください。  
-
-
-
-
-	![](images/Check.png){width=50px}　アクティベーション登録直後は [@fig:kanjo] の状態欄が	![](images/3-7-tokei.png){width=25px} の「アクティベーション待ち」となり  
-	その後の新規通話で感情解析が行われた時に ![](images/3-7-tokei2.png){width=20px}  「アクティベーション済」となり使用ライセンス数が表示されます。  
-
+- 感情解析ライセンスの登録  
+	TaskRunner の`NemesyscoPreparation --regist` コマンドを実行して感情解析システムIDを発行します。  
+	アクティベーションコード入手後、[@fig:kanjo] 感情解析ライセンス画面の「アクティベート」ボタンよりアクティベーションコードを入力して感情解析ライセンスを登録します。感情解析ライセンスは ControlCenter をインストールするWEBサーバごとに登録が必要です。ロードバランサなどでWEBサーバを冗長化する場合には、それぞれのWEBサーバに感情解析ライセンスを半分ずつに分けて登録します。  
+<br>
 	登録時の用途によって提供されるアクティベーションコードのフォーマットが異なります。  
 	-  新規登録時（無期限のライセンス）`NMSF:XXXXXXXXXX:PNMS!XXXXXXXXXXXXXXXXXXX:QA021000166`
 	-  新規登録時（期限付きライセンス）`NMSF:XXXXXXXXXX:PNMS!XXXXXXXXXXXXXXXXXXX:QA021000166:ZNMS!XXXXXXXXXXXXXXXXXXX`
 	-  増席 / 期限延長（追加ライセンス） `PNMS!XXXXXXXXXXXXXXXXXXX`
+
+	![](images/Check.png){width=50px}　アクティベーション登録直後は [@fig:kanjo] の状態欄が	![](images/3-7-tokei.png){width=25px} の「アクティベーション待ち」となり  
+	その後の新規通話で感情解析が行われた時に ![](images/3-7-tokei2.png){width=20px}  「アクティベーション済」となり使用ライセンス数が表示されます。  
 
 	<br />
 
 
 
 ### 3-8. レポート
+CommnicationSuite のアカウントに関する履歴を表示します。  
+
+#### 3-8-1. レポートの保存  
+- レポートの保存場所  
+	CommunicationSuiteデータベース（Data.mdf, Index.ndf, LargeObject.ndf）に保存されます。  
+	どれか１つのファイルのみに保存されるわけではありません。  
+<br>
+	レポートの保存期間はログイン履歴と通話操作履歴で異なります。
+	- ログイン履歴・・・削除されることはありません。
+	- 通話操作履歴・・・TaskRunner の削除処理で操作履歴の対象通話が削除されると操作履歴も削除されます。
+
 
 ### 3-9. メンテナンスモード
 
@@ -3529,17 +3550,17 @@ AmiVoice© のテキスト化処理の仕様で、半角文字の出力ができ
 #### 4-1-1. 通話プロバイダ
 
 ##### サーバパケットキャプチャ
-詳細なコンフィグレーションは、Apppendix を参照してください。  
 
-1. Avaya
+1. Avaya  
 1. Avaya AES
-1. Avaya APC
+1. Avaya APC  
+Avaya Proactive Contact のイベントドリブンで、録音を制御します。  
 1. SIP
 1. SIP CTstage連携
 1. SIP T-Server連携
 1. SIP OAI連携
 1. SIP CIC連携
-1. RTP
+1. RTP  
 呼制御プロトコルを解析しないため、通話イベントの判定ができません。  
 利用シーンは、RealTimeRecorder が解析に対応していない呼制御プロトコルを利用している電話環境下に限定されます。  
 
