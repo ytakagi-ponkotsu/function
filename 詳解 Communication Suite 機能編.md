@@ -1013,8 +1013,8 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 
 	No. | 設定分類 | 設定項目名 | 通話情報<br />（call） | 通話フィルタ情報<br />（filterinfo） | 検出通話フィルタ情報<br />（filterdetection） | 実行コマンド情報<br />（executedcommand） | OperatorAgent 情報<br />（oa） |
 	---:|---|---|:---:|:---:|:---:|:---:|:---:|
-	1  | OperatorAgent - コマンド実行 | [【確認中#8287】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8287) OperatorAgent起動時に実行するコマンド | × | × | × | × | △ |
-	2  | OperatorAgent - コマンド実行 | [【確認中#8287】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8287) OperatorAgent終了時に実行するコマンド | × | × | × | × | △ |
+	1  | OperatorAgent - コマンド実行 | OperatorAgent起動時に実行するコマンド | × | × | × | × | × |
+	2  | OperatorAgent - コマンド実行 | OperatorAgent終了時に実行するコマンド | × | × | × | × |  × |
 	3  | OperatorAgent - コマンド実行 | ログイン直後に実行するコマンド | × | × | × | × | △ |
 	4  | OperatorAgent - コマンド実行 | ログアウト直後に実行するコマンド | × | × | × | × | △ |
 	5  | OperatorAgent - コマンド実行 | 通話開始直後に実行するコマンド | ○ | × | × | × | △ |
@@ -1025,7 +1025,7 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 
 	: OperatorAgent コマンド実行と指定可能なオプション変数 {#tbl:oacommand}
 
-	△ は サブキー SearchString を除いて利用が可能です。  
+	△ は サブキー "SearchString" を除いて利用が可能です。  
 
 	<br / >
 
