@@ -2936,7 +2936,7 @@ Internet Explorer と同様、デスクトップ通知は利用できず音声�
 
 ### 3-1. ControlCenter のログイン
 
-基本的には、SpeechVisualizer のログインと同じ仕様となります。
+ControlCenterのログイン仕様については[2-1. SpeechVisualizer のログイン](#2-1. SpeechVisualizer のログイン)と同様となります。
 
 ### 3-2. ControlCenter ホーム
 
