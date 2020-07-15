@@ -3400,20 +3400,31 @@ AmiVoice© のテキスト化処理の仕様で、半角文字の出力ができ
 ### 3-7. ライセンス状況
 
 #### 3-7-1. Communication Suite ライセンス  
-- Communication Suite ライセンス管理  
-	ControlCenter / システム管理 / ライセンス状況のホーム画面に Cimmunication Suite ライセンスが表示されます。  
-	構成ごとに必要なライセンスは [@tbl:riyouLicense] の通りです。  
+- Communication Suite ライセンス  
+	登録されているライセンスは ControlCenter / システム管理 / ライセンス状況のホーム画面より確認できます。  
+	各ライセンスの説明は[@tbl:riyouLicense] の通りです。  
 
-	No. | ライセンス名 | システム構成 | 説明
-	--:|-----------------|------|---------------------|
-	1 | AmiVoice Communication Suite Core | 共通 | 構成に関係なく、データベース毎に1ライセンスです。
-	2 | AmiVoice OperatorAgent サーバ版 | サーバ版 | サーバ版で OperatorAgent をインストールする PC 台数分のライセンスです。仮想環境で利用する場合は OperatorAgent の同時起動数がライセンス数となります。
-	3 | AmiVoice RealTimeRecorder | サーバ版| サーバ版で録音対象とする内線番号の台数分のライセンスです。
-	4 | AmiVoice StreamingRecognizer | サーバ版 | サーバ版で同時認識数（最大同時通話数）分のライセンスです。
-	5 | AmiVoice OperatorAgent コンバージャ版 | クライアント版 | クライアント版のSLC / コンバージャ共通で OperatorAgent をインストールするPC台数分のライセンスです。 RealTimeRecorder 及び StreamingRecognizer の利用はこのライセンスに含まれています。
-	6 | AmiVoice MediaScriber | MediaScriber | MediaScriber で利用するライセンスです。同時認識可能なライセンス数です。RealTimeRecorder 及び StreamingRecognizer の利用はこのライセンスに含まれています。
+	No. | ライセンス名 | 説明
+	--:|-----------------|---------------------------|
+	1 | AmiVoice Communication Suite Core |Core ライセンスです。<br>算出根拠：AmiVoiceCommunicationSuite データベース毎に1ライセンス必要です。  |  
+	2 | AmiVoice OperatorAgent サーバ版 | サーバ版で OperatorAgent を利用するライセンスです。<br>算出根拠：OperatorAgent をインストールするPCの台数分必要です。<br>※仮想環境で利用する場合は<br>ライセンスのカウント方式を **インストール台数** から **同時起動数** に変更できます。<br>仮想環境算出根拠：OperatorAgent の同時起動数分。（No.3 のRealTimeRecorder のライセンス数分は最低限ライセンスを購入して頂く必要があります）
+	3 | AmiVoice RealTimeRecorder |サーバ版で録音するためのライセンスです。<br>算出根拠：録音対象としてシステムに登録する内線番号の数だけ必要です。
+	4 | AmiVoice StreamingRecognizer |サーバ版で音声認識するためのライセンスです。<br>算出根拠：同時認識する数だけ必要です。（最大同時通話数とイコール）
+	5 | AmiVoice OperatorAgent コンバージャ版 |クライアント版で OperatorAgent を利用するライセンスです。本ライセンスに録音認識するためのライセンスも含まれています。<br>算出根拠：OperatorAgent をインストールするPCの台数分必要です。
+	6 | AmiVoice MediaScriber | MediaScriber で音声認識するためのライセンスです。<br>本ライセンスに録音認識するためのライセンスも含まれています。<br>算出根拠：認識完了までの時間（要件）により、ライセンス数が変わります。最大録音時間 ÷ 認識処理実施時間
 
-	: 構成ごとの必要ライセンス {#tbl:riyouLicense}
+	: Communication Suiteライセンス一覧 {#tbl:riyouLicense}
+
+- ライセンスの使用  
+
+	No. | ライセンス名 |ライセンスの使用タイミング
+	--:|-----------------|---------------------------|
+	1 | AmiVoice Communication Suite Core |なし（あとでもう少し書く）  |  
+	2 | AmiVoice OperatorAgent サーバ版 |OperatorAgent インストール PC で初回ログイン処理を実施したタイミングで PC 毎に1つ使用。仮想環境の場合はライセンス使用を同時ログイン処理毎に変更可能。|  
+	3 | AmiVoice RealTimeRecorder |「内線番号管理」に内線番号を追加する毎に1つ使用  |  
+	3 | AmiVoice StreamingRecognizer |ノード管理 - ノード詳細の「リアルタイム認識 - 最大同時処理数」の設定値分のライセンスを使用  |  
+	3 | AmiVoice OperatorAgent コンバージャ版 |OperatorAgent インストール PC で初回ログイン処理を実施したタイミングで PC 毎に1つ使用 |  
+
 
 	![](images/Tips.jpg){width=50px}　下記ライセンスは見積もり上のみの記載であり、「ライセンス状況」の画面には表示されません。  
 	- AmiVoice RealTimeRecorder（冗長）  
@@ -3422,7 +3433,7 @@ AmiVoice© のテキスト化処理の仕様で、半角文字の出力ができ
 	- AmiVoice Client SDK（ランタイム）  
 <br>
 - CommunicationSuite ライセンスの登録  
-	TaskRunner の`LicenseRegister` コマンドを実行してチャレンジコードを発行します。  
+	ライセンスの登録時にはライセンスファイルが必要です。TaskRunner の`LicenseRegister` コマンドを実行してチャレンジコードを発行します。  
 	チャレンジコードに対応するワンタイムパスワードを専用IVRより取得してライセンスを有効化します。  
 	- ワンタイムパスワード専用IVR  
 	連絡先：050-3160-0203  
@@ -3492,11 +3503,12 @@ AmiVoice© のテキスト化処理の仕様で、半角文字の出力ができ
 CommnicationSuite のアカウントに関する履歴を表示します。  
 
 #### 3-8-1. レポートの保存  
-- レポートの保存場所  
+- レポートの保存先  
 	CommunicationSuiteデータベース（Data.mdf, Index.ndf, LargeObject.ndf）に保存されます。  
 	どれか１つのファイルのみに保存されるわけではありません。  
 <br>
-	レポートの保存期間はログイン履歴と通話操作履歴で異なります。
+- レポートの保存期間  
+  レポートの保存期間はログイン履歴と通話操作履歴で異なります。
 	- ログイン履歴・・・削除されることはありません。
 	- 通話操作履歴・・・TaskRunner の削除処理で操作履歴の対象通話が削除されると操作履歴も削除されます。
 
