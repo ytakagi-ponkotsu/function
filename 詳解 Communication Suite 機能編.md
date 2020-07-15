@@ -1013,8 +1013,8 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 
 	No. | 設定分類 | 設定項目名 | 通話情報<br />（call） | 通話フィルタ情報<br />（filterinfo） | 検出通話フィルタ情報<br />（filterdetection） | 実行コマンド情報<br />（executedcommand） | OperatorAgent 情報<br />（oa） |
 	---:|---|---|:---:|:---:|:---:|:---:|:---:|
-	1  | OperatorAgent - コマンド実行 | [【確認中#8287】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8287) OperatorAgent起動時に実行するコマンド | × | × | × | × | △ |
-	2  | OperatorAgent - コマンド実行 | [【確認中#8287】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8287) OperatorAgent終了時に実行するコマンド | × | × | × | × | △ |
+	1  | OperatorAgent - コマンド実行 | OperatorAgent起動時に実行するコマンド | × | × | × | × | × |
+	2  | OperatorAgent - コマンド実行 | OperatorAgent終了時に実行するコマンド | × | × | × | × |  × |
 	3  | OperatorAgent - コマンド実行 | ログイン直後に実行するコマンド | × | × | × | × | △ |
 	4  | OperatorAgent - コマンド実行 | ログアウト直後に実行するコマンド | × | × | × | × | △ |
 	5  | OperatorAgent - コマンド実行 | 通話開始直後に実行するコマンド | ○ | × | × | × | △ |
@@ -1025,7 +1025,7 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 
 	: OperatorAgent コマンド実行と指定可能なオプション変数 {#tbl:oacommand}
 
-	△ は サブキー SearchString を除いて利用が可能です。  
+	△ は サブキー "SearchString" を除いて利用が可能です。  
 
 	<br / >
 
@@ -2024,7 +2024,7 @@ Communication Suite の通話検索は、検索条件 UI に各種条件を設�
 		No. | 識別名       | 名称| 値 | 説明      |省略可否|
 		---:|------------------|--------------|------|------|------|
 		1   |  AttributeCondition | 接頭語        | なし| 項目を追加する際の定型文です。| ×|
-		2   |  attributes | 通話属性識別名        | 文字列 | 通話検索条件に追加する通話属性識別子です。通話属性識別名は CommunicationSuite 内で通話属性毎に設定されているユニークな識別名です。使用可能な通話属性については（[1-2-2.　[@tbl:callb2] : 利用可能な通話属性一覧](#1-2-2. 通話表示機能) 参照。）  を参照してください。[【確認中#8288】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8288)追加できる通話属性とそうでないもの  | ×|
+		2   |  attributes | 通話属性識別名        | 文字列 | 通話検索条件に追加する通話属性識別子です。通話属性識別名は CommunicationSuite 内で通話属性毎に設定されているユニークな識別名です。使用可能な通話属性については（[1-2-2.　[@tbl:callb2] : 利用可能な通話属性一覧](#1-2-2. 通話表示機能) 参照。）  を参照してください。ただし、番号系の情報は、デフォルトプロバイダ 『電話番号』 をカスタマイズして追加します。（後述） | ×|
 		3   |  prefixes| プレフィックス        | 文字列| 通話検索条件を識別するクエリ文字列です。| ×|
 		4   |  iconName | アイコン名        | 文字列| 検索プロバイダとして表示するアイコンを [@tbl:icon1] から指定します。 | 〇|
 		5   |  lessQueryLabel | 説明文        |文字列| 通話検索条件入力欄にプレフィックスを入力した際に表示される説明文です。| 〇|
@@ -2034,15 +2034,15 @@ Communication Suite の通話検索は、検索条件 UI に各種条件を設�
 		: 追加する通話属性の書式 {#tbl:provider3}
 
 		No. | 利用可能なアイコン      | アイコンの種類| アイコン名
-		---:|------------------|--------------|------|
-		1   |　　　 ![](images/2-3-icon1.png){#fig:aaa width=20px} | 人物        | person1|
-		2   |　　　 ![](images/2-3-icon2.png){#fig:aaa width=20px} | 電話1       | tel1|
-		3   |　　　 ![](images/2-3-icon3.png){#fig:aaa width=20px} | 電話2        | tel2|
-		4   |　　　 ![](images/2-3-icon4.png){#fig:aaa width=20px} | 電話3        | tel3|
-		5   |　　　 ![](images/2-3-icon5.png){#fig:aaa width=20px} |  星1        | star1
-		6   |　　　 ![](images/2-3-icon6.png){#fig:aaa width=20px} | 星2       | star2|
-		7   |　　　 ![](images/2-3-icon7.png){#fig:aaa width=20px}  | 吹き出し1        | balloon1|
-		8   |　　　 ![](images/2-3-icon8.png){#fig:aaa width=20px} | 吹き出し2       | balloon2|
+		---:|:------------------:|--------------|------|
+		1   | ![](images/2-3-icon1.png){#fig:aaa width=20px} | 人物        | person1|
+		2   | ![](images/2-3-icon2.png){#fig:aaa width=20px} | 電話1       | tel1|
+		3   | ![](images/2-3-icon3.png){#fig:aaa width=20px} | 電話2        | tel2|
+		4   | ![](images/2-3-icon4.png){#fig:aaa width=20px} | 電話3        | tel3|
+		5   | ![](images/2-3-icon5.png){#fig:aaa width=20px} |  星1        | star1
+		6   | ![](images/2-3-icon6.png){#fig:aaa width=20px} | 星2       | star2|
+		7   | ![](images/2-3-icon7.png){#fig:aaa width=20px}  | 吹き出し1        | balloon1|
+		8   | ![](images/2-3-icon8.png){#fig:aaa width=20px} | 吹き出し2       | balloon2|
 
 		: 利用可能なアイコン {#tbl:icon1}
 
@@ -2510,7 +2510,7 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 	3 | 保留開始|保留開始|
 	4 | 保留解除|保留解除|
 	5 | 保留終了|保留終了|
-	6 | 転送完了|保留終了|転送関連情報が連携される一部API連携時のみ利用される。[【確認中#8290】](http://cti-dev.advanced-media.co.jp/trac/cs/ticket/8290)：条件<br/>転送完了と同時に通話が終了した場合は通話終了が省略される
+	6 | 転送完了|保留終了| 会話相手の通話属性として、転送先の情報 (amivoice.common.telephony.transfer.destination.phonenumber または amivoice.common.telephony.transfer.destination.name) が設定されていると「転送完了」との表記になります。
 	7 | 保留エラー|保留エラー|
 	:Speechvisualizerでの 通話イベント {#tbl:detailevent}
 
@@ -2936,7 +2936,7 @@ Internet Explorer と同様、デスクトップ通知は利用できず音声�
 
 ### 3-1. ControlCenter のログイン
 
-基本的には、SpeechVisualizer のログインと同じ仕様となります。
+ControlCenterのログイン仕様については[2-1. SpeechVisualizer のログイン](#2-1. SpeechVisualizer のログイン)と同様となります。
 
 ### 3-2. ControlCenter ホーム
 
@@ -2950,7 +2950,7 @@ Internet Explorer と同様、デスクトップ通知は利用できず音声�
 
 	: ホームモジュールと詳細設定との対応 {#tbl:cchomepara}
 
-#### 3-2-1. ホーム画面のガジェットとプロバイダ
+#### 3-2-1. CCホーム画面のガジェットとプロバイダ
 
 - ホーム画面に表示する、ガジェットを提供するのが 『プロバイダ』 です。  
 [@tbl:svhomepara] の『ホームモジュールのプロバイダ』 の設定書式は以下です。
@@ -2975,7 +2975,7 @@ Internet Explorer と同様、デスクトップ通知は利用できず音声�
 
 	その他、注意点は[2-2-2. ホーム画面のレイアウト情報](#2-2-2. ホーム画面のレイアウト情報) と同様です。
 
-#### 3-2-2. ホーム画面のレイアウト情報
+#### 3-2-2. CCホーム画面のレイアウト情報
 
 - ホーム画面のガジェット配置を設定できます。
 
@@ -3562,17 +3562,17 @@ CommnicationSuite のアカウントに関する履歴を表示します。
 #### 4-1-1. 通話プロバイダ
 
 ##### サーバパケットキャプチャ
-詳細なコンフィグレーションは、Apppendix を参照してください。  
 
-1. Avaya
+1. Avaya  
 1. Avaya AES
-1. Avaya APC
+1. Avaya APC  
+Avaya Proactive Contact のイベントドリブンで、録音を制御します。  
 1. SIP
 1. SIP CTstage連携
 1. SIP T-Server連携
 1. SIP OAI連携
 1. SIP CIC連携
-1. RTP
+1. RTP  
 呼制御プロトコルを解析しないため、通話イベントの判定ができません。  
 利用シーンは、RealTimeRecorder が解析に対応していない呼制御プロトコルを利用している電話環境下に限定されます。  
 
