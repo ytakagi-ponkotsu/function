@@ -1009,7 +1009,7 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 		ControlCenter の 『ライセンス状況』・『ログイン状況』 の表示時に、ログアウトやタイムアウトの状態になったライセンスを解放しています。  
 
 ### 1-5. OperatorAgent からのコマンド実行
-- OperatorAgent からは、詳細設定項目（[@tbl:oacommand]）を設定することで特定のタイミングでコマンドを実行することができます。
+- OperatorAgent からは、詳細設定項目（[@tbl:oacommand]）を設定することで特定のタイミングでコマンドを実行することができます。（コマンドは、ログインユーザの権限で実行されます。）  
 
 	No. | 設定分類 | 設定項目名 | 通話情報<br />（call） | 通話フィルタ情報<br />（filterinfo） | 検出通話フィルタ情報<br />（filterdetection） | 実行コマンド情報<br />（executedcommand） | OperatorAgent 情報<br />（oa） |
 	---:|---|---|:---:|:---:|:---:|:---:|:---:|
@@ -3446,11 +3446,13 @@ AmiVoice© のテキスト化処理の仕様で、半角文字の出力ができ
 	- ワンタイムパスワード専用 IVR  
 	連絡先：050-3160-0203  
 	パートナーコード：xxxx （パートナー様ごとに用意されている番号をご利用ください）  
-	![](images/Tips.jpg){width=50px}　下記ライセンスはライセンスファイルでアクティベーションされるものではありません。CommnicationSuite ライセンスとしてシステム上に表示されませんが、機能を利用する場合には購入が必要です。  
-	- AmiVoice RealTimeRecorder（冗長）  
-	- AmiVoice Web Client API （ランタイム）  
-	- AmiVoice Json API（ランタイム）  
-	- AmiVoice Client SDK（ランタイム）  
+
+![](images/NOTICE.png){width=50px}　下記ライセンスはライセンスファイルでアクティベーションされるものではありません。CommnicationSuite ライセンスとしてシステム上に表示されませんが、機能を利用する場合には購入が必要です。  
+
+- AmiVoice RealTimeRecorder（冗長）  
+- AmiVoice Web Client API （ランタイム）  
+- AmiVoice Json API（ランタイム）  
+- AmiVoice Client SDK（ランタイム）  
 
 #### 3-7-2. 感情解析ライセンス
 
