@@ -1011,6 +1011,8 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 ### 1-5. OperatorAgent からのコマンド実行
 - OperatorAgent からは、詳細設定項目（[@tbl:oacommand]）を設定することで特定のタイミングでコマンドを実行することができます。（コマンドは、ログインユーザの権限で実行されます。）  
 
+
+
 	No. | 設定分類 | 設定項目名 | 通話情報<br />（call） | 通話フィルタ情報<br />（filterinfo） | 検出通話フィルタ情報<br />（filterdetection） | 実行コマンド情報<br />（executedcommand） | OperatorAgent 情報<br />（oa） |
 	---:|---|---|:---:|:---:|:---:|:---:|:---:|
 	1  | OperatorAgent - コマンド実行 | OperatorAgent起動時に実行するコマンド | × | × | × | × | × |
