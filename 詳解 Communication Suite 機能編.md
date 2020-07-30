@@ -1077,11 +1077,6 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 
 	1. 通話情報 (call)  
 通話に関する情報が取得出来ます。  
-		- サブキー 『EndDate』 / 『EndDateTime』 と 『Duration』 について  
-『通話開始直後に実行するコマンド』 に指定すると、空文字列になります。  
-		- サブキー 『HoldDuration』 と 『HoldCount』 について  
-『通話開始直後に実行するコマンド』 に指定すると、 "0" になります。  
-		<br />  
 
 		![](images/NOTICE.png){width=50px}  
 
@@ -1109,9 +1104,9 @@ OperatorAgent に関する情報が取得出来ます。
 	6   | call | Date | 通話開始日時 | - | 日時系は、urlencode の指定ができません。代わりに [カスタム日時形式文字列](https://docs.microsoft.com/ja-jp/dotnet/standard/base-types/custom-date-and-time-format-strings?redirectedfrom=MSDN) の指定が可能です。<br />${call, StartDateTime, yyyy-MM-dd}
 	7   | call | StartDate | 通話開始日時 | - | 日時系
 	8   | call | StartDateTime | 通話開始日時 | - | 日時系
-	9   | call | EndDate | 通話終了日時 | - | 日時系
-	10   | call | EndDateTime | 通話終了日時 | - | 日時系
-	11   | call |Duration | 通話時間(秒) | - |
+	9   | call | EndDate | 通話終了日時 | - | 日時系<br />『通話開始直後に実行するコマンド』 に指定すると、空文字列になります。
+	10   | call | EndDateTime | 通話終了日時 | - | 日時系<br />『通話開始直後に実行するコマンド』 に指定すると、空文字列になります。
+	11   | call |Duration | 通話時間(秒) | - | 『通話開始直後に実行するコマンド』 に指定すると、空文字列になります。
 	12   | call |HoldDuration | 累積保留時間(秒) | - |
 	13   | call |HoldCount | 保留回数 | - |
 	14   | call |DetailViewUrl | 詳細表示のURL | - |
