@@ -1001,7 +1001,9 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 		ControlCenter の 『ライセンス状況』・『ログイン状況』 の表示時に、ログアウトやタイムアウトの状態になったライセンスを解放しています。  
 
 ### 1-5. OperatorAgent からのコマンド実行
-- OperatorAgent からは、詳細設定項目（[@tbl:oacommand]）を設定することで特定のタイミングでコマンドを実行することができます。
+- OperatorAgent からは、詳細設定項目（[@tbl:oacommand]）を設定することで特定のタイミングでコマンドを実行することができます。（コマンドは、ログインユーザの権限で実行されます。）  
+
+
 
 	No. | 設定分類 | 設定項目名 | 通話情報<br />（call） | 通話フィルタ情報<br />（filterinfo） | 検出通話フィルタ情報<br />（filterdetection） | 実行コマンド情報<br />（executedcommand） | OperatorAgent 情報<br />（oa） |
 	---:|---|---|:---:|:---:|:---:|:---:|:---:|
@@ -1067,11 +1069,6 @@ ControlCenter にレジストされた、OperatorAgent のログイン情報（�
 
 	1. 通話情報 (call)  
 通話に関する情報が取得出来ます。  
-		- サブキー 『EndDate』 / 『EndDateTime』 と 『Duration』 について  
-『通話開始直後に実行するコマンド』 に指定すると、空文字列になります。  
-		- サブキー 『HoldDuration』 と 『HoldCount』 について  
-『通話開始直後に実行するコマンド』 に指定すると、 "0" になります。  
-		<br />  
 
 		![](images/NOTICE.png){width=50px}  
 
@@ -1099,9 +1096,9 @@ OperatorAgent に関する情報が取得出来ます。
 	6   | call | Date | 通話開始日時 | - | 日時系は、urlencode の指定ができません。代わりに [カスタム日時形式文字列](https://docs.microsoft.com/ja-jp/dotnet/standard/base-types/custom-date-and-time-format-strings?redirectedfrom=MSDN) の指定が可能です。<br />${call, StartDateTime, yyyy-MM-dd}
 	7   | call | StartDate | 通話開始日時 | - | 日時系
 	8   | call | StartDateTime | 通話開始日時 | - | 日時系
-	9   | call | EndDate | 通話終了日時 | - | 日時系
-	10   | call | EndDateTime | 通話終了日時 | - | 日時系
-	11   | call |Duration | 通話時間(秒) | - |
+	9   | call | EndDate | 通話終了日時 | - | 日時系<br />『通話開始直後に実行するコマンド』 に指定すると、空文字列になります。
+	10   | call | EndDateTime | 通話終了日時 | - | 日時系<br />『通話開始直後に実行するコマンド』 に指定すると、空文字列になります。
+	11   | call |Duration | 通話時間(秒) | - | 『通話開始直後に実行するコマンド』 に指定すると、空文字列になります。
 	12   | call |HoldDuration | 累積保留時間(秒) | - |
 	13   | call |HoldCount | 保留回数 | - |
 	14   | call |DetailViewUrl | 詳細表示のURL | - |
@@ -2423,12 +2420,12 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 	![](images/Tips.jpg){width=50px}　URL末尾に`#revision=”版数”`を追加することで版数を指定しての表示が可能です。省略した場合は最新版が表示されます。
 
 ####  2-4-2. 通話詳細の設定
-1. [@tbl:detaildc] は、通話詳細の主な詳細設定です。
+1. [@tbl:detaildc] は、通話詳細に関連した主な詳細設定です。
 
 	No. | 設定分類 | 設定項目名       | デフォルト値 |特記事項
 	---:|------------------|--------------|------|--
 	1 | SpeechVisualizer - 通話詳細 |クイック編集 |FALSE |
-	2 | SpeechVisualizer - 通話詳細 |コピー時にチャンネル名を含める |TRUE |
+	2 | SpeechVisualizer - 通話詳細 |コピー時にチャンネル名を含める | TRUE |
 	3 | SpeechVisualizer - 通話詳細 |コピー時に開始時間を含める |TRUE |
 	4 | SpeechVisualizer - 通話詳細 |コピー時に終端時間を含める |TRUE |
 	5 | SpeechVisualizer - 通話詳細 |コピー時のオペレータラベルの文字列 |オペレータ |
@@ -2436,12 +2433,12 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 	7 | SpeechVisualizer - 通話詳細 |コピー時のカスタマラベルの文字列 |カスタマ |
 	8 | SpeechVisualizer - 通話詳細 |コピー時の時間フォーマット |0 |0:相対時間,1:絶対時間
 	9 | SpeechVisualizer - 通話詳細 |シークバーに追随して感情解析を表示する |FALSE |
-	10 | SpeechVisualizer - 通話詳細 |スクロールロック |FALSE |
+	10 | SpeechVisualizer - 通話詳細 |スクロールロック | FALSE |
 	11 | SpeechVisualizer - 通話詳細 |セグメントを再生する場合に前後にもたせる余裕の秒数 |0.3 |(隠し項目)
 	12 | SpeechVisualizer - 通話詳細 |デフォルトの拡大率 |0 |
 	13 | SpeechVisualizer - 通話詳細 |ページ表示時に自動的に再生する |FALSE |
-	14 | SpeechVisualizer - 通話詳細 |リピート再生 |FALSE |
-	15 | SpeechVisualizer - 通話詳細 |感情解析を表示 |TRUE |
+	14 | SpeechVisualizer - 通話詳細 |リピート再生 | FALSE |
+	15 | SpeechVisualizer - 通話詳細 |感情解析を表示 | TRUE |
 	16 | SpeechVisualizer - 通話詳細 |再生ボリューム |50,50;1,1 |
 	17 | SpeechVisualizer - 通話詳細 |再生速度 |1 |
 	18 | SpeechVisualizer - 通話詳細 |通話詳細に表示する感情解析階調線の数 |3 |2-4-3参照
@@ -2449,17 +2446,20 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 	20 | SpeechVisualizer - 通話詳細 |通話詳細の折れ線グラフに表示する感情（オペレータ） |2-4-3参照 |
 	21 | SpeechVisualizer - 通話詳細 |通話詳細の折れ線グラフに表示する感情（カスタマ） |2-4-3参照 |
 	22 | SpeechVisualizer - 通話詳細 |通話情報に表示する追加の通話属性 |2-4-4参照 |
-	23 | SpeechVisualizer - 通話詳細 |波形が表示可能な最大サンプル数 | 27000 | ※ 1
-	24 | SpeechVisualizer - 通話詳細 |波形を表示 |TRUE |
-	25 | SpeechVisualizer - 通話詳細 |話者アイコンを表示 |TRUE |
+	23 | SpeechVisualizer - 通話詳細 |波形が表示可能な最大サンプル数 | 27000 | サンプル数≒dot 数、デフォルトの表示倍率で 30分程度
+	24 | SpeechVisualizer - 通話詳細 |波形を表示 | TRUE |
+	25 | SpeechVisualizer - 通話詳細 |話者アイコンを表示 | TRUE |
+	26 | 共通 - 記憶領域 |感情解析結果ファイルのアクセスに認証が必要かどうか| FALSE |
+	27 | 共通 - 記憶領域 |感情解析結果ファイルのベースディレクトリのパス| ${cs, InstallRoot}\Audio\Emotion |
+	28 | 共通 - 記憶領域 |記憶領域のアクセスに使用するパスワード | - |
+	29 | 共通 - 記憶領域 |記憶領域のアクセスに使用するユーザ | - |
+	30 | 共通 - 記憶領域 |再生に使用する音声ファイルのアクセスに認証が必要かどうか | FALSE |
+	31 | 共通 - 記憶領域 |再生に使用する音声ファイルのベースディレクトリのパス | ${cs, InstallRoot}\Audio\Playing |
+	32 | 共通 - 記憶領域 |波形の表示に使用する音声 (波形) ファイルのアクセスに認証が必要かどうか | FALSE |
+	33 | 共通 - 記憶領域 |波形の表示に使用する音声 (波形) ファイルのベースディレクトリのパス | ${cs, InstallRoot}\Audio\WaveShape |
 
 	: 座席表の詳細設定 {#tbl:detaildc}
 
-	![](images/Check.png){width=50px} ※ 1 サンプル数、≒ **dot 数** です。  
-	この設定項目は、通話詳細画面の波形を描画するのに必要な上下方向の長さ（高さ）のしきい値となります。  
-	デフォルトでは、27000 dot を超える長さの波形の場合には描画されません。  
-	ただし、この設定値は通話内容ビューの拡大率に対する相対的な値となりますので、絶対的に何分以上の通話なら表示しないという指定ではありません。  
-	ちなみに、27000 dot は、デフォルトの表示倍率で 30分程度となりますが、通話内容ビューを拡大すると、波形表示可能な通話時間は短くなり、逆に縮小すると、波形表示可能な通話時間は長くなります。  
 	<br />
 1. ユーザ毎にカスタマイズが可能な設定  
 	通話詳細の UI （[@fig:detailcustom]）からは、いくつかの詳細設定項目の個人別カスタム設定が可能です。
@@ -2492,10 +2492,10 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 
 1. 通話内容ビューでの通話イベント表示
 
-	通話詳細の内容ビューには、[1-2-2. 通話表示機能](#1-2-2. 通話表示機能)と同様にRealTimeRecoderから連携された通話イベントが通話相手側に緑吹き出しで表示されます。
+	通話詳細の内容ビューには、[1-2-2. 通話表示機能](#1-2-2. 通話表示機能)と同様に RealTimeRecoder から連携された通話イベントが通話相手側に緑吹き出しで表示されます。
 	[@tbl:detailevent] はSpeechvisualizerとOpertorAgentイベント名称の関連です。
 
-	No.|SpeechVisualizerでのイベント名称|OpertorAgentでのイベント名称|備考
+	No.| SpeechVisualizer でのイベント名称| OpertorAgent でのイベント名称|備考
 	---:|--------------|---------|--
 	1 | 通話開始|通話開始|
 	2 | 通話終了|通話終了<br/>通話エラー|通話詳細側は通話エラーでも通話終了と表記される
@@ -2513,35 +2513,32 @@ Microsoft© SQL Server のフルテキスト検索の機能を利用していま
 以下の2箇所に表示されます。  
 	- 通話内容ビュー : オペレータとカスタマの感情の時系列折れ線グラフ  
 	- シークバー : 感情の時系列階調線  
-表示する感情は [@tbl:detaildc] の 『通話詳細の折れ線グラフに表示する感情（オペレータ）』 ・ 『通話詳細の折れ線グラフに表示する感情（カスタマ）』 を参照しています。  
-設定書式は以下です。  
 
-		```
-		nemesysco.qa5.callpriority
-		nemesysco.qa5.excitement.positive
-		nemesysco.qa5.energy.energetic
-		```
+	通話内容ビューとシークバーに表示されている感情は [@tbl:detaildc] の 『通話詳細の折れ線グラフに表示する感情（オペレータ）』 ・ 『通話詳細の折れ線グラフに表示する感情（カスタマ）』 を参照しています。  
+	設定書式は以下です。  
 
-		表示したい感情解析識別名を改行区切りで記述します。  
-		設定値の上から順に 『通話詳細に表示する感情解析階調線の数』 だけ表示されます。  
-		感情解析識別名については、[1-2-2. 通話表示機能　[@tbl:emolist]: 利用可能な感情一覧](#1-2-2. 通話表示機能) を参照してください。  
-		デフォルトで用意されている配色とラベル名、線の太さ、点の形（circle もしくは square）を変更したい場合は以下の設定書式が使用できます。  
+	```
+	nemesysco.qa5.callpriority
+	nemesysco.qa5.excitement.positive
+	nemesysco.qa5.energy.energetic
+	```
 
-		```
-		感情解析項目識別名|color=色を表す6桁の16進数|upperLabel=名称(数値高)|lowerLabel=名称(数値低)|border=線の太さ(整数値)|symbol=点の形(circle, square)
-		例：nemesysco.qa5.excitement|color=EF5611|upperLabel=ポジティブ|lowerLabel=ネガティブ|border=2|symbol=square
-		```
-		デフォルトで定義されているラベル名称とカラーコードは [2-2-4. ホーム画面での感情解析表示　[@tbl:emocolor] ： ラベル名称とカラーコードの対応](#2-2-3.ホーム画面での感情解析表示)を参照してください。
+	表示したい感情解析識別名を改行区切りで記述します。  
+	感情解析識別名については、[1-2-2. 通話表示機能　[@tbl:emolist]: 利用可能な感情一覧](#1-2-2. 通話表示機能) を参照してください。  
+	デフォルトで用意されている配色とラベル名、線の太さ、点の形（circle もしくは square）を変更したい場合は以下の設定書式が使用できます。  
 
-		![](images/Check.png){width=50px}　『通話詳細の折れ線グラフに表示する感情（オペレータ）』 ・ 『通話詳細の折れ線グラフに表示する感情（カスタマ）』 の表示に使用される感情は 『Emotion』 フォルダに格納される拡張子『emo』のファイルのデータが使用されます。emo形式ファイルは表示可能な全感情の時系列データで構成されており、[@tbl:emoscore] の『保存する感情スコア』の設定にない感情であっても指定・表示が可能です。
+	```
+	感情解析項目識別名|color=色を表す6桁の16進数|upperLabel=名称(数値高)|lowerLabel=名称(数値低)|border=線の太さ(整数値)|symbol=点の形(circle, square)
+	例：nemesysco.qa5.excitement|color=EF5611|upperLabel=ポジティブ|lowerLabel=ネガティブ|border=2|symbol=square
+	```
+	デフォルトで定義されているラベル名称とカラーコードは [2-2-4. ホーム画面での感情解析表示　[@tbl:emocolor] ： ラベル名称とカラーコードの対応](#2-2-3.ホーム画面での感情解析表示)を参照してください。
 
-		<br />  
+	シークバーに表示されている感情については『通話詳細の折れ線グラフに表示する感情（オペレータ）』 と 『通話詳細の折れ線グラフに表示する感情（カスタマ）』 それぞれの設定値の上から順に 『通話詳細に表示する感情解析階調線の数』 だけ表示されます。  
+	『通話詳細に表示する感情解析階調線の数』の設定は『通話詳細の折れ線グラフに表示する感情（オペレータ）』 および 『通話詳細の折れ線グラフに表示する感情（カスタマ）』 の設定が多いほうの項目数と同値になるように設定してください。
 
-		![](images/Check.png){width=50px}　『通話詳細に表示する感情解析階調線の数』 は、表示する感情が無くても、設定値分だけ表示領域を確保する仕様となっています。  
-		そのため設定値を大きくするとテキストや波形表示領域を圧迫し、通話詳細画面表示が崩れてしまいます。([@fig:detailcallcontentng])  
-		基本的には、表示数は変更せずに必要な情報に絞って活用してください。  
+	![](images/Check.png){width=50px}　『通話詳細の折れ線グラフに表示する感情（オペレータ）』 と 『通話詳細の折れ線グラフに表示する感情（カスタマ）』 の表示に使用される感情は 『|感情解析結果ファイルのベースディレクトリのパス』 で指定したフォルダに格納される、拡張子『emo』のファイルに保存されているデータが使用されます。emo形式ファイルは通話ごとに作成され、表示可能な全感情の時系列データで構成されており、[@tbl:emoscore] の『保存する感情スコア』の設定にない感情であっても指定・表示が可能です。
 
-	![感情解析階調線の数を「256」とした場合](images/2-4_detail_callcontent_emong.png){#fig:detailcallcontentng width=400px}
+	<br />  
 
 1. 通話内容ビューのトラブルシューティング
 
@@ -3438,11 +3435,13 @@ AmiVoice© のテキスト化処理の仕様で、半角文字の出力ができ
 	- ワンタイムパスワード専用 IVR  
 	連絡先：050-3160-0203  
 	パートナーコード：xxxx （パートナー様ごとに用意されている番号をご利用ください）  
-	![](images/Tips.jpg){width=50px}　下記ライセンスはライセンスファイルでアクティベーションされるものではありません。CommnicationSuite ライセンスとしてシステム上に表示されませんが、機能を利用する場合には購入が必要です。  
-	- AmiVoice RealTimeRecorder（冗長）  
-	- AmiVoice Web Client API （ランタイム）  
-	- AmiVoice Json API（ランタイム）  
-	- AmiVoice Client SDK（ランタイム）  
+
+![](images/NOTICE.png){width=50px}　下記ライセンスはライセンスファイルでアクティベーションされるものではありません。CommnicationSuite ライセンスとしてシステム上に表示されませんが、機能を利用する場合には購入が必要です。  
+
+- AmiVoice RealTimeRecorder（冗長）  
+- AmiVoice Web Client API （ランタイム）  
+- AmiVoice Json API（ランタイム）  
+- AmiVoice Client SDK（ランタイム）  
 
 #### 3-7-2. 感情解析ライセンス
 
