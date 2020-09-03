@@ -3426,38 +3426,36 @@ AmiVoice© のテキスト化処理の仕様で、半角文字の出力ができ
 #### 3-6-3. 通話品質評価済み通話一覧エクスポート
 
 ### 3-7. ライセンス状況
-アクティベート済みのライセンスに関する使用状況を管理します。  
+アクティベーションしたライセンスに関する使用状況を管理します。  
 
-- Communication Suite ライセンス（LicenseInfo.Lic）
-- 感情解析ライセンス（QA7lic.Lic）  
+- CommnicationSuite ライセンス  
+- 感情解析ライセンス  
 
-#### 3-7-1. Communication Suite ライセンス
+
+#### 3-7-1. Communication Suite ライセンス  
+発行されたライセンスファイル（.lic）をアクティベーション後にライセンス状況のメイン画面（ [@fig:lic1] ）に  
+レジストされたCommnication Suite のライセンスが表示されます。
+
+![ライセンス状況のメイン画面](images/3-7-license.png){#fig:lic1 width=700px}
 
 1. ライセンス概要  
-各ライセンスの説明、算出根拠は[@tbl:riyouLicense] の通りです。  
 
-	No. | ライセンス名 | 説明 |算出根拠
+	No. | ライセンス名 | ライセンス割当タイミング |ライセンス算出根拠
 	--:|-------------|-----------------|---------------------|
-	1 | AmiVoice Communication Suite Core |Core 用ライセンス |CommunicationSuite データベース毎に1つ
-	2 | AmiVoice OperatorAgent サーバ版 | サーバ版 OperatorAgent 利用ライセンス|**ファット環境**<br>OperatorAgent をインストールするPC台数分<br>**仮想環境**<br>RealTimeRecoder のライセンス数分<br>※ 仮想環境のみライセンスのカウント方式を「インストール台数」から「同時起動数」に変更可
-	3 | AmiVoice RealTimeRecorder |サーバ版で録音するためのライセンス|録音対象としてシステムに登録する内線番号の数分
-	4 | AmiVoice StreamingRecognizer |サーバ版で音声認識するためのライセンス|同時認識数分 （回線数 ≒ 最大同時通話数と合わせます）
-	5 | AmiVoice OperatorAgent コンバージャ版 |クライアント版  OperatorAgent 利用ライセンス<br>録音認識するためのライセンスも含まれる|OperatorAgent をインストールするPC台数分
-	6 | AmiVoice MediaScriber | MediaScriber で音声認識するためのライセンス |認識完了までの時間（要件）により、ライセンス数が変わります<br> 最大録音時間 ÷ 認識処理実施時間 =ライセンス数
+	1 | AmiVoice Communication Suite Core |- |CommunicationSuite データベース毎に1つ
+	2 | AmiVoice OperatorAgent サーバ版 | OperatorAgent インストール後、初回ログイン処理を実施したタイミングで PC 毎に1つ使用。PC上のコンピュータ名とライセンスが紐づいて割り当てられるため、コンピュータ名を変更した場合には、変更後のコンピュータ名でもライセンスが新規で割り当てられます。その場合には旧コンピュータ名で紐づいたライセンスを「クライアントライセンス管理」より削除してください。<br>仮想環境の場合は同時ログイン処理毎のライセンス割当に変更可能です。|**ファット環境**<br>OperatorAgent をインストールするPC台数分<br>**仮想環境**<br>RealTimeRecoder のライセンス数分<br>※ 仮想環境のみライセンスのカウント方式を「インストール台数」から「同時起動数」に変更可
+	3 | AmiVoice RealTimeRecorder |「内線番号管理」に内線番号を追加する毎|録音対象としてシステムに登録する内線番号の数
+	4 | AmiVoice StreamingRecognizer |ノード管理 - ノード詳細の StreamingRecognizer タブ 「リアルタイム認識 - 最大同時処理数」の設定値を保存したタイミングで設定値分のライセンスを使用|同時認識数分 （回線数 ≒ 最大同時通話数と合わせるのがベターです）
+	5 | AmiVoice OperatorAgent コンバージャ版 |No.2参照|OperatorAgent をインストールするPC台数分
+	6 | AmiVoice MediaScriber |ノード管理 - ノード詳細の StreamingRecognizer タブ 「バッチ認識 - 最大同時処理数」の設定値を保存したタイミングで設定値分のライセンスを使用 |認識完了までの時間（要件）により、ライセンス数を決める<br> 最大録音時間 ÷ 認識処理実施時間 =ライセンス数
 
 	: Communication Suiteライセンス一覧 {#tbl:riyouLicense}
 
-1. ライセンス割当  
-	- 各ライセンスが割り当てられるタイミングは以下です。
-
-	No. | ライセンス名 |ライセンスの割当
-	--:|-------------|---------------------------|
-	1 | AmiVoice Communication Suite Core |-  
-	2 | AmiVoice OperatorAgent サーバ版 |OperatorAgent インストールPCから初回ログイン処理を実施したタイミングでPC上のコンピュータ名とライセンスを紐づけて割り当てられます。コンピュータ名を変更した場合には、変更後のコンピュータ名とライセンスでさらにライセンスが割り当てられるため、旧コンピュータ名で割り当てられたライセンスを「クライアントライセンス管理」より削除が必要です。<br>仮想環境の場合は同時ログイン処理毎のライセンス割当に変更可能です。|  
-	3 | AmiVoice RealTimeRecorder |「内線番号管理」に内線番号を追加する毎に1つ使用<br>内線番号の登録数分使用 |  
-	4 | AmiVoice StreamingRecognizer |ノード管理 - ノード詳細の StreamingRecognizer タブ 「リアルタイム認識 - 最大同時処理数」の設定値を保存したタイミングで設定値分のライセンスを使用  |  
-	5 | AmiVoice OperatorAgent コンバージャ版 |OperatorAgent の初回ログイン処理を実施したタイミングで PC 毎に1つ使用 |  
-	6 | AmiVoice MediaScriber  |ノード管理 - ノード詳細の StreamingRecognizer タブ 「バッチ認識 - 最大同時処理数」の設定値を保存したタイミングで設定値分のライセンスを使用  |  
+1. ライセンスの有効期限  
+	- 期限付きライセンス  
+	期限付きライセンスは有効期限日が過ぎると翌日の〇時〇分にライセンスが切れます。  
+	ライセンス切れの影響で、新規通話の録音および音声認識が不可になることで
+	-
 
 
 	- ライセンス切れの動作
